@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { BookOpen, Mail, Shield, CheckCircle, Package, Lock } from 'lucide-react';
+import { BookOpen, Shield, CheckCircle, Package, Lock } from 'lucide-react';
 
 const Footer = () => {
   const navLinks = [

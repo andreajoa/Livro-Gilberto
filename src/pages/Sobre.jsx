@@ -3,11 +3,6 @@ import { MapPin, Building2, HeartPulse, PenTool, ArrowRight } from 'lucide-react
 import { Link } from 'react-router-dom';
 import authorImg from '../assets/author.jpg';
 
-const fadeUpVariant = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } }
-};
-
 const About = () => {
   const timeline = [
     {

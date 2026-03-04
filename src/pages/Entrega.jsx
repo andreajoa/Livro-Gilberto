@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { Package, Truck, MapPin, Clock, CheckCircle, Search, AlertCircle, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 const Delivery = () => {
   const steps = [
