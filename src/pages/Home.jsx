@@ -1,8 +1,8 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Link as ScrollLink, Element } from 'react-scroll';
 import { Link as RouterLink } from 'react-router-dom';
-import { Heart, Brain, Frown, User, Book, HeartPulse, Quote, ArrowRight, Check, Mail } from 'lucide-react';
+import { Heart, Brain, Frown, User, Book, HeartPulse, Quote, ArrowRight, Check, Mail, Shield, Sparkles } from 'lucide-react';
 import bookFront from '../assets/book-front.jpg';
 import authorImg from '../assets/author.jpg';
 import { useForm } from 'react-hook-form';
@@ -23,7 +23,7 @@ const floatAnimation = {
   transition: { duration: 4, repeat: Infinity, ease: "easeInOut" }
 };
 
-const PainCard = ({ icon: Icon, title, description }) => {
+const PainCard = ({ icon: Icon, title, description, image }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
@@ -33,19 +33,38 @@ const PainCard = ({ icon: Icon, title, description }) => {
       variants={fadeUpVariant}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
-      className="bg-paper p-6 rounded-xl border border-white/10 hover:border-cyan/30 transition-all duration-300 group"
+      className="bg-paper p-6 rounded-xl border border-white/10 hover:border-cyan/30 transition-all duration-300 group relative overflow-hidden"
     >
-      <div className="w-12 h-12 bg-navy-light rounded-lg flex items-center justify-center mb-4 group-hover:bg-cyan/20 transition-colors">
-        <Icon className="text-cyan" size={24} />
+      {image && (
+        <div className="absolute top-0 left-0 w-32 h-32 -translate-x-4 -translate-y-4">
+          <img src={image} alt={title} className="w-full h-full object-cover rounded-full shadow-lg" />
+        </div>
+      )}
+      <div className="relative z-10">
+        <div className="w-12 h-12 bg-navy-light rounded-lg flex items-center justify-center mb-4 group-hover:bg-cyan/20 transition-colors">
+          <Icon className="text-cyan" size={24} />
+        </div>
+        <h3 className="font-display font-bold text-lg mb-2">{title}</h3>
+        <p className="text-text-muted text-sm">{description}</p>
       </div>
-      <h3 className="font-display font-bold text-lg mb-2">{title}</h3>
-      <p className="text-text-muted text-sm">{description}</p>
     </motion.div>
   );
 };
 
+const emotionalImages = [
+  { src: '/images/Whisk_0ff19b3870d52b9937349e384106b917dr.png', alt: 'Esperança' },
+  { src: '/images/Whisk_1077a37ca15538fa2194b95dd276f65ddr.png', alt: 'Força' },
+  { src: '/images/Whisk_28a99d62ca1b2ae8c0743456c1b2503fdr.png', alt: 'Resiliência' },
+  { src: '/images/Whisk_2d70c31ce41ad82901d4e1e8ec762153dr.png', alt: 'Superação' },
+  { src: '/images/Whisk_49e2674e2579cf2acda4c4730dc4e78bdr.png', alt: 'Cura' },
+  { src: '/images/Whisk_638147bfa9a109caf2e4067e7fa3886fdr.png', alt: 'Renascimento' },
+  { src: '/images/Whisk_b551161facc7831ae484d8ecb5a3f7eedr.png', alt: 'Evolução' },
+];
+
 const Home = () => {
   const { register, handleSubmit } = useForm();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
   const heroRef = useRef(null);
   const painRef = useRef(null);
   const authorRef = useRef(null);
@@ -53,6 +72,7 @@ const Home = () => {
   const quoteRef = useRef(null);
   const formRef = useRef(null);
   const faqRef = useRef(null);
+  const galleryRef = useRef(null);
 
   const onSubmit = (data) => {
     const subject = `Pedido do Livro - ${data.name}`;
@@ -99,8 +119,15 @@ Tipo de pedido: Livro Físico - Como Vencer a Dor de Ser Trocado Por Outro
     <div className="min-h-screen">
       {/* Hero Section */}
       <Element name="hero" className="relative min-h-screen grain-overlay flex items-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy to-cyan/10" />
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-cyan/5 to-transparent" />
+        {/* Background emotional image */}
+        <div className="absolute inset-0 opacity-30">
+          <img
+            src={emotionalImages[currentImageIndex].src}
+            alt="Fundo emocional"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-navy/80 via-navy/60 to-navy" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -154,6 +181,42 @@ Tipo de pedido: Livro Físico - Como Vencer a Dor de Ser Trocado Por Outro
           </div>
         </div>
       </Element>
+
+      {/* Emotional Gallery - New Section */}
+      <section ref={galleryRef} className="py-16 bg-navy-mid">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center mb-8"
+          >
+            <h2 className="font-display font-bold text-2xl sm:text-3xl mb-4 flex items-center justify-center gap-3">
+              <Sparkles className="text-cyan" size={28} />
+              Cada jornada é única
+            </h2>
+            <p className="text-text-muted max-w-2xl mx-auto">
+              Assim como cada homem que enfrenta a dor da traição, sua caminho de superação também é única. Este livro acompanha você em cada passo.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-6">
+            {emotionalImages.map((img, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05 }}
+                className="aspect-square rounded-xl overflow-hidden cursor-pointer border-2 border-transparent hover:border-cyan/50 transition-all"
+                onClick={() => setCurrentImageIndex(index)}
+              >
+                <img src={img.src} alt={img.alt} className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Pain Section */}
       <Element name="historia" className="py-24 bg-paper">
@@ -243,7 +306,7 @@ Tipo de pedido: Livro Físico - Como Vencer a Dor de Ser Trocado Por Outro
         </div>
       </section>
 
-      {/* What the Book Delivers */}
+      {/* What Book Delivers */}
       <section ref={whatRef} className="py-24 bg-navy-mid">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
