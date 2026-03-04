@@ -7,7 +7,8 @@ import ShippingCalculator from '../components/ShippingCalculator';
 
 import bannerAutor     from '../assets/banners/banner-autor-wide.png';
 import bannerCTA       from '../assets/banners/banner-autor-cta.png';
-import bannerTransform from '../assets/banners/banner-antes-depois.png';
+import bannerTransform from '../assets/banners/banner-triste.jpeg';
+import bannerVenci from '../assets/banners/banner-eu-venci.png';
 import bookCover       from '../assets/book/capa-livro.png';
 import livroMao        from '../assets/lifestyle/livro-mao-segurando.png';
 import livroWhiskey    from '../assets/lifestyle/livro-mesa-whiskey.png';
@@ -65,7 +66,7 @@ export default function Home() {
               gap:12
             }}>
               <span style={{ width:32, height:1, background:'#00C4D4', display:'inline-block', flexShrink:0 }} />
-              Para todo homem que já se perguntou: "por que não fui suficiente?"
+              Quando Você Deu Tudo — E Ainda Assim Não Foi Suficiente
             </p>
 
             {/* Título grande e horizontal */}
@@ -163,7 +164,7 @@ export default function Home() {
             marginBottom:64,
             lineHeight:1.7
           }}>
-            Essa dor tem nome. E tem saída.
+            Cada sentimento tem um nome. E cada um tem uma saída.
           </p>
 
           {/* 4 cards de dor */}
@@ -212,7 +213,7 @@ export default function Home() {
         >
           {/* Info editorial — esquerda */}
           <div>
-            <span style={{ fontSize:10, letterSpacing:5, color:'#00C4D4', fontWeight:700, textTransform:'uppercase', display:'block', marginBottom:20 }}>O LIVRO</span>
+            <span style={{ fontSize:10, letterSpacing:5, color:'#00C4D4', fontWeight:700, textTransform:'uppercase', display:'block', marginBottom:20 }}>O MANUAL QUE NINGUÉM TE DEU</span>
             <h2 style={{ fontFamily:"'Playfair Display', serif", fontSize:'clamp(30px,3.5vw,50px)', lineHeight:1.1, color:'#fff', marginBottom:16, fontWeight:900 }}>
               Como Vencer a Dor<br />de Ser Trocado Por Outro
             </h2>
@@ -260,17 +261,17 @@ export default function Home() {
       {/* ════════════════════════════════════════
           BANNER TRANSFORMAÇÃO — tela cheia
       ════════════════════════════════════════ */}
-      <section style={{ position:'relative', height:'min(560px,65vh)', overflow:'hidden', display:'flex', alignItems:'center', justifyContent:'center' }}>
+      <section style={{ position:'relative', height:'min(650px,75vh)', overflow:'hidden', display:'flex', alignItems:'center', justifyContent:'center' }}>
         <motion.img src={bannerTransform} alt="Da dor à transformação"
           initial={{ scale:1.06 }} whileInView={{ scale:1 }}
           transition={{ duration:1.4, ease:'easeOut' }} viewport={{ once:true }}
-          style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
+          style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center 30%' }} />
         <div style={{ position:'absolute', inset:0, background:'rgba(6,12,24,0.55)' }} />
 
         <motion.div
           initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }}
           transition={{ duration:0.9 }} viewport={{ once:true }}
-          style={{ position:'relative', zIndex:2, textAlign:'center', padding:'0 6vw' }}
+          style={{ position:'relative', zIndex:2, textAlign:'left', padding:'0 6vw', marginLeft:'45%' }}
         >
           <p style={{ fontSize:11, letterSpacing:5, color:'#00C4D4', fontWeight:700, textTransform:'uppercase', marginBottom:20 }}>A jornada que este livro conta</p>
           <h2 style={{
@@ -281,9 +282,8 @@ export default function Home() {
             fontWeight:900,
             textShadow:'0 4px 30px rgba(0,0,0,0.5)'
           }}>
-            Existe uma saída.<br />
-            <span style={{ color:'#00C4D4' }}>Gilberto encontrou.</span><br />
-            Você também pode.
+            De Joelhos Hoje.<br />
+            <span style={{ color:'#00C4D4' }}>De Pé Amanhã.</span>
           </h2>
         </motion.div>
       </section>
@@ -304,7 +304,7 @@ export default function Home() {
           </div>
 
           <div>
-            <span style={{ fontSize:10, letterSpacing:5, color:'#00C4D4', fontWeight:700, textTransform:'uppercase', display:'block', marginBottom:20 }}>Sobre o Autor</span>
+            <span style={{ fontSize:10, letterSpacing:5, color:'#00C4D4', fontWeight:700, textTransform:'uppercase', display:'block', marginBottom:20 }}>A Virada Que Começa Onde Tudo Parece Ter Acabado</span>
             <h2 style={{ fontFamily:"'Playfair Display', serif", fontSize:'clamp(36px,4vw,58px)', lineHeight:1, color:'#fff', marginBottom:28, fontWeight:900 }}>
               Gilberto<br /><span style={{ color:'#00C4D4' }}>de Souza</span>
             </h2>
@@ -448,7 +448,7 @@ export default function Home() {
           style={{ maxWidth:780, margin:'0 auto' }}
         >
           <h2 style={{ fontFamily:"'Playfair Display', serif", fontSize:'clamp(28px,3vw,44px)', color:'#fff', textAlign:'center', marginBottom:12, fontWeight:900 }}>
-            Perguntas Frequentes
+            O Livro Para o Homem<br/><span style={{color:'#00C4D4'}}>Que Escolheu Se Reconstruir</span>
           </h2>
           <div style={{ width:48, height:2, background:'#00C4D4', margin:'0 auto 52px' }} />
 
@@ -477,6 +477,14 @@ export default function Home() {
             ))}
           </div>
         </motion.div>
+      </section>
+
+      {/* ════════════════════════════════════════
+          BANNER FINAL — entre FAQ e footer
+      ════════════════════════════════════════ */}
+      <section style={{ overflow:'hidden' }}>
+        <img src={bannerVenci} alt="Eu venci"
+          style={{ width:'100%', display:'block', objectFit:'cover' }} />
       </section>
 
       {/* ════════════════════════════════════════
