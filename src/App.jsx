@@ -65,7 +65,7 @@ function AnimatedRoutes() {
 function App() {
   return (
     <HelmetProvider>
-      <div style={{ minHeight:'100vh', display:'flex', flexDirection:'column', background:'#0D1B3E' }}>
+      <div style={{ minHeight:'100vh', display:'flex', flexDirection:'column' }}>
         <Navbar />
         <ScrollToTop />
         <main style={{ flex:'1 0 auto' }}>

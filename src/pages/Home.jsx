@@ -80,14 +80,8 @@ const Home = () => {
         <motion.div
           initial={{ opacity:0, y:60 }} whileInView={{ opacity:1, y:0 }}
           transition={{ duration:0.9 }} viewport={{ once:true }}
-          style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(280px,1fr))', gap:80, alignItems:'center', maxWidth:1100, margin:'0 auto' }}
+          style={{ display:'grid', gridTemplateColumns:'55% 45%', gap:60, alignItems:'center', maxWidth:1100, margin:'0 auto' }}
         >
-          <div style={{ display:'flex', flexDirection:'column', alignItems:'center' }}>
-            <motion.img src={bookCover} alt="Capa do livro"
-              animate={{ y:[0,-14,0] }} transition={{ duration:4, repeat:Infinity, ease:'easeInOut' }}
-              style={{ width:'min(300px,80%)', borderRadius:4, boxShadow:'24px 32px 80px rgba(0,0,0,0.7), 0 0 60px rgba(0,196,212,0.12)', display:'block', mixBlendMode:'lighten' }} />
-            <div style={{ width:'55%', height:18, background:'radial-gradient(ellipse, rgba(0,0,0,0.45) 0%, transparent 70%)', borderRadius:'50%', marginTop:14 }} />
-          </div>
           <div>
             <span style={{ fontSize:10, letterSpacing:5, color:'#00C4D4', fontWeight:700, textTransform:'uppercase', display:'block', marginBottom:16 }}>MANUAL</span>
             <h2 style={{ fontFamily:"'Playfair Display', serif", fontSize:'clamp(28px,3.5vw,46px)', lineHeight:1.15, color:'#fff', marginBottom:12 }}>
@@ -104,20 +98,7 @@ const Home = () => {
             </p>
             <AddToCartButton label="Quero Este Livro — R$ 49,90" />
           </div>
-
-          {/* LIVRO — lado direito, maior, sem fundo */}
-          <div style={{ display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center' }}>
-            <motion.img src={bookCover} alt="Capa do livro"
-              animate={{ y:[0,-18,0] }} transition={{ duration:4, repeat:Infinity, ease:'easeInOut' }}
-              style={{
-                width:'min(380px,45vw)',
-                display:'block',
-                filter:'drop-shadow(20px 30px 50px rgba(0,0,0,0.85)) drop-shadow(0 0 40px rgba(0,196,212,0.15))',
-                mixBlendMode:'screen'
-              }} />
-            <div style={{ width:'60%', height:20, background:'radial-gradient(ellipse, rgba(0,196,212,0.12) 0%, transparent 70%)', borderRadius:'50%', marginTop:10 }} />
-          </div>
-        </motion.div>
+          </motion.div>
       </section>
 
       {/* BLOCO 3 — DOR / livro + whiskey + agenda */}
