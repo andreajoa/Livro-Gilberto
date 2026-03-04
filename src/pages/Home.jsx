@@ -1,457 +1,377 @@
-import { motion, useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
-import { Link as ScrollLink, Element } from 'react-scroll';
+import { motion } from 'framer-motion';
+import { useRef } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Heart, Brain, Frown, User, Book, HeartPulse, Quote, Check, Sparkles, ArrowRight } from 'lucide-react';
-import bookFront from '../assets/book-front.jpg';
-import authorImg from '../assets/author.jpg';
+import { Heart, Brain, Frown, User, ArrowRight } from 'lucide-react';
 import AddToCartButton from '../components/AddToCartButton';
+import ShippingCalculator from '../components/ShippingCalculator';
 
-const fadeUpVariant = {
+// ── IMAGENS ──
+import bannerWide       from '../assets/banners/banner-autor-wide.png';
+import bookCover        from '../assets/book/capa-livro.png';
+import livroWhiskey     from '../assets/lifestyle/livro-mesa-whiskey.png';
+import bannerTransform  from '../assets/banners/banner-antes-depois.png';
+import authorPointing   from '../assets/author/gilberto-livro-apontando.png';
+import livroPresente    from '../assets/lifestyle/livro-embrulhado-presente.png';
+import livroStack       from '../assets/lifestyle/livro-stack-marble.png';
+
+const fadeUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } }
 };
 
-const containerVariant = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.15 } }
-};
-
-const floatAnimation = {
-  y: [0, -18, 0],
-  rotate: [-2, -2, -2],
-  transition: { duration: 4, repeat: Infinity, ease: "easeInOut" }
-};
-
-const PainCard = ({ icon: Icon, title, description, image }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-
-  return (
-    <motion.div
-      ref={ref}
-      variants={fadeUpVariant}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      className="bg-paper p-6 rounded-xl border border-white/10 hover:border-cyan/30 transition-all duration-300 group relative overflow-hidden"
-    >
-      {image && (
-        <div className="absolute top-0 left-0 w-32 h-32 -translate-x-4 -translate-y-4">
-          <img src={image} alt={title} className="w-full h-full object-cover rounded-full shadow-lg" />
-        </div>
-      )}
-      <div className="relative z-10">
-        <div className="w-12 h-12 bg-navy-light rounded-lg flex items-center justify-center mb-4 group-hover:bg-cyan/20 transition-colors">
-          <Icon className="text-cyan" size={24} />
-        </div>
-        <h3 className="font-display font-bold text-lg mb-2">{title}</h3>
-        <p className="text-text-muted text-sm">{description}</p>
-      </div>
-    </motion.div>
-  );
-};
-
-const emotionalImages = [
-  { src: '/images/Whisk_0ff19b3870d52b9937349e384106b917dr.png', alt: 'Esperança' },
-  { src: '/images/Whisk_1077a37ca15538fa2194b95dd276f65ddr.png', alt: 'Força' },
-  { src: '/images/Whisk_28a99d62ca1b2ae8c0743456c1b2503fdr.png', alt: 'Resiliência' },
-  { src: '/images/Whisk_2d70c31ce41ad82901d4e1e8ec762153dr.png', alt: 'Superação' },
-  { src: '/images/Whisk_49e2674e2579cf2acda4c4730dc4e78bdr.png', alt: 'Cura' },
-  { src: '/images/Whisk_638147bfa9a109caf2e4067e7fa3886fdr.png', alt: 'Renascimento' },
-  { src: '/images/Whisk_b551161facc7831ae484d8ecb5a3f7eedr.png', alt: 'Evolução' },
-  { src: '/images/Whisk_ce8de7f1eb7800cb1854d80be6231661dr.png', alt: 'Determinação' },
-  { src: '/images/Whisk_d5b6832c4aa21b8b33643c09648fa516dr.png', alt: 'Coragem' },
-  { src: '/images/Whisk_dbadcbde16cc6d18f2740b4f53af60eadr.png', alt: 'Liberdade' },
-  { src: '/images/Whisk_e4c5439d534e5efb8ae427b823eabf91dr.png', alt: 'Novos Horizontes' },
-  { src: '/images/Whisk_e8db8cd7443cc68a3b74683e261e9e5ddr.png', alt: 'Paz Interior' },
-  { src: '/images/Whisk_e9acd35e6c0a93d998a4c0dbe160bba5dr.png', alt: 'Luz no Fim do Túnel' },
+const faqItems = [
+  { q: 'Como funciona o envio?', a: 'Após confirmação do pedido, o livro é embalado e postado pelos Correios de Santana de Parnaíba — SP. Você recebe o código de rastreamento por email.' },
+  { q: 'Qual o prazo de entrega?', a: 'PAC: 5 a 15 dias úteis dependendo da sua região. SEDEX: 1 a 7 dias úteis.' },
+  { q: 'Posso devolver o livro?', a: 'Sim. Você tem 7 dias corridos após o recebimento para solicitar devolução, conforme o Código de Defesa do Consumidor.' },
+  { q: 'Como acompanho meu pedido?', a: 'Enviamos o código de rastreamento por email logo após a postagem. Acompanhe em rastreamento.correios.com.br.' },
+  { q: 'O livro está disponível em versão digital?', a: 'Por enquanto apenas na versão física. O livro foi pensado para ser lido com as mãos.' },
 ];
 
 const Home = () => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const heroRef = useRef(null);
-  const painRef = useRef(null);
-  const authorRef = useRef(null);
-  const whatRef = useRef(null);
-  const quoteRef = useRef(null);
-  const faqRef = useRef(null);
-  const galleryRef = useRef(null);
-
-  const faqItems = [
-    {
-      q: 'Como funciona o envio?',
-      a: 'Após a confirmação do pedido, o livro é enviado através dos Correios para o endereço informado. Você receberá um código de rastreamento por email para acompanhar a entrega.'
-    },
-    {
-      q: 'Qual o prazo de entrega?',
-      a: 'O prazo varia de 5 a 15 dias úteis, dependendo da região: Sul/Sudeste (5-8 dias), Centro-Oeste/Nordeste (8-12 dias) e Norte (10-15 dias).'
-    },
-    {
-      q: 'Posso devolver o livro?',
-      a: 'Sim! De acordo com o Código de Defesa do Consumidor, você tem 7 dias após o recebimento para devolução, desde que o livro esteja em perfeitas condições e na embalagem original.'
-    },
-    {
-      q: 'Como acompanho meu pedido?',
-      a: 'Após o envio, você receberá um email com o código de rastreamento. Use-o no site dos Correios (rastreamento.correios.com.br) para acompanhar em tempo real.'
-    },
-    {
-      q: 'O livro está disponível em versão digital?',
-      a: 'No momento, oferecemos apenas a versão física do livro. Uma cópia em papel permite uma leitura mais profunda e reflexiva, ideal para este tipo de conteúdo.'
-    }
-  ];
+  const [openFaq, setOpenFaq] = require('react').useState(null);
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <Element name="hero" className="relative min-h-screen grain-overlay flex items-center overflow-hidden">
-        {/* Background emotional image */}
-        <div className="absolute inset-0 opacity-30">
-          <img
-            src={emotionalImages[currentImageIndex].src}
-            alt="Fundo emocional"
-            className="w-full h-full object-cover"
-          />
+
+      {/* ═══════════════════════════════════════════
+          BLOCO 1 — HERO
+          Banner fullwidth do autor segurando o livro
+      ═══════════════════════════════════════════ */}
+      <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+        <img
+          src={bannerWide}
+          alt="Como Vencer a Dor de Ser Trocado Por Outro"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
+        />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(13,27,62,0.97) 0%, rgba(13,27,62,0.85) 45%, rgba(13,27,62,0.1) 100%)' }} />
+        <div style={{ position: 'relative', zIndex: 2, padding: '0 8vw', maxWidth: '600px' }}>
+          <motion.div initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
+            <span style={{ display: 'inline-block', background: 'rgba(0,196,212,0.15)', border: '1px solid rgba(0,196,212,0.3)', color: '#00C4D4', fontSize: 11, fontWeight: 700, letterSpacing: 3, padding: '6px 14px', borderRadius: 2, marginBottom: 28, textTransform: 'uppercase' }}>
+              📖 Lançamento 2026
+            </span>
+            <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(40px,5.5vw,72px)', lineHeight: 1.05, color: '#fff', marginBottom: 20 }}>
+              Como Vencer<br />
+              <span style={{ color: '#00C4D4' }}>A Dor de Ser<br />Trocado Por Outro</span>
+            </h1>
+            <p style={{ fontFamily: "'Cormorant Garant', serif", fontStyle: 'italic', fontSize: 'clamp(18px,2vw,24px)', color: '#8A9BBF', marginBottom: 36 }}>
+              Você não está sozinho
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14 }}>
+              <AddToCartButton label="Quero Este Livro" />
+              <a href="#historia" style={{ border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '15px 28px', borderRadius: 3, textDecoration: 'none', fontSize: 14, fontWeight: 500, transition: 'all 0.25s' }}>
+                Conheça a História ↓
+              </a>
+            </div>
+          </motion.div>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-navy/80 via-navy/60 to-navy" />
+      </section>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div ref={heroRef} className="relative">
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-              >
-                <span className="inline-flex items-center gap-2 bg-cyan/20 text-cyan px-4 py-2 rounded-full text-sm mb-6">
-                  📖 Lançamento 2026
-                </span>
+      {/* ═══════════════════════════════════════════
+          BLOCO 2 — O LIVRO (fade-in ao scrollar)
+          Capa 3D flutuando + sinopse editorial
+      ═══════════════════════════════════════════ */}
+      <section id="o-livro" style={{ background: '#0D1B3E', padding: '120px 8vw' }}>
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: 'easeOut' }}
+          viewport={{ once: true }}
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 80, alignItems: 'center', maxWidth: 1100, margin: '0 auto' }}
+        >
+          {/* Livro flutuando */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <motion.img
+              src={bookCover}
+              alt="Capa do livro"
+              animate={{ y: [0, -14, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              style={{ width: 'min(300px,80%)', borderRadius: 4, boxShadow: '24px 32px 80px rgba(0,0,0,0.7), 0 0 60px rgba(0,196,212,0.12)', display: 'block' }}
+            />
+            <div style={{ width: '55%', height: 18, background: 'radial-gradient(ellipse, rgba(0,0,0,0.45) 0%, transparent 70%)', borderRadius: '50%', marginTop: 14 }} />
+          </div>
 
-                <h1 className="font-display font-black text-4xl sm:text-5xl lg:text-6xl leading-tight mb-6">
-                  Como Vencer a Dor de Ser
-                  <span className="text-cyan"> Trocado</span> Por Outro
-                </h1>
+          {/* Info editorial */}
+          <div>
+            <span style={{ fontSize: 10, letterSpacing: 5, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', display: 'block', marginBottom: 16 }}>MANUAL</span>
+            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px,3.5vw,46px)', lineHeight: 1.15, color: '#fff', marginBottom: 12 }}>
+              Como Vencer a Dor<br />de Ser Trocado Por Outro
+            </h2>
+            <p style={{ fontSize: 14, color: '#8A9BBF', marginBottom: 24 }}>por <strong style={{ color: '#fff' }}>Gilberto de Souza</strong></p>
 
-                <p className="font-editorial italic text-2xl text-cyan-light mb-4">
-                  Você não está sozinho
-                </p>
-
-                <p className="text-text-muted text-lg mb-8 max-w-lg">
-                  A história real de um homem que dedicou anos de sua vida a uma mulher, apenas para ser trocado quando ela estava em seu melhor momento — e escolheu se reconstruir.
-                </p>
-
-                <div className="flex flex-wrap gap-4">
-                  <AddToCartButton label="Quero Este Livro" />
-                  <ScrollLink to="historia" smooth={true} className="btn-secondary">
-                    Conheça a História
-                  </ScrollLink>
-                </div>
-              </motion.div>
-
-              <div className="page-number absolute left-0 -translate-x-8">Pág. 01</div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 28 }}>
+              {['📚 Livro Físico', '🇧🇷 Português', 'ISBN 978-658462205-0', '🗓 2026'].map(m => (
+                <span key={m} style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', padding: '6px 12px', borderRadius: 2, fontSize: 11, color: '#8A9BBF' }}>{m}</span>
+              ))}
             </div>
 
-            <motion.div
-              animate={floatAnimation}
-              className="flex justify-center"
-            >
-              <img
-                src={bookFront}
-                alt="Capa do livro Como Vencer a Dor de Ser Trocado Por Outro"
-                className="book-image max-w-md w-full"
-              />
-            </motion.div>
-          </div>
-        </div>
-      </Element>
-
-      {/* Emotional Gallery - New Section */}
-      <section ref={galleryRef} className="py-16 bg-navy-mid">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mb-8"
-          >
-            <h2 className="font-display font-bold text-2xl sm:text-3xl mb-4 flex items-center justify-center gap-3">
-              <Sparkles className="text-cyan" size={28} />
-              Cada jornada é única
-            </h2>
-            <p className="text-text-muted max-w-2xl mx-auto">
-              Assim como cada homem que enfrenta a dor da traição, sua caminho de superação também é única. Este livro acompanha você em cada passo.
+            <p style={{ fontFamily: "'Cormorant Garant', serif", fontStyle: 'italic', fontSize: 17, lineHeight: 1.8, color: '#B8C8E0', borderLeft: '2px solid #00C4D4', paddingLeft: 20, marginBottom: 36 }}>
+              "A história de um homem que dedicou anos de sua vida a uma mulher, apenas para ser trocado quando ela estava em seu melhor momento. Entre a dor da rejeição, a dúvida sobre seu próprio valor e o medo de nunca encontrar alguém novamente, ele descobre a força da superação."
             </p>
-          </motion.div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {emotionalImages.map((img, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="aspect-square rounded-xl overflow-hidden cursor-pointer border-2 border-transparent hover:border-cyan/50 transition-all"
-                onClick={() => setCurrentImageIndex(index)}
-              >
-                <img src={img.src} alt={img.alt} className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
-              </motion.div>
-            ))}
+            <AddToCartButton label="Quero Este Livro — R$ 49,90" />
           </div>
-        </div>
+        </motion.div>
       </section>
 
-      {/* Pain Section */}
-      <Element name="historia" className="py-24 bg-paper">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            ref={painRef}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="font-display font-bold text-3xl sm:text-4xl text-navy mb-4">
-              Você se reconhece aqui?
-            </h2>
-            <div className="editorial-divider bg-navy" />
-          </motion.div>
+      {/* ═══════════════════════════════════════════
+          BLOCO 3 — DOR / IDENTIFICAÇÃO
+          Background: livro + whiskey + agenda
+          Momentos tristes, reflexão, mudança
+      ═══════════════════════════════════════════ */}
+      <section id="historia" style={{ position: 'relative', padding: '120px 8vw', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${livroWhiskey})`, backgroundSize: 'cover', backgroundPosition: 'center', filter: 'saturate(0.5)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(9,20,34,0.9) 0%, rgba(13,27,62,0.88) 100%)' }} />
 
-          <motion.div
-            variants={containerVariant}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
-          >
-            <PainCard
-              icon={Heart}
-              title="A rejeição que paralisa"
-              description="A sensação de não ser suficiente, mesmo após ter dado tudo de si."
-            />
-            <PainCard
-              icon={Brain}
-              title="O loop mental que não para"
-              description="Perguntas sem resposta que giram na cabeça dia e noite."
-            />
-            <PainCard
-              icon={Frown}
-              title="O medo de nunca amar de novo"
-              description="O receio de se abrir novamente e passar pela mesma dor."
-            />
-            <PainCard
-              icon={User}
-              title="A dúvida sobre seu valor"
-              description="Questionar se você merece ser amado e se algo está errado com você."
-            />
-          </motion.div>
-        </div>
-      </Element>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+          style={{ position: 'relative', zIndex: 2, maxWidth: 1000, margin: '0 auto', textAlign: 'center' }}
+        >
+          <span style={{ fontSize: 10, letterSpacing: 5, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', display: 'block', marginBottom: 24 }}>Você se reconhece aqui?</span>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px,4vw,52px)', lineHeight: 1.3, color: '#fff', marginBottom: 16 }}>
+            Aquelas noites longas.<br />
+            O copo vazio na mesa.<br />
+            <span style={{ color: '#00C4D4', fontStyle: 'italic' }}>A pergunta que não sai da cabeça.</span>
+          </h2>
+          <p style={{ fontFamily: "'Cormorant Garant', serif", fontSize: 22, fontStyle: 'italic', color: '#8A9BBF', marginBottom: 64 }}>
+            "Por que eu não fui suficiente?"
+          </p>
 
-      {/* Author Preview */}
-      <section ref={authorRef} className="py-24 grain-overlay">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              <div className="absolute inset-0 bg-cyan/20 translate-x-4 translate-y-4 rounded-lg" />
-              <img
-                src={authorImg}
-                alt="Gilberto de Souza"
-                className="relative rounded-lg shadow-2xl max-w-md"
-              />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="font-display font-bold text-3xl sm:text-4xl mb-6">
-                O Homem Atrás das Palavras
-              </h2>
-              <p className="text-text-muted text-lg mb-6">
-                Gilberto de Souza nasceu no Brasil e há 23 anos mudou-se para os Estados Unidos, onde fundou sua própria empresa de construção de casas.
-              </p>
-              <p className="text-text-muted text-lg mb-8">
-                Após passar por uma experiência de traição que o levou ao início de uma depressão, ele escolheu não se deixar vencer. Escreveu este livro para compartilhar sua jornada e ajudar outros a encontrarem o caminho da superação.
-              </p>
-              <RouterLink to="/sobre" className="btn-secondary">
-                Conheça Gilberto
-                <ArrowRight size={18} />
-              </RouterLink>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* What Book Delivers */}
-      <section ref={whatRef} className="py-24 bg-navy-mid">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="font-display font-bold text-3xl sm:text-4xl mb-4">
-              O que este livro entrega
-            </h2>
-            <div className="editorial-divider" />
-          </motion.div>
-
-          <motion.div
-            variants={containerVariant}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid md:grid-cols-3 gap-8"
-          >
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 1, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 4, overflow: 'hidden', textAlign: 'left' }}>
             {[
-              {
-                icon: Book,
-                title: 'História Real',
-                description: 'Uma narrativa autêntica, baseada em experiências verdadeiras, sem enfeites ou falsas promessas.'
-              },
-              {
-                icon: HeartPulse,
-                title: 'Caminho Concreto',
-                description: 'Passos práticos e reflexões profundas para guiar sua jornada de cura e reconstrução.'
-              },
-              {
-                icon: Check,
-                title: 'Você Não Está Sozinho',
-                description: 'A certeza de que outros passaram pelo mesmo e encontraram a luz no fim do túnel.'
-              }
-            ].map((item, i) => (
+              { icon: '💔', title: 'A rejeição que paralisa', text: 'Você deu tudo e foi substituído. Essa dor tem nome — e tem saída.' },
+              { icon: '🌀', title: 'O loop que não para', text: 'Reviver a situação centenas de vezes por dia sem encontrar resposta.' },
+              { icon: '😔', title: 'O medo do recomeço', text: 'Será que vai amar de novo? Será que vai confiar novamente?' },
+              { icon: '🪞', title: 'A dúvida sobre seu valor', text: 'O que ela viu nele que não viu em mim? Essa pergunta corrói tudo.' },
+            ].map((c, i) => (
               <motion.div
                 key={i}
-                variants={fadeUpVariant}
-                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.12, duration: 0.6 }}
+                viewport={{ once: true }}
+                style={{ background: 'rgba(13,27,62,0.75)', padding: '36px 28px', backdropFilter: 'blur(8px)', transition: 'background 0.3s' }}
+                onMouseEnter={e => e.currentTarget.style.background = 'rgba(0,196,212,0.08)'}
+                onMouseLeave={e => e.currentTarget.style.background = 'rgba(13,27,62,0.75)'}
               >
-                <div className="w-16 h-16 bg-cyan/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <item.icon className="text-cyan" size={32} />
-                </div>
-                <h3 className="font-display font-bold text-xl mb-3">{item.title}</h3>
-                <p className="text-text-muted">{item.description}</p>
+                <span style={{ fontSize: 28, display: 'block', marginBottom: 14 }}>{c.icon}</span>
+                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 17, color: '#fff', marginBottom: 10 }}>{c.title}</h3>
+                <p style={{ fontSize: 13, color: '#8A9BBF', lineHeight: 1.7 }}>{c.text}</p>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          BLOCO 4 — BANNER DE SUPERAÇÃO
+          Split: dor (esquerda) → libertação (direita)
+          Mensagem: existe uma saída
+      ═══════════════════════════════════════════ */}
+      <section style={{ position: 'relative', overflow: 'hidden' }}>
+        <motion.img
+          src={bannerTransform}
+          alt="Da dor à transformação"
+          initial={{ opacity: 0, scale: 1.04 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, ease: 'easeOut' }}
+          viewport={{ once: true }}
+          style={{ width: '100%', height: 'min(600px,70vh)', objectFit: 'cover', objectPosition: 'center', display: 'block' }}
+        />
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(13,27,62,0.42)' }} />
+        <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '0 8vw', zIndex: 2 }}>
+          <span style={{ fontSize: 10, letterSpacing: 5, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 20 }}>A jornada que este livro conta</span>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px,4.5vw,60px)', color: '#fff', lineHeight: 1.25, textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}>
+            Existe uma saída.<br />
+            <span style={{ color: '#00C4D4' }}>Gilberto encontrou.</span><br />
+            Você também pode.
+          </h2>
         </div>
       </section>
 
-      {/* Quote Section */}
-      <Element name="quote" ref={quoteRef} className="py-24 grain-overlay relative overflow-hidden">
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <Quote size={300} className="text-cyan/5" />
-        </div>
+      {/* ═══════════════════════════════════════════
+          BLOCO 5 — SOBRE O AUTOR
+          Gilberto segurando o livro + bio + citação
+      ═══════════════════════════════════════════ */}
+      <section style={{ background: '#152347', padding: '120px 8vw' }}>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 80, alignItems: 'center', maxWidth: 1100, margin: '0 auto' }}
+        >
+          <div style={{ position: 'relative' }}>
+            <img
+              src={authorPointing}
+              alt="Gilberto de Souza"
+              style={{ width: '100%', maxWidth: 420, borderRadius: 4, position: 'relative', zIndex: 2, display: 'block' }}
+            />
+            <div style={{ position: 'absolute', inset: '-14px -14px 14px 14px', border: '2px solid rgba(0,196,212,0.3)', borderRadius: 4, zIndex: 1 }} />
+          </div>
 
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <motion.blockquote
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <p className="font-editorial italic text-2xl sm:text-3xl lg:text-4xl text-cyan-light leading-relaxed">
-              "A história de um homem que dedicou anos de sua vida a uma mulher, apenas para ser trocado quando ela estava em seu melhor momento."
+          <div>
+            <span style={{ fontSize: 10, letterSpacing: 5, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', display: 'block', marginBottom: 20 }}>Sobre o Autor</span>
+            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(36px,4vw,56px)', lineHeight: 1, color: '#fff', marginBottom: 24 }}>
+              Gilberto<br /><span style={{ color: '#00C4D4' }}>de Souza</span>
+            </h2>
+            <p style={{ fontSize: 15, color: '#B8C8E0', lineHeight: 1.8, marginBottom: 20 }}>
+              45 anos. Empresário. Mora nos Estados Unidos há 23 anos. Passou por traição, início de depressão — e escolheu se reconstruir.
             </p>
-            <div className="editorial-divider mt-8" />
-          </motion.blockquote>
-        </div>
-      </Element>
+            <p style={{ fontSize: 15, color: '#B8C8E0', lineHeight: 1.8, marginBottom: 28 }}>
+              Hoje dedica sua vida a ajudar homens e mulheres que enfrentam a mesma dor que ele viveu.
+            </p>
+            <blockquote style={{ fontFamily: "'Cormorant Garant', serif", fontStyle: 'italic', fontSize: 19, color: '#fff', borderLeft: '3px solid #00C4D4', paddingLeft: 20, margin: '0 0 32px', lineHeight: 1.6 }}>
+              "Escrevi este livro porque queria que alguém tivesse escrito isso para mim quando eu mais precisei."
+            </blockquote>
+            <RouterLink to="/sobre" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, border: '1px solid rgba(0,196,212,0.4)', color: '#00C4D4', padding: '14px 28px', borderRadius: 3, fontSize: 14, fontWeight: 600, textDecoration: 'none', transition: 'all 0.25s' }}>
+              Conheça a história completa <ArrowRight size={16} />
+            </RouterLink>
+          </div>
+        </motion.div>
+      </section>
 
-      {/* Order Section */}
-      <Element name="comprar" className="py-24 bg-navy-mid">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* ═══════════════════════════════════════════
+          BLOCO 6 — ENTREGA / CONFIANÇA
+          Livro embrulhado como presente
+          Fundo claro — mudança de atmosfera
+      ═══════════════════════════════════════════ */}
+      <section style={{ background: '#F5F0E8', padding: '120px 8vw' }}>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 80, alignItems: 'center', maxWidth: 1100, margin: '0 auto' }}
+        >
+          <img
+            src={livroPresente}
+            alt="Livro embalado com cuidado"
+            style={{ width: '100%', maxWidth: 460, borderRadius: 8, boxShadow: '0 20px 60px rgba(0,0,0,0.15)', display: 'block' }}
+          />
+          <div>
+            <span style={{ fontSize: 10, letterSpacing: 5, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', display: 'block', marginBottom: 20 }}>Envio pelos Correios</span>
+            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px,3.5vw,44px)', lineHeight: 1.2, color: '#0D1B3E', marginBottom: 20 }}>
+              Seu livro chega<br />embalado com cuidado
+            </h2>
+            <p style={{ fontSize: 15, color: '#3A4A6B', lineHeight: 1.8, marginBottom: 28 }}>
+              Cada pedido é preparado e postado pelos Correios direto de Santana de Parnaíba — SP para qualquer endereço do Brasil.
+            </p>
+            <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px' }}>
+              {['📦 Embalagem protetora kraft', '🔍 Código de rastreamento por email', '⏱ PAC: 5–15 dias úteis por região', '⚡ SEDEX disponível para entrega expressa', '↩️ 7 dias para devolução (CDC)'].map(item => (
+                <li key={item} style={{ fontSize: 14, color: '#3A4A6B', padding: '10px 0', borderBottom: '1px solid rgba(13,27,62,0.08)', display: 'flex', gap: 12 }}>{item}</li>
+              ))}
+            </ul>
+            <RouterLink to="/entrega" style={{ display: 'inline-block', border: '1px solid rgba(13,27,62,0.3)', color: '#0D1B3E', padding: '14px 28px', borderRadius: 3, fontSize: 14, fontWeight: 600, textDecoration: 'none' }}>
+              Ver política de entrega →
+            </RouterLink>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          BLOCO 7 — COMPRA + FRETE
+          Livros empilhados com FADE lento + calculadora
+      ═══════════════════════════════════════════ */}
+      <section id="comprar" style={{ background: 'linear-gradient(180deg, #091422 0%, #0D1B3E 100%)', padding: '120px 8vw' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 80, alignItems: 'center', maxWidth: 1100, margin: '0 auto' }}>
+
+          {/* Livros empilhados — fade lento */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
+            transition={{ duration: 1.6, ease: 'easeOut' }}
             viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="font-display font-bold text-3xl sm:text-4xl mb-4">
-              Comece Sua Jornada de Superação
-            </h2>
-            <p className="text-text-muted max-w-2xl mx-auto">
-              Clique no botão abaixo para adicionar o livro ao carrinho e finalize seu pedido com frete calculado automaticamente.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-navy p-8 rounded-2xl border border-navy-light text-center"
           >
             <img
-              src={bookFront}
-              alt="Capa do livro Como Vencer a Dor de Ser Trocado Por Outro"
-              className="w-48 h-auto mx-auto mb-6 book-image"
+              src={livroStack}
+              alt="Livro Como Vencer a Dor de Ser Trocado Por Outro"
+              style={{ width: '100%', maxWidth: 460, borderRadius: 6, display: 'block' }}
             />
-            <h3 className="font-display font-bold text-2xl mb-2">Como Vencer a Dor de Ser Trocado Por Outro</h3>
-            <p className="text-text-muted mb-6">Livro Físico - 1ª Edição</p>
-            <p className="font-display font-bold text-4xl text-cyan mb-8">R$ 49,90</p>
-            <AddToCartButton label="Adicionar ao Carrinho" />
-            <div className="mt-8 text-sm text-text-muted">
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <span>📦</span>
-                <span>Enviado pelos Correios para todo o Brasil</span>
-              </div>
-              <span>Prazo estimado: 5 a 15 dias úteis</span>
+            <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <span style={{ fontSize: 10, color: '#8A9BBF', letterSpacing: 2 }}>ISBN 978-658462205-0</span>
+              {/* Código de barras decorativo SVG */}
+              <svg viewBox="0 0 120 28" style={{ width: 130, height: 24 }} fill="none">
+                {[2,4,7,9,12,14,17,20,22,25,27,30,33,35,38,40,43,46,48,51,53,56,58,61,64,66,69,72,74,77,79,82,85,87,90,92,95,98,100,103,106,108,111,113,116,118].map((x, i) => (
+                  <rect key={i} x={x} y="0" width={i % 3 === 0 ? 2 : 1} height="28" fill="#00C4D4" opacity="0.5" />
+                ))}
+              </svg>
             </div>
           </motion.div>
-        </div>
-      </Element>
 
-      {/* FAQ Section */}
-      <section ref={faqRef} className="py-24 grain-overlay">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="font-display font-bold text-3xl sm:text-4xl mb-4">
-              Perguntas Frequentes
-            </h2>
-            <div className="editorial-divider" />
-          </motion.div>
+          {/* Formulário compra */}
+          <div>
+            <span style={{ fontSize: 10, letterSpacing: 5, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', display: 'block', marginBottom: 20 }}>Receba em Casa</span>
+            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px,3.5vw,44px)', color: '#fff', marginBottom: 20 }}>Peça o Seu Agora</h2>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 32 }}>
+              <span style={{ fontSize: 42, fontWeight: 800, color: '#00C4D4' }}>R$ 49,90</span>
+              <span style={{ fontSize: 13, color: '#8A9BBF' }}>+ frete pelo CEP</span>
+            </div>
 
-          <div className="space-y-4">
-            {faqItems.map((item, index) => (
-              <motion.details
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-navy-mid rounded-lg border border-navy-light overflow-hidden"
-              >
-                <summary className="px-6 py-4 cursor-pointer font-body font-semibold flex items-center justify-between hover:bg-navy-light/30 transition-colors">
-                  {item.q}
-                  <ChevronRight size={20} className="transition-transform" />
-                </summary>
-                <div className="px-6 pb-4 text-text-muted">
-                  {item.a}
-                </div>
-              </motion.details>
-            ))}
+            <ShippingCalculator />
+
+            <div style={{ marginTop: 28 }}>
+              <AddToCartButton label="Adicionar ao Carrinho" />
+            </div>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, marginTop: 20, fontSize: 12, color: '#8A9BBF' }}>
+              <span>🔒 Compra Segura</span>
+              <span>📦 Enviado pelos Correios</span>
+              <span>↩️ 7 dias para devolução</span>
+            </div>
           </div>
         </div>
       </section>
+
+      {/* ═══════════════════════════════════════════
+          BLOCO 8 — FAQ
+          Fundo navy limpo, sem imagem
+      ═══════════════════════════════════════════ */}
+      <section style={{ background: '#152347', padding: '100px 8vw' }}>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+          style={{ maxWidth: 760, margin: '0 auto' }}
+        >
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px,3.5vw,44px)', color: '#fff', textAlign: 'center', marginBottom: 12 }}>
+            Perguntas Frequentes
+          </h2>
+          <div style={{ width: 48, height: 2, background: '#00C4D4', margin: '0 auto 56px' }} />
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {faqItems.map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.08 }}
+                viewport={{ once: true }}
+                style={{ background: 'rgba(13,27,62,0.6)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 4, overflow: 'hidden' }}
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  style={{ width: '100%', padding: '18px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'none', border: 'none', color: '#fff', fontSize: 15, fontWeight: 600, cursor: 'pointer', textAlign: 'left', gap: 16 }}
+                >
+                  {item.q}
+                  <span style={{ color: '#00C4D4', fontSize: 22, flexShrink: 0, transition: 'transform 0.3s', transform: openFaq === i ? 'rotate(45deg)' : 'rotate(0)' }}>+</span>
+                </button>
+                {openFaq === i && (
+                  <div style={{ padding: '0 24px 18px', fontSize: 14, color: '#8A9BBF', lineHeight: 1.75 }}>
+                    {item.a}
+                  </div>
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
     </div>
   );
 };
-
-const ChevronRight = ({ size }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="9 18 15 12 9 6" />
-  </svg>
-);
 
 export default Home;
