@@ -1,251 +1,430 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Package, RotateCcw, Shield } from 'lucide-react';
 import AddToCartButton from '../components/AddToCartButton';
 import ShippingCalculator from '../components/ShippingCalculator';
 
-import bannerWide      from '../assets/banners/banner-autor-cta.png';
-import bookCover       from '../assets/book/capa-livro.png';
-import livroWhiskey    from '../assets/lifestyle/livro-mesa-whiskey.png';
+import bannerAutor     from '../assets/banners/banner-autor-wide.png';
+import bannerCTA       from '../assets/banners/banner-autor-cta.png';
 import bannerTransform from '../assets/banners/banner-antes-depois.png';
-import authorPointing  from '../assets/author/gilberto-livro-apontando.png';
-import livroPresente   from '../assets/lifestyle/livro-embrulhado-presente.png';
+import bookCover       from '../assets/book/capa-livro.png';
+import livroMao        from '../assets/lifestyle/livro-mao-segurando.png';
+import livroWhiskey    from '../assets/lifestyle/livro-mesa-whiskey.png';
+import livroJanela     from '../assets/lifestyle/livro-janela-cidade.png';
+import livroPresente   from '../assets/lifestyle/livro-embalagem-kraft.png';
 import livroStack      from '../assets/lifestyle/livro-stack-marble.png';
+import authorPose      from '../assets/author/gilberto-livro-pose.png';
 
-const faqItems = [
-  { q: 'Como funciona o envio?', a: 'Após confirmação do pedido, o livro é embalado e postado pelos Correios de Santana de Parnaíba — SP. Você recebe o código de rastreamento por email.' },
+const faq = [
+  { q: 'Como funciona o envio?', a: 'O livro é embalado com cuidado e postado pelos Correios. Você recebe o código de rastreamento por email assim que for postado.' },
   { q: 'Qual o prazo de entrega?', a: 'PAC: 5 a 15 dias úteis dependendo da sua região. SEDEX: 1 a 7 dias úteis.' },
   { q: 'Posso devolver o livro?', a: 'Sim. Você tem 7 dias corridos após o recebimento para solicitar devolução, conforme o Código de Defesa do Consumidor.' },
   { q: 'Como acompanho meu pedido?', a: 'Enviamos o código de rastreamento por email logo após a postagem. Acompanhe em rastreamento.correios.com.br.' },
   { q: 'O livro está disponível em versão digital?', a: 'Por enquanto apenas na versão física. O livro foi pensado para ser lido com as mãos.' },
 ];
 
-const Home = () => {
+export default function Home() {
   const [openFaq, setOpenFaq] = useState(null);
 
   return (
-    <div className="min-h-screen">
+    <div>
 
-      {/* BLOCO 1 — HERO */}
-      <section style={{ position:'relative', minHeight:'100vh', display:'flex', alignItems:'flex-end', overflow:'hidden' }}>
-        <img src={bannerWide} alt="Como Vencer a Dor de Ser Trocado Por Outro — Gilberto de Souza"
+      {/* ════════════════════════════════════════
+          HERO — Gilberto em tela cheia
+          Hook: frase que para qualquer homem
+      ════════════════════════════════════════ */}
+      <section style={{ position:'relative', height:'100vh', minHeight:600, overflow:'hidden', display:'flex', alignItems:'center' }}>
+
+        {/* Foto do autor tela cheia */}
+        <img src={bannerAutor} alt="Gilberto de Souza"
           style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center top' }} />
-        {/* Gradiente suave só na parte inferior para o texto respirar */}
-        <div style={{ position:'absolute', inset:0, background:'linear-gradient(to top, rgba(9,20,34,0.96) 0%, rgba(9,20,34,0.7) 35%, rgba(9,20,34,0.15) 65%, transparent 100%)' }} />
-        {/* Overlay lateral leve para o texto da esquerda */}
-        <div style={{ position:'absolute', inset:0, background:'linear-gradient(to right, rgba(9,20,34,0.6) 0%, transparent 55%)' }} />
 
-        {/* Texto centralizado horizontalmente na parte inferior */}
-        <div style={{ position:'relative', zIndex:2, width:'100%', padding:'0 8vw 80px' }}>
-          <motion.div initial={{ opacity:0, y:30 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.9, ease:'easeOut' }}
-            style={{ maxWidth:750 }}>
+        {/* Gradiente dramático da esquerda */}
+        <div style={{ position:'absolute', inset:0, background:'linear-gradient(105deg, rgba(6,12,24,0.97) 0%, rgba(6,12,24,0.88) 38%, rgba(6,12,24,0.4) 62%, rgba(6,12,24,0.05) 100%)' }} />
+        {/* Gradiente inferior */}
+        <div style={{ position:'absolute', inset:0, background:'linear-gradient(to top, rgba(6,12,24,0.9) 0%, transparent 40%)' }} />
 
-            {/* Badge + título em linha horizontal */}
-            <div style={{ display:'flex', alignItems:'center', gap:16, marginBottom:20, flexWrap:'wrap' }}>
-              <span style={{ background:'rgba(0,196,212,0.15)', border:'1px solid rgba(0,196,212,0.35)', color:'#00C4D4', fontSize:10, fontWeight:700, letterSpacing:3, padding:'5px 14px', borderRadius:2, textTransform:'uppercase', flexShrink:0 }}>
-                📖 Lançamento 2026
-              </span>
-              <div style={{ height:1, flex:1, background:'rgba(0,196,212,0.2)', minWidth:40 }} />
-            </div>
+        <div style={{ position:'relative', zIndex:3, padding:'0 6vw', maxWidth:'100%' }}>
+          <motion.div
+            initial={{ opacity:0, y:40 }}
+            animate={{ opacity:1, y:0 }}
+            transition={{ duration:1, ease:'easeOut' }}
+            style={{ maxWidth:640 }}
+          >
+            {/* Hook — frase de parada */}
+            <p style={{
+              fontFamily:"'Cormorant Garant', serif",
+              fontStyle:'italic',
+              fontSize:'clamp(16px,1.8vw,22px)',
+              color:'#00C4D4',
+              marginBottom:20,
+              letterSpacing:1,
+              display:'flex',
+              alignItems:'center',
+              gap:12
+            }}>
+              <span style={{ width:32, height:1, background:'#00C4D4', display:'inline-block', flexShrink:0 }} />
+              Para todo homem que já se perguntou: "por que não fui suficiente?"
+            </p>
 
-            {/* Título em linha — mais compacto e horizontal */}
-            <h1 style={{ fontFamily:"'Playfair Display', serif", fontSize:'clamp(32px,4.5vw,64px)', lineHeight:1.1, color:'#fff', marginBottom:16, fontWeight:900 }}>
-              Como Vencer{'  '}
-              <span style={{ color:'#00C4D4', fontStyle:'italic' }}>A Dor</span>
-              {'  '}<span style={{ color:'rgba(255,255,255,0.7)', fontSize:'0.7em', fontWeight:300 }}>de ser trocado por outro</span>
+            {/* Título grande e horizontal */}
+            <h1 style={{
+              fontFamily:"'Playfair Display', serif",
+              fontWeight:900,
+              fontSize:'clamp(38px,5.5vw,80px)',
+              lineHeight:1.0,
+              color:'#fff',
+              marginBottom:24,
+              letterSpacing:-1
+            }}>
+              Como Vencer<br />
+              <span style={{ color:'#00C4D4' }}>A Dor</span>{' '}
+              <span style={{ fontSize:'0.65em', fontWeight:400, color:'rgba(255,255,255,0.75)', fontStyle:'italic' }}>de ser trocado por outro</span>
             </h1>
 
-            {/* Linha separadora + subtítulo */}
-            <div style={{ display:'flex', alignItems:'center', gap:20, marginBottom:32 }}>
-              <div style={{ width:48, height:2, background:'#00C4D4', flexShrink:0 }} />
-              <p style={{ fontFamily:"'Cormorant Garant', serif", fontStyle:'italic', fontSize:'clamp(16px,1.6vw,22px)', color:'#8A9BBF', margin:0 }}>
-                Você não está sozinho — a história real de quem venceu a dor da traição
+            {/* Prova social / credencial */}
+            <div style={{ display:'flex', alignItems:'center', gap:16, marginBottom:36, flexWrap:'wrap' }}>
+              <div style={{ display:'flex', alignItems:'center', gap:8 }}>
+                <img src={bookCover} alt="capa"
+                  style={{ width:36, height:48, objectFit:'cover', borderRadius:2, boxShadow:'0 4px 12px rgba(0,0,0,0.5)' }} />
+                <div>
+                  <p style={{ fontSize:11, color:'#8A9BBF', margin:0, lineHeight:1.3 }}>Livro físico</p>
+                  <p style={{ fontSize:11, color:'#fff', margin:0, fontWeight:600 }}>por Gilberto de Souza</p>
+                </div>
+              </div>
+              <div style={{ width:1, height:36, background:'rgba(255,255,255,0.15)' }} />
+              <p style={{ fontSize:12, color:'#8A9BBF', margin:0, maxWidth:220, lineHeight:1.5 }}>
+                Uma história real de traição, reconstrução e liberdade emocional
               </p>
             </div>
 
+            {/* CTAs */}
             <div style={{ display:'flex', flexWrap:'wrap', gap:14 }}>
-              <AddToCartButton label="Quero Este Livro" />
-              <a href="#historia" style={{ border:'1px solid rgba(255,255,255,0.25)', color:'#fff', padding:'15px 28px', borderRadius:3, textDecoration:'none', fontSize:14, fontWeight:500, backdropFilter:'blur(4px)', background:'rgba(255,255,255,0.04)' }}>
-                Conheça a História ↓
+              <AddToCartButton label="Quero Este Livro — R$ 49,90" />
+              <a href="#historia" style={{
+                border:'1px solid rgba(255,255,255,0.2)',
+                color:'#fff',
+                padding:'15px 28px',
+                borderRadius:3,
+                textDecoration:'none',
+                fontSize:14,
+                fontWeight:500,
+                backdropFilter:'blur(8px)',
+                background:'rgba(255,255,255,0.05)'
+              }}>
+                Ver a história ↓
               </a>
             </div>
-
           </motion.div>
         </div>
-      </section>
 
-      {/* BLOCO 2 — O LIVRO fade-in */}
-      <section style={{ background:'#0D1B3E', padding:'120px 8vw' }}>
+        {/* Scroll indicator */}
         <motion.div
-          initial={{ opacity:0, y:60 }} whileInView={{ opacity:1, y:0 }}
-          transition={{ duration:0.9 }} viewport={{ once:true }}
-          style={{ display:'grid', gridTemplateColumns:'55% 45%', gap:60, alignItems:'center', maxWidth:1100, margin:'0 auto' }}
+          animate={{ y:[0,10,0] }}
+          transition={{ duration:2, repeat:Infinity }}
+          style={{ position:'absolute', bottom:32, left:'50%', transform:'translateX(-50%)', zIndex:3, display:'flex', flexDirection:'column', alignItems:'center', gap:6 }}
         >
-          <div>
-            <span style={{ fontSize:10, letterSpacing:5, color:'#00C4D4', fontWeight:700, textTransform:'uppercase', display:'block', marginBottom:16 }}>MANUAL</span>
-            <h2 style={{ fontFamily:"'Playfair Display', serif", fontSize:'clamp(28px,3.5vw,46px)', lineHeight:1.15, color:'#fff', marginBottom:12 }}>
-              Como Vencer a Dor<br />de Ser Trocado Por Outro
-            </h2>
-            <p style={{ fontSize:14, color:'#8A9BBF', marginBottom:24 }}>por <strong style={{ color:'#fff' }}>Gilberto de Souza</strong></p>
-            <div style={{ display:'flex', flexWrap:'wrap', gap:8, marginBottom:28 }}>
-              {['📚 Livro Físico','🇧🇷 Português','ISBN 978-658462205-0','🗓 2026'].map(m => (
-                <span key={m} style={{ background:'rgba(255,255,255,0.05)', border:'1px solid rgba(255,255,255,0.1)', padding:'6px 12px', borderRadius:2, fontSize:11, color:'#8A9BBF' }}>{m}</span>
-              ))}
-            </div>
-            <p style={{ fontFamily:"'Cormorant Garant', serif", fontStyle:'italic', fontSize:17, lineHeight:1.8, color:'#B8C8E0', borderLeft:'2px solid #00C4D4', paddingLeft:20, marginBottom:36 }}>
-              "A história de um homem que dedicou anos de sua vida a uma mulher, apenas para ser trocado quando ela estava em seu melhor momento. Entre a dor da rejeição, a dúvida sobre seu próprio valor e o medo de nunca encontrar alguém novamente, ele descobre a força da superação."
-            </p>
-            <AddToCartButton label="Quero Este Livro — R$ 49,90" />
-          </div>
-          </motion.div>
+          <span style={{ fontSize:10, color:'rgba(255,255,255,0.3)', letterSpacing:3, textTransform:'uppercase' }}>scroll</span>
+          <div style={{ width:1, height:40, background:'linear-gradient(to bottom, rgba(0,196,212,0.6), transparent)' }} />
+        </motion.div>
       </section>
 
-      {/* BLOCO 3 — DOR / livro + whiskey + agenda */}
-      <section id="historia" style={{ position:'relative', padding:'120px 8vw', overflow:'hidden' }}>
-        <div style={{ position:'absolute', inset:0, backgroundImage:`url(${livroWhiskey})`, backgroundSize:'cover', backgroundPosition:'center', filter:'saturate(0.5)' }} />
-        <div style={{ position:'absolute', inset:0, background:'linear-gradient(180deg, rgba(9,20,34,0.9) 0%, rgba(13,27,62,0.88) 100%)' }} />
-        <motion.div initial={{ opacity:0 }} whileInView={{ opacity:1 }} transition={{ duration:1 }} viewport={{ once:true }}
-          style={{ position:'relative', zIndex:2, maxWidth:1000, margin:'0 auto', textAlign:'center' }}>
-          <span style={{ fontSize:10, letterSpacing:5, color:'#00C4D4', fontWeight:700, textTransform:'uppercase', display:'block', marginBottom:24 }}>Você se reconhece aqui?</span>
-          <h2 style={{ fontFamily:"'Playfair Display', serif", fontSize:'clamp(28px,4vw,52px)', lineHeight:1.3, color:'#fff', marginBottom:16 }}>
-            Aquelas noites longas.<br />O copo vazio na mesa.<br />
-            <span style={{ color:'#00C4D4', fontStyle:'italic' }}>A pergunta que não sai da cabeça.</span>
+      {/* ════════════════════════════════════════
+          HOOK 2 — Frase de identificação
+          Fundo: livro + whiskey (atmosfera noturna)
+      ════════════════════════════════════════ */}
+      <section id="historia" style={{ position:'relative', padding:'100px 6vw', overflow:'hidden' }}>
+        <div style={{ position:'absolute', inset:0, backgroundImage:`url(${livroWhiskey})`, backgroundSize:'cover', backgroundPosition:'center', filter:'brightness(0.3) saturate(0.6)' }} />
+        <div style={{ position:'absolute', inset:0, background:'linear-gradient(180deg, rgba(6,12,24,0.7) 0%, rgba(6,12,24,0.5) 50%, rgba(6,12,24,0.95) 100%)' }} />
+
+        <motion.div
+          initial={{ opacity:0 }} whileInView={{ opacity:1 }} transition={{ duration:1.2 }} viewport={{ once:true }}
+          style={{ position:'relative', zIndex:2, maxWidth:860, margin:'0 auto', textAlign:'center' }}
+        >
+          <h2 style={{
+            fontFamily:"'Playfair Display', serif",
+            fontSize:'clamp(30px,4.5vw,64px)',
+            lineHeight:1.2,
+            color:'#fff',
+            marginBottom:24,
+            fontWeight:700
+          }}>
+            Você deu tudo.<br />
+            E mesmo assim<br />
+            <span style={{ color:'#00C4D4', fontStyle:'italic' }}>foi trocado.</span>
           </h2>
-          <p style={{ fontFamily:"'Cormorant Garant', serif", fontSize:22, fontStyle:'italic', color:'#8A9BBF', marginBottom:64 }}>
-            "Por que eu não fui suficiente?"
+
+          <p style={{
+            fontFamily:"'Cormorant Garant', serif",
+            fontStyle:'italic',
+            fontSize:'clamp(18px,2vw,26px)',
+            color:'rgba(255,255,255,0.6)',
+            marginBottom:64,
+            lineHeight:1.7
+          }}>
+            Essa dor tem nome. E tem saída.
           </p>
-          <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(220px,1fr))', gap:1, background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.05)', borderRadius:4, overflow:'hidden', textAlign:'left' }}>
+
+          {/* 4 cards de dor */}
+          <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(200px,1fr))', gap:2 }}>
             {[
-              { icon:'💔', title:'A rejeição que paralisa', text:'Você deu tudo e foi substituído. Essa dor tem nome — e tem saída.' },
-              { icon:'🌀', title:'O loop que não para', text:'Reviver a situação centenas de vezes por dia sem encontrar resposta.' },
-              { icon:'😔', title:'O medo do recomeço', text:'Será que vai amar de novo? Será que vai confiar novamente?' },
-              { icon:'🪞', title:'A dúvida sobre seu valor', text:'O que ela viu nele que não viu em mim? Essa pergunta corrói tudo.' },
+              { icon:'💔', title:'A rejeição que paralisa', text:'Você deu tudo e foi substituído quando menos esperava.' },
+              { icon:'🌀', title:'O loop mental', text:'Reviver a cena centenas de vezes por dia sem achar resposta.' },
+              { icon:'😔', title:'O medo do recomeço', text:'Vai conseguir amar de novo? Vai conseguir confiar?' },
+              { icon:'🪞', title:'A dúvida sobre seu valor', text:'O que ele tem que você não tem? Essa pergunta corrói tudo.' },
             ].map((c,i) => (
-              <motion.div key={i} initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }}
-                transition={{ delay:i*0.12, duration:0.6 }} viewport={{ once:true }}
-                style={{ background:'rgba(13,27,62,0.75)', padding:'36px 28px', backdropFilter:'blur(8px)' }}
-                onMouseEnter={e => e.currentTarget.style.background='rgba(0,196,212,0.08)'}
-                onMouseLeave={e => e.currentTarget.style.background='rgba(13,27,62,0.75)'}>
-                <span style={{ fontSize:28, display:'block', marginBottom:14 }}>{c.icon}</span>
-                <h3 style={{ fontFamily:"'Playfair Display', serif", fontSize:17, color:'#fff', marginBottom:10 }}>{c.title}</h3>
-                <p style={{ fontSize:13, color:'#8A9BBF', lineHeight:1.7 }}>{c.text}</p>
+              <motion.div key={i}
+                initial={{ opacity:0, y:24 }}
+                whileInView={{ opacity:1, y:0 }}
+                transition={{ delay:i*0.1, duration:0.6 }}
+                viewport={{ once:true }}
+                style={{
+                  background:'rgba(13,27,62,0.7)',
+                  backdropFilter:'blur(12px)',
+                  border:'1px solid rgba(0,196,212,0.1)',
+                  padding:'32px 24px',
+                  textAlign:'left',
+                  transition:'border-color 0.3s'
+                }}
+                onMouseEnter={e => e.currentTarget.style.borderColor='rgba(0,196,212,0.4)'}
+                onMouseLeave={e => e.currentTarget.style.borderColor='rgba(0,196,212,0.1)'}
+              >
+                <span style={{ fontSize:32, display:'block', marginBottom:16 }}>{c.icon}</span>
+                <h3 style={{ fontFamily:"'Playfair Display', serif", fontSize:16, color:'#fff', marginBottom:10, fontWeight:700 }}>{c.title}</h3>
+                <p style={{ fontSize:13, color:'#8A9BBF', lineHeight:1.7, margin:0 }}>{c.text}</p>
               </motion.div>
             ))}
           </div>
         </motion.div>
       </section>
 
-      {/* BLOCO 4 — BANNER SUPERAÇÃO */}
-      <section style={{ position:'relative', overflow:'hidden' }}>
-        <motion.img src={bannerTransform} alt="Da dor à transformação"
-          initial={{ opacity:0, scale:1.04 }} whileInView={{ opacity:1, scale:1 }}
-          transition={{ duration:1.2 }} viewport={{ once:true }}
-          style={{ width:'100%', height:'min(600px,70vh)', objectFit:'cover', objectPosition:'center', display:'block' }} />
-        <div style={{ position:'absolute', inset:0, background:'rgba(13,27,62,0.42)' }} />
-        <div style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', textAlign:'center', padding:'0 8vw', zIndex:2 }}>
-          <span style={{ fontSize:10, letterSpacing:5, color:'#00C4D4', fontWeight:700, textTransform:'uppercase', marginBottom:20 }}>A jornada que este livro conta</span>
-          <h2 style={{ fontFamily:"'Playfair Display', serif", fontSize:'clamp(28px,4.5vw,60px)', color:'#fff', lineHeight:1.25, textShadow:'0 2px 20px rgba(0,0,0,0.5)' }}>
-            Existe uma saída.<br /><span style={{ color:'#00C4D4' }}>Gilberto encontrou.</span><br />Você também pode.
-          </h2>
-        </div>
+      {/* ════════════════════════════════════════
+          O LIVRO — mão segurando + info editorial
+      ════════════════════════════════════════ */}
+      <section style={{ background:'#0A1628', padding:'100px 6vw' }}>
+        <motion.div
+          initial={{ opacity:0, y:50 }}
+          whileInView={{ opacity:1, y:0 }}
+          transition={{ duration:0.9 }}
+          viewport={{ once:true }}
+          style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(300px,1fr))', gap:72, alignItems:'center', maxWidth:1100, margin:'0 auto' }}
+        >
+          {/* Info editorial — esquerda */}
+          <div>
+            <span style={{ fontSize:10, letterSpacing:5, color:'#00C4D4', fontWeight:700, textTransform:'uppercase', display:'block', marginBottom:20 }}>O LIVRO</span>
+            <h2 style={{ fontFamily:"'Playfair Display', serif", fontSize:'clamp(30px,3.5vw,50px)', lineHeight:1.1, color:'#fff', marginBottom:16, fontWeight:900 }}>
+              Como Vencer a Dor<br />de Ser Trocado Por Outro
+            </h2>
+            <p style={{ fontSize:14, color:'#8A9BBF', marginBottom:28 }}>por <strong style={{ color:'#fff' }}>Gilberto de Souza</strong></p>
+
+            <div style={{ display:'flex', flexWrap:'wrap', gap:8, marginBottom:32 }}>
+              {['📚 Livro Físico','🇧🇷 Português','ISBN 978-658462205-0','🗓 2026'].map(m => (
+                <span key={m} style={{ background:'rgba(255,255,255,0.05)', border:'1px solid rgba(255,255,255,0.08)', padding:'6px 12px', borderRadius:2, fontSize:11, color:'#8A9BBF' }}>{m}</span>
+              ))}
+            </div>
+
+            <blockquote style={{
+              fontFamily:"'Cormorant Garant', serif",
+              fontStyle:'italic',
+              fontSize:18,
+              lineHeight:1.85,
+              color:'#B8C8E0',
+              borderLeft:'3px solid #00C4D4',
+              paddingLeft:20,
+              margin:'0 0 36px'
+            }}>
+              "A história de um homem que dedicou anos a uma mulher — e foi trocado no seu melhor momento. Entre a dor da rejeição e o medo de nunca amar de novo, ele descobre que a maior traição seria abandonar a si mesmo."
+            </blockquote>
+
+            <AddToCartButton label="Quero Este Livro — R$ 49,90" />
+          </div>
+
+          {/* Livro na mão — direita */}
+          <div style={{ display:'flex', justifyContent:'center', alignItems:'center' }}>
+            <motion.img
+              src={livroMao}
+              alt="Livro Como Vencer a Dor de Ser Trocado Por Outro"
+              animate={{ y:[0,-12,0] }}
+              transition={{ duration:4.5, repeat:Infinity, ease:'easeInOut' }}
+              style={{
+                width:'min(400px,100%)',
+                display:'block',
+                filter:'drop-shadow(0 30px 60px rgba(0,0,0,0.8))'
+              }}
+            />
+          </div>
+        </motion.div>
       </section>
 
-      {/* BLOCO 5 — SOBRE O AUTOR */}
-      <section style={{ background:'#152347', padding:'120px 8vw' }}>
-        <motion.div initial={{ opacity:0, y:40 }} whileInView={{ opacity:1, y:0 }} transition={{ duration:0.8 }} viewport={{ once:true }}
-          style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(280px,1fr))', gap:80, alignItems:'center', maxWidth:1100, margin:'0 auto' }}>
+      {/* ════════════════════════════════════════
+          BANNER TRANSFORMAÇÃO — tela cheia
+      ════════════════════════════════════════ */}
+      <section style={{ position:'relative', height:'min(560px,65vh)', overflow:'hidden', display:'flex', alignItems:'center', justifyContent:'center' }}>
+        <motion.img src={bannerTransform} alt="Da dor à transformação"
+          initial={{ scale:1.06 }} whileInView={{ scale:1 }}
+          transition={{ duration:1.4, ease:'easeOut' }} viewport={{ once:true }}
+          style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
+        <div style={{ position:'absolute', inset:0, background:'rgba(6,12,24,0.55)' }} />
+
+        <motion.div
+          initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }}
+          transition={{ duration:0.9 }} viewport={{ once:true }}
+          style={{ position:'relative', zIndex:2, textAlign:'center', padding:'0 6vw' }}
+        >
+          <p style={{ fontSize:11, letterSpacing:5, color:'#00C4D4', fontWeight:700, textTransform:'uppercase', marginBottom:20 }}>A jornada que este livro conta</p>
+          <h2 style={{
+            fontFamily:"'Playfair Display', serif",
+            fontSize:'clamp(32px,5vw,68px)',
+            color:'#fff',
+            lineHeight:1.15,
+            fontWeight:900,
+            textShadow:'0 4px 30px rgba(0,0,0,0.5)'
+          }}>
+            Existe uma saída.<br />
+            <span style={{ color:'#00C4D4' }}>Gilberto encontrou.</span><br />
+            Você também pode.
+          </h2>
+        </motion.div>
+      </section>
+
+      {/* ════════════════════════════════════════
+          SOBRE O AUTOR — foto + story
+      ════════════════════════════════════════ */}
+      <section style={{ background:'#0D1B3E', padding:'100px 6vw' }}>
+        <motion.div
+          initial={{ opacity:0, y:40 }} whileInView={{ opacity:1, y:0 }}
+          transition={{ duration:0.9 }} viewport={{ once:true }}
+          style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(300px,1fr))', gap:72, alignItems:'center', maxWidth:1100, margin:'0 auto' }}
+        >
           <div style={{ position:'relative' }}>
-            <img src={authorPointing} alt="Gilberto de Souza"
-              style={{ width:'100%', maxWidth:420, borderRadius:4, position:'relative', zIndex:2, display:'block' }} />
-            <div style={{ position:'absolute', inset:'-14px -14px 14px 14px', border:'2px solid rgba(0,196,212,0.3)', borderRadius:4, zIndex:1 }} />
+            <img src={bannerCTA} alt="Gilberto de Souza"
+              style={{ width:'100%', maxWidth:460, display:'block', borderRadius:4, filter:'drop-shadow(0 20px 50px rgba(0,0,0,0.7))' }} />
+            <div style={{ position:'absolute', bottom:-16, right:-16, width:'70%', height:'70%', border:'2px solid rgba(0,196,212,0.2)', borderRadius:4, zIndex:-1 }} />
           </div>
+
           <div>
             <span style={{ fontSize:10, letterSpacing:5, color:'#00C4D4', fontWeight:700, textTransform:'uppercase', display:'block', marginBottom:20 }}>Sobre o Autor</span>
-            <h2 style={{ fontFamily:"'Playfair Display', serif", fontSize:'clamp(36px,4vw,56px)', lineHeight:1, color:'#fff', marginBottom:24 }}>
+            <h2 style={{ fontFamily:"'Playfair Display', serif", fontSize:'clamp(36px,4vw,58px)', lineHeight:1, color:'#fff', marginBottom:28, fontWeight:900 }}>
               Gilberto<br /><span style={{ color:'#00C4D4' }}>de Souza</span>
             </h2>
-            <p style={{ fontSize:15, color:'#B8C8E0', lineHeight:1.8, marginBottom:20 }}>
-              45 anos. Empresário. Mora nos Estados Unidos há 23 anos. Passou por traição, início de depressão — e escolheu se reconstruir.
-            </p>
-            <p style={{ fontSize:15, color:'#B8C8E0', lineHeight:1.8, marginBottom:28 }}>
-              Hoje dedica sua vida a ajudar homens e mulheres que enfrentam a mesma dor que ele viveu.
-            </p>
-            <blockquote style={{ fontFamily:"'Cormorant Garant', serif", fontStyle:'italic', fontSize:19, color:'#fff', borderLeft:'3px solid #00C4D4', paddingLeft:20, margin:'0 0 32px', lineHeight:1.6 }}>
+
+            <div style={{ display:'flex', flexDirection:'column', gap:16, marginBottom:32 }}>
+              {[
+                { emoji:'🇧🇷', text:'Nasceu no Brasil. Mora nos Estados Unidos há 23 anos.' },
+                { emoji:'💼', text:'Empresário, fundou sua própria empresa de construção.' },
+                { emoji:'💔', text:'Passou por traição e início de depressão.' },
+                { emoji:'💪', text:'Escolheu se reconstruir — e escreveu este livro.' },
+              ].map((item,i) => (
+                <div key={i} style={{ display:'flex', gap:14, alignItems:'flex-start' }}>
+                  <span style={{ fontSize:20, flexShrink:0 }}>{item.emoji}</span>
+                  <p style={{ fontSize:15, color:'#B8C8E0', margin:0, lineHeight:1.7 }}>{item.text}</p>
+                </div>
+              ))}
+            </div>
+
+            <blockquote style={{
+              fontFamily:"'Cormorant Garant', serif",
+              fontStyle:'italic',
+              fontSize:20,
+              color:'#fff',
+              borderLeft:'3px solid #00C4D4',
+              paddingLeft:20,
+              margin:'0 0 32px',
+              lineHeight:1.6
+            }}>
               "Escrevi este livro porque queria que alguém tivesse escrito isso para mim quando eu mais precisei."
             </blockquote>
-            <RouterLink to="/sobre" style={{ display:'inline-flex', alignItems:'center', gap:8, border:'1px solid rgba(0,196,212,0.4)', color:'#00C4D4', padding:'14px 28px', borderRadius:3, fontSize:14, fontWeight:600, textDecoration:'none' }}>
+
+            <RouterLink to="/sobre" style={{ display:'inline-flex', alignItems:'center', gap:8, border:'1px solid rgba(0,196,212,0.35)', color:'#00C4D4', padding:'14px 28px', borderRadius:3, fontSize:14, fontWeight:600, textDecoration:'none' }}>
               Conheça a história completa <ArrowRight size={16} />
             </RouterLink>
           </div>
         </motion.div>
       </section>
 
-      {/* BLOCO 6 — ENTREGA / livro embrulhado */}
-      <section style={{ background:'#F5F0E8', padding:'120px 8vw' }}>
-        <motion.div initial={{ opacity:0, y:40 }} whileInView={{ opacity:1, y:0 }} transition={{ duration:0.8 }} viewport={{ once:true }}
-          style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(280px,1fr))', gap:80, alignItems:'center', maxWidth:1100, margin:'0 auto' }}>
+      {/* ════════════════════════════════════════
+          ENTREGA — livro janela cidade + info
+      ════════════════════════════════════════ */}
+      <section style={{ background:'#F5F0E8', padding:'100px 6vw' }}>
+        <motion.div
+          initial={{ opacity:0, y:40 }} whileInView={{ opacity:1, y:0 }}
+          transition={{ duration:0.8 }} viewport={{ once:true }}
+          style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(300px,1fr))', gap:72, alignItems:'center', maxWidth:1100, margin:'0 auto' }}
+        >
           <img src={livroPresente} alt="Livro embalado com cuidado"
-            style={{ width:'100%', maxWidth:460, borderRadius:8, boxShadow:'0 20px 60px rgba(0,0,0,0.15)', display:'block' }} />
+            style={{ width:'100%', maxWidth:460, borderRadius:6, boxShadow:'0 24px 60px rgba(0,0,0,0.12)', display:'block' }} />
+
           <div>
             <span style={{ fontSize:10, letterSpacing:5, color:'#00C4D4', fontWeight:700, textTransform:'uppercase', display:'block', marginBottom:20 }}>Envio pelos Correios</span>
-            <h2 style={{ fontFamily:"'Playfair Display', serif", fontSize:'clamp(28px,3.5vw,44px)', lineHeight:1.2, color:'#0D1B3E', marginBottom:20 }}>
+            <h2 style={{ fontFamily:"'Playfair Display', serif", fontSize:'clamp(28px,3vw,44px)', lineHeight:1.2, color:'#0D1B3E', marginBottom:20, fontWeight:900 }}>
               Seu livro chega<br />embalado com cuidado
             </h2>
             <p style={{ fontSize:15, color:'#3A4A6B', lineHeight:1.8, marginBottom:28 }}>
-              Cada pedido é preparado com cuidado e enviado pelos Correios para qualquer endereço do Brasil.
+              Cada pedido é preparado com atenção e enviado pelos Correios para qualquer endereço do Brasil.
             </p>
-            <ul style={{ listStyle:'none', padding:0, margin:'0 0 32px' }}>
-              {['📦 Embalagem protetora kraft','🔍 Código de rastreamento por email','⏱ PAC: 5–15 dias úteis por região','⚡ SEDEX disponível para entrega expressa','↩️ 7 dias para devolução (CDC)'].map(item => (
-                <li key={item} style={{ fontSize:14, color:'#3A4A6B', padding:'10px 0', borderBottom:'1px solid rgba(13,27,62,0.08)' }}>{item}</li>
+            <div style={{ display:'flex', flexDirection:'column', gap:0 }}>
+              {[
+                { icon:<Package size={14}/>, text:'Embalagem protetora kraft' },
+                { icon:'🔍', text:'Código de rastreamento por email' },
+                { icon:'⏱', text:'PAC: 5–15 dias úteis por região' },
+                { icon:'⚡', text:'SEDEX disponível para entrega expressa' },
+                { icon:<RotateCcw size={14}/>, text:'7 dias para devolução (CDC)' },
+              ].map((item,i) => (
+                <div key={i} style={{ display:'flex', alignItems:'center', gap:12, padding:'12px 0', borderBottom:'1px solid rgba(13,27,62,0.08)', fontSize:14, color:'#3A4A6B' }}>
+                  <span style={{ color:'#00C4D4', flexShrink:0 }}>{item.icon}</span>
+                  {item.text}
+                </div>
               ))}
-            </ul>
-            <RouterLink to="/entrega" style={{ display:'inline-block', border:'1px solid rgba(13,27,62,0.3)', color:'#0D1B3E', padding:'14px 28px', borderRadius:3, fontSize:14, fontWeight:600, textDecoration:'none' }}>
-              Ver política de entrega →
-            </RouterLink>
+            </div>
           </div>
         </motion.div>
       </section>
 
-      {/* BLOCO 7 — COMPRA + FRETE + STRIPE */}
-      <section id="comprar" style={{ background:'linear-gradient(180deg, #091422 0%, #0D1B3E 100%)', padding:'120px 8vw' }}>
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(280px,1fr))', gap:80, alignItems:'center', maxWidth:1100, margin:'0 auto' }}>
-          <motion.div initial={{ opacity:0 }} whileInView={{ opacity:1 }} transition={{ duration:1.6 }} viewport={{ once:true }}>
-            <img src={livroStack} alt="Livro Como Vencer a Dor de Ser Trocado Por Outro"
-              style={{ width:'100%', maxWidth:460, borderRadius:6, display:'block' }} />
-            <div style={{ marginTop:16, display:'flex', flexDirection:'column', gap:6 }}>
-              <span style={{ fontSize:10, color:'#8A9BBF', letterSpacing:2 }}>ISBN 978-658462205-0</span>
-              <svg viewBox="0 0 120 28" style={{ width:130, height:24 }} fill="none">
-                {[2,4,7,9,12,14,17,20,22,25,27,30,33,35,38,40,43,46,48,51,53,56,58,61,64,66,69,72,74,77,79,82,85,87,90,92,95,98,100,103,106,108,111,113,116,118].map((x,i) => (
-                  <rect key={i} x={x} y="0" width={i%3===0?2:1} height="28" fill="#00C4D4" opacity="0.5" />
-                ))}
-              </svg>
-            </div>
+      {/* ════════════════════════════════════════
+          COMPRA — livro stack + calculadora frete
+      ════════════════════════════════════════ */}
+      <section id="comprar" style={{ background:'linear-gradient(180deg, #060C18 0%, #0D1B3E 100%)', padding:'100px 6vw' }}>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(300px,1fr))', gap:72, alignItems:'center', maxWidth:1100, margin:'0 auto' }}>
+
+          <motion.div
+            initial={{ opacity:0 }} whileInView={{ opacity:1 }}
+            transition={{ duration:1.4 }} viewport={{ once:true }}
+            style={{ display:'flex', flexDirection:'column', alignItems:'flex-start', gap:16 }}
+          >
+            <img src={livroStack} alt="Livro empilhado"
+              style={{ width:'min(420px,100%)', borderRadius:6, display:'block', filter:'drop-shadow(0 20px 50px rgba(0,0,0,0.7))' }} />
+            <span style={{ fontSize:10, color:'#8A9BBF', letterSpacing:2 }}>ISBN 978-658462205-0</span>
+            <svg viewBox="0 0 160 28" style={{ width:160, height:24 }} fill="none">
+              {[0,3,5,8,12,14,18,22,24,28,31,33,37,41,43,47,51,53,57,60,62,66,70,72,76,80,82,86,90,92,96,99,101,105,109,111,115,118,120,124,128,130,134,137,139,143,147,149,153,157,159].map((x,i) => (
+                <rect key={i} x={x} y="0" width={i%4===0?3:1} height="28" fill="#00C4D4" opacity="0.4" />
+              ))}
+            </svg>
           </motion.div>
 
           <div>
             <span style={{ fontSize:10, letterSpacing:5, color:'#00C4D4', fontWeight:700, textTransform:'uppercase', display:'block', marginBottom:20 }}>Receba em Casa</span>
-            <h2 style={{ fontFamily:"'Playfair Display', serif", fontSize:'clamp(28px,3.5vw,44px)', color:'#fff', marginBottom:20 }}>Peça o Seu Agora</h2>
+            <h2 style={{ fontFamily:"'Playfair Display', serif", fontSize:'clamp(28px,3.5vw,46px)', color:'#fff', marginBottom:16, fontWeight:900 }}>
+              Peça o Seu Agora
+            </h2>
             <div style={{ display:'flex', alignItems:'baseline', gap:12, marginBottom:32 }}>
-              <span style={{ fontSize:42, fontWeight:800, color:'#00C4D4' }}>R$ 49,90</span>
-              <span style={{ fontSize:13, color:'#8A9BBF' }}>+ frete pelo CEP</span>
+              <span style={{ fontSize:48, fontWeight:900, color:'#00C4D4', lineHeight:1 }}>R$ 49,90</span>
+              <span style={{ fontSize:13, color:'#8A9BBF' }}>+ frete calculado pelo CEP</span>
             </div>
 
-            {/* Calculadora de frete — já calcula ao digitar CEP */}
             <ShippingCalculator />
 
             <div style={{ marginTop:28 }}>
               <AddToCartButton label="Adicionar ao Carrinho" />
             </div>
 
-            {/* Stripe — placeholder pronto para ativar */}
-            <div style={{ marginTop:20, padding:'16px 20px', background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.08)', borderRadius:4 }}>
-              <p style={{ fontSize:12, color:'#8A9BBF', marginBottom:8, display:'flex', alignItems:'center', gap:6 }}>
-                <span>🔒</span> Pagamento seguro processado pela Stripe
+            <div style={{ marginTop:20, padding:'18px 20px', background:'rgba(255,255,255,0.03)', border:'1px solid rgba(255,255,255,0.07)', borderRadius:4 }}>
+              <p style={{ fontSize:12, color:'#8A9BBF', marginBottom:10, display:'flex', alignItems:'center', gap:6 }}>
+                <Shield size={13} style={{ color:'#00C4D4' }} /> Pagamento seguro processado pela Stripe
               </p>
               <div style={{ display:'flex', gap:8, flexWrap:'wrap' }}>
                 {['Visa','Mastercard','Amex','Pix'].map(b => (
-                  <span key={b} style={{ fontSize:10, background:'rgba(255,255,255,0.07)', border:'1px solid rgba(255,255,255,0.1)', padding:'4px 10px', borderRadius:2, color:'#8A9BBF' }}>{b}</span>
+                  <span key={b} style={{ fontSize:10, background:'rgba(255,255,255,0.06)', border:'1px solid rgba(255,255,255,0.1)', padding:'4px 10px', borderRadius:2, color:'#8A9BBF' }}>{b}</span>
                 ))}
               </div>
             </div>
@@ -253,33 +432,48 @@ const Home = () => {
             <div style={{ display:'flex', flexWrap:'wrap', gap:16, marginTop:16, fontSize:12, color:'#8A9BBF' }}>
               <span>📦 Enviado pelos Correios</span>
               <span>↩️ 7 dias para devolução</span>
+              <span>🔒 Compra Segura</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* BLOCO 8 — FAQ */}
-      <section style={{ background:'#152347', padding:'100px 8vw' }}>
-        <motion.div initial={{ opacity:0 }} whileInView={{ opacity:1 }} transition={{ duration:0.7 }} viewport={{ once:true }}
-          style={{ maxWidth:760, margin:'0 auto' }}>
-          <h2 style={{ fontFamily:"'Playfair Display', serif", fontSize:'clamp(28px,3.5vw,44px)', color:'#fff', textAlign:'center', marginBottom:12 }}>
+      {/* ════════════════════════════════════════
+          FAQ
+      ════════════════════════════════════════ */}
+      <section style={{ background:'#0A1628', padding:'90px 6vw' }}>
+        <motion.div
+          initial={{ opacity:0 }} whileInView={{ opacity:1 }}
+          transition={{ duration:0.7 }} viewport={{ once:true }}
+          style={{ maxWidth:780, margin:'0 auto' }}
+        >
+          <h2 style={{ fontFamily:"'Playfair Display', serif", fontSize:'clamp(28px,3vw,44px)', color:'#fff', textAlign:'center', marginBottom:12, fontWeight:900 }}>
             Perguntas Frequentes
           </h2>
-          <div style={{ width:48, height:2, background:'#00C4D4', margin:'0 auto 56px' }} />
-          <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
-            {faqItems.map((item,i) => (
-              <motion.div key={i} initial={{ opacity:0, y:16 }} whileInView={{ opacity:1, y:0 }}
-                transition={{ delay:i*0.08 }} viewport={{ once:true }}
-                style={{ background:'rgba(13,27,62,0.6)', border:'1px solid rgba(255,255,255,0.07)', borderRadius:4, overflow:'hidden' }}>
+          <div style={{ width:48, height:2, background:'#00C4D4', margin:'0 auto 52px' }} />
+
+          <div style={{ display:'flex', flexDirection:'column', gap:6 }}>
+            {faq.map((item,i) => (
+              <div key={i} style={{ background:'rgba(13,27,62,0.5)', border:'1px solid rgba(255,255,255,0.07)', borderRadius:4, overflow:'hidden' }}>
                 <button onClick={() => setOpenFaq(openFaq===i ? null : i)}
                   style={{ width:'100%', padding:'18px 24px', display:'flex', justifyContent:'space-between', alignItems:'center', background:'none', border:'none', color:'#fff', fontSize:15, fontWeight:600, cursor:'pointer', textAlign:'left', gap:16 }}>
                   {item.q}
-                  <span style={{ color:'#00C4D4', fontSize:22, flexShrink:0, transition:'transform 0.3s', transform:openFaq===i?'rotate(45deg)':'rotate(0)' }}>+</span>
+                  <span style={{ color:'#00C4D4', fontSize:24, transition:'transform 0.3s', transform:openFaq===i?'rotate(45deg)':'none', flexShrink:0 }}>+</span>
                 </button>
-                {openFaq===i && (
-                  <div style={{ padding:'0 24px 18px', fontSize:14, color:'#8A9BBF', lineHeight:1.75 }}>{item.a}</div>
-                )}
-              </motion.div>
+                <AnimatePresence>
+                  {openFaq===i && (
+                    <motion.div
+                      initial={{ height:0, opacity:0 }}
+                      animate={{ height:'auto', opacity:1 }}
+                      exit={{ height:0, opacity:0 }}
+                      transition={{ duration:0.3 }}
+                      style={{ overflow:'hidden' }}
+                    >
+                      <div style={{ padding:'0 24px 20px', fontSize:14, color:'#8A9BBF', lineHeight:1.8 }}>{item.a}</div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             ))}
           </div>
         </motion.div>
@@ -287,6 +481,4 @@ const Home = () => {
 
     </div>
   );
-};
-
-export default Home;
+}

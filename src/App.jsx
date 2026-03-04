@@ -1,4 +1,5 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './components/Navbar';
@@ -13,26 +14,9 @@ import Terms from './pages/Termos';
 import Delivery from './pages/Entrega';
 import Return from './pages/Devolucao';
 
-const fadeVariants = {
-  initial: { opacity: 0, y: 20 },
-  animate: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }
-  },
-  exit: {
-    opacity: 0,
-    y: -10,
-    transition: { duration: 0.25 }
-  }
-};
-
 function ScrollToTop() {
   const { pathname } = useLocation();
-  const { useEffect } = require('react');
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }, [pathname]);
+  useEffect(() => { window.scrollTo({ top:0, behavior:'instant' }); }, [pathname]);
   return null;
 }
 
@@ -40,12 +24,9 @@ function AnimatedRoutes() {
   const location = useLocation();
   return (
     <AnimatePresence mode="wait">
-      <motion.div
-        key={location.pathname}
-        variants={fadeVariants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
+      <motion.div key={location.pathname}
+        initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }}
+        transition={{ duration:0.35 }}
       >
         <Routes location={location}>
           <Route path="/" element={<Home />} />
@@ -62,10 +43,10 @@ function AnimatedRoutes() {
   );
 }
 
-function App() {
+export default function App() {
   return (
     <HelmetProvider>
-      <div style={{ minHeight:'100vh', display:'flex', flexDirection:'column' }}>
+      <div style={{ minHeight:'100vh', display:'flex', flexDirection:'column', background:'#060C18' }}>
         <Navbar />
         <ScrollToTop />
         <main style={{ flex:'1 0 auto' }}>
@@ -77,5 +58,3 @@ function App() {
     </HelmetProvider>
   );
 }
-
-export default App;
