@@ -31,7 +31,7 @@ const Home = () => {
       <section style={{ position:'relative', minHeight:'100vh', display:'flex', alignItems:'center', overflow:'hidden' }}>
         <img src={bannerWide} alt="Como Vencer a Dor de Ser Trocado Por Outro — Gilberto de Souza"
           style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center top' }} />
-        <div style={{ position:'absolute', inset:0, background:'linear-gradient(to right, rgba(13,27,62,0.97) 0%, rgba(13,27,62,0.85) 45%, rgba(13,27,62,0.1) 100%)' }} />
+        <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 40% 30%, transparent 60%, rgba(13,27,62,0.75) 100%)', height:'150%' }} />
         <div style={{ position:'relative', zIndex:2, padding:'0 8vw', maxWidth:600 }}>
           <motion.div initial={{ opacity:0, x:-40 }} animate={{ opacity:1, x:0 }} transition={{ duration:0.8 }}>
             <span style={{ display:'inline-block', background:'rgba(0,196,212,0.15)', border:'1px solid rgba(0,196,212,0.3)', color:'#00C4D4', fontSize:11, fontWeight:700, letterSpacing:3, padding:'6px 14px', borderRadius:2, marginBottom:28, textTransform:'uppercase' }}>
