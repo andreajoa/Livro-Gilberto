@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react';
 import AddToCartButton from '../components/AddToCartButton';
 import ShippingCalculator from '../components/ShippingCalculator';
 
-import bannerWide      from '../assets/banners/banner-autor-wide.png';
+import bannerWide      from '../assets/banners/banner-autor-cta.png';
 import bookCover       from '../assets/book/capa-livro.png';
 import livroWhiskey    from '../assets/lifestyle/livro-mesa-whiskey.png';
 import bannerTransform from '../assets/banners/banner-antes-depois.png';
@@ -178,7 +178,7 @@ const Home = () => {
               Seu livro chega<br />embalado com cuidado
             </h2>
             <p style={{ fontSize:15, color:'#3A4A6B', lineHeight:1.8, marginBottom:28 }}>
-              Cada pedido é preparado e postado pelos Correios direto de Santana de Parnaíba — SP para qualquer endereço do Brasil.
+              Cada pedido é preparado com cuidado e enviado pelos Correios para qualquer endereço do Brasil.
             </p>
             <ul style={{ listStyle:'none', padding:0, margin:'0 0 32px' }}>
               {['📦 Embalagem protetora kraft','🔍 Código de rastreamento por email','⏱ PAC: 5–15 dias úteis por região','⚡ SEDEX disponível para entrega expressa','↩️ 7 dias para devolução (CDC)'].map(item => (
