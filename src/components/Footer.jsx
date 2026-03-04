@@ -109,6 +109,11 @@ const Footer = () => {
           {/* O Livro */}
           <div>
             <h3 className="font-body font-semibold text-white mb-4">O Livro</h3>
+            <img
+              src="/images/capa livro.png"
+              alt="Capa do livro Como Vencer a Dor de Ser Trocado Por Outro"
+              className="w-28 h-auto rounded mb-3 shadow-lg"
+            />
             <div className="space-y-2 text-sm text-text-muted">
               <div className="flex items-center gap-2">
                 <BookOpen size={16} />

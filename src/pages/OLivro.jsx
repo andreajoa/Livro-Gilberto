@@ -3,6 +3,11 @@ import { BookOpen, HeartPulse, Lightbulb, Shield, ArrowRight, Code } from 'lucid
 import { Link } from 'react-router-dom';
 import bookFront from '../assets/book-front.jpg';
 
+const emotionalImages = [
+  { src: '/images/Whisk_d5b6832c4aa21b8b33643c09648fa516dr.png', alt: 'Coragem' },
+  { src: '/images/Whisk_dbadcbde16cc6d18f2740b4f53af60eadr.png', alt: 'Liberdade' },
+];
+
 const Book = () => {
   const bookDetails = [
     { label: 'Título', value: 'Como Vencer a Dor de Ser Trocado Por Outro' },
@@ -163,30 +168,61 @@ const Book = () => {
 
       {/* Synopsis */}
       <section className="py-24 grain-overlay">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="font-display font-bold text-3xl sm:text-4xl mb-8 text-center">
-              Sinopse
-            </h2>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-5 gap-12">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="lg:col-span-3"
+            >
+              <h2 className="font-display font-bold text-3xl sm:text-4xl mb-8 text-center lg:text-left">
+                Sinopse
+              </h2>
 
-            <div className="bg-navy-mid p-8 md:p-12 rounded-2xl border-l-4 border-cyan">
-              <p className="text-lg leading-relaxed mb-6">
-                Este livro é a crônica honesta e vulnerável de um homem que dedicou anos de sua vida a construir um relacionamento, só para ser trocado quando sua parceira estava em seu melhor momento. É a história de alguém que, de repente, se viu sozinho, questionando seu valor e se tudo aquilo que construiu tinha sido em vão.
-              </p>
+              <div className="bg-navy-mid p-8 md:p-12 rounded-2xl border-l-4 border-cyan">
+                <p className="text-lg leading-relaxed mb-6">
+                  Este livro é a crônica honesta e vulnerável de um homem que dedicou anos de sua vida a construir um relacionamento, só para ser trocado quando sua parceira estava em seu melhor momento. É a história de alguém que, de repente, se viu sozinho, questionando seu valor e se tudo aquilo que construiu tinha sido em vão.
+                </p>
 
-              <p className="text-lg leading-relaxed mb-6">
-                Mas é também a história da superação. De como, aos poucos, aprendeu que sua validação não dependia de outra pessoa. De como encontrou forças para reconstruir sua autoestima e, eventualmente, voltar a acreditar no amor — mas desta vez de forma diferente, mais consciente e menos dependente.
-              </p>
+                <p className="text-lg leading-relaxed mb-6">
+                  Mas é também a história da superação. De como, aos poucos, aprendeu que sua validação não dependia de outra pessoa. De como encontrou forças para reconstruir sua autoestima e, eventualmente, voltar a acreditar no amor — mas desta vez de forma diferente, mais consciente e menos dependente.
+                </p>
 
-              <p className="text-lg leading-relaxed">
-                Escrito de forma direta e sem enfeites, este livro não oferece fórmulas mágicas. Oferece companhia. A certeza de que você não está sozinho nessa dor, e que outros já trilharam esse caminho e encontraram a luz no fim do túnel.
-              </p>
-            </div>
-          </motion.div>
+                <p className="text-lg leading-relaxed">
+                  Escrito de forma direta e sem enfeites, este livro não oferece fórmulas mágicas. Oferece companhia. A certeza de que você não está sozinho nessa dor, e que outros já trilharam esse caminho e encontraram a luz no fim do túnel.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Emotional Images Side */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="lg:col-span-2 flex flex-col gap-6"
+            >
+              {emotionalImages.map((img, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.2 }}
+                  className="relative"
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    className="rounded-2xl shadow-2xl w-full"
+                  />
+                  <div className="absolute bottom-4 left-4 bg-navy/80 px-4 py-2 rounded-lg backdrop-blur-sm">
+                    <p className="text-sm text-cyan-light">{img.alt}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </section>
 

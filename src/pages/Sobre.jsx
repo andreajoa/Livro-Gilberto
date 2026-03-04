@@ -3,6 +3,11 @@ import { MapPin, Building2, HeartPulse, PenTool, ArrowRight } from 'lucide-react
 import { Link } from 'react-router-dom';
 import authorImg from '../assets/author.jpg';
 
+const emotionalImages = [
+  { src: '/images/Whisk_e9acd35e6c0a93d998a4c0dbe160bba5dr.png', alt: 'Luz no Fim do Túnel' },
+  { src: '/images/Whisk_0ff19b3870d52b9937349e384106b917dr.png', alt: 'Esperança' },
+];
+
 const About = () => {
   const timeline = [
     {
@@ -47,6 +52,14 @@ const About = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative min-h-[60vh] grain-overlay flex items-center justify-center overflow-hidden">
+        {/* Background emotional image */}
+        <div className="absolute inset-0 opacity-20">
+          <img
+            src={emotionalImages[0].src}
+            alt={emotionalImages[0].alt}
+            className="w-full h-full object-cover"
+          />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy to-cyan/10" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10 text-center">
@@ -124,40 +137,57 @@ const About = () => {
 
       {/* Mission Section */}
       <section className="py-24 grain-overlay">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <h2 className="font-display font-bold text-3xl sm:text-4xl mb-8">
-              Por que escrevi este livro
-            </h2>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-3 gap-12 items-center">
+            <div className="lg:col-span-2">
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+              >
+                <h2 className="font-display font-bold text-3xl sm:text-4xl mb-8">
+                  Por que escrevi este livro
+                </h2>
 
-            <blockquote className="font-editorial italic text-2xl sm:text-3xl text-cyan-light leading-relaxed mb-12">
-              "Escrevi este livro porque sei que não estou sozinho. Se você está lendo isso, provavelmente também passou por algo parecido. E quero que você saiba: há luz no fim do túnel."
-            </blockquote>
+                <blockquote className="font-editorial italic text-2xl sm:text-3xl text-cyan-light leading-relaxed mb-12">
+                  "Escrevi este livro porque sei que não estou sozinho. Se você está lendo isso, provavelmente também passou por algo parecido. E quero que você saiba: há luz no fim do túnel."
+                </blockquote>
 
-            <div className="editorial-divider mb-12" />
+                <div className="editorial-divider mb-12" />
 
-            <p className="text-text-muted text-lg mb-8">
-              Quando fui traído, senti como se o mundo tivesse desmoronado. Anos de dedicação, de construir uma vida juntos, pareciam não ter valor algum. Entrei em uma depressão que quase me consumiu.
-            </p>
+                <p className="text-text-muted text-lg mb-8">
+                  Quando fui traído, senti como se o mundo tivesse desmoronado. Anos de dedicação, de construir uma vida juntos, pareciam não ter valor algum. Entrei em uma depressão que quase me consumiu.
+                </p>
 
-            <p className="text-text-muted text-lg mb-8">
-              Mas em algum momento, decidi que não deixaria aquela experiência definir quem eu era. Comecei a buscar respostas, a entender que minha validação não dependia de outra pessoa, e que merecia ser amado por quem eu realmente era.
-            </p>
+                <p className="text-text-muted text-lg mb-8">
+                  Mas em algum momento, decidi que não deixaria aquela experiência definir quem eu era. Comecei a buscar respostas, a entender que minha validação não dependia de outra pessoa, e que merecia ser amado por quem eu realmente era.
+                </p>
 
-            <p className="text-text-muted text-lg mb-12">
-              Este livro é o resultado dessa jornada. Não é um manual de como esquecer — porque esquecer não é o objetivo. É sobre como transformar a dor em sabedoria, como reconstruir sua autoestima e como, um dia, voltar a amar — sem medo.
-            </p>
+                <p className="text-text-muted text-lg mb-12">
+                  Este livro é o resultado dessa jornada. Não é um manual de como esquecer — porque esquecer não é o objetivo. É sobre como transformar a dor em sabedoria, como reconstruir sua autoestima e como, um dia, voltar a amar — sem medo.
+                </p>
 
-            <Link to="/o-livro" className="btn-primary">
-              Leia o Livro
-              <ArrowRight size={18} />
-            </Link>
-          </motion.div>
+                <Link to="/o-livro" className="btn-primary">
+                  Leia o Livro
+                  <ArrowRight size={18} />
+                </Link>
+              </motion.div>
+            </div>
+
+            {/* Emotional Image Side */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="hidden lg:block"
+            >
+              <img
+                src={emotionalImages[1].src}
+                alt={emotionalImages[1].alt}
+                className="rounded-2xl shadow-2xl"
+              />
+            </motion.div>
+          </div>
         </div>
       </section>
 

@@ -2,10 +2,10 @@ import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { Link as ScrollLink, Element } from 'react-scroll';
 import { Link as RouterLink } from 'react-router-dom';
-import { Heart, Brain, Frown, User, Book, HeartPulse, Quote, ArrowRight, Check, Mail, Shield, Sparkles } from 'lucide-react';
+import { Heart, Brain, Frown, User, Book, HeartPulse, Quote, Check, Sparkles, ArrowRight } from 'lucide-react';
 import bookFront from '../assets/book-front.jpg';
 import authorImg from '../assets/author.jpg';
-import { useForm } from 'react-hook-form';
+import AddToCartButton from '../components/AddToCartButton';
 
 const fadeUpVariant = {
   hidden: { opacity: 0, y: 40 },
@@ -59,10 +59,15 @@ const emotionalImages = [
   { src: '/images/Whisk_49e2674e2579cf2acda4c4730dc4e78bdr.png', alt: 'Cura' },
   { src: '/images/Whisk_638147bfa9a109caf2e4067e7fa3886fdr.png', alt: 'Renascimento' },
   { src: '/images/Whisk_b551161facc7831ae484d8ecb5a3f7eedr.png', alt: 'Evolução' },
+  { src: '/images/Whisk_ce8de7f1eb7800cb1854d80be6231661dr.png', alt: 'Determinação' },
+  { src: '/images/Whisk_d5b6832c4aa21b8b33643c09648fa516dr.png', alt: 'Coragem' },
+  { src: '/images/Whisk_dbadcbde16cc6d18f2740b4f53af60eadr.png', alt: 'Liberdade' },
+  { src: '/images/Whisk_e4c5439d534e5efb8ae427b823eabf91dr.png', alt: 'Novos Horizontes' },
+  { src: '/images/Whisk_e8db8cd7443cc68a3b74683e261e9e5ddr.png', alt: 'Paz Interior' },
+  { src: '/images/Whisk_e9acd35e6c0a93d998a4c0dbe160bba5dr.png', alt: 'Luz no Fim do Túnel' },
 ];
 
 const Home = () => {
-  const { register, handleSubmit } = useForm();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const heroRef = useRef(null);
@@ -70,27 +75,8 @@ const Home = () => {
   const authorRef = useRef(null);
   const whatRef = useRef(null);
   const quoteRef = useRef(null);
-  const formRef = useRef(null);
   const faqRef = useRef(null);
   const galleryRef = useRef(null);
-
-  const onSubmit = (data) => {
-    const subject = `Pedido do Livro - ${data.name}`;
-    const body = `
-Nome: ${data.name}
-Email: ${data.email}
-Telefone: ${data.phone}
-CEP: ${data.cep}
-Endereço: ${data.address}, ${data.number}
-Complemento: ${data.complement}
-Cidade: ${data.city}
-Estado: ${data.state}
-
-Tipo de pedido: Livro Físico - Como Vencer a Dor de Ser Trocado Por Outro
-`.trim();
-
-    window.location.href = `mailto:contato@gilbertosouza.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  };
 
   const faqItems = [
     {
@@ -155,10 +141,7 @@ Tipo de pedido: Livro Físico - Como Vencer a Dor de Ser Trocado Por Outro
                 </p>
 
                 <div className="flex flex-wrap gap-4">
-                  <ScrollLink to="comprar" smooth={true} className="btn-primary">
-                    Quero Este Livro
-                    <ArrowRight size={18} />
-                  </ScrollLink>
+                  <AddToCartButton label="Quero Este Livro" />
                   <ScrollLink to="historia" smooth={true} className="btn-secondary">
                     Conheça a História
                   </ScrollLink>
@@ -200,7 +183,7 @@ Tipo de pedido: Livro Físico - Como Vencer a Dor de Ser Trocado Por Outro
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {emotionalImages.map((img, index) => (
               <motion.div
                 key={index}
@@ -381,9 +364,9 @@ Tipo de pedido: Livro Físico - Como Vencer a Dor de Ser Trocado Por Outro
         </div>
       </Element>
 
-      {/* Order Form */}
-      <Element name="comprar" ref={formRef} className="py-24 bg-navy-mid">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Order Section */}
+      <Element name="comprar" className="py-24 bg-navy-mid">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -391,128 +374,36 @@ Tipo de pedido: Livro Físico - Como Vencer a Dor de Ser Trocado Por Outro
             className="text-center mb-12"
           >
             <h2 className="font-display font-bold text-3xl sm:text-4xl mb-4">
-              Receba o Livro em Casa
+              Comece Sua Jornada de Superação
             </h2>
-            <p className="text-text-muted">
-              Preencha seus dados e entraremos em contato para finalizar seu pedido
+            <p className="text-text-muted max-w-2xl mx-auto">
+              Clique no botão abaixo para adicionar o livro ao carrinho e finalize seu pedido com frete calculado automaticamente.
             </p>
           </motion.div>
 
-          <motion.form
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            onSubmit={handleSubmit(onSubmit)}
-            className="bg-navy p-8 rounded-2xl border border-navy-light"
+            className="bg-navy p-8 rounded-2xl border border-navy-light text-center"
           >
-            <div className="grid md:grid-cols-2 gap-4 mb-4">
-              <div>
-                <label className="block text-sm mb-2">Nome Completo *</label>
-                <input
-                  {...register('name', { required: true })}
-                  placeholder="Seu nome completo"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm mb-2">Email *</label>
-                <input
-                  {...register('email', { required: true })}
-                  type="email"
-                  placeholder="seu@email.com"
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-4 mb-4">
-              <div>
-                <label className="block text-sm mb-2">Telefone *</label>
-                <input
-                  {...register('phone', { required: true })}
-                  placeholder="(11) 99999-9999"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm mb-2">CEP *</label>
-                <input
-                  {...register('cep', { required: true })}
-                  placeholder="00000-000"
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-4 mb-4">
-              <div className="md:col-span-2">
-                <label className="block text-sm mb-2">Endereço *</label>
-                <input
-                  {...register('address', { required: true })}
-                  placeholder="Rua, Avenida, etc."
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm mb-2">Número *</label>
-                <input
-                  {...register('number', { required: true })}
-                  placeholder="123"
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-4 mb-4">
-              <div>
-                <label className="block text-sm mb-2">Complemento</label>
-                <input
-                  {...register('complement')}
-                  placeholder="Apto, Bloco"
-                />
-              </div>
-              <div>
-                <label className="block text-sm mb-2">Cidade *</label>
-                <input
-                  {...register('city', { required: true })}
-                  placeholder="Sua cidade"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm mb-2">Estado *</label>
-                <input
-                  {...register('state', { required: true })}
-                  placeholder="UF"
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="border-t border-navy-light pt-6 mt-6">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-text-muted">Livro Físico</span>
-                <span className="font-bold text-lg">R$ --,--</span>
-              </div>
-              <div className="flex justify-between items-center mb-6">
-                <span className="text-text-muted">Frete (Correios)</span>
-                <span className="text-cyan">A calcular</span>
-              </div>
-
-              <button type="submit" className="w-full btn-primary text-lg">
-                <Mail size={20} />
-                Finalizar Pedido
-              </button>
-            </div>
-
-            <div className="mt-6 text-center text-sm text-text-muted">
+            <img
+              src={bookFront}
+              alt="Capa do livro Como Vencer a Dor de Ser Trocado Por Outro"
+              className="w-48 h-auto mx-auto mb-6 book-image"
+            />
+            <h3 className="font-display font-bold text-2xl mb-2">Como Vencer a Dor de Ser Trocado Por Outro</h3>
+            <p className="text-text-muted mb-6">Livro Físico - 1ª Edição</p>
+            <p className="font-display font-bold text-4xl text-cyan mb-8">R$ 49,90</p>
+            <AddToCartButton label="Adicionar ao Carrinho" />
+            <div className="mt-8 text-sm text-text-muted">
               <div className="flex items-center justify-center gap-2 mb-2">
-                <span className="text-cyan">📦</span>
+                <span>📦</span>
                 <span>Enviado pelos Correios para todo o Brasil</span>
               </div>
               <span>Prazo estimado: 5 a 15 dias úteis</span>
             </div>
-          </motion.form>
+          </motion.div>
         </div>
       </Element>
 

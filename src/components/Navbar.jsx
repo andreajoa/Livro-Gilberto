@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, BookOpen } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import CartIcon from './CartIcon'
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -72,15 +73,9 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
-            <button
-              onClick={() => handleNavClick('/', 'comprar')}
-              className="btn-primary text-sm"
-            >
-              <BookOpen size={16} />
-              Comprar Livro
-            </button>
+          {/* Cart Icon */}
+          <div className="md:hidden">
+            <CartIcon />
           </div>
 
           {/* Mobile Menu Button */}
@@ -107,20 +102,12 @@ const Navbar = () => {
                 <Link
                   key={link.name}
                   to={link.to}
-                  onClick={() => handleNavClick(link.to, link.scroll)}
-                  className={`block font-body text-sm tracking-wide ${
-                    location.pathname === link.to ? 'text-cyan' : 'text-white'
-                  }`}
+                  onClick={() => handleNavClick(link.to)}
+                  className="block font-body text-sm tracking-wide text-white"
                 >
                   {link.name}
                 </Link>
               ))}
-              <button
-                onClick={() => handleNavClick('/', 'comprar')}
-                className="w-full btn-primary"
-              >
-                Comprar Livro
-              </button>
             </div>
           </motion.div>
         )}
