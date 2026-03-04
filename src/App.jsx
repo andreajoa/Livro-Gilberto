@@ -65,10 +65,10 @@ function AnimatedRoutes() {
 function App() {
   return (
     <HelmetProvider>
-      <div className="min-h-screen flex flex-col">
+      <div style={{ minHeight:'100vh', display:'flex', flexDirection:'column' }}>
         <Navbar />
         <ScrollToTop />
-        <main className="flex-grow">
+        <main style={{ flex:'1 0 auto' }}>
           <AnimatedRoutes />
         </main>
         <Footer />

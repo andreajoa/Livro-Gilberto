@@ -28,28 +28,49 @@ const Home = () => {
     <div className="min-h-screen">
 
       {/* BLOCO 1 — HERO */}
-      <section style={{ position:'relative', minHeight:'100vh', display:'flex', alignItems:'center', overflow:'hidden' }}>
+      <section style={{ position:'relative', minHeight:'100vh', display:'flex', alignItems:'flex-end', overflow:'hidden' }}>
         <img src={bannerWide} alt="Como Vencer a Dor de Ser Trocado Por Outro — Gilberto de Souza"
           style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center top' }} />
-        <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 40% 30%, transparent 60%, rgba(13,27,62,0.75) 100%)', height:'150%' }} />
-        <div style={{ position:'relative', zIndex:2, padding:'0 8vw', maxWidth:600 }}>
-          <motion.div initial={{ opacity:0, x:-40 }} animate={{ opacity:1, x:0 }} transition={{ duration:0.8 }}>
-            <span style={{ display:'inline-block', background:'rgba(0,196,212,0.15)', border:'1px solid rgba(0,196,212,0.3)', color:'#00C4D4', fontSize:11, fontWeight:700, letterSpacing:3, padding:'6px 14px', borderRadius:2, marginBottom:28, textTransform:'uppercase' }}>
-              📖 Lançamento 2026
-            </span>
-            <h1 style={{ fontFamily:"'Playfair Display', serif", fontSize:'clamp(40px,5.5vw,72px)', lineHeight:1.05, color:'#fff', marginBottom:20 }}>
-              Como Vencer<br />
-              <span style={{ color:'#00C4D4' }}>A Dor de Ser<br />Trocado Por Outro</span>
+        {/* Gradiente suave só na parte inferior para o texto respirar */}
+        <div style={{ position:'absolute', inset:0, background:'linear-gradient(to top, rgba(9,20,34,0.96) 0%, rgba(9,20,34,0.7) 35%, rgba(9,20,34,0.15) 65%, transparent 100%)' }} />
+        {/* Overlay lateral leve para o texto da esquerda */}
+        <div style={{ position:'absolute', inset:0, background:'linear-gradient(to right, rgba(9,20,34,0.6) 0%, transparent 55%)' }} />
+
+        {/* Texto centralizado horizontalmente na parte inferior */}
+        <div style={{ position:'relative', zIndex:2, width:'100%', padding:'0 8vw 80px' }}>
+          <motion.div initial={{ opacity:0, y:30 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.9, ease:'easeOut' }}
+            style={{ maxWidth:750 }}>
+
+            {/* Badge + título em linha horizontal */}
+            <div style={{ display:'flex', alignItems:'center', gap:16, marginBottom:20, flexWrap:'wrap' }}>
+              <span style={{ background:'rgba(0,196,212,0.15)', border:'1px solid rgba(0,196,212,0.35)', color:'#00C4D4', fontSize:10, fontWeight:700, letterSpacing:3, padding:'5px 14px', borderRadius:2, textTransform:'uppercase', flexShrink:0 }}>
+                📖 Lançamento 2026
+              </span>
+              <div style={{ height:1, flex:1, background:'rgba(0,196,212,0.2)', minWidth:40 }} />
+            </div>
+
+            {/* Título em linha — mais compacto e horizontal */}
+            <h1 style={{ fontFamily:"'Playfair Display', serif", fontSize:'clamp(32px,4.5vw,64px)', lineHeight:1.1, color:'#fff', marginBottom:16, fontWeight:900 }}>
+              Como Vencer{'  '}
+              <span style={{ color:'#00C4D4', fontStyle:'italic' }}>A Dor</span>
+              {'  '}<span style={{ color:'rgba(255,255,255,0.7)', fontSize:'0.7em', fontWeight:300 }}>de ser trocado por outro</span>
             </h1>
-            <p style={{ fontFamily:"'Cormorant Garant', serif", fontStyle:'italic', fontSize:'clamp(18px,2vw,24px)', color:'#8A9BBF', marginBottom:36 }}>
-              Você não está sozinho
-            </p>
+
+            {/* Linha separadora + subtítulo */}
+            <div style={{ display:'flex', alignItems:'center', gap:20, marginBottom:32 }}>
+              <div style={{ width:48, height:2, background:'#00C4D4', flexShrink:0 }} />
+              <p style={{ fontFamily:"'Cormorant Garant', serif", fontStyle:'italic', fontSize:'clamp(16px,1.6vw,22px)', color:'#8A9BBF', margin:0 }}>
+                Você não está sozinho — a história real de quem venceu a dor da traição
+              </p>
+            </div>
+
             <div style={{ display:'flex', flexWrap:'wrap', gap:14 }}>
               <AddToCartButton label="Quero Este Livro" />
-              <a href="#historia" style={{ border:'1px solid rgba(255,255,255,0.2)', color:'#fff', padding:'15px 28px', borderRadius:3, textDecoration:'none', fontSize:14, fontWeight:500 }}>
+              <a href="#historia" style={{ border:'1px solid rgba(255,255,255,0.25)', color:'#fff', padding:'15px 28px', borderRadius:3, textDecoration:'none', fontSize:14, fontWeight:500, backdropFilter:'blur(4px)', background:'rgba(255,255,255,0.04)' }}>
                 Conheça a História ↓
               </a>
             </div>
+
           </motion.div>
         </div>
       </section>
@@ -64,7 +85,7 @@ const Home = () => {
           <div style={{ display:'flex', flexDirection:'column', alignItems:'center' }}>
             <motion.img src={bookCover} alt="Capa do livro"
               animate={{ y:[0,-14,0] }} transition={{ duration:4, repeat:Infinity, ease:'easeInOut' }}
-              style={{ width:'min(300px,80%)', borderRadius:4, boxShadow:'24px 32px 80px rgba(0,0,0,0.7), 0 0 60px rgba(0,196,212,0.12)', display:'block' }} />
+              style={{ width:'min(300px,80%)', borderRadius:4, boxShadow:'24px 32px 80px rgba(0,0,0,0.7), 0 0 60px rgba(0,196,212,0.12)', display:'block', mixBlendMode:'lighten' }} />
             <div style={{ width:'55%', height:18, background:'radial-gradient(ellipse, rgba(0,0,0,0.45) 0%, transparent 70%)', borderRadius:'50%', marginTop:14 }} />
           </div>
           <div>
