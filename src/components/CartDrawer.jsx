@@ -16,6 +16,7 @@ export default function CartDrawer() {
   }
 
   return (
+    <>
     <AnimatePresence>
       {cartOpen && (
         <>
@@ -203,5 +204,6 @@ export default function CartDrawer() {
     </AnimatePresence>
 
     <CheckoutForm isOpen={showCheckout} onClose={() => setShowCheckout(false)} />
+    </>
   )
 }
