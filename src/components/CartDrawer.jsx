@@ -11,8 +11,8 @@ export default function CartDrawer() {
   const [showCheckout, setShowCheckout] = useState(false)
 
   const handleCheckout = () => {
-    setShowCheckout(true)
     setCartOpen(false)
+    setTimeout(() => setShowCheckout(true), 300)
   }
 
   return (
@@ -198,10 +198,10 @@ export default function CartDrawer() {
 
           </motion.div>
 
-          <CheckoutForm isOpen={showCheckout} onClose={() => setShowCheckout(false)} />
-
         </>
       )}
     </AnimatePresence>
+
+    <CheckoutForm isOpen={showCheckout} onClose={() => setShowCheckout(false)} />
   )
 }
