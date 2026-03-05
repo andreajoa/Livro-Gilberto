@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Gilberto de Souza</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', sans-serif; background: #060C18; color: #fff; min-height: 100vh; }
+  .header { background: linear-gradient(135deg, #0D1B3E, #152347); border-bottom: 1px solid rgba(0,196,212,0.2); padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .header h1 { font-size: 20px; font-weight: 700; color: #fff; }
+  .header p { font-size: 12px; color: #8A9BBF; margin-top: 2px; }
+  .refresh-btn { background: rgba(0,196,212,0.15); border: 1px solid rgba(0,196,212,0.3); color: #00C4D4; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; }
+  .refresh-btn:hover { background: rgba(0,196,212,0.25); }
+  .container { padding: 24px 32px; max-width: 1400px; margin: 0 auto; }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .stat-card { background: linear-gradient(135deg, #0D1B3E, #111f3a); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 20px; }
+  .stat-card .label { font-size: 11px; color: #8A9BBF; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .stat-card .value { font-size: 32px; font-weight: 900; color: #00C4D4; }
+  .stat-card .sub { font-size: 11px; color: #8A9BBF; margin-top: 4px; }
+  .section { margin-bottom: 32px; }
+  .section-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .section-title span { width: 4px; height: 18px; background: #00C4D4; border-radius: 2px; display: inline-block; }
+  .table-wrap { background: #0D1B3E; border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; }
+  th { background: rgba(0,196,212,0.08); padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 700; color: #8A9BBF; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  td { padding: 13px 16px; font-size: 13px; color: #C8D8F0; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+  .badge-pending { background: rgba(251,191,36,0.15); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+  .badge-sent { background: rgba(0,196,212,0.15); color: #00C4D4; border: 1px solid rgba(0,196,212,0.3); }
+  .badge-paid { background: rgba(34,197,94,0.15); color: #22c55e; border: 1px solid rgba(34,197,94,0.3); }
+  .empty { padding: 32px; text-align: center; color: #8A9BBF; font-size: 13px; }
+  .chat-item { background: #0D1B3E; border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
+  .chat-header { padding: 12px 16px; background: rgba(0,196,212,0.06); border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+  .chat-header h4 { font-size: 13px; color: #fff; font-weight: 600; }
+  .chat-header p { font-size: 11px; color: #8A9BBF; }
+  .chat-messages { padding: 16px; display: none; }
+  .chat-messages.open { display: block; }
+  .msg { margin-bottom: 12px; }
+  .msg .user { background: rgba(0,196,212,0.1); border-left: 3px solid #00C4D4; padding: 8px 12px; border-radius: 0 8px 8px 0; font-size: 13px; color: #C8D8F0; margin-bottom: 4px; }
+  .msg .bia { background: rgba(255,255,255,0.04); border-left: 3px solid #8A9BBF; padding: 8px 12px; border-radius: 0 8px 8px 0; font-size: 13px; color: #8A9BBF; white-space: pre-line; }
+  .msg .time { font-size: 10px; color: #4a5568; margin-top: 3px; }
+  .address-block { font-size: 12px; line-height: 1.8; }
+  .tabs { display: flex; gap: 8px; margin-bottom: 24px; }
+  .tab { padding: 8px 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: none; color: #8A9BBF; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+  .tab.active { background: rgba(0,196,212,0.15); border-color: rgba(0,196,212,0.4); color: #00C4D4; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  .loading { text-align: center; padding: 60px; color: #8A9BBF; }
+  .total-highlight { font-size: 15px; font-weight: 900; color: #00C4D4; }
+  .copy-btn { background: rgba(0,196,212,0.1); border: 1px solid rgba(0,196,212,0.2); color: #00C4D4; padding: 3px 8px; border-radius: 4px; font-size: 10px; cursor: pointer; margin-left: 6px; }
+  .copy-btn:hover { background: rgba(0,196,212,0.2); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>📚 Dashboard — Gilberto de Souza</h1>
+    <p id="lastUpdate">Carregando...</p>
+  </div>
+  <button class="refresh-btn" onclick="loadData()">↻ Atualizar</button>
+</div>
+
+<div class="container">
+  <div class="stats-grid" id="stats">
+    <div class="stat-card"><div class="label">Carregando</div><div class="value">...</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('orders')">📦 Pedidos</button>
+    <button class="tab" onclick="showTab('leads')">📧 Leads</button>
+    <button class="tab" onclick="showTab('chats')">💬 Conversas BIA</button>
+    <button class="tab" onclick="showTab('carts')">🛒 Carrinhos</button>
+  </div>
+
+  <div id="orders" class="tab-content active"></div>
+  <div id="leads" class="tab-content"></div>
+  <div id="chats" class="tab-content"></div>
+  <div id="carts" class="tab-content"></div>
+</div>
+
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById(name).classList.add('active');
+}
+
+function fmt(iso) {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+}
+
+function copy(text) {
+  navigator.clipboard.writeText(text);
+}
+
+async function loadData() {
+  document.getElementById('lastUpdate').textContent = 'Atualizando...';
+  try {
+    const res = await fetch('http://localhost:3001/api/dashboard');
+    const d = await res.json();
+    renderStats(d.stats);
+    renderOrders(d.orders || []);
+    renderLeads(d.leads || []);
+    renderChats(d.chats || []);
+    renderCarts(d.carts || {});
+    document.getElementById('lastUpdate').textContent = 'Atualizado: ' + new Date().toLocaleTimeString('pt-BR');
+  } catch(e) {
+    document.getElementById('lastUpdate').textContent = '⚠️ Servidor offline. Inicie com: node server.js';
+  }
+}
+
+function renderStats(s) {
+  document.getElementById('stats').innerHTML = `
+    <div class="stat-card"><div class="label">Pedidos</div><div class="value">${s.totalOrders}</div><div class="sub">total de pedidos</div></div>
+    <div class="stat-card"><div class="label">Leads</div><div class="value">${s.totalLeads}</div><div class="sub">emails captados</div></div>
+    <div class="stat-card"><div class="label">Visitantes</div><div class="value">${s.totalUniqueVisitors}</div><div class="sub">únicos</div></div>
+    <div class="stat-card"><div class="label">Conversão</div><div class="value">${s.conversionRate}%</div><div class="sub">leads/visitantes</div></div>
+    <div class="stat-card"><div class="label">Conversas BIA</div><div class="value">${s.totalChats || 0}</div><div class="sub">atendimentos</div></div>
+    <div class="stat-card"><div class="label">Carrinhos Abertos</div><div class="value">${s.abandonedCarts}</div><div class="sub">sem finalizar</div></div>
+  `;
+}
+
+function renderOrders(orders) {
+  if (!orders.length) {
+    document.getElementById('orders').innerHTML = '<div class="empty">Nenhum pedido ainda.</div>';
+    return;
+  }
+  const rows = orders.slice().reverse().map(o => `
+    <tr>
+      <td><strong style="color:#fff">${o.id}</strong><br><span style="font-size:11px;color:#8A9BBF">${fmt(o.createdAt)}</span></td>
+      <td>
+        <strong style="color:#fff">${o.customer.name}</strong><br>
+        <a href="mailto:${o.customer.email}" style="color:#00C4D4;text-decoration:none;font-size:12px">${o.customer.email}</a>
+        <button class="copy-btn" onclick="copy('${o.customer.email}')">copiar</button><br>
+        <a href="https://wa.me/55${o.customer.whatsapp.replace(/\D/g,'')}" target="_blank" style="color:#22c55e;text-decoration:none;font-size:12px">📱 ${o.customer.whatsapp}</a>
+        <button class="copy-btn" onclick="copy('${o.customer.whatsapp}')">copiar</button>
+      </td>
+      <td class="address-block">
+        📍 ${o.shipping.address}<br>
+        ${o.shipping.neighborhood ? o.shipping.neighborhood + '<br>' : ''}
+        ${o.shipping.complement ? '🏠 ' + o.shipping.complement + '<br>' : ''}
+        ${o.shipping.reference ? '📌 ' + o.shipping.reference + '<br>' : ''}
+        ${o.shipping.city} — ${o.shipping.state.toUpperCase()}<br>
+        <strong>CEP: ${o.shipping.cep}</strong>
+      </td>
+      <td>
+        ${o.items.quantity}x livro<br>
+        <span style="font-size:11px;color:#8A9BBF">Frete: R$ ${(o.items.shippingPrice||0).toFixed(2)}</span><br>
+        <span class="total-highlight">R$ ${o.items.total.toFixed(2)}</span>
+      </td>
+      <td>
+        <span class="badge badge-${o.status === 'pendente' ? 'pending' : o.status === 'enviado' ? 'sent' : 'paid'}">${o.status}</span>
+      </td>
+    </tr>
+  `).join('');
+
+  document.getElementById('orders').innerHTML = `
+    <div class="section">
+      <div class="section-title"><span></span>Pedidos Recebidos (${orders.length})</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Pedido</th><th>Cliente</th><th>Endereço de Entrega</th><th>Valor</th><th>Status</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+function renderLeads(leads) {
+  if (!leads.length) {
+    document.getElementById('leads').innerHTML = '<div class="empty">Nenhum lead ainda.</div>';
+    return;
+  }
+  const rows = leads.slice().reverse().map(l => `
+    <tr>
+      <td><strong style="color:#fff">${l.name}</strong></td>
+      <td><a href="mailto:${l.email}" style="color:#00C4D4;text-decoration:none">${l.email}</a> <button class="copy-btn" onclick="copy('${l.email}')">copiar</button></td>
+      <td><a href="https://wa.me/55${l.whatsapp.replace(/\D/g,'')}" target="_blank" style="color:#22c55e;text-decoration:none">📱 ${l.whatsapp}</a> <button class="copy-btn" onclick="copy('${l.whatsapp}')">copiar</button></td>
+      <td style="font-size:12px;color:#8A9BBF">${fmt(l.createdAt)}</td>
+      <td><span class="badge" style="background:rgba(0,196,212,0.1);color:#00C4D4;border:1px solid rgba(0,196,212,0.3)">${l.source || 'popup'}</span></td>
+    </tr>
+  `).join('');
+
+  document.getElementById('leads').innerHTML = `
+    <div class="section">
+      <div class="section-title"><span></span>Leads Captados (${leads.length})</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Nome</th><th>Email</th><th>WhatsApp</th><th>Data</th><th>Origem</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+function renderChats(chats) {
+  if (!chats.length) {
+    document.getElementById('chats').innerHTML = '<div class="empty">Nenhuma conversa ainda.</div>';
+    return;
+  }
+  const items = chats.slice().reverse().map((c, i) => `
+    <div class="chat-item">
+      <div class="chat-header" onclick="toggleChat(${i})">
+        <div>
+          <h4>💬 Conversa ${c.chatId.substring(0,16)}...</h4>
+          <p>${fmt(c.createdAt)} · ${c.messages.length} mensagens · Visitante: ${c.visitorId.substring(0,20)}</p>
+        </div>
+        <span style="color:#8A9BBF;font-size:18px" id="arrow-${i}">▼</span>
+      </div>
+      <div class="chat-messages" id="chat-${i}">
+        ${c.messages.map(m => `
+          <div class="msg">
+            <div class="user">👤 ${m.user}</div>
+            <div class="bia">🤖 BIA: ${m.bia}</div>
+            <div class="time">${fmt(m.timestamp)}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('chats').innerHTML = `
+    <div class="section">
+      <div class="section-title"><span></span>Conversas com BIA (${chats.length})</div>
+      ${items}
+    </div>`;
+}
+
+function toggleChat(i) {
+  const el = document.getElementById('chat-' + i);
+  const arrow = document.getElementById('arrow-' + i);
+  el.classList.toggle('open');
+  arrow.textContent = el.classList.contains('open') ? '▲' : '▼';
+}
+
+function renderCarts(carts) {
+  const entries = Object.entries(carts);
+  if (!entries.length) {
+    document.getElementById('carts').innerHTML = '<div class="empty">Nenhum carrinho ainda.</div>';
+    return;
+  }
+  const rows = entries.map(([vid, c]) => `
+    <tr>
+      <td style="font-size:11px;color:#8A9BBF">${vid}</td>
+      <td>${c.quantity}x livro</td>
+      <td>${c.shipping ? c.shipping.name + ' — R$ ' + c.shipping.price.toFixed(2) : '—'}</td>
+      <td style="font-size:12px;color:#8A9BBF">${fmt(c.updatedAt)}</td>
+      <td><span class="badge ${c.recovered ? 'badge-paid' : 'badge-pending'}">${c.recovered ? 'recuperado' : 'abandonado'}</span></td>
+    </tr>
+  `).join('');
+
+  document.getElementById('carts').innerHTML = `
+    <div class="section">
+      <div class="section-title"><span></span>Carrinhos (${entries.length})</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Visitante</th><th>Itens</th><th>Frete</th><th>Última Atividade</th><th>Status</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+loadData();
+setInterval(loadData, 30000);
+</script>
+</body>
+</html>

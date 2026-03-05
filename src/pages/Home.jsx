@@ -81,7 +81,6 @@ export default function Home() {
             }}>
               Como Vencer<br />
               <span style={{ color:'#00C4D4' }}>A Dor</span>{' '}
-              <span style={{ fontSize:'0.65em', fontWeight:400, color:'rgba(255,255,255,0.75)', fontStyle:'italic' }}>de ser trocado por outro</span>
             </h1>
 
             {/* Prova social / credencial */}
@@ -102,7 +101,7 @@ export default function Home() {
 
             {/* CTAs */}
             <div style={{ display:'flex', flexWrap:'wrap', gap:14 }}>
-              <AddToCartButton label="Quero Este Livro — R$ 49,90" />
+              <AddToCartButton label="Quero Este Livro — R$ 119" />
               <a href="#historia" style={{
                 border:'1px solid rgba(255,255,255,0.2)',
                 color:'#fff',
@@ -151,9 +150,9 @@ export default function Home() {
             marginBottom:24,
             fontWeight:700
           }}>
-            Você deu tudo.<br />
-            E mesmo assim<br />
-            <span style={{ color:'#00C4D4', fontStyle:'italic' }}>foi trocado.</span>
+            Tudo Que Você Sentiu<br />
+            <br />
+            <span style={{ color:'#00C4D4', fontStyle:'italic' }}>Mas Nunca Soube Nomear.</span>
           </h2>
 
           <p style={{
@@ -238,7 +237,7 @@ export default function Home() {
               "A história de um homem que dedicou anos a uma mulher — e foi trocado no seu melhor momento. Entre a dor da rejeição e o medo de nunca amar de novo, ele descobre que a maior traição seria abandonar a si mesmo."
             </blockquote>
 
-            <AddToCartButton label="Quero Este Livro — R$ 49,90" />
+            <AddToCartButton label="Quero Este Livro — R$ 119" />
           </div>
 
           {/* Livro na mão — direita */}
@@ -408,9 +407,13 @@ export default function Home() {
               Peça o Seu Agora
             </h2>
             <div style={{ display:'flex', alignItems:'baseline', gap:12, marginBottom:32 }}>
-              <span style={{ fontSize:48, fontWeight:900, color:'#00C4D4', lineHeight:1 }}>R$ 49,90</span>
-              <span style={{ fontSize:13, color:'#8A9BBF' }}>+ frete calculado pelo CEP</span>
+              <div style={{ display:'flex', alignItems:'baseline', gap:10 }}>
+                <span style={{ fontSize:48, fontWeight:900, color:'#00C4D4', lineHeight:1 }}>R$ 119</span>
+                <span style={{ fontSize:18, color:'#8A9BBF', textDecoration:'line-through' }}>R$ 159</span>
+                <span style={{ fontSize:12, color:'#00C4D4', fontWeight:700, background:'rgba(0,196,212,0.15)', padding:'2px 8px', borderRadius:4 }}>-25%</span>
+              </div>
             </div>
+            <span style={{ fontSize:13, color:'#8A9BBF', display:'block', marginBottom:28 }}>+ frete calculado pelo CEP</span>
 
             <ShippingCalculator />
 

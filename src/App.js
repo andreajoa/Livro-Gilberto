@@ -1,12 +1,15 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { AnimatePresence, motion } from 'framer-motion'
-import { CartProvider } from './context/CartContext'
+import { CartProvider, useCart } from './context/CartContext'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import CartDrawer from './components/CartDrawer'
 import FlyingBook from './components/FlyingBook'
 import CartIcon from './components/CartIcon'
+import PopupLeadCapture from './components/PopupLeadCapture'
+import AIChatbot from './components/AIChatbot'
+import AbandonedCartPopup from './components/AbandonedCartPopup'
 import Home from './pages/Home'
 import About from './pages/Sobre'
 import Book from './pages/OLivro'
@@ -16,7 +19,12 @@ import Terms from './pages/Termos'
 import Delivery from './pages/Entrega'
 import Return from './pages/Devolucao'
 
-// Variantes do efeito virar página 3D
+// Wrapper component to use openCart inside CartProvider
+function AbandonedCartPopupWrapper() {
+  const { openCart } = useCart()
+  return <AbandonedCartPopup onOpenCart={openCart} />
+}
+
 const pageVariants = {
   initial: {
     opacity: 0,
@@ -50,7 +58,6 @@ function AnimatedRoutes() {
   const location = useLocation()
 
   return (
-    // perspective no container pai para o efeito 3D funcionar
     <div style={{ perspective: '1200px' }}>
       <AnimatePresence mode="wait">
         <motion.div
@@ -84,10 +91,13 @@ export default function App() {
         <div className="min-h-screen flex flex-col">
           <Navbar />
           <CartDrawer />
-          <FlyingBook />  {/* Livro voa por cima de todas as páginas */}
+          <FlyingBook />
           <AnimatedRoutes />
           <Footer />
           <CartIcon />
+          <PopupLeadCapture />
+          <AIChatbot />
+          <AbandonedCartPopupWrapper />
         </div>
       </CartProvider>
     </HelmetProvider>

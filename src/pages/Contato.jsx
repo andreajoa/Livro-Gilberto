@@ -1,22 +1,47 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Newspaper, Handshake } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Newspaper, Handshake, CheckCircle, AlertCircle } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 
+const API_URL = 'http://localhost:3001/api';
+
 const Contact = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
+  const [submitStatus, setSubmitStatus] = useState(null); // null, 'success', 'error', 'loading'
 
-  const onSubmit = (data) => {
-    const subject = `[${data.subject}] ${data.name}`;
-    const body = `
-Nome: ${data.name}
-Email: ${data.email}
-Telefone: ${data.phone}
+  const onSubmit = async (data) => {
+    setSubmitStatus('loading');
 
-Mensagem:
-${data.message}
-`.trim();
+    try {
+      const response = await fetch(`${API_URL}/contacts`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          whatsapp: data.phone || '',
+          message: data.message,
+          subject: data.subject
+        })
+      });
 
-    window.location.href = `mailto:contato@gilbertosouza.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitStatus('success');
+        reset();
+
+        // Limpar status após 5 segundos
+        setTimeout(() => setSubmitStatus(null), 5000);
+      } else {
+        setSubmitStatus('error');
+        setTimeout(() => setSubmitStatus(null), 5000);
+      }
+    } catch (error) {
+      console.error('Erro ao enviar contato:', error);
+      setSubmitStatus('error');
+      setTimeout(() => setSubmitStatus(null), 5000);
+    }
   };
 
   const contactInfo = [
@@ -28,9 +53,9 @@ ${data.message}
     },
     {
       icon: Phone,
-      label: 'Telefone',
+      label: 'WhatsApp',
       value: '(55) XX XXXXX-XXXX',
-      link: 'tel:+55XXXXXXXXXXX'
+      link: 'https://wa.me/55XXXXXXXXXXX'
     },
     {
       icon: MapPin,
@@ -91,6 +116,29 @@ ${data.message}
                 Envie uma Mensagem
               </h2>
 
+              {/* Status Messages */}
+              {submitStatus === 'success' && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-6 p-4 bg-green-900/30 border border-green-500/30 rounded-lg flex items-center gap-3"
+                >
+                  <CheckCircle size={20} className="text-green-400" />
+                  <span className="text-green-400">Mensagem enviada com sucesso! Entraremos em contato em breve.</span>
+                </motion.div>
+              )}
+
+              {submitStatus === 'error' && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-6 p-4 bg-red-900/30 border border-red-500/30 rounded-lg flex items-center gap-3"
+                >
+                  <AlertCircle size={20} className="text-red-400" />
+                  <span className="text-red-400">Erro ao enviar. Tente novamente ou use o email diretamente.</span>
+                </motion.div>
+              )}
+
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div>
                   <label className="block text-sm mb-2">Nome Completo *</label>
@@ -98,6 +146,7 @@ ${data.message}
                     {...register('name', { required: true })}
                     placeholder="Seu nome"
                     required
+                    disabled={submitStatus === 'loading'}
                   />
                 </div>
 
@@ -108,20 +157,22 @@ ${data.message}
                     type="email"
                     placeholder="seu@email.com"
                     required
+                    disabled={submitStatus === 'loading'}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm mb-2">Telefone</label>
+                  <label className="block text-sm mb-2">WhatsApp</label>
                   <input
                     {...register('phone')}
                     placeholder="(11) 99999-9999"
+                    disabled={submitStatus === 'loading'}
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm mb-2">Assunto *</label>
-                  <select {...register('subject', { required: true })} required>
+                  <select {...register('subject', { required: true })} required disabled={submitStatus === 'loading'}>
                     <option value="">Selecione um assunto</option>
                     <option value="Pedido">Informações sobre Pedido</option>
                     <option value="Dúvida">Dúvida Geral</option>
@@ -138,12 +189,23 @@ ${data.message}
                     rows={5}
                     placeholder="Escreva sua mensagem..."
                     required
+                    disabled={submitStatus === 'loading'}
                   />
                 </div>
 
-                <button type="submit" className="w-full btn-primary">
-                  <Send size={20} />
-                  Enviar Mensagem
+                <button
+                  type="submit"
+                  className="w-full btn-primary"
+                  disabled={submitStatus === 'loading'}
+                >
+                  {submitStatus === 'loading' ? (
+                    <span>Enviando...</span>
+                  ) : (
+                    <>
+                      <Send size={20} />
+                      Enviar Mensagem
+                    </>
+                  )}
                 </button>
               </form>
             </motion.div>
@@ -184,6 +246,19 @@ ${data.message}
                 <p className="text-text-muted">
                   Segunda a Sexta: 9h às 18h (horário de Brasília)<br />
                   Respostas geralmente em até 24 horas úteis
+                </p>
+              </div>
+
+              <div className="bg-gradient-to-br from-cyan/10 to-transparent p-6 rounded-xl border border-cyan/20 mt-8">
+                <h3 className="font-semibold mb-3 flex items-center gap-2">
+                  <span className="text-cyan">💬</span>
+                  Precisa de ajuda agora?
+                </h3>
+                <p className="text-text-muted text-sm mb-3">
+                  Fale com nossa assistente virtual BIA. Ela pode tirar suas dúvidas sobre o livro, prazos e frete.
+                </p>
+                <p className="text-cyan text-sm font-semibold">
+                  Clique no botão de chat no canto inferior direito!
                 </p>
               </div>
             </motion.div>
