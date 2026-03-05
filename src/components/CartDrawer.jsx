@@ -203,6 +203,6 @@ export default function CartDrawer() {
       )}
     </AnimatePresence>
     <CheckoutForm isOpen={showCheckout} onClose={() => setShowCheckout(false)} />
-    </>
+  </>
   )
 }
