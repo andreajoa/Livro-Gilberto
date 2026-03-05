@@ -10,7 +10,7 @@ export const CartProvider = ({ children }) => {
   const [quantity, setQuantity] = useState(1)
   const cartIconRef = useRef(null)
 
-  const API_URL = 'https://gilberto-backend-production.up.railway.app/api'
+  const API_URL = 'https://gilberto-backend.onrender.com/api'
 
   const BOOK = {
     title: 'Como Vencer a Dor de Ser Trocado Por Outro',

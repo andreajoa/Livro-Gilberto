@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X, Mail, MessageCircle, Sparkles, Gift } from 'lucide-react'
 import bookImg from '../assets/book/capa-livro.png'
 
-const API_URL = 'https://gilberto-backend-production.up.railway.app/api'
+const API_URL = 'https://gilberto-backend.onrender.com/api'
 
 export default function PopupLeadCapture() {
   const [isOpen, setIsOpen] = useState(false)

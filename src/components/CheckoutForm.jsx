@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X, CheckCircle, MapPin, Phone, Mail, CreditCard, Lock, ChevronLeft, Package, User } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 
-const API_URL = 'https://gilberto-backend-production.up.railway.app/api'
+const API_URL = 'https://gilberto-backend.onrender.com/api'
 
 export default function CheckoutForm({ isOpen, onClose }) {
   const { BOOK, quantity, shipping, total, subtotal, setCartOpen, clearCart } = useCart()
