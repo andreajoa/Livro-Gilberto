@@ -51,13 +51,7 @@ const Contact = () => {
       value: 'contato@gilbertosouza.com',
       link: 'mailto:contato@gilbertosouza.com'
     },
-    {
-      icon: Phone,
-      label: 'WhatsApp',
-      value: '(55) XX XXXXX-XXXX',
-      link: 'https://wa.me/55XXXXXXXXXXX'
-    },
-    {
+{
       icon: MapPin,
       label: 'Localização',
       value: 'Estados Unidos / Brasil',
