@@ -8,6 +8,7 @@ export const CartProvider = ({ children }) => {
   const [isFlying, setIsFlying] = useState(false)
   const [flyOrigin, setFlyOrigin] = useState({ x: 0, y: 0 })
   const [quantity, setQuantity] = useState(1)
+  const [inCart, setInCart] = useState(false)
   const cartIconRef = useRef(null)
 
   const API_URL = 'https://gilberto-backend.onrender.com/api'
@@ -58,6 +59,7 @@ export const CartProvider = ({ children }) => {
 
   const onFlyComplete = () => {
     setIsFlying(false)
+    setInCart(true)
     setCartOpen(true)
     if (cartIconRef.current) {
       cartIconRef.current.classList.add('cart-bounce')
@@ -69,6 +71,7 @@ export const CartProvider = ({ children }) => {
   const decreaseQuantity = () => setQuantity(prev => Math.max(1, prev - 1))
   const removeFromCart = () => {
     setQuantity(1)
+    setInCart(false)
     setCartOpen(false)
     setShipping(null)
   }
@@ -93,6 +96,7 @@ export const CartProvider = ({ children }) => {
       })
 
       setQuantity(1)
+      setInCart(false)
       setShipping(null)
       setCartOpen(false)
     } catch (error) {
@@ -110,6 +114,7 @@ export const CartProvider = ({ children }) => {
       BOOK, total,
       quantity, setQuantity,
       increaseQuantity, decreaseQuantity,
+      inCart,
       removeFromCart,
       handleCartClose,
       openCart,
