@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ShoppingBag, ArrowRight, Heart } from 'lucide-react'
 import { useCart } from '../context/CartContext'
+import bookFront from '../assets/book-front.jpg'
 
 const API_URL = 'https://gilberto-backend.onrender.com/api'
 
