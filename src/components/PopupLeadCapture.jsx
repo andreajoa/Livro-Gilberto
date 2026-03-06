@@ -120,12 +120,13 @@ export default function PopupLeadCapture() {
           style={{
             position:'relative',
             width:'100%',
-            maxWidth:480,
+            maxWidth:420,
+            maxHeight:'90vh',
+            overflowY:'auto',
             background:'linear-gradient(145deg, #0D1B3E 0%, #152347 100%)',
             borderRadius:16,
             border:'1px solid rgba(0,196,212,0.3)',
             boxShadow:'0 24px 80px rgba(0,0,0,0.6), 0 0 60px rgba(0,196,212,0.15)',
-            overflow:'hidden',
             zIndex:10000
           }}
         >
@@ -144,7 +145,7 @@ export default function PopupLeadCapture() {
 
           {/* Header */}
           <div style={{
-            padding:'32px 28px 24px',
+            padding:'20px 20px 16px',
             textAlign:'center',
             background:'linear-gradient(180deg, rgba(0,196,212,0.1) 0%, transparent 100%)'
           }}>
@@ -153,16 +154,16 @@ export default function PopupLeadCapture() {
               transition={{ duration:2, repeat:Infinity }}
               style={{
                 display:'inline-flex', alignItems:'center', justifyContent:'center',
-                width:64, height:64, borderRadius:50,
+                width:52, height:52, borderRadius:50,
                 background:'linear-gradient(135deg, #00C4D4, #0099A8)',
-                marginBottom:16
+                marginBottom:12
               }}
             >
               <Gift size={32} color="#0D1B3E" />
             </motion.div>
             <h2 style={{
               fontFamily:"'Playfair Display', serif",
-              fontSize:26, fontWeight:700, color:'#fff', margin:'0 0 12px'
+              fontSize:22, fontWeight:700, color:'#fff', margin:'0 0 8px'
             }}>
               Ganhe um Desconto Especial!
             </h2>
@@ -172,7 +173,7 @@ export default function PopupLeadCapture() {
           </div>
 
           {/* Content */}
-          <div style={{ padding:'24px 28px 32px' }}>
+          <div style={{ padding:'16px 20px 24px' }}>
             {submitted ? (
               <motion.div
                 initial={{ opacity:0, scale:0.8 }}
@@ -205,7 +206,7 @@ export default function PopupLeadCapture() {
                     placeholder="Digite seu nome completo"
                     required
                     style={{
-                      width:'100%', padding:'12px 16px',
+                      width:'100%', padding:'10px 14px',
                       background:'rgba(6,12,24,0.5)',
                       border:'1px solid rgba(255,255,255,0.1)',
                       borderRadius:8,
@@ -238,7 +239,7 @@ export default function PopupLeadCapture() {
                   />
                 </div>
 
-                <div style={{ marginBottom:24 }}>
+                <div style={{ marginBottom:16 }}>
                   <label style={{ display:'block', fontSize:12, fontWeight:600, color:'#00C4D4', marginBottom:6 }}>
                     WhatsApp
                   </label>
@@ -264,7 +265,7 @@ export default function PopupLeadCapture() {
                   type="submit"
                   disabled={isSubmitting}
                   style={{
-                    width:'100%', padding:'14px',
+                    width:'100%', padding:'12px',
                     background:isSubmitting ? 'rgba(0,196,212,0.5)' : 'linear-gradient(135deg, #00C4D4, #0099A8)',
                     border:'none', borderRadius:8,
                     color:'#0D1B3E',
@@ -292,7 +293,7 @@ export default function PopupLeadCapture() {
 
             {/* Book Preview */}
             <div style={{
-              marginTop:24, paddingTop:24, borderTop:'1px solid rgba(255,255,255,0.08)',
+              marginTop:16, paddingTop:16, borderTop:'1px solid rgba(255,255,255,0.08)',
               display:'flex', gap:16, alignItems:'center'
             }}>
               <img src={bookImg} alt="Capa do livro" style={{ width:48, borderRadius:3 }} />
