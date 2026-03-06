@@ -2,8 +2,7 @@ import { useCart } from '../context/CartContext'
 import { ShoppingBag } from 'lucide-react'
 
 export default function CartIcon() {
-  const { cartIconRef, setCartOpen } = useCart()
-  const hasItem = true // livro sempre disponível
+  const { cartIconRef, setCartOpen, inCart, quantity } = useCart()
 
   return (
     <>
@@ -27,7 +26,7 @@ export default function CartIcon() {
         aria-label="Abrir carrinho"
       >
         <ShoppingBag size={26} />
-        {hasItem && (
+        {inCart && quantity > 0 && (
           <span style={{
             position: 'absolute',
             top: -6, right: -6,
@@ -41,7 +40,7 @@ export default function CartIcon() {
             alignItems: 'center',
             justifyContent: 'center'
           }}>
-            1
+            {quantity}
           </span>
         )}
       </button>
