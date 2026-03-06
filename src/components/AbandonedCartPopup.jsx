@@ -96,7 +96,13 @@ export default function AbandonedCartPopup({ onOpenCart }) {
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             margin: '0 auto 24px'
           }}>
-            <ShoppingBag size={40} color="#0D1B3E" />
+          </div>
+          <div style={{
+            width: '40%', maxWidth: 140, margin: '0 auto 20px',
+            borderRadius: 8, overflow: 'hidden',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.4)'
+          }}>
+            <img src={bookFront} alt='Livro' style={{width:'100%', height:'auto', display:'block'}} />
           </div>
 
           <h2 style={{
