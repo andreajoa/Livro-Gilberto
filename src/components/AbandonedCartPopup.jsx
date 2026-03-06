@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ShoppingBag, ArrowRight, Heart } from 'lucide-react'
+import { ArrowRight, Heart } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import bookFront from '../assets/book-front.jpg'
 
