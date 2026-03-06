@@ -54,7 +54,7 @@ const Contact = () => {
 {
       icon: MapPin,
       label: 'Localização',
-      value: 'Estados Unidos / Brasil',
+      value: 'Boston, Massachusetts — EUA',
       link: null
     }
   ];
