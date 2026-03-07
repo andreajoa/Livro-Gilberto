@@ -10,6 +10,7 @@ import AIChatbotEN from '../components/AIChatbotEN';
 
 import heroBg from '../assets/en/hero-bg.jpeg';
 import heroLoop from '../assets/en/hero-loop.gif';
+import heroVideo from '../assets/en/hero-video.mp4';
 import authorImg from '../assets/en/author.png';
 import manStrong from '../assets/en/man-strong.png';
 import ebookBg from '../assets/en/ebook-bg.jpeg';
@@ -154,10 +155,39 @@ export default function HomeEN() {
         alignItems: 'center',
         background: 'linear-gradient(180deg, #07111f 0%, #0b1830 100%)'
       }}>
-        {isMobile
-          ? <img src={heroBg} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
-          : <img src={heroLoop} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
-        }
+        {isMobile ? (
+          <img
+            src={heroBg}
+            alt=""
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center'
+            }}
+          />
+        ) : (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster={heroBg}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center'
+            }}
+          >
+            <source src={heroVideo} type="video/mp4" />
+          </video>
+        )}
 
         <div style={{
           position: 'absolute',
