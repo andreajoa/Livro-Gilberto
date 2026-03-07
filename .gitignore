@@ -6,3 +6,4 @@ data/
 server.log
 *.log
 .DS_Store
+build/
