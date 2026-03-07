@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Gilberto de Souza</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#060C18;color:#fff;min-height:100vh}
+.header{background:linear-gradient(135deg,#0D1B3E,#152347);border-bottom:1px solid rgba(0,196,212,0.2);padding:20px 32px;display:flex;align-items:center;justify-content:space-between}
+.header h1{font-size:20px;font-weight:700}.header p{font-size:12px;color:#8A9BBF;margin-top:2px}
+.btn{background:rgba(0,196,212,0.15);border:1px solid rgba(0,196,212,0.3);color:#00C4D4;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600}
+.btn:hover{background:rgba(0,196,212,0.25)}
+.container{padding:24px 32px;max-width:1400px;margin:0 auto}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-bottom:32px}
+.stat{background:linear-gradient(135deg,#0D1B3E,#111f3a);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:20px}
+.stat .label{font-size:11px;color:#8A9BBF;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.stat .value{font-size:32px;font-weight:900;color:#00C4D4}
+.stat .sub{font-size:11px;color:#8A9BBF;margin-top:4px}
+.tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.tab{padding:8px 20px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:none;color:#8A9BBF;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.tab.active{background:rgba(0,196,212,0.15);border-color:rgba(0,196,212,0.4);color:#00C4D4}
+.tab-content{display:none}.tab-content.active{display:block}
+.section-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.section-title span{width:4px;height:18px;background:#00C4D4;border-radius:2px;display:inline-block}
+.table-wrap{background:#0D1B3E;border:1px solid rgba(255,255,255,0.07);border-radius:12px;overflow:hidden;overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{background:rgba(0,196,212,0.08);padding:12px 16px;text-align:left;font-size:11px;font-weight:700;color:#8A9BBF;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid rgba(255,255,255,0.06);white-space:nowrap}
+td{padding:13px 16px;font-size:13px;color:#C8D8F0;border-bottom:1px solid rgba(255,255,255,0.04);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.badge-pending{background:rgba(251,191,36,0.15);color:#fbbf24;border:1px solid rgba(251,191,36,0.3)}
+.badge-sent{background:rgba(0,196,212,0.15);color:#00C4D4;border:1px solid rgba(0,196,212,0.3)}
+.badge-green{background:rgba(34,197,94,0.15);color:#22c55e;border:1px solid rgba(34,197,94,0.3)}
+.empty{padding:48px;text-align:center;color:#8A9BBF;font-size:14px}
+.empty-icon{font-size:40px;margin-bottom:12px}
+.chat-item{background:#0D1B3E;border:1px solid rgba(255,255,255,0.07);border-radius:12px;margin-bottom:12px;overflow:hidden}
+.chat-header{padding:14px 18px;background:rgba(0,196,212,0.06);border-bottom:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.chat-header:hover{background:rgba(0,196,212,0.1)}
+.chat-messages{padding:16px;display:none}
+.chat-messages.open{display:block}
+.msg{margin-bottom:14px}
+.msg .user-msg{background:rgba(0,196,212,0.08);border-left:3px solid #00C4D4;padding:10px 14px;border-radius:0 8px 8px 0;font-size:13px;color:#C8D8F0;margin-bottom:6px}
+.msg .bia-msg{background:rgba(255,255,255,0.03);border-left:3px solid #4a5568;padding:10px 14px;border-radius:0 8px 8px 0;font-size:13px;color:#8A9BBF;white-space:pre-line}
+.msg .time{font-size:10px;color:#4a5568;margin-top:4px;text-align:right}
+.copy-btn{background:rgba(0,196,212,0.1);border:1px solid rgba(0,196,212,0.2);color:#00C4D4;padding:2px 8px;border-radius:4px;font-size:10px;cursor:pointer;margin-left:6px;vertical-align:middle}
+.copy-btn:hover{background:rgba(0,196,212,0.25)}
+.wa-link{color:#22c55e;text-decoration:none}
+.wa-link:hover{text-decoration:underline}
+.email-link{color:#00C4D4;text-decoration:none}
+.email-link:hover{text-decoration:underline}
+.total{font-size:16px;font-weight:900;color:#00C4D4}
+.address{font-size:12px;line-height:1.9;color:#B8C8E0}
+.loading{text-align:center;padding:60px;color:#8A9BBF}
+.online-dot{width:8px;height:8px;background:#22c55e;border-radius:50%;display:inline-block;margin-right:6px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.alert{background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:#fbbf24}
+</style>
+</head>
+<body>
+<div class="header">
+  <div>
+    <h1>📚 Dashboard — Gilberto de Souza</h1>
+    <p><span class="online-dot"></span><span id="status">Conectando...</span></p>
+  </div>
+  <button class="btn" onclick="loadData()">↻ Atualizar</button>
+</div>
+
+<div class="container">
+  <div class="stats" id="stats">
+    <div class="stat"><div class="label">Carregando</div><div class="value">...</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('orders',this)">📦 Pedidos</button>
+    <button class="tab" onclick="showTab('leads',this)">📧 Leads</button>
+    <button class="tab" onclick="showTab('chats',this)">💬 Conversas BIA</button>
+    <button class="tab" onclick="showTab('carts',this)">🛒 Carrinhos</button>
+  </div>
+
+  <div id="orders" class="tab-content active"></div>
+  <div id="leads" class="tab-content"></div>
+  <div id="chats" class="tab-content"></div>
+  <div id="carts" class="tab-content"></div>
+</div>
+
+<script>
+const API = 'https://gilberto-backend.onrender.com/api'
+
+function showTab(name, btn) {
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'))
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'))
+  btn.classList.add('active')
+  document.getElementById(name).classList.add('active')
+}
+
+function fmt(iso) {
+  if (!iso) return '—'
+  return new Date(iso).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})
+}
+
+function copy(text, btn) {
+  navigator.clipboard.writeText(text)
+  btn.textContent = '✓'
+  setTimeout(()=>btn.textContent='copiar', 1500)
+}
+
+async function loadData() {
+  document.getElementById('status').textContent = 'Atualizando...'
+  try {
+    const res = await fetch(`${API}/dashboard`)
+    const d = await res.json()
+    renderStats(d.stats)
+    renderOrders(d.orders||[])
+    renderLeads(d.leads||[])
+    renderChats(d.chats||[])
+    renderCarts(d.carts||{})
+    document.getElementById('status').textContent = 'Online · atualizado ' + new Date().toLocaleTimeString('pt-BR')
+  } catch(e) {
+    document.getElementById('status').textContent = '⚠️ Erro de conexão'
+  }
+}
+
+function renderStats(s) {
+  document.getElementById('stats').innerHTML = `
+    <div class="stat"><div class="label">Pedidos</div><div class="value">${s.totalOrders}</div><div class="sub">confirmados</div></div>
+    <div class="stat"><div class="label">Leads</div><div class="value">${s.totalLeads}</div><div class="sub">emails captados</div></div>
+    <div class="stat"><div class="label">Visitantes</div><div class="value">${s.totalUniqueVisitors}</div><div class="sub">únicos</div></div>
+    <div class="stat"><div class="label">Conversão</div><div class="value">${s.conversionRate}%</div><div class="sub">leads/visitantes</div></div>
+    <div class="stat"><div class="label">Conversas BIA</div><div class="value">${s.totalChats||0}</div><div class="sub">atendimentos</div></div>
+    <div class="stat"><div class="label">Carrinhos</div><div class="value">${s.abandonedCarts}</div><div class="sub">abandonados</div></div>
+  `
+}
+
+function renderOrders(orders) {
+  if (!orders.length) {
+    document.getElementById('orders').innerHTML = '<div class="empty"><div class="empty-icon">📦</div>Nenhum pedido ainda.<br><small>Quando alguém comprar, aparece aqui.</small></div>'
+    return
+  }
+  const rows = orders.slice().reverse().map(o=>`
+    <tr>
+      <td><strong style="color:#fff">${o.id}</strong><br><small style="color:#8A9BBF">${fmt(o.createdAt)}</small></td>
+      <td>
+        <strong style="color:#fff">${o.customer.name}</strong><br>
+        <a class="email-link" href="mailto:${o.customer.email}">${o.customer.email}</a>
+        <button class="copy-btn" onclick="copy('${o.customer.email}',this)">copiar</button><br>
+        <a class="wa-link" href="https://wa.me/55${o.customer.whatsapp.replace(/\D/g,'')}" target="_blank">📱 ${o.customer.whatsapp}</a>
+        <button class="copy-btn" onclick="copy('${o.customer.whatsapp}',this)">copiar</button>
+      </td>
+      <td class="address">
+        📍 ${o.shipping.address}<br>
+        ${o.shipping.neighborhood?o.shipping.neighborhood+'<br>':''}
+        ${o.shipping.complement?'🏠 '+o.shipping.complement+'<br>':''}
+        ${o.shipping.reference?'📌 '+o.shipping.reference+'<br>':''}
+        ${o.shipping.city} — ${o.shipping.state.toUpperCase()}<br>
+        <strong>CEP: ${o.shipping.cep}</strong>
+      </td>
+      <td>
+        ${o.items.quantity}x livro<br>
+        <small style="color:#8A9BBF">Frete: R$ ${(o.items.shippingPrice||0).toFixed(2)}</small><br>
+        <span class="total">R$ ${o.items.total.toFixed(2)}</span>
+      </td>
+      <td><span class="badge badge-pending">${o.status}</span></td>
+    </tr>
+  `).join('')
+  document.getElementById('orders').innerHTML = `
+    <div class="section-title"><span></span>Pedidos Recebidos (${orders.length})</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Pedido</th><th>Cliente</th><th>Endereço</th><th>Valor</th><th>Status</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>`
+}
+
+function renderLeads(leads) {
+  if (!leads.length) {
+    document.getElementById('leads').innerHTML = '<div class="empty"><div class="empty-icon">📧</div>Nenhum lead ainda.<br><small>Emails captados pelo popup aparecem aqui.</small></div>'
+    return
+  }
+  const rows = leads.slice().reverse().map(l=>`
+    <tr>
+      <td><strong style="color:#fff">${l.name}</strong></td>
+      <td><a class="email-link" href="mailto:${l.email}">${l.email}</a> <button class="copy-btn" onclick="copy('${l.email}',this)">copiar</button></td>
+      <td><a class="wa-link" href="https://wa.me/55${l.whatsapp.replace(/\D/g,'')}" target="_blank">📱 ${l.whatsapp}</a> <button class="copy-btn" onclick="copy('${l.whatsapp}',this)">copiar</button></td>
+      <td style="color:#8A9BBF;font-size:12px">${fmt(l.createdAt)}</td>
+      <td><span class="badge badge-sent">${l.source||'popup'}</span></td>
+    </tr>
+  `).join('')
+  document.getElementById('leads').innerHTML = `
+    <div class="section-title"><span></span>Leads Captados (${leads.length})</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Nome</th><th>Email</th><th>WhatsApp</th><th>Data</th><th>Origem</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>`
+}
+
+function renderChats(chats) {
+  if (!chats.length) {
+    document.getElementById('chats').innerHTML = '<div class="empty"><div class="empty-icon">💬</div>Nenhuma conversa ainda.</div>'
+    return
+  }
+  const items = chats.slice().reverse().map((c,i)=>`
+    <div class="chat-item">
+      <div class="chat-header" onclick="toggleChat(${i})">
+        <div>
+          <strong style="color:#fff">💬 Conversa ${i+1}</strong>
+          <div style="font-size:11px;color:#8A9BBF;margin-top:2px">${fmt(c.createdAt)} · ${c.messages.length} mensagens</div>
+        </div>
+        <span style="color:#8A9BBF" id="arrow-${i}">▼</span>
+      </div>
+      <div class="chat-messages" id="chat-${i}">
+        ${c.messages.map(m=>`
+          <div class="msg">
+            <div class="user-msg">👤 ${m.user}</div>
+            <div class="bia-msg">🤖 BIA: ${m.bia}</div>
+            <div class="time">${fmt(m.timestamp)}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('')
+  document.getElementById('chats').innerHTML = `
+    <div class="section-title"><span></span>Conversas com BIA (${chats.length})</div>${items}`
+}
+
+function toggleChat(i) {
+  const el = document.getElementById('chat-'+i)
+  const arrow = document.getElementById('arrow-'+i)
+  el.classList.toggle('open')
+  arrow.textContent = el.classList.contains('open') ? '▲' : '▼'
+}
+
+function renderCarts(carts) {
+  const entries = Object.entries(carts)
+  if (!entries.length) {
+    document.getElementById('carts').innerHTML = '<div class="empty"><div class="empty-icon">🛒</div>Nenhum carrinho ainda.</div>'
+    return
+  }
+  const rows = entries.map(([vid,c])=>`
+    <tr>
+      <td style="font-size:11px;color:#8A9BBF">${vid.substring(0,24)}...</td>
+      <td>${c.quantity}x livro</td>
+      <td>${c.shipping?c.shipping.name+' — R$ '+c.shipping.price.toFixed(2):'—'}</td>
+      <td style="font-size:12px;color:#8A9BBF">${fmt(c.updatedAt)}</td>
+      <td><span class="badge ${c.recovered?'badge-green':'badge-pending'}">${c.recovered?'recuperado':'abandonado'}</span></td>
+    </tr>
+  `).join('')
+  document.getElementById('carts').innerHTML = `
+    <div class="section-title"><span></span>Carrinhos (${entries.length})</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Visitante</th><th>Itens</th><th>Frete</th><th>Última Atividade</th><th>Status</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>`
+}
+
+loadData()
+setInterval(loadData, 30000)
+</script>
+</body>
+</html>
