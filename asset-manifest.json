@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/static/css/main.9bbdff31.css",
+    "main.js": "/static/js/main.e105c3d6.js",
+    "static/media/banner-eu-venci.png": "/static/media/banner-eu-venci.ccd04f249b9124cc8a7c.png",
+    "static/media/gilberto-livro-pose.png": "/static/media/gilberto-livro-pose.af47e9c8812561757c0d.png",
+    "static/media/banner-autor-cta.png": "/static/media/banner-autor-cta.9bfcd216669a483b58ea.png",
+    "static/media/livro-embalagem-kraft.png": "/static/media/livro-embalagem-kraft.204a2a31e82d1346446d.png",
+    "static/media/livro-stack-marble.png": "/static/media/livro-stack-marble.dc691742897ebd789295.png",
+    "static/media/livro-janela-cidade.png": "/static/media/livro-janela-cidade.4cc79571b25a6c85637d.png",
+    "static/media/livro-mao-segurando.png": "/static/media/livro-mao-segurando.918c38e54ff6dd72b68e.png",
+    "static/media/banner-autor-wide.png": "/static/media/banner-autor-wide.de821e2e60c0725c6013.png",
+    "static/media/livro-mesa-whiskey.png": "/static/media/livro-mesa-whiskey.35ff2b2479fbf0cadc56.png",
+    "static/media/banner-triste.jpeg": "/static/media/banner-triste.ad272c0408afd5fa5abd.jpeg",
+    "static/media/book-front.jpg": "/static/media/book-front.a83c10ed687517de12e1.jpg",
+    "static/media/capa-livro.png": "/static/media/capa-livro.a83c10ed687517de12e1.png",
+    "static/media/author.jpg": "/static/media/author.aea689185d7907c66fab.jpg",
+    "index.html": "/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.9bbdff31.css",
+    "static/js/main.e105c3d6.js"
+  ]
+}

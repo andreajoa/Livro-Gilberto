@@ -16,7 +16,7 @@ import ebookBg from '../assets/en/ebook-bg.jpeg';
 import guarantee from '../assets/en/guarantee.png';
 import menGroup from '../assets/en/men-group.gif';
 import argument from '../assets/en/argument.gif';
-import bookCoverEN from '../assets/en/book-cover-en.jpeg';
+import bookCoverEN from '../assets/book/capa-livro.png';
 
 const faq = [
   { q: 'What format is the book in?', a: 'You get an instant download: a PDF eBook you can read on any device, plus an MP3 audiobook you can listen to anywhere — in the car, at the gym, or late at night when your mind won\'t stop.' },
