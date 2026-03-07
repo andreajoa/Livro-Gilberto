@@ -577,7 +577,7 @@ export default function HomeEN() {
       <section style={{
         position: 'relative',
         overflow: 'hidden',
-        height: isMobile ? 320 : 'min(520px,60vh)',
+        height: isMobile ? 360 : 'min(680px,78vh)',
         background: '#081221'
       }}>
         {isMobile ? (
@@ -656,7 +656,7 @@ export default function HomeEN() {
           </p>
 
           <h2 style={{
-            fontSize: isMobile ? '28px' : 'clamp(34px,4.6vw,64px)',
+            fontSize: isMobile ? '30px' : 'clamp(42px,5.8vw,82px)',
             fontWeight: 900,
             color: '#fff',
             lineHeight: 1.04,
