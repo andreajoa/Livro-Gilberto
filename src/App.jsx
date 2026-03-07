@@ -6,7 +6,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import AIChatbot from './components/AIChatbot';
-import Home from './pages/Home';
+import { CartProvider } from "./context/CartContext";import Home from './pages/Home';
 import HomeEN from './pages/HomeEN';
 import HomeES from './pages/HomeES';
 import About from './pages/Sobre';
@@ -28,7 +28,7 @@ function PTLayout({ children }) {
     <div style={{ minHeight:'100vh', display:'flex', flexDirection:'column' }}>
       <Navbar />
       <div style={{ flex:'1' }}>{children}</div>
-      <Footer />
+  </CartProvider>      <Footer />
       <WhatsAppButton />
       <AIChatbot />
     </div>
