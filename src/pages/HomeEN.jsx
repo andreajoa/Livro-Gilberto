@@ -15,7 +15,7 @@ import authorImg from '../assets/en/author.png';
 import manStrong from '../assets/en/man-strong.png';
 import ebookBg from '../assets/en/ebook-bg.jpeg';
 import guarantee from '../assets/en/guarantee.png';
-import menGroup from '../assets/en/men-group.gif';
+import helpingGroupVideo from '../assets/en/ajudando.mp4';
 import argument from '../assets/en/argument.gif';
 import emboraVideo from '../assets/en/embora.mp4';
 import bookCoverEN from '../assets/book/capa-livro.png';
@@ -1107,16 +1107,149 @@ export default function HomeEN() {
       </section>
 
       {/* ══ MEN GROUP BANNER ══ */}
-      <section style={{ position: 'relative', overflow: 'hidden', height: isMobile ? 260 : 'min(420px,50vh)' }}>
-        <img src={menGroup} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(6,12,24,0.78)' }} />
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 1 }} viewport={{ once: true }}
-          style={{ position: 'relative', zIndex: 2, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: `0 ${px}` }}>
-          <h2 style={{ fontSize: isMobile ? '20px' : 'clamp(26px,4vw,52px)', fontWeight: 900, color: '#fff', lineHeight: 1.2, marginBottom: 12 }}>
-            You Are Not Alone.<br /><span style={{ color: '#00C4D4' }}>Thousands of men have been here.</span>
+      <section style={{ position: 'relative', overflow: 'hidden', minHeight: isMobile ? 420 : 620, background: '#08111D' }}>
+        <video
+          src={helpingGroupVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover'
+          }}
+        />
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(180deg, rgba(3,8,16,0.58) 0%, rgba(6,12,24,0.74) 45%, rgba(6,12,24,0.92) 100%)'
+        }} />
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(circle at 50% 38%, rgba(0,196,212,0.14) 0%, rgba(0,196,212,0.04) 24%, transparent 52%)'
+        }} />
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9 }}
+          viewport={{ once: true }}
+          style={{
+            position: 'relative',
+            zIndex: 2,
+            minHeight: isMobile ? 420 : 620,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+            padding: isMobile ? '48px 20px' : '70px 6vw'
+          }}
+        >
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            background: 'rgba(255,255,255,0.08)',
+            border: '1px solid rgba(255,255,255,0.10)',
+            borderRadius: 999,
+            padding: '8px 14px',
+            marginBottom: 18
+          }}>
+            <span style={{ width: 8, height: 8, borderRadius: 999, background: '#00C4D4', display: 'inline-block' }} />
+            <span style={{ fontSize: 11, color: '#D8E6F7', fontWeight: 700, letterSpacing: 1.1, textTransform: 'uppercase' }}>
+              Brotherhood. Support. Rebuilding.
+            </span>
+          </div>
+
+          <h2 style={{
+            fontSize: isMobile ? '32px' : 'clamp(44px,5.6vw,82px)',
+            fontWeight: 900,
+            color: '#fff',
+            lineHeight: 1.03,
+            maxWidth: 980,
+            marginBottom: 18,
+            letterSpacing: -1.5
+          }}>
+            You are not the only man<br />
+            trying to <span style={{ color: '#00C4D4' }}>stand back up.</span>
           </h2>
-          <p style={{ fontSize: isMobile ? 13 : 16, color: 'rgba(255,255,255,0.65)', maxWidth: 520, lineHeight: 1.7 }}>
-            The difference between the ones who recover and the ones who don't is simple: they found the right guide at the right time.
+
+          <p style={{
+            fontSize: isMobile ? 15 : 20,
+            color: 'rgba(255,255,255,0.78)',
+            maxWidth: 820,
+            lineHeight: 1.75,
+            marginBottom: 20
+          }}>
+            Thousands of men have lived through the same humiliation, silence, obsessive thoughts, and self-doubt. The ones who recover do not do it by pretending they are fine.
+          </p>
+
+          <p style={{
+            fontSize: isMobile ? 14 : 17,
+            color: '#B8C8E0',
+            maxWidth: 760,
+            lineHeight: 1.75,
+            marginBottom: 26
+          }}>
+            They recover when they find language for their pain, a path through the mental loop, and a guide that understands exactly what this kind of loss does to a man.
+          </p>
+
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: isMobile ? 10 : 16,
+            marginBottom: 26
+          }}>
+            {['Men across US, Canada, UK & Australia', 'Practical guidance, not empty advice', 'Read it. Listen to it. Start today.'].map(item => (
+              <span key={item} style={{
+                fontSize: 12,
+                color: 'rgba(255,255,255,0.72)',
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: 999,
+                padding: '8px 12px'
+              }}>
+                {item}
+              </span>
+            ))}
+          </div>
+
+          <motion.button
+            whileTap={{ scale: 0.98 }}
+            onClick={handleBuy}
+            style={{
+              background: 'linear-gradient(135deg, #FFB800, #FF8A00)',
+              border: 'none',
+              borderRadius: 12,
+              padding: isMobile ? '18px 20px' : '18px 34px',
+              fontSize: isMobile ? 16 : 17,
+              fontWeight: 900,
+              color: '#0D1322',
+              cursor: 'pointer',
+              boxShadow: '0 16px 40px rgba(255,138,0,0.28)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 10,
+              justifyContent: 'center'
+            }}
+          >
+            Join Them — Get Instant Access
+            <ArrowRight size={17} />
+          </motion.button>
+
+          <p style={{
+            fontSize: 12,
+            color: 'rgba(255,255,255,0.56)',
+            marginTop: 12,
+            marginBottom: 0
+          }}>
+            Instant download · Full audiobook included · 30-day guarantee
           </p>
         </motion.div>
       </section>
