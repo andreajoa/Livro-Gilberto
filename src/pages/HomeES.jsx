@@ -1355,7 +1355,7 @@ export default function HomeES() {
               textTransform: 'uppercase',
               marginBottom: 18
             }}>
-              Not theory. Lived experience.
+              No es teoría. Es experiencia vivida.
             </div>
 
             <p style={{
