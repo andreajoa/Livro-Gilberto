@@ -265,7 +265,7 @@ export default function HomeES() {
             }}>
               <span style={{ width: 8, height: 8, background: '#FFB800', borderRadius: 999, display: 'inline-block', flexShrink: 0 }} />
               <span style={{ fontSize: isMobile ? 10 : 12, color: '#FFE29A', fontWeight: 800, letterSpacing: 0.8 }}>
-                FOR MEN HEALING FROM BETRAYAL, HEARTBREAK & REJECTION
+                PARA HOMBRES SANANDO DE LA TRAICIÓN, EL DESAMOR Y EL RECHAZO
               </span>
             </div>
 
@@ -281,7 +281,7 @@ export default function HomeES() {
               Ella se fue.<br />
               <span style={{ color: '#FFB800' }}>Tú te rompiste.</span><br />
               Ahora reconstruye<br />
-              <span style={{ color: '#00C4D4' }}>stronger.</span>
+              <span style={{ color: '#00C4D4' }}>más fuerte.</span>
             </h1>
 
             <p style={{
@@ -386,11 +386,11 @@ export default function HomeES() {
                   text: 'Esto no es consejo genérico de ruptura. Está escrito para hombres que están lidiando con traición, rechazo y haber sido reemplazados.'
                 },
                 {
-                  title: 'Feel understood fast',
+                  title: 'Siéntete comprendido rápidamente',
                   text: 'La página debe mostrarle de inmediato: este libro entiende exactamente el dolor que está cargando ahora mismo.'
                 },
                 {
-                  title: 'Move him to action',
+                  title: 'Llévalo a actuar',
                   text: 'Promesa clara. Claridad emocional. CTA fuerte. Eso es lo que hace que este estilo convierta.'
                 }
               ].map((item) => (
@@ -428,7 +428,7 @@ export default function HomeES() {
       <section style={{ background: '#060C18', padding: sectionPad }}>
         <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }} viewport={{ once: true }}
           style={{ maxWidth: 760, margin: '0 auto' }}>
-          <p style={{ fontSize: 11, letterSpacing: 4, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>A letter from Gilberto</p>
+          <p style={{ fontSize: 11, letterSpacing: 4, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>Una carta de Gilberto</p>
           <h2 style={{ fontSize: isMobile ? '26px' : 'clamp(28px,3.5vw,46px)', fontWeight: 900, color: '#fff', lineHeight: 1.2, marginBottom: 32 }}>
             "Le di 7 años.<br />
             <span style={{ color: '#00C4D4' }}>Ella eligió a otro."</span>
@@ -484,7 +484,7 @@ export default function HomeES() {
               textTransform: 'uppercase',
               marginBottom: 14
             }}>
-              If this feels familiar, keep reading
+              Si esto te resulta familiar, sigue leyendo
             </p>
 
             <h2 style={{
@@ -495,7 +495,7 @@ export default function HomeES() {
               marginBottom: 16
             }}>
               Lo que ser <span style={{ color: '#FFB800' }}>reemplazado</span><br />
-              does to a man.
+              le hace a un hombre.
             </h2>
 
             <p style={{
@@ -873,7 +873,7 @@ export default function HomeES() {
                 color: 'rgba(255,255,255,0.58)',
                 margin: 0
               }}>
-                One-time payment · No subscription
+                Pago único · Sin suscripción
               </p>
             </div>
 
@@ -947,7 +947,7 @@ export default function HomeES() {
               textTransform: 'uppercase',
               marginBottom: 14
             }}>
-              Social proof
+              Prueba social
             </p>
 
             <h2 style={{
@@ -1491,7 +1491,7 @@ export default function HomeES() {
       <section id="buy" style={{ background: 'linear-gradient(180deg, #060C18 0%, #0D1B3E 100%)', padding: sectionPad }}>
         <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }} viewport={{ once: true }}
           style={{ maxWidth: 560, margin: '0 auto', textAlign: 'center' }}>
-          <p style={{ fontSize: 10, letterSpacing: 4, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>You're Ready</p>
+          <p style={{ fontSize: 10, letterSpacing: 4, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>Estás listo</p>
           <h2 style={{ fontSize: isMobile ? '28px' : 'clamp(30px,4vw,52px)', fontWeight: 900, color: '#fff', lineHeight: 1.15, marginBottom: 12 }}>
             Obtén el libro.<br /><span style={{ color: '#00C4D4' }}>Empieza hoy.</span>
           </h2>
@@ -1591,7 +1591,7 @@ export default function HomeES() {
                 textTransform: 'uppercase',
                 marginBottom: 18
               }}>
-                Zero risk purchase
+                Compra sin riesgo
               </div>
 
               <img
@@ -1699,7 +1699,7 @@ export default function HomeES() {
               textTransform: 'uppercase',
               marginBottom: 14
             }}>
-              Last objections
+              Últimas objeciones
             </p>
 
             <h2 style={{
@@ -1721,7 +1721,7 @@ export default function HomeES() {
               lineHeight: 1.8,
               margin: '0 auto'
             }}>
-              If you are close to buying but still have one or two doubts, this section is for that exact moment.
+              Si estás a punto de comprar pero todavía tienes una o dos dudas, esta sección está hecha exactamente para ese momento.
             </p>
           </div>
 
