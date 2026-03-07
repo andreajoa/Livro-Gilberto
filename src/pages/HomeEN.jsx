@@ -199,18 +199,17 @@ export default function HomeEN() {
           />
         ) : (
           
-<div dangerouslySetInnerHTML={{ __html: `
-  <video 
-    src="${heroVideo}" 
-    autoplay 
-    loop 
-    muted 
-    playsinline 
-    webkit-playsinline="true" 
-    x5-playsinline="true"
-    style="width: 100%; height: 100%; object-fit: cover;"
-  ></video>
-`}} style={{ width: '100%', height: '100%' }} />
+<video 
+          src={heroVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          webkit-playsinline="true"
+          disablePictureInPicture
+          preload="auto"
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        />
 
         )}
 
