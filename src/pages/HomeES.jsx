@@ -21,17 +21,17 @@ import emboraVideo from '../assets/en/embora.mp4';
 import bookCoverES from '../assets/es/capa-espanhol.jpeg';
 
 const faq = [
-  { q: 'What format is the book in?', a: 'You get an instant download: a PDF eBook you can read on any device, plus an MP3 audiobook you can listen to anywhere — in the car, at the gym, or late at night when your mind won\'t stop.' },
-  { q: 'How do I receive my purchase?', a: 'Immediately after payment, you\'ll receive an email with your download links. No waiting, no shipping — it\'s yours in under 60 seconds.' },
-  { q: 'Is this book only for men who were cheated on?', a: 'No. This book is for any man who gave everything to a relationship and was left feeling like it wasn\'t enough — whether through betrayal, breakup, or being replaced.' },
-  { q: 'What if it doesn\'t help me?', a: 'You\'re covered by a 30-day money-back guarantee. No questions asked. If you don\'t feel this book moved the needle for you, email us and we\'ll refund you in full.' },
-  { q: 'Is the audiobook the full book or just a summary?', a: 'It\'s the complete book, word for word, read in a calm and direct voice designed for men going through exactly what you\'re going through.' },
+  { q: '¿En qué formato está el libro?', a: 'Recibes acceso instantáneo: un eBook en PDF que puedes leer en cualquier dispositivo y un audiolibro en MP3 que puedes escuchar donde quieras — en el coche, en el gimnasio o por la noche cuando tu mente no se apaga.' },
+  { q: '¿Cómo recibo mi compra?', a: 'Justo después del pago recibirás un correo con tus enlaces de descarga. Sin esperas, sin envío físico — es tuyo en menos de 60 segundos.' },
+  { q: '¿Este libro es solo para hombres que fueron engañados?', a: 'No. Este libro es para cualquier hombre que lo dio todo en una relación y terminó sintiendo que no fue suficiente — ya sea por traición, ruptura o por haber sido reemplazado.' },
+  { q: '¿Y si no me ayuda?', a: 'Tu compra está protegida por una garantía de devolución de 30 días. Sin preguntas. Si no sientes que este libro te ayudó de verdad, escríbenos y te devolveremos el 100%.' },
+  { q: '¿El audiolibro es el libro completo o solo un resumen?', a: 'Es el libro completo, palabra por palabra, narrado con una voz calmada y directa para hombres que están pasando exactamente por esto.' },
 ];
 
 const testimonials = [
-  { name: 'Marcus T.', city: 'Atlanta, GA', stars: 5, text: 'I found this book at 2am when I couldn\'t sleep. Three hours later I\'d read half of it and cried for the first time in years. This hit differently.' },
-  { name: 'James R.', city: 'Toronto, ON', stars: 5, text: 'I thought I was the only one who felt this way. The chapter on "the mental loop" described my exact experience. I\'ve already recommended this to 4 friends.' },
-  { name: 'Daniel M.', city: 'London, UK', stars: 5, text: 'The audiobook got me through three weeks of daily commutes. By the end I felt like a different man. Worth every penny and more.' },
+  { name: 'Marcus T.', city: 'Atlanta, GA', stars: 5, text: 'Encontré este libro a las 2 de la mañana cuando no podía dormir. Tres horas después ya había leído la mitad y lloré por primera vez en años. Me llegó de una forma muy distinta.' },
+  { name: 'James R.', city: 'Toronto, ON', stars: 5, text: 'Pensé que yo era el único que se sentía así. El capítulo sobre “el bucle mental” describió exactamente lo que estaba viviendo. Ya se lo recomendé a 4 amigos.' },
+  { name: 'Daniel M.', city: 'London, UK', stars: 5, text: 'El audiolibro me acompañó durante tres semanas de trayectos diarios. Al final me sentía como otro hombre. Vale cada centavo y más.' },
 ];
 
 export default function HomeES() {
@@ -89,7 +89,7 @@ export default function HomeES() {
               border: 'none', borderRadius: 6, padding: '8px 16px',
               color: '#0D1B3E', fontSize: 12, fontWeight: 700, cursor: 'pointer'
             }}>
-              Get The Book
+              Obtener el libro
             </button>
             <button onClick={() => setMenuOpen(!menuOpen)} style={{
               background: 'rgba(255,255,255,0.08)', border: 'none', borderRadius: 6,
@@ -113,7 +113,7 @@ export default function HomeES() {
               border: 'none', borderRadius: 6, padding: '8px 20px',
               color: '#0D1B3E', fontSize: 13, fontWeight: 700, cursor: 'pointer'
             }}>
-              Get The Book
+              Obtener el libro
             </button>
           </div>
         )}
@@ -137,12 +137,12 @@ export default function HomeES() {
               background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
               borderRadius: 8, padding: '14px', color: '#fff', fontSize: 15,
               cursor: 'pointer', textAlign: 'left'
-            }}>🇪🇸 View in English</button>
+            }}>🇺🇸 Ver en inglés</button>
             <button onClick={() => { handleBuy(); setMenuOpen(false); }} style={{
               background: 'linear-gradient(135deg, #00C4D4, #0099A8)',
               border: 'none', borderRadius: 8, padding: '16px',
               color: '#0D1B3E', fontSize: 15, fontWeight: 800, cursor: 'pointer'
-            }}>Get Instant Access — $17</button>
+            }}>Obtén acceso inmediato — $17</button>
           </motion.div>
         )}
       </AnimatePresence>
@@ -252,8 +252,8 @@ export default function HomeES() {
               marginBottom: 18,
               maxWidth: 840
             }}>
-              She left.<br />
-              <span style={{ color: '#FFB800' }}>You broke.</span><br />
+              Ella se fue.<br />
+              <span style={{ color: '#FFB800' }}>Tú te rompiste.</span><br />
               Now rebuild<br />
               <span style={{ color: '#00C4D4' }}>stronger.</span>
             </h1>
@@ -276,7 +276,7 @@ export default function HomeES() {
             }}>
               {[
                 '📖 Full eBook download',
-                '🎧 Full audiobook included',
+                '🎧 Audiolibro completo incluido',
                 '⚡ Instant access after purchase',
                 '🛡️ 30-day money-back guarantee'
               ].map((item) => (
@@ -345,7 +345,7 @@ export default function HomeES() {
               color: 'rgba(255,255,255,0.60)',
               marginBottom: 26
             }}>
-              <span style={{ textDecoration: 'line-through', opacity: 0.7 }}>$34</span> today only · Includes eBook + audiobook · Secure checkout
+              <span style={{ textDecoration: 'line-through', opacity: 0.7 }}>$34</span> solo hoy · Incluye eBook + audiolibro · Pago seguro
             </p>
 
             <div style={{
@@ -882,7 +882,7 @@ export default function HomeES() {
               gap: isMobile ? 10 : 16,
               marginBottom: 10
             }}>
-              {['⚡ Instant download', '💰 30-day guarantee', '🔒 Secure checkout', '🎧 Full audiobook included'].map(item => (
+              {['⚡ Descarga inmediata', '💰 Garantía de 30 días', '🔒 Pago seguro', '🎧 Audiolibro completo incluido'].map(item => (
                 <span key={item} style={{
                   fontSize: 12,
                   color: 'rgba(255,255,255,0.68)'
@@ -932,7 +932,7 @@ export default function HomeES() {
               marginBottom: 14,
               letterSpacing: -1.1
             }}>
-              Real men. <span style={{ color: '#00C4D4' }}>Real results.</span>
+              Hombres reales. <span style={{ color: '#00C4D4' }}>Resultados reales.</span>
             </h2>
 
             <p style={{
@@ -1095,12 +1095,12 @@ export default function HomeES() {
                 justifyContent: 'center'
               }}
             >
-              Join Them — Get Instant Access
+              Únete a ellos — Obtén acceso inmediato
               <ArrowRight size={17} />
             </motion.button>
 
             <p style={{ fontSize: 12, color: '#8A9BBF', marginTop: 10, marginBottom: 0 }}>
-              Instant download · Full audiobook included · 30-day guarantee
+              Descarga inmediata · Audiolibro completo incluido · Garantía de 30 días
             </p>
           </div>
         </motion.div>
@@ -1134,7 +1134,7 @@ export default function HomeES() {
             {isMobile && (
               <img src={authorImg} alt="Gilberto de Souza" style={{ width: 80, height: 80, borderRadius: 50, objectFit: 'cover', border: '2px solid rgba(0,196,212,0.4)', marginBottom: 20 }} />
             )}
-            <p style={{ fontSize: 10, letterSpacing: 4, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 14 }}>About The Author</p>
+            <p style={{ fontSize: 10, letterSpacing: 4, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 14 }}>Sobre el autor</p>
             <h2 style={{ fontSize: isMobile ? '32px' : 'clamp(32px,4vw,52px)', fontWeight: 900, color: '#fff', lineHeight: 1, marginBottom: 24 }}>
               Gilberto<br /><span style={{ color: '#00C4D4' }}>de Souza</span>
             </h2>
@@ -1168,7 +1168,7 @@ export default function HomeES() {
           style={{ maxWidth: 560, margin: '0 auto', textAlign: 'center' }}>
           <p style={{ fontSize: 10, letterSpacing: 4, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>You're Ready</p>
           <h2 style={{ fontSize: isMobile ? '28px' : 'clamp(30px,4vw,52px)', fontWeight: 900, color: '#fff', lineHeight: 1.15, marginBottom: 12 }}>
-            Get The Book.<br /><span style={{ color: '#00C4D4' }}>Start Today.</span>
+            Obtén el libro.<br /><span style={{ color: '#00C4D4' }}>Empieza hoy.</span>
           </h2>
           <p style={{ fontSize: 14, color: '#8A9BBF', lineHeight: 1.7, marginBottom: 36 }}>
             You've already survived the hardest part. Now let this book show you what comes next.
@@ -1185,7 +1185,7 @@ export default function HomeES() {
                   How to Overcome the Pain of Being Replaced by Someone Else
                 </h3>
                 <p style={{ fontSize: 12, color: '#8A9BBF', marginBottom: 10 }}>by Gilberto de Souza</p>
-                {['📖 Full eBook (PDF)', '🎧 Full Audiobook (MP3)', '✅ Instant download'].map(item => (
+                {['📖 eBook completo (PDF)', '🎧 Audiolibro completo (MP3)', '✅ Descarga inmediata'].map(item => (
                   <div key={item} style={{ fontSize: 12, color: '#B8C8E0', marginBottom: 4 }}>{item}</div>
                 ))}
               </div>
@@ -1217,7 +1217,7 @@ export default function HomeES() {
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'center', gap: isMobile ? 12 : 20, flexWrap: 'wrap' }}>
-              {['🔒 SSL Secure', '💰 30-Day Guarantee', '⚡ Instant Access'].map(b => (
+              {['🔒 SSL seguro', '💰 Garantía de 30 días', '⚡ Acceso inmediato'].map(b => (
                 <span key={b} style={{ fontSize: 11, color: '#8A9BBF' }}>{b}</span>
               ))}
             </div>
@@ -1229,9 +1229,9 @@ export default function HomeES() {
       <section style={{ background: '#0A1628', padding: sectionPad }}>
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}
           style={{ maxWidth: 620, margin: '0 auto', textAlign: 'center' }}>
-          <img src={guarantee} alt="30-Day Money Back Guarantee" style={{ width: 100, marginBottom: 24, display: 'block', margin: '0 auto 24px' }} />
+          <img src={guarantee} alt="Garantía de devolución de 30 días" style={{ width: 100, marginBottom: 24, display: 'block', margin: '0 auto 24px' }} />
           <h2 style={{ fontSize: isMobile ? '22px' : 'clamp(24px,3vw,36px)', fontWeight: 900, color: '#fff', marginBottom: 14 }}>
-            30-Day Money-Back Guarantee
+            Garantía de devolución de 30 días
           </h2>
           <p style={{ fontSize: 14, color: '#8A9BBF', lineHeight: 1.8 }}>
             Read the book. Listen to the audiobook. If within 30 days you don't feel it gave you something real — email us and we will refund every cent. No questions, no hassle.
@@ -1244,7 +1244,7 @@ export default function HomeES() {
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.7 }} viewport={{ once: true }}
           style={{ maxWidth: 720, margin: '0 auto' }}>
           <h2 style={{ fontSize: isMobile ? '22px' : 'clamp(26px,3vw,40px)', fontWeight: 900, color: '#fff', textAlign: 'center', marginBottom: 8 }}>
-            Frequently Asked<br /><span style={{ color: '#00C4D4' }}>Questions</span>
+            Preguntas<br /><span style={{ color: '#00C4D4' }}>frecuentes</span>
           </h2>
           <div style={{ width: 40, height: 2, background: '#00C4D4', margin: '14px auto 36px' }} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
@@ -1290,7 +1290,7 @@ export default function HomeES() {
             }}>
             Get Instant Access — $17 <ArrowRight size={16} />
           </motion.button>
-          <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', marginTop: 14 }}>30-day money-back guarantee · Instant download</p>
+          <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', marginTop: 14 }}>Garantía de devolución de 30 días · Descarga inmediata</p>
         </motion.div>
       </section>
 
@@ -1346,9 +1346,9 @@ export default function HomeES() {
         </motion.div>
       )}
 
-      <LeadPopupEN lang="en" />
-      <AbandonedPopupEN lang="en" />
-      <AIChatbotEN lang="en" />
+      <LeadPopupEN lang="es" />
+      <AbandonedPopupEN lang="es" />
+      <AIChatbotEN lang="es" />
     </div>
   );
 }
