@@ -62,6 +62,32 @@ export default function HomeEN() {
   const px = isMobile ? '20px' : '6vw';
   const sectionPad = isMobile ? '64px 20px' : '100px 6vw';
 
+  const SectionBlend = ({ flip = false }) => (
+    <div
+      style={{
+        position: 'relative',
+        height: isMobile ? 42 : 72,
+        marginTop: isMobile ? -18 : -28,
+        marginBottom: isMobile ? -18 : -28,
+        zIndex: 3,
+        pointerEvents: 'none',
+        background: flip
+          ? 'linear-gradient(180deg, rgba(6,12,24,0) 0%, rgba(8,18,37,0.72) 42%, rgba(10,22,40,1) 100%)'
+          : 'linear-gradient(180deg, rgba(10,22,40,1) 0%, rgba(8,18,37,0.72) 58%, rgba(6,12,24,0) 100%)'
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: flip
+            ? 'radial-gradient(circle at 50% 0%, rgba(0,196,212,0.10) 0%, rgba(0,196,212,0.03) 28%, transparent 60%)'
+            : 'radial-gradient(circle at 50% 100%, rgba(0,196,212,0.10) 0%, rgba(0,196,212,0.03) 28%, transparent 60%)'
+        }}
+      />
+    </div>
+  );
+
   return (
     <div style={{ background: '#060C18', fontFamily: "'Inter', 'Helvetica Neue', sans-serif", overflowX: 'hidden' }}>
 
@@ -1106,6 +1132,8 @@ export default function HomeEN() {
         </motion.div>
       </section>
 
+      <SectionBlend />
+
       {/* ══ MEN GROUP BANNER ══ */}
       <section style={{ position: 'relative', overflow: 'hidden', minHeight: isMobile ? 420 : 620, background: '#08111D' }}>
         <video
@@ -1253,6 +1281,8 @@ export default function HomeEN() {
           </p>
         </motion.div>
       </section>
+
+      <SectionBlend flip />
 
       {/* ══ ABOUT AUTHOR ══ */}
       <section style={{ background: 'linear-gradient(180deg, #0D1B3E 0%, #09162B 100%)', padding: sectionPad }}>
@@ -1455,6 +1485,8 @@ export default function HomeEN() {
         </motion.div>
       </section>
 
+      <SectionBlend />
+
       {/* ══ BUY SECTION ══ */}
       <section id="buy" style={{ background: 'linear-gradient(180deg, #060C18 0%, #0D1B3E 100%)', padding: sectionPad }}>
         <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }} viewport={{ once: true }}
@@ -1562,6 +1594,8 @@ export default function HomeEN() {
           </div>
         </motion.div>
       </section>
+
+      <SectionBlend flip />
 
       {/* ══ FINAL CTA BANNER ══ */}
       <section style={{ position: 'relative', overflow: 'hidden', height: isMobile ? 300 : 'min(440px,55vh)' }}>
