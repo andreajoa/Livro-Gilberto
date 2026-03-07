@@ -781,7 +781,7 @@ export default function HomeES() {
               textTransform: 'uppercase',
               marginBottom: 14
             }}>
-              What's inside
+              Qué incluye
             </p>
 
             <h2 style={{
@@ -1538,7 +1538,7 @@ export default function HomeES() {
 
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px', background: 'rgba(255,255,255,0.03)', borderRadius: 8, marginBottom: 14 }}>
               <Shield size={14} style={{ color: '#00C4D4', flexShrink: 0 }} />
-              <p style={{ fontSize: 11, color: '#8A9BBF', margin: 0 }}>Secure payment via Stripe · Visa · Mastercard · Amex · Apple Pay</p>
+              <p style={{ fontSize: 11, color: '#8A9BBF', margin: 0 }}>Pago seguro por Stripe · Visa · Mastercard · Amex · Apple Pay</p>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'center', gap: isMobile ? 12 : 20, flexWrap: 'wrap' }}>
