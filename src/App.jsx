@@ -6,7 +6,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import AIChatbot from './components/AIChatbot';
-import { CartProvider } from "./context/CartContext";import Home from './pages/Home';
+import Home from './pages/Home';
 import HomeEN from './pages/HomeEN';
 import HomeES from './pages/HomeES';
 import About from './pages/Sobre';
@@ -26,11 +26,15 @@ function ScrollToTop() {
 function PTLayout({ children }) {
   return (
     <div style={{ minHeight:'100vh', display:'flex', flexDirection:'column' }}>
-      <Navbar />
-      <div style={{ flex:'1' }}>{children}</div>
-  </CartProvider>      <Footer />
+      <CartProvider>      <Navbar />
+      <div style={{ flex:'1' }}>{children}
+      </CartProvider>
+    </div>
+      <Footer />
       <WhatsAppButton />
       <AIChatbot />
+    
+      </CartProvider>
     </div>
   );
 }
