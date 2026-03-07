@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ShoppingCart, Clock } from 'lucide-react';
 import { useLead } from '../context/LeadContext';
-import bookCoverEN from '../assets/en/book-cover-en.jpeg';
-import bookCoverES from '../assets/en/book-cover-es.jpeg';
+import bookCoverEN from '../assets/book/capa-livro.png';
+import bookCoverES from '../assets/book/capa-livro.png';
 
 export default function AbandonedPopupEN({ lang = 'en' }) {
   const { lead, cartAbandoned, clearCartAbandoned } = useLead();
