@@ -904,37 +904,204 @@ export default function HomeEN() {
       </section>
 
       {/* ══ SOCIAL PROOF ══ */}
-      <section style={{ background: '#0A1628', padding: sectionPad }}>
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.8 }} viewport={{ once: true }}
-          style={{ maxWidth: 1000, margin: '0 auto' }}>
-          <h2 style={{ fontSize: isMobile ? '22px' : 'clamp(24px,3vw,40px)', fontWeight: 900, color: '#fff', textAlign: 'center', marginBottom: 8 }}>
-            Real men. Real results.
-          </h2>
-          <p style={{ fontSize: 14, color: '#8A9BBF', textAlign: 'center', marginBottom: 40 }}>They were exactly where you are now.</p>
-          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px,1fr))', gap: 16 }}>
-            {testimonials.map((t, i) => (
-              <motion.div key={i}
-                initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }} viewport={{ once: true }}
-                style={{
-                  background: 'rgba(13,27,62,0.7)', border: '1px solid rgba(0,196,212,0.12)',
-                  borderRadius: 12, padding: '24px 20px'
+      <section style={{ background: 'linear-gradient(180deg, #0A1628 0%, #091422 100%)', padding: sectionPad }}>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          style={{ maxWidth: 1120, margin: '0 auto' }}
+        >
+          <div style={{ textAlign: 'center', maxWidth: 760, margin: '0 auto 42px' }}>
+            <p style={{
+              fontSize: 11,
+              letterSpacing: 4,
+              color: '#FFB800',
+              fontWeight: 800,
+              textTransform: 'uppercase',
+              marginBottom: 14
+            }}>
+              Social proof
+            </p>
+
+            <h2 style={{
+              fontSize: isMobile ? '30px' : 'clamp(34px,4.2vw,58px)',
+              fontWeight: 900,
+              color: '#fff',
+              lineHeight: 1.06,
+              marginBottom: 14,
+              letterSpacing: -1.1
+            }}>
+              Real men. <span style={{ color: '#00C4D4' }}>Real results.</span>
+            </h2>
+
+            <p style={{
+              fontSize: isMobile ? 14 : 17,
+              color: 'rgba(255,255,255,0.70)',
+              lineHeight: 1.75,
+              marginBottom: 18
+            }}>
+              These men were stuck in the same mental loop, the same sleepless nights, and the same self-doubt you may be living through right now.
+            </p>
+
+            <div style={{
+              display: 'inline-flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              gap: 10,
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(255,255,255,0.06)',
+              borderRadius: 999,
+              padding: '10px 16px'
+            }}>
+              {['★★★★★ Rated by readers', '🇺🇸 🇨🇦 🇬🇧 🇦🇺 Trusted internationally', '🎧 Audiobook praised by listeners'].map(item => (
+                <span key={item} style={{ fontSize: 12, color: 'rgba(255,255,255,0.72)' }}>{item}</span>
+              ))}
+            </div>
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : '1.25fr 0.95fr 0.95fr',
+            gap: 18,
+            alignItems: 'stretch'
+          }}>
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.05 }}
+              viewport={{ once: true }}
+              style={{
+                background: 'linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 100%)',
+                border: '1px solid rgba(0,196,212,0.18)',
+                borderRadius: 18,
+                padding: isMobile ? '24px 20px' : '30px 28px',
+                boxShadow: '0 24px 70px rgba(0,0,0,0.26)'
+              }}
+            >
+              <div style={{ display: 'flex', gap: 3, marginBottom: 16 }}>
+                {[1,2,3,4,5].map(s => <Star key={s} size={15} fill="#FFB800" color="#FFB800" />)}
+              </div>
+
+              <p style={{
+                fontSize: isMobile ? 18 : 22,
+                color: '#fff',
+                lineHeight: 1.6,
+                marginBottom: 22,
+                fontStyle: 'italic',
+                fontWeight: 500
+              }}>
+                "{testimonials[0].text}"
+              </p>
+
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                paddingTop: 18,
+                borderTop: '1px solid rgba(255,255,255,0.08)'
+              }}>
+                <div style={{
+                  width: 44,
+                  height: 44,
+                  borderRadius: 999,
+                  background: 'rgba(0,196,212,0.16)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#fff',
+                  fontWeight: 800,
+                  flexShrink: 0
                 }}>
+                  {testimonials[0].name[0]}
+                </div>
+                <div>
+                  <p style={{ color: '#fff', fontSize: 15, fontWeight: 700, margin: 0 }}>{testimonials[0].name}</p>
+                  <p style={{ color: '#8A9BBF', fontSize: 13, margin: 0 }}>{testimonials[0].city}</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {testimonials.slice(1).map((t, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: (i + 1) * 0.1 }}
+                viewport={{ once: true }}
+                style={{
+                  background: 'rgba(13,27,62,0.74)',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  borderRadius: 16,
+                  padding: '24px 20px'
+                }}
+              >
                 <div style={{ display: 'flex', gap: 2, marginBottom: 14 }}>
                   {[1,2,3,4,5].map(s => <Star key={s} size={13} fill="#FFB800" color="#FFB800" />)}
                 </div>
-                <p style={{ fontSize: 14, color: '#B8C8E0', lineHeight: 1.8, marginBottom: 18, fontStyle: 'italic' }}>"{t.text}"</p>
+
+                <p style={{
+                  fontSize: 15,
+                  color: '#D6E3F7',
+                  lineHeight: 1.85,
+                  marginBottom: 18,
+                  fontStyle: 'italic'
+                }}>
+                  "{t.text}"
+                </p>
+
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <div style={{ width: 34, height: 34, borderRadius: 50, background: 'rgba(0,196,212,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15, flexShrink: 0 }}>
+                  <div style={{
+                    width: 38,
+                    height: 38,
+                    borderRadius: 50,
+                    background: 'rgba(0,196,212,0.16)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 15,
+                    color: '#fff',
+                    fontWeight: 700,
+                    flexShrink: 0
+                  }}>
                     {t.name[0]}
                   </div>
                   <div>
-                    <p style={{ color: '#fff', fontSize: 13, fontWeight: 600, margin: 0 }}>{t.name}</p>
+                    <p style={{ color: '#fff', fontSize: 13, fontWeight: 700, margin: 0 }}>{t.name}</p>
                     <p style={{ color: '#8A9BBF', fontSize: 12, margin: 0 }}>{t.city}</p>
                   </div>
                 </div>
               </motion.div>
             ))}
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: 28 }}>
+            <motion.button
+              whileTap={{ scale: 0.98 }}
+              onClick={handleBuy}
+              style={{
+                background: 'linear-gradient(135deg, #FFB800, #FF8A00)',
+                border: 'none',
+                borderRadius: 12,
+                padding: isMobile ? '18px' : '18px 34px',
+                fontSize: isMobile ? 16 : 17,
+                fontWeight: 900,
+                color: '#0D1322',
+                cursor: 'pointer',
+                boxShadow: '0 16px 40px rgba(255,138,0,0.28)',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 10,
+                justifyContent: 'center'
+              }}
+            >
+              Join Them — Get Instant Access
+              <ArrowRight size={17} />
+            </motion.button>
+
+            <p style={{ fontSize: 12, color: '#8A9BBF', marginTop: 10, marginBottom: 0 }}>
+              Instant download · Full audiobook included · 30-day guarantee
+            </p>
           </div>
         </motion.div>
       </section>
