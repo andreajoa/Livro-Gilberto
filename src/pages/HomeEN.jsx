@@ -17,6 +17,7 @@ import ebookBg from '../assets/en/ebook-bg.jpeg';
 import guarantee from '../assets/en/guarantee.png';
 import menGroup from '../assets/en/men-group.gif';
 import argument from '../assets/en/argument.gif';
+import emboraVideo from '../assets/en/embora.mp4';
 import bookCoverEN from '../assets/book/capa-livro.png';
 
 const faq = [
@@ -572,17 +573,110 @@ export default function HomeEN() {
         </motion.div>
       </section>
 
-      {/* ══ VIDEO SECTION — Argument ══ */}
-      <section style={{ position: 'relative', overflow: 'hidden', height: isMobile ? 280 : 'min(480px,55vh)' }}>
-        <img src={argument} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(6,12,24,0.72)' }} />
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }} viewport={{ once: true }}
-          style={{ position: 'relative', zIndex: 2, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: `0 ${px}` }}>
-          <h2 style={{ fontSize: isMobile ? '22px' : 'clamp(28px,4vw,56px)', fontWeight: 900, color: '#fff', lineHeight: 1.2, maxWidth: 600 }}>
-            There is a moment<br />when everything <span style={{ color: '#00C4D4' }}>changes.</span>
+      {/* ══ BREAKING POINT VIDEO BRIDGE ══ */}
+      <section style={{
+        position: 'relative',
+        overflow: 'hidden',
+        height: isMobile ? 320 : 'min(520px,60vh)',
+        background: '#081221'
+      }}>
+        {isMobile ? (
+          <img
+            src={argument}
+            alt=""
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center'
+            }}
+          />
+        ) : (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center'
+            }}
+          >
+            <source src={emboraVideo} type="video/mp4" />
+          </video>
+        )}
+
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: isMobile
+            ? 'linear-gradient(180deg, rgba(8,18,33,0.55) 0%, rgba(8,18,33,0.76) 30%, rgba(8,18,33,0.84) 100%)'
+            : 'linear-gradient(90deg, rgba(8,18,33,0.68) 0%, rgba(8,18,33,0.36) 40%, rgba(8,18,33,0.58) 100%)'
+        }} />
+
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(circle at 50% 50%, rgba(0,196,212,0.08) 0%, transparent 34%), radial-gradient(circle at 20% 20%, rgba(255,184,0,0.10) 0%, transparent 26%)'
+        }} />
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9 }}
+          viewport={{ once: true }}
+          style={{
+            position: 'relative',
+            zIndex: 2,
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+            padding: `0 ${px}`
+          }}
+        >
+          <p style={{
+            fontSize: 11,
+            letterSpacing: 4,
+            color: '#FFB800',
+            fontWeight: 800,
+            textTransform: 'uppercase',
+            marginBottom: 16
+          }}>
+            The breaking point
+          </p>
+
+          <h2 style={{
+            fontSize: isMobile ? '28px' : 'clamp(34px,4.6vw,64px)',
+            fontWeight: 900,
+            color: '#fff',
+            lineHeight: 1.04,
+            maxWidth: 900,
+            marginBottom: 18,
+            letterSpacing: -1.4
+          }}>
+            She tells you to leave.<br />
+            The door closes.<br />
+            The spiral <span style={{ color: '#00C4D4' }}>starts.</span>
           </h2>
-          <p style={{ fontSize: isMobile ? 13 : 16, color: 'rgba(255,255,255,0.6)', marginTop: 14, maxWidth: 460, lineHeight: 1.7 }}>
-            This book starts exactly there — and walks you out the other side.
+
+          <p style={{
+            fontSize: isMobile ? 14 : 18,
+            color: 'rgba(255,255,255,0.76)',
+            maxWidth: 700,
+            lineHeight: 1.7,
+            margin: 0
+          }}>
+            This is the moment the pain stops being a story and starts becoming your everyday life.
           </p>
         </motion.div>
       </section>
