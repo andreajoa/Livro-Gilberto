@@ -1598,26 +1598,150 @@ export default function HomeEN() {
       <SectionBlend flip />
 
       {/* ══ FINAL CTA BANNER ══ */}
-      <section style={{ position: 'relative', overflow: 'hidden', height: isMobile ? 300 : 'min(440px,55vh)' }}>
-        <img src={manStrong} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(6,12,24,0.72)' }} />
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }} viewport={{ once: true }}
-          style={{ position: 'relative', zIndex: 2, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: `0 ${px}` }}>
-          <h2 style={{ fontSize: isMobile ? '24px' : 'clamp(28px,4.5vw,60px)', fontWeight: 900, color: '#fff', lineHeight: 1.15, marginBottom: 24, maxWidth: 600 }}>
-            You Survived the Pain.<br /><span style={{ color: '#00C4D4' }}>Now It's Time to Live.</span>
+      <section style={{ position: 'relative', overflow: 'hidden', minHeight: isMobile ? 470 : 640, background: '#060C18' }}>
+        <img
+          src={manStrong}
+          alt=""
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: isMobile ? 'center top' : 'center 18%'
+          }}
+        />
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(180deg, rgba(6,12,24,0.24) 0%, rgba(6,12,24,0.68) 38%, rgba(6,12,24,0.95) 100%)'
+        }} />
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(circle at 50% 34%, rgba(0,196,212,0.16) 0%, rgba(0,196,212,0.05) 24%, transparent 54%)'
+        }} />
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9 }}
+          viewport={{ once: true }}
+          style={{
+            position: 'relative',
+            zIndex: 2,
+            minHeight: isMobile ? 470 : 640,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+            padding: isMobile ? '48px 20px 56px' : '84px 6vw'
+          }}
+        >
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            background: 'rgba(255,184,0,0.12)',
+            border: '1px solid rgba(255,184,0,0.22)',
+            borderRadius: 999,
+            padding: '8px 14px',
+            marginBottom: 18
+          }}>
+            <span style={{ width: 8, height: 8, borderRadius: 999, background: '#FFB800', display: 'inline-block' }} />
+            <span style={{ fontSize: 11, color: '#FFE7A3', fontWeight: 800, letterSpacing: 1.1, textTransform: 'uppercase' }}>
+              Your next chapter starts here
+            </span>
+          </div>
+
+          <h2 style={{
+            fontSize: isMobile ? '34px' : 'clamp(48px,5.6vw,84px)',
+            fontWeight: 900,
+            color: '#fff',
+            lineHeight: 1.02,
+            marginBottom: 18,
+            maxWidth: 940,
+            letterSpacing: -1.5
+          }}>
+            She broke you.<br />
+            <span style={{ color: '#00C4D4' }}>You do not have to stay broken.</span>
           </h2>
-          <motion.button whileTap={{ scale: 0.96 }} onClick={handleBuy}
+
+          <p style={{
+            fontSize: isMobile ? 15 : 20,
+            color: 'rgba(255,255,255,0.80)',
+            lineHeight: 1.8,
+            maxWidth: 760,
+            marginBottom: 16
+          }}>
+            You have suffered enough. This is where you stop replaying the loss, stop questioning your value, and start rebuilding with clarity.
+          </p>
+
+          <p style={{
+            fontSize: isMobile ? 14 : 16,
+            color: '#B8C8E0',
+            lineHeight: 1.75,
+            maxWidth: 720,
+            marginBottom: 26
+          }}>
+            Get the full eBook and audiobook now, and take the first real step out of the spiral today.
+          </p>
+
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: isMobile ? 10 : 14,
+            marginBottom: 26
+          }}>
+            {['Instant download', 'Full audiobook included', '30-day guarantee', 'One-time payment'].map(item => (
+              <span key={item} style={{
+                fontSize: 12,
+                color: 'rgba(255,255,255,0.74)',
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: 999,
+                padding: '8px 12px'
+              }}>
+                {item}
+              </span>
+            ))}
+          </div>
+
+          <motion.button
+            whileTap={{ scale: 0.96 }}
+            onClick={handleBuy}
             style={{
-              background: 'linear-gradient(135deg, #00C4D4, #0099A8)',
-              border: 'none', borderRadius: 8,
-              padding: isMobile ? '16px 32px' : '18px 44px',
-              fontSize: isMobile ? 15 : 17, fontWeight: 800, color: '#0D1B3E',
-              cursor: 'pointer', boxShadow: '0 8px 40px rgba(0,196,212,0.5)',
-              display: 'flex', alignItems: 'center', gap: 10
-            }}>
-            Get Instant Access — $17 <ArrowRight size={16} />
+              background: 'linear-gradient(135deg, #FFB800, #FF8A00)',
+              border: 'none',
+              borderRadius: 12,
+              padding: isMobile ? '18px 22px' : '20px 42px',
+              fontSize: isMobile ? 16 : 18,
+              fontWeight: 900,
+              color: '#0D1322',
+              cursor: 'pointer',
+              boxShadow: '0 18px 50px rgba(255,138,0,0.34)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 10,
+              width: isMobile ? '100%' : 'auto',
+              maxWidth: isMobile ? 340 : 'none'
+            }}
+          >
+            Get Instant Access — $17
+            <ArrowRight size={17} />
           </motion.button>
-          <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', marginTop: 14 }}>30-day money-back guarantee · Instant download</p>
+
+          <p style={{
+            fontSize: 12,
+            color: 'rgba(255,255,255,0.58)',
+            marginTop: 12,
+            marginBottom: 0
+          }}>
+            Read today. Listen today. Start rebuilding today.
+          </p>
         </motion.div>
       </section>
 
