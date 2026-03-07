@@ -429,38 +429,145 @@ export default function HomeEN() {
         </motion.div>
       </section>
 
-      {/* ══ PAIN AMPLIFICATION ══ */}
-      <section style={{ background: '#0A1628', padding: sectionPad }}>
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.8 }} viewport={{ once: true }}
-          style={{ maxWidth: 860, margin: '0 auto' }}>
-          <h2 style={{ fontSize: isMobile ? '24px' : 'clamp(26px,3vw,42px)', fontWeight: 900, color: '#fff', textAlign: 'center', marginBottom: 12 }}>
-            If you've been here, <span style={{ color: '#00C4D4' }}>you know.</span>
-          </h2>
-          <p style={{ fontSize: 15, color: '#8A9BBF', textAlign: 'center', marginBottom: 40, lineHeight: 1.7 }}>
-            No one tells you that being replaced feels like this.
-          </p>
-          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(240px, 1fr))', gap: isMobile ? 2 : 3 }}>
+      {/* ══ RAW IDENTIFICATION ══ */}
+      <section style={{
+        background: 'linear-gradient(180deg, #081221 0%, #0C1B33 100%)',
+        padding: sectionPad,
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(circle at 20% 20%, rgba(255,184,0,0.10) 0%, transparent 35%), radial-gradient(circle at 80% 10%, rgba(0,196,212,0.10) 0%, transparent 30%)'
+        }} />
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          style={{ maxWidth: 1000, margin: '0 auto', position: 'relative', zIndex: 2 }}
+        >
+          <div style={{ textAlign: 'center', maxWidth: 760, margin: '0 auto 42px' }}>
+            <p style={{
+              fontSize: 11,
+              letterSpacing: 4,
+              color: '#FFB800',
+              fontWeight: 800,
+              textTransform: 'uppercase',
+              marginBottom: 14
+            }}>
+              If this feels familiar, keep reading
+            </p>
+
+            <h2 style={{
+              fontSize: isMobile ? '28px' : 'clamp(32px,4vw,56px)',
+              fontWeight: 900,
+              color: '#fff',
+              lineHeight: 1.08,
+              marginBottom: 16
+            }}>
+              What being <span style={{ color: '#FFB800' }}>replaced</span><br />
+              does to a man.
+            </h2>
+
+            <p style={{
+              fontSize: isMobile ? 15 : 18,
+              color: 'rgba(255,255,255,0.72)',
+              lineHeight: 1.75,
+              margin: 0
+            }}>
+              This is the part most people never understand. It is not just heartbreak. It is humiliation, obsession, identity collapse, comparison, and the exhausting feeling that someone else stepped into the life you thought was yours.
+            </p>
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, minmax(0, 1fr))',
+            gap: 18,
+            marginBottom: 34
+          }}>
             {[
-              { icon: '💔', title: 'The paralysis', text: 'Some mornings you can\'t get out of bed. Not because you\'re lazy — because the weight is real.' },
-              { icon: '🔄', title: 'The mental loop', text: 'You replay the relationship in your head looking for the moment you lost her. You never find it.' },
-              { icon: '😶', title: 'The silence', text: 'You can\'t explain to friends how deep this goes. They say "you\'ll be fine." You know it\'s not that simple.' },
-              { icon: '❓', title: 'The comparison', text: '"What does he have that I don\'t?" This question eats men alive — and nobody talks about it.' },
-              { icon: '😰', title: 'The fear', text: 'Will you ever trust someone again? Will you ever feel whole? The doubt is exhausting.' },
-              { icon: '🪞', title: 'The identity crisis', text: 'You built your life around her. Now that she\'s gone — who are you? That question is terrifying.' },
-            ].map((c, i) => (
-              <motion.div key={i}
-                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.07 }} viewport={{ once: true }}
+              'You replay the breakup every night, trying to find the exact moment you lost her.',
+              'You compare yourself to the man she chose and wonder what he has that you do not.',
+              'You look normal in public, but your mind falls apart when you are alone.',
+              'You keep checking her profile even when you know it will ruin your day.',
+              'Part of you still wants her back. Another part of you wants your pride back.',
+              'You are not just grieving her. You are grieving the version of yourself that existed before this happened.',
+              'People tell you to move on, but they have no idea how deep this actually cut.',
+              'You do not need empty motivation. You need a way to think clearly again.'
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.06 }}
+                viewport={{ once: true }}
                 style={{
-                  background: 'rgba(13,27,62,0.6)',
-                  border: '1px solid rgba(0,196,212,0.08)',
-                  padding: '24px 20px'
+                  background: 'linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 100%)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  borderRadius: 16,
+                  padding: isMobile ? '18px 16px' : '20px 20px',
+                  display: 'flex',
+                  gap: 12,
+                  alignItems: 'flex-start',
+                  boxShadow: '0 16px 40px rgba(0,0,0,0.14)'
+                }}
+              >
+                <div style={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: 999,
+                  background: 'linear-gradient(135deg, #FFB800, #FF8A00)',
+                  color: '#0B1325',
+                  fontSize: 14,
+                  fontWeight: 900,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                  marginTop: 2
                 }}>
-                <span style={{ fontSize: 26, display: 'block', marginBottom: 12 }}>{c.icon}</span>
-                <h3 style={{ fontSize: 14, fontWeight: 700, color: '#fff', marginBottom: 8 }}>{c.title}</h3>
-                <p style={{ fontSize: 13, color: '#8A9BBF', lineHeight: 1.7, margin: 0 }}>{c.text}</p>
+                  !
+                </div>
+                <p style={{
+                  fontSize: isMobile ? 14 : 15,
+                  color: '#EAF4FF',
+                  lineHeight: 1.75,
+                  margin: 0
+                }}>
+                  {item}
+                </p>
               </motion.div>
             ))}
+          </div>
+
+          <div style={{
+            maxWidth: 780,
+            margin: '0 auto',
+            background: 'linear-gradient(135deg, rgba(255,184,0,0.12), rgba(0,196,212,0.10))',
+            border: '1px solid rgba(255,255,255,0.10)',
+            borderRadius: 18,
+            padding: isMobile ? '22px 18px' : '28px 28px',
+            textAlign: 'center'
+          }}>
+            <p style={{
+              fontSize: isMobile ? 18 : 22,
+              fontWeight: 800,
+              color: '#fff',
+              lineHeight: 1.5,
+              margin: '0 0 10px'
+            }}>
+              If you saw yourself in even half of this, this book was written for you.
+            </p>
+            <p style={{
+              fontSize: isMobile ? 14 : 15,
+              color: 'rgba(255,255,255,0.72)',
+              lineHeight: 1.7,
+              margin: 0
+            }}>
+              Not for the man who wants theory. For the man who wants to stop spiraling, regain control, and rebuild with dignity.
+            </p>
           </div>
         </motion.div>
       </section>
