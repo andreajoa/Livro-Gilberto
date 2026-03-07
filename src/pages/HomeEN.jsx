@@ -198,24 +198,20 @@ export default function HomeEN() {
             }}
           />
         ) : (
-          <video ref={videoRef} autoPlay loop muted playsInline webkit-playsinline="true" disablePictureInPicture 
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            poster={heroBg}
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              objectPosition: 'center'
-            }}
-          >
-            <source src={heroVideo} type="video/mp4" />
-          </video>
+          
+<div dangerouslySetInnerHTML={{ __html: `
+  <video 
+    src="${heroVideo}" 
+    autoplay 
+    loop 
+    muted 
+    playsinline 
+    webkit-playsinline="true" 
+    x5-playsinline="true"
+    style="width: 100%; height: 100%; object-fit: cover;"
+  ></video>
+`}} style={{ width: '100%', height: '100%' }} />
+
         )}
 
         <div style={{
