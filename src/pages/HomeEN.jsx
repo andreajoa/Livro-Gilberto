@@ -1255,42 +1255,202 @@ export default function HomeEN() {
       </section>
 
       {/* ══ ABOUT AUTHOR ══ */}
-      <section style={{ background: '#0D1B3E', padding: sectionPad }}>
-        <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }} viewport={{ once: true }}
-          style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px,1fr))', gap: isMobile ? 36 : 72, alignItems: 'center', maxWidth: 1100, margin: '0 auto' }}>
-          {!isMobile && (
-            <div style={{ position: 'relative' }}>
-              <img src={authorImg} alt="Gilberto de Souza" style={{ width: '100%', maxWidth: 420, borderRadius: 8, display: 'block', filter: 'drop-shadow(0 20px 50px rgba(0,0,0,0.7))' }} />
+      <section style={{ background: 'linear-gradient(180deg, #0D1B3E 0%, #09162B 100%)', padding: sectionPad }}>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9 }}
+          viewport={{ once: true }}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : 'minmax(340px, 430px) minmax(0, 1fr)',
+            gap: isMobile ? 34 : 78,
+            alignItems: 'center',
+            maxWidth: 1180,
+            margin: '0 auto'
+          }}
+        >
+          <div style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
+            <div style={{
+              position: 'relative',
+              width: isMobile ? '100%' : 420,
+              maxWidth: 420,
+              padding: isMobile ? '14px' : '18px',
+              borderRadius: 28,
+              background: 'linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)',
+              border: '1px solid rgba(0,196,212,0.16)',
+              boxShadow: '0 32px 90px rgba(0,0,0,0.38), 0 0 90px rgba(0,196,212,0.08)'
+            }}>
+              <img
+                src={authorImg}
+                alt="Gilberto de Souza"
+                style={{
+                  width: '100%',
+                  display: 'block',
+                  borderRadius: 20,
+                  objectFit: 'cover',
+                  boxShadow: '0 20px 60px rgba(0,0,0,0.32)'
+                }}
+              />
+
+              <div style={{
+                position: 'absolute',
+                left: isMobile ? 26 : -16,
+                bottom: isMobile ? 26 : 26,
+                background: 'rgba(8,18,37,0.92)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: 18,
+                padding: '14px 16px',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.24)'
+              }}>
+                <p style={{ margin: 0, fontSize: 11, color: '#8A9BBF', textTransform: 'uppercase', letterSpacing: 1.2 }}>Written by</p>
+                <p style={{ margin: '4px 0 0 0', fontSize: 16, fontWeight: 800, color: '#fff' }}>A man who lived it</p>
+              </div>
             </div>
-          )}
+          </div>
+
           <div>
-            {isMobile && (
-              <img src={authorImg} alt="Gilberto de Souza" style={{ width: 80, height: 80, borderRadius: 50, objectFit: 'cover', border: '2px solid rgba(0,196,212,0.4)', marginBottom: 20 }} />
-            )}
-            <p style={{ fontSize: 10, letterSpacing: 4, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 14 }}>About The Author</p>
-            <h2 style={{ fontSize: isMobile ? '32px' : 'clamp(32px,4vw,52px)', fontWeight: 900, color: '#fff', lineHeight: 1, marginBottom: 24 }}>
-              Gilberto<br /><span style={{ color: '#00C4D4' }}>de Souza</span>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              background: 'rgba(255,184,0,0.10)',
+              border: '1px solid rgba(255,184,0,0.24)',
+              color: '#FFB800',
+              borderRadius: 999,
+              padding: '7px 12px',
+              fontSize: 11,
+              fontWeight: 800,
+              letterSpacing: 1.1,
+              textTransform: 'uppercase',
+              marginBottom: 18
+            }}>
+              Not theory. Lived experience.
+            </div>
+
+            <p style={{
+              fontSize: 10,
+              letterSpacing: 4,
+              color: '#00C4D4',
+              fontWeight: 800,
+              textTransform: 'uppercase',
+              marginBottom: 14
+            }}>
+              About The Author
+            </p>
+
+            <h2 style={{
+              fontSize: isMobile ? '34px' : 'clamp(42px,5vw,72px)',
+              fontWeight: 900,
+              color: '#fff',
+              lineHeight: 0.98,
+              marginBottom: 20,
+              letterSpacing: -1.4
+            }}>
+              Gilberto<br />
+              <span style={{ color: '#00C4D4' }}>de Souza</span>
             </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
+
+            <p style={{
+              fontSize: isMobile ? 15 : 18,
+              color: 'rgba(255,255,255,0.76)',
+              lineHeight: 1.8,
+              marginBottom: 16,
+              maxWidth: 760
+            }}>
+              This book was not written by a therapist guessing what heartbreak feels like. It was written by a man who built a life, gave everything to a relationship, got betrayed, and had to find a way to stand back up with his dignity intact.
+            </p>
+
+            <p style={{
+              fontSize: isMobile ? 14 : 17,
+              color: '#B8C8E0',
+              lineHeight: 1.8,
+              marginBottom: 26,
+              maxWidth: 760
+            }}>
+              Gilberto turned that collapse into a practical guide for men who are stuck in the mental loop, questioning their value, and trying to understand how to move forward without becoming bitter, numb, or lost.
+            </p>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, minmax(0,1fr))',
+              gap: 12,
+              marginBottom: 26
+            }}>
               {[
-                { emoji: '🇧🇷', text: 'Born in Brazil. Living in the United States for 23 years.' },
-                { emoji: '💼', text: 'Entrepreneur — founded his own construction company from zero.' },
-                { emoji: '💔', text: 'Went through betrayal at the height of his success.' },
-                { emoji: '📖', text: 'Chose to rebuild — and wrote the book he wished existed.' },
+                { emoji: '🇧🇷', title: 'Brazilian roots', text: 'Born in Brazil and living in the United States for 23 years.' },
+                { emoji: '💼', title: 'Built from zero', text: 'Created his own construction company through hard work and discipline.' },
+                { emoji: '💔', title: 'Lived the betrayal', text: 'Went through deep emotional pain at the height of his success.' },
+                { emoji: '📖', title: 'Wrote the missing guide', text: 'Created the book he wishes had existed when he needed it most.' },
               ].map((item, i) => (
-                <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                  <span style={{ fontSize: 16, flexShrink: 0 }}>{item.emoji}</span>
-                  <p style={{ fontSize: 13, color: '#B8C8E0', margin: 0, lineHeight: 1.7 }}>{item.text}</p>
+                <div key={i} style={{
+                  background: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  borderRadius: 16,
+                  padding: '16px 16px'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                    <span style={{ fontSize: 17 }}>{item.emoji}</span>
+                    <span style={{ fontSize: 14, fontWeight: 800, color: '#fff' }}>{item.title}</span>
+                  </div>
+                  <p style={{ margin: 0, fontSize: 13, color: '#C7D6EA', lineHeight: 1.7 }}>{item.text}</p>
                 </div>
               ))}
             </div>
+
             <blockquote style={{
-              borderLeft: '3px solid #00C4D4', paddingLeft: 16,
-              fontStyle: 'italic', fontSize: isMobile ? 16 : 18, color: '#fff',
-              lineHeight: 1.6, margin: 0
+              margin: 0,
+              padding: isMobile ? '18px 18px' : '22px 22px',
+              background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.03) 100%)',
+              border: '1px solid rgba(0,196,212,0.16)',
+              borderRadius: 18,
+              color: '#fff',
+              fontStyle: 'italic',
+              fontSize: isMobile ? 18 : 24,
+              lineHeight: 1.6,
+              boxShadow: '0 18px 50px rgba(0,0,0,0.18)'
             }}>
-              "I wrote this book because I wanted someone to have written it for me when I needed it most."
+              “I wrote this book because I wanted someone to have written it for me when I needed it most.”
             </blockquote>
+
+            <div style={{
+              display: 'flex',
+              flexDirection: isMobile ? 'column' : 'row',
+              alignItems: isMobile ? 'stretch' : 'center',
+              gap: 14,
+              marginTop: 24
+            }}>
+              <motion.button
+                whileTap={{ scale: 0.98 }}
+                onClick={handleBuy}
+                style={{
+                  background: 'linear-gradient(135deg, #FFB800, #FF8A00)',
+                  border: 'none',
+                  borderRadius: 12,
+                  padding: isMobile ? '18px' : '18px 30px',
+                  fontSize: isMobile ? 16 : 17,
+                  fontWeight: 900,
+                  color: '#0D1322',
+                  cursor: 'pointer',
+                  boxShadow: '0 16px 40px rgba(255,138,0,0.28)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 10
+                }}
+              >
+                Read Gilberto’s Guide
+                <ArrowRight size={17} />
+              </motion.button>
+
+              <p style={{
+                margin: 0,
+                fontSize: 12,
+                color: 'rgba(255,255,255,0.58)'
+              }}>
+                Instant access · Full audiobook included · 30-day guarantee
+              </p>
+            </div>
           </div>
         </motion.div>
       </section>
