@@ -15,23 +15,23 @@ import authorImg from '../assets/en/author.png';
 import manStrong from '../assets/en/man-strong.png';
 import ebookBg from '../assets/en/ebook-bg.jpeg';
 import guarantee from '../assets/en/guarantee.png';
-import menGroup from '../assets/en/men-group.gif';
+import helpingGroupVideo from '../assets/en/ajudando.mp4';
 import argument from '../assets/en/argument.gif';
 import emboraVideo from '../assets/en/embora.mp4';
-import bookCoverES from '../assets/es/capa-espanhol.jpeg';
+import bookCoverEN from '../assets/book/capa-livro.png';
 
 const faq = [
-  { q: '¿En qué formato está el libro?', a: 'Recibes acceso instantáneo: un eBook en PDF que puedes leer en cualquier dispositivo y un audiolibro en MP3 que puedes escuchar donde quieras — en el coche, en el gimnasio o por la noche cuando tu mente no se apaga.' },
-  { q: '¿Cómo recibo mi compra?', a: 'Justo después del pago recibirás un correo con tus enlaces de descarga. Sin esperas, sin envío físico — es tuyo en menos de 60 segundos.' },
-  { q: '¿Este libro es solo para hombres que fueron engañados?', a: 'No. Este libro es para cualquier hombre que lo dio todo en una relación y terminó sintiendo que no fue suficiente — ya sea por traición, ruptura o por haber sido reemplazado.' },
-  { q: '¿Y si no me ayuda?', a: 'Tu compra está protegida por una garantía de devolución de 30 días. Sin preguntas. Si no sientes que este libro te ayudó de verdad, escríbenos y te devolveremos el 100%.' },
-  { q: '¿El audiolibro es el libro completo o solo un resumen?', a: 'Es el libro completo, palabra por palabra, narrado con una voz calmada y directa para hombres que están pasando exactamente por esto.' },
+  { q: 'What format is the book in?', a: 'You get an instant download: a PDF eBook you can read on any device, plus an MP3 audiobook you can listen to anywhere — in the car, at the gym, or late at night when your mind won\'t stop.' },
+  { q: 'How do I receive my purchase?', a: 'Immediately after payment, you\'ll receive an email with your download links. No waiting, no shipping — it\'s yours in under 60 seconds.' },
+  { q: 'Is this book only for men who were cheated on?', a: 'No. This book is for any man who gave everything to a relationship and was left feeling like it wasn\'t enough — whether through betrayal, breakup, or being replaced.' },
+  { q: 'What if it doesn\'t help me?', a: 'You\'re covered by a 30-day money-back guarantee. No questions asked. If you don\'t feel this book moved the needle for you, email us and we\'ll refund you in full.' },
+  { q: 'Is the audiobook the full book or just a summary?', a: 'It\'s the complete book, word for word, read in a calm and direct voice designed for men going through exactly what you\'re going through.' },
 ];
 
 const testimonials = [
-  { name: 'Marcus T.', city: 'Atlanta, GA', stars: 5, text: 'Encontré este libro a las 2 de la mañana cuando no podía dormir. Tres horas después ya había leído la mitad y lloré por primera vez en años. Me llegó de una forma muy distinta.' },
-  { name: 'James R.', city: 'Toronto, ON', stars: 5, text: 'Pensé que yo era el único que se sentía así. El capítulo sobre “el bucle mental” describió exactamente lo que estaba viviendo. Ya se lo recomendé a 4 amigos.' },
-  { name: 'Daniel M.', city: 'London, UK', stars: 5, text: 'El audiolibro me acompañó durante tres semanas de trayectos diarios. Al final me sentía como otro hombre. Vale cada centavo y más.' },
+  { name: 'Marcus T.', city: 'Atlanta, GA', stars: 5, text: 'I found this book at 2am when I couldn\'t sleep. Three hours later I\'d read half of it and cried for the first time in years. This hit differently.' },
+  { name: 'James R.', city: 'Toronto, ON', stars: 5, text: 'I thought I was the only one who felt this way. The chapter on "the mental loop" described my exact experience. I\'ve already recommended this to 4 friends.' },
+  { name: 'Daniel M.', city: 'London, UK', stars: 5, text: 'The audiobook got me through three weeks of daily commutes. By the end I felt like a different man. Worth every penny and more.' },
 ];
 
 export default function HomeES() {
@@ -62,6 +62,32 @@ export default function HomeES() {
   const px = isMobile ? '20px' : '6vw';
   const sectionPad = isMobile ? '64px 20px' : '100px 6vw';
 
+  const SectionBlend = ({ flip = false }) => (
+    <div
+      style={{
+        position: 'relative',
+        height: isMobile ? 42 : 72,
+        marginTop: isMobile ? -18 : -28,
+        marginBottom: isMobile ? -18 : -28,
+        zIndex: 3,
+        pointerEvents: 'none',
+        background: flip
+          ? 'linear-gradient(180deg, rgba(6,12,24,0) 0%, rgba(8,18,37,0.72) 42%, rgba(10,22,40,1) 100%)'
+          : 'linear-gradient(180deg, rgba(10,22,40,1) 0%, rgba(8,18,37,0.72) 58%, rgba(6,12,24,0) 100%)'
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: flip
+            ? 'radial-gradient(circle at 50% 0%, rgba(0,196,212,0.10) 0%, rgba(0,196,212,0.03) 28%, transparent 60%)'
+            : 'radial-gradient(circle at 50% 100%, rgba(0,196,212,0.10) 0%, rgba(0,196,212,0.03) 28%, transparent 60%)'
+        }}
+      />
+    </div>
+  );
+
   return (
     <div style={{ background: '#060C18', fontFamily: "'Inter', 'Helvetica Neue', sans-serif", overflowX: 'hidden' }}>
 
@@ -89,7 +115,7 @@ export default function HomeES() {
               border: 'none', borderRadius: 6, padding: '8px 16px',
               color: '#0D1B3E', fontSize: 12, fontWeight: 700, cursor: 'pointer'
             }}>
-              Obtener el libro
+              Obtén el libro
             </button>
             <button onClick={() => setMenuOpen(!menuOpen)} style={{
               background: 'rgba(255,255,255,0.08)', border: 'none', borderRadius: 6,
@@ -113,7 +139,7 @@ export default function HomeES() {
               border: 'none', borderRadius: 6, padding: '8px 20px',
               color: '#0D1B3E', fontSize: 13, fontWeight: 700, cursor: 'pointer'
             }}>
-              Obtener el libro
+              Obtén el libro
             </button>
           </div>
         )}
@@ -133,7 +159,7 @@ export default function HomeES() {
               padding: '20px', display: 'flex', flexDirection: 'column', gap: 12
             }}
           >
-            <button onClick={() => { navigate('/en'); setMenuOpen(false); }} style={{
+            <button onClick={() => { navigate('/es'); setMenuOpen(false); }} style={{
               background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
               borderRadius: 8, padding: '14px', color: '#fff', fontSize: 15,
               cursor: 'pointer', textAlign: 'left'
@@ -253,7 +279,7 @@ export default function HomeES() {
               maxWidth: 840
             }}>
               Ella se fue.<br />
-              <span style={{ color: '#FFB800' }}>Tú te rompiste.</span><br />
+              <span style={{ color: '#FFB800' }}>You broke.</span><br />
               Now rebuild<br />
               <span style={{ color: '#00C4D4' }}>stronger.</span>
             </h1>
@@ -276,7 +302,7 @@ export default function HomeES() {
             }}>
               {[
                 '📖 Full eBook download',
-                '🎧 Audiolibro completo incluido',
+                '🎧 Full audiobook included',
                 '⚡ Instant access after purchase',
                 '🛡️ 30-day money-back guarantee'
               ].map((item) => (
@@ -321,7 +347,7 @@ export default function HomeES() {
                   width: isMobile ? '100%' : 'auto'
                 }}
               >
-                Get Instant Access — $17
+                Obtén acceso inmediato — $17
                 <ArrowRight size={18} />
               </motion.button>
 
@@ -345,7 +371,7 @@ export default function HomeES() {
               color: 'rgba(255,255,255,0.60)',
               marginBottom: 26
             }}>
-              <span style={{ textDecoration: 'line-through', opacity: 0.7 }}>$34</span> solo hoy · Incluye eBook + audiolibro · Pago seguro
+              <span style={{ textDecoration: 'line-through', opacity: 0.7 }}>$34</span> today only · Includes eBook + audiobook · Secure checkout
             </p>
 
             <div style={{
@@ -715,7 +741,7 @@ export default function HomeES() {
               justifyContent: 'center'
             }}>
               <img
-                src={bookCoverES}
+                src={bookCoverEN}
                 alt="How to Overcome the Pain of Being Replaced"
                 style={{
                   width: isMobile ? 220 : 290,
@@ -767,7 +793,7 @@ export default function HomeES() {
               letterSpacing: -1.2,
               maxWidth: 760
             }}>
-              Stop the spiral.<br />
+              Detén la espiral.<br />
               Rebuild with a <span style={{ color: '#00C4D4' }}>clear plan.</span>
             </h2>
 
@@ -872,7 +898,7 @@ export default function HomeES() {
                 marginBottom: 14
               }}
             >
-              Get Instant Access — $17
+              Obtén acceso inmediato — $17
               <ArrowRight size={17} />
             </motion.button>
 
@@ -882,7 +908,7 @@ export default function HomeES() {
               gap: isMobile ? 10 : 16,
               marginBottom: 10
             }}>
-              {['⚡ Descarga inmediata', '💰 Garantía de 30 días', '🔒 Pago seguro', '🎧 Audiolibro completo incluido'].map(item => (
+              {['⚡ Instant download', '💰 30-day guarantee', '🔒 Secure checkout', '🎧 Full audiobook included'].map(item => (
                 <span key={item} style={{
                   fontSize: 12,
                   color: 'rgba(255,255,255,0.68)'
@@ -1100,67 +1126,366 @@ export default function HomeES() {
             </motion.button>
 
             <p style={{ fontSize: 12, color: '#8A9BBF', marginTop: 10, marginBottom: 0 }}>
-              Descarga inmediata · Audiolibro completo incluido · Garantía de 30 días
+              Instant download · Full audiobook included · 30-day guarantee
             </p>
           </div>
         </motion.div>
       </section>
 
+      <SectionBlend />
+
       {/* ══ MEN GROUP BANNER ══ */}
-      <section style={{ position: 'relative', overflow: 'hidden', height: isMobile ? 260 : 'min(420px,50vh)' }}>
-        <img src={menGroup} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(6,12,24,0.78)' }} />
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 1 }} viewport={{ once: true }}
-          style={{ position: 'relative', zIndex: 2, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: `0 ${px}` }}>
-          <h2 style={{ fontSize: isMobile ? '20px' : 'clamp(26px,4vw,52px)', fontWeight: 900, color: '#fff', lineHeight: 1.2, marginBottom: 12 }}>
-            You Are Not Alone.<br /><span style={{ color: '#00C4D4' }}>Thousands of men have been here.</span>
+      <section style={{ position: 'relative', overflow: 'hidden', minHeight: isMobile ? 420 : 620, background: '#08111D' }}>
+        <video
+          src={helpingGroupVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover'
+          }}
+        />
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(180deg, rgba(3,8,16,0.58) 0%, rgba(6,12,24,0.74) 45%, rgba(6,12,24,0.92) 100%)'
+        }} />
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(circle at 50% 38%, rgba(0,196,212,0.14) 0%, rgba(0,196,212,0.04) 24%, transparent 52%)'
+        }} />
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9 }}
+          viewport={{ once: true }}
+          style={{
+            position: 'relative',
+            zIndex: 2,
+            minHeight: isMobile ? 420 : 620,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+            padding: isMobile ? '48px 20px' : '70px 6vw'
+          }}
+        >
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            background: 'rgba(255,255,255,0.08)',
+            border: '1px solid rgba(255,255,255,0.10)',
+            borderRadius: 999,
+            padding: '8px 14px',
+            marginBottom: 18
+          }}>
+            <span style={{ width: 8, height: 8, borderRadius: 999, background: '#00C4D4', display: 'inline-block' }} />
+            <span style={{ fontSize: 11, color: '#D8E6F7', fontWeight: 700, letterSpacing: 1.1, textTransform: 'uppercase' }}>
+              Brotherhood. Support. Rebuilding.
+            </span>
+          </div>
+
+          <h2 style={{
+            fontSize: isMobile ? '32px' : 'clamp(44px,5.6vw,82px)',
+            fontWeight: 900,
+            color: '#fff',
+            lineHeight: 1.03,
+            maxWidth: 980,
+            marginBottom: 18,
+            letterSpacing: -1.5
+          }}>
+            No eres el único hombre<br />
+            tratando de <span style={{ color: '#00C4D4' }}>volver a levantarse.</span>
           </h2>
-          <p style={{ fontSize: isMobile ? 13 : 16, color: 'rgba(255,255,255,0.65)', maxWidth: 520, lineHeight: 1.7 }}>
-            The difference between the ones who recover and the ones who don't is simple: they found the right guide at the right time.
+
+          <p style={{
+            fontSize: isMobile ? 15 : 20,
+            color: 'rgba(255,255,255,0.78)',
+            maxWidth: 820,
+            lineHeight: 1.75,
+            marginBottom: 20
+          }}>
+            Thousands of men have lived through the same humiliation, silence, obsessive thoughts, and self-doubt. The ones who recover do not do it by pretending they are fine.
+          </p>
+
+          <p style={{
+            fontSize: isMobile ? 14 : 17,
+            color: '#B8C8E0',
+            maxWidth: 760,
+            lineHeight: 1.75,
+            marginBottom: 26
+          }}>
+            They recover when they find language for their pain, a path through the mental loop, and a guide that understands exactly what this kind of loss does to a man.
+          </p>
+
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: isMobile ? 10 : 16,
+            marginBottom: 26
+          }}>
+            {['Men across US, Canada, UK & Australia', 'Practical guidance, not empty advice', 'Read it. Listen to it. Start today.'].map(item => (
+              <span key={item} style={{
+                fontSize: 12,
+                color: 'rgba(255,255,255,0.72)',
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: 999,
+                padding: '8px 12px'
+              }}>
+                {item}
+              </span>
+            ))}
+          </div>
+
+          <motion.button
+            whileTap={{ scale: 0.98 }}
+            onClick={handleBuy}
+            style={{
+              background: 'linear-gradient(135deg, #FFB800, #FF8A00)',
+              border: 'none',
+              borderRadius: 12,
+              padding: isMobile ? '18px 20px' : '18px 34px',
+              fontSize: isMobile ? 16 : 17,
+              fontWeight: 900,
+              color: '#0D1322',
+              cursor: 'pointer',
+              boxShadow: '0 16px 40px rgba(255,138,0,0.28)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 10,
+              justifyContent: 'center'
+            }}
+          >
+            Únete a ellos — Obtén acceso inmediato
+            <ArrowRight size={17} />
+          </motion.button>
+
+          <p style={{
+            fontSize: 12,
+            color: 'rgba(255,255,255,0.56)',
+            marginTop: 12,
+            marginBottom: 0
+          }}>
+            Instant download · Full audiobook included · 30-day guarantee
           </p>
         </motion.div>
       </section>
 
+      <SectionBlend flip />
+
       {/* ══ ABOUT AUTHOR ══ */}
-      <section style={{ background: '#0D1B3E', padding: sectionPad }}>
-        <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }} viewport={{ once: true }}
-          style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px,1fr))', gap: isMobile ? 36 : 72, alignItems: 'center', maxWidth: 1100, margin: '0 auto' }}>
-          {!isMobile && (
-            <div style={{ position: 'relative' }}>
-              <img src={authorImg} alt="Gilberto de Souza" style={{ width: '100%', maxWidth: 420, borderRadius: 8, display: 'block', filter: 'drop-shadow(0 20px 50px rgba(0,0,0,0.7))' }} />
+      <section style={{ background: 'linear-gradient(180deg, #0D1B3E 0%, #09162B 100%)', padding: sectionPad }}>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9 }}
+          viewport={{ once: true }}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : 'minmax(340px, 430px) minmax(0, 1fr)',
+            gap: isMobile ? 34 : 78,
+            alignItems: 'center',
+            maxWidth: 1180,
+            margin: '0 auto'
+          }}
+        >
+          <div style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
+            <div style={{
+              position: 'relative',
+              width: isMobile ? '100%' : 420,
+              maxWidth: 420,
+              padding: isMobile ? '14px' : '18px',
+              borderRadius: 28,
+              background: 'linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)',
+              border: '1px solid rgba(0,196,212,0.16)',
+              boxShadow: '0 32px 90px rgba(0,0,0,0.38), 0 0 90px rgba(0,196,212,0.08)'
+            }}>
+              <img
+                src={authorImg}
+                alt="Gilberto de Souza"
+                style={{
+                  width: '100%',
+                  display: 'block',
+                  borderRadius: 20,
+                  objectFit: 'cover',
+                  boxShadow: '0 20px 60px rgba(0,0,0,0.32)'
+                }}
+              />
+
+              <div style={{
+                position: 'absolute',
+                left: isMobile ? 26 : -16,
+                bottom: isMobile ? 26 : 26,
+                background: 'rgba(8,18,37,0.92)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: 18,
+                padding: '14px 16px',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.24)'
+              }}>
+                <p style={{ margin: 0, fontSize: 11, color: '#8A9BBF', textTransform: 'uppercase', letterSpacing: 1.2 }}>Written by</p>
+                <p style={{ margin: '4px 0 0 0', fontSize: 16, fontWeight: 800, color: '#fff' }}>A man who lived it</p>
+              </div>
             </div>
-          )}
+          </div>
+
           <div>
-            {isMobile && (
-              <img src={authorImg} alt="Gilberto de Souza" style={{ width: 80, height: 80, borderRadius: 50, objectFit: 'cover', border: '2px solid rgba(0,196,212,0.4)', marginBottom: 20 }} />
-            )}
-            <p style={{ fontSize: 10, letterSpacing: 4, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 14 }}>Sobre el autor</p>
-            <h2 style={{ fontSize: isMobile ? '32px' : 'clamp(32px,4vw,52px)', fontWeight: 900, color: '#fff', lineHeight: 1, marginBottom: 24 }}>
-              Gilberto<br /><span style={{ color: '#00C4D4' }}>de Souza</span>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              background: 'rgba(255,184,0,0.10)',
+              border: '1px solid rgba(255,184,0,0.24)',
+              color: '#FFB800',
+              borderRadius: 999,
+              padding: '7px 12px',
+              fontSize: 11,
+              fontWeight: 800,
+              letterSpacing: 1.1,
+              textTransform: 'uppercase',
+              marginBottom: 18
+            }}>
+              Not theory. Lived experience.
+            </div>
+
+            <p style={{
+              fontSize: 10,
+              letterSpacing: 4,
+              color: '#00C4D4',
+              fontWeight: 800,
+              textTransform: 'uppercase',
+              marginBottom: 14
+            }}>
+              Sobre el autor
+            </p>
+
+            <h2 style={{
+              fontSize: isMobile ? '34px' : 'clamp(42px,5vw,72px)',
+              fontWeight: 900,
+              color: '#fff',
+              lineHeight: 0.98,
+              marginBottom: 20,
+              letterSpacing: -1.4
+            }}>
+              Gilberto<br />
+              <span style={{ color: '#00C4D4' }}>de Souza</span>
             </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
+
+            <p style={{
+              fontSize: isMobile ? 15 : 18,
+              color: 'rgba(255,255,255,0.76)',
+              lineHeight: 1.8,
+              marginBottom: 16,
+              maxWidth: 760
+            }}>
+              This book was not written by a therapist guessing what heartbreak feels like. It was written by a man who built a life, gave everything to a relationship, got betrayed, and had to find a way to stand back up with his dignity intact.
+            </p>
+
+            <p style={{
+              fontSize: isMobile ? 14 : 17,
+              color: '#B8C8E0',
+              lineHeight: 1.8,
+              marginBottom: 26,
+              maxWidth: 760
+            }}>
+              Gilberto turned that collapse into a practical guide for men who are stuck in the mental loop, questioning their value, and trying to understand how to move forward without becoming bitter, numb, or lost.
+            </p>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, minmax(0,1fr))',
+              gap: 12,
+              marginBottom: 26
+            }}>
               {[
-                { emoji: '🇧🇷', text: 'Born in Brazil. Living in the United States for 23 years.' },
-                { emoji: '💼', text: 'Entrepreneur — founded his own construction company from zero.' },
-                { emoji: '💔', text: 'Went through betrayal at the height of his success.' },
-                { emoji: '📖', text: 'Chose to rebuild — and wrote the book he wished existed.' },
+                { emoji: '🇧🇷', title: 'Brazilian roots', text: 'Born in Brazil and living in the United States for 23 years.' },
+                { emoji: '💼', title: 'Built from zero', text: 'Created his own construction company through hard work and discipline.' },
+                { emoji: '💔', title: 'Lived the betrayal', text: 'Went through deep emotional pain at the height of his success.' },
+                { emoji: '📖', title: 'Wrote the missing guide', text: 'Created the book he wishes had existed when he needed it most.' },
               ].map((item, i) => (
-                <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                  <span style={{ fontSize: 16, flexShrink: 0 }}>{item.emoji}</span>
-                  <p style={{ fontSize: 13, color: '#B8C8E0', margin: 0, lineHeight: 1.7 }}>{item.text}</p>
+                <div key={i} style={{
+                  background: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  borderRadius: 16,
+                  padding: '16px 16px'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                    <span style={{ fontSize: 17 }}>{item.emoji}</span>
+                    <span style={{ fontSize: 14, fontWeight: 800, color: '#fff' }}>{item.title}</span>
+                  </div>
+                  <p style={{ margin: 0, fontSize: 13, color: '#C7D6EA', lineHeight: 1.7 }}>{item.text}</p>
                 </div>
               ))}
             </div>
+
             <blockquote style={{
-              borderLeft: '3px solid #00C4D4', paddingLeft: 16,
-              fontStyle: 'italic', fontSize: isMobile ? 16 : 18, color: '#fff',
-              lineHeight: 1.6, margin: 0
+              margin: 0,
+              padding: isMobile ? '18px 18px' : '22px 22px',
+              background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.03) 100%)',
+              border: '1px solid rgba(0,196,212,0.16)',
+              borderRadius: 18,
+              color: '#fff',
+              fontStyle: 'italic',
+              fontSize: isMobile ? 18 : 24,
+              lineHeight: 1.6,
+              boxShadow: '0 18px 50px rgba(0,0,0,0.18)'
             }}>
-              "I wrote this book because I wanted someone to have written it for me when I needed it most."
+              “I wrote this book because I wanted someone to have written it for me when I needed it most.”
             </blockquote>
+
+            <div style={{
+              display: 'flex',
+              flexDirection: isMobile ? 'column' : 'row',
+              alignItems: isMobile ? 'stretch' : 'center',
+              gap: 14,
+              marginTop: 24
+            }}>
+              <motion.button
+                whileTap={{ scale: 0.98 }}
+                onClick={handleBuy}
+                style={{
+                  background: 'linear-gradient(135deg, #FFB800, #FF8A00)',
+                  border: 'none',
+                  borderRadius: 12,
+                  padding: isMobile ? '18px' : '18px 30px',
+                  fontSize: isMobile ? 16 : 17,
+                  fontWeight: 900,
+                  color: '#0D1322',
+                  cursor: 'pointer',
+                  boxShadow: '0 16px 40px rgba(255,138,0,0.28)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 10
+                }}
+              >
+                Read Gilberto’s Guide
+                <ArrowRight size={17} />
+              </motion.button>
+
+              <p style={{
+                margin: 0,
+                fontSize: 12,
+                color: 'rgba(255,255,255,0.58)'
+              }}>
+                Instant access · Full audiobook included · 30-day guarantee
+              </p>
+            </div>
           </div>
         </motion.div>
       </section>
+
+      <SectionBlend />
 
       {/* ══ BUY SECTION ══ */}
       <section id="buy" style={{ background: 'linear-gradient(180deg, #060C18 0%, #0D1B3E 100%)', padding: sectionPad }}>
@@ -1168,7 +1493,7 @@ export default function HomeES() {
           style={{ maxWidth: 560, margin: '0 auto', textAlign: 'center' }}>
           <p style={{ fontSize: 10, letterSpacing: 4, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>You're Ready</p>
           <h2 style={{ fontSize: isMobile ? '28px' : 'clamp(30px,4vw,52px)', fontWeight: 900, color: '#fff', lineHeight: 1.15, marginBottom: 12 }}>
-            Obtén el libro.<br /><span style={{ color: '#00C4D4' }}>Empieza hoy.</span>
+            Obtén el libro.<br /><span style={{ color: '#00C4D4' }}>Start Today.</span>
           </h2>
           <p style={{ fontSize: 14, color: '#8A9BBF', lineHeight: 1.7, marginBottom: 36 }}>
             You've already survived the hardest part. Now let this book show you what comes next.
@@ -1179,13 +1504,13 @@ export default function HomeES() {
             borderRadius: 16, padding: isMobile ? '28px 20px' : '40px 36px', textAlign: 'left'
           }}>
             <div style={{ display: 'flex', gap: 16, marginBottom: 24, alignItems: 'flex-start' }}>
-              <img src={bookCoverES} alt="Book" style={{ width: isMobile ? 80 : 100, borderRadius: 6, boxShadow: '0 12px 40px rgba(0,0,0,0.6)', flexShrink: 0 }} />
+              <img src={bookCoverEN} alt="Book" style={{ width: isMobile ? 80 : 100, borderRadius: 6, boxShadow: '0 12px 40px rgba(0,0,0,0.6)', flexShrink: 0 }} />
               <div>
                 <h3 style={{ fontSize: isMobile ? 15 : 17, fontWeight: 800, color: '#fff', marginBottom: 6, lineHeight: 1.3 }}>
                   How to Overcome the Pain of Being Replaced by Someone Else
                 </h3>
-                <p style={{ fontSize: 12, color: '#8A9BBF', marginBottom: 10 }}>by Gilberto de Souza</p>
-                {['📖 eBook completo (PDF)', '🎧 Audiolibro completo (MP3)', '✅ Descarga inmediata'].map(item => (
+                <p style={{ fontSize: 12, color: '#8A9BBF', marginBottom: 10 }}>por Gilberto de Souza</p>
+                {['📖 Full eBook (PDF)', '🎧 Full Audiobook (MP3)', '✅ Instant download'].map(item => (
                   <div key={item} style={{ fontSize: 12, color: '#B8C8E0', marginBottom: 4 }}>{item}</div>
                 ))}
               </div>
@@ -1207,7 +1532,7 @@ export default function HomeES() {
                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
                 marginBottom: 14
               }}>
-              Get Instant Access — $17
+              Obtén acceso inmediato — $17
               <ArrowRight size={18} />
             </motion.button>
 
@@ -1217,7 +1542,7 @@ export default function HomeES() {
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'center', gap: isMobile ? 12 : 20, flexWrap: 'wrap' }}>
-              {['🔒 SSL seguro', '💰 Garantía de 30 días', '⚡ Acceso inmediato'].map(b => (
+              {['🔒 SSL Secure', '💰 30-Day Guarantee', '⚡ Instant Access'].map(b => (
                 <span key={b} style={{ fontSize: 11, color: '#8A9BBF' }}>{b}</span>
               ))}
             </div>
@@ -1226,71 +1551,445 @@ export default function HomeES() {
       </section>
 
       {/* ══ GUARANTEE ══ */}
-      <section style={{ background: '#0A1628', padding: sectionPad }}>
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}
-          style={{ maxWidth: 620, margin: '0 auto', textAlign: 'center' }}>
-          <img src={guarantee} alt="Garantía de devolución de 30 días" style={{ width: 100, marginBottom: 24, display: 'block', margin: '0 auto 24px' }} />
-          <h2 style={{ fontSize: isMobile ? '22px' : 'clamp(24px,3vw,36px)', fontWeight: 900, color: '#fff', marginBottom: 14 }}>
-            Garantía de devolución de 30 días
-          </h2>
-          <p style={{ fontSize: 14, color: '#8A9BBF', lineHeight: 1.8 }}>
-            Read the book. Listen to the audiobook. If within 30 days you don't feel it gave you something real — email us and we will refund every cent. No questions, no hassle.
-          </p>
+      <section style={{ background: 'linear-gradient(180deg, #0A1628 0%, #081321 100%)', padding: sectionPad }}>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          style={{ maxWidth: 940, margin: '0 auto' }}
+        >
+          <div style={{
+            position: 'relative',
+            overflow: 'hidden',
+            background: 'linear-gradient(180deg, rgba(13,27,62,0.86) 0%, rgba(9,19,33,0.92) 100%)',
+            border: '1px solid rgba(255,255,255,0.08)',
+            borderRadius: 24,
+            padding: isMobile ? '28px 20px' : '40px 38px',
+            textAlign: 'center',
+            boxShadow: '0 28px 80px rgba(0,0,0,0.28)'
+          }}>
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'radial-gradient(circle at 50% 0%, rgba(0,196,212,0.12) 0%, rgba(0,196,212,0.03) 28%, transparent 60%)'
+            }} />
+
+            <div style={{ position: 'relative', zIndex: 2 }}>
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                background: 'rgba(255,184,0,0.10)',
+                border: '1px solid rgba(255,184,0,0.24)',
+                color: '#FFB800',
+                borderRadius: 999,
+                padding: '8px 14px',
+                fontSize: 11,
+                fontWeight: 800,
+                letterSpacing: 1.1,
+                textTransform: 'uppercase',
+                marginBottom: 18
+              }}>
+                Zero risk purchase
+              </div>
+
+              <img
+                src={guarantee}
+                alt="30-Day Money Back Guarantee"
+                style={{ width: isMobile ? 90 : 110, display: 'block', margin: '0 auto 22px' }}
+              />
+
+              <h2 style={{
+                fontSize: isMobile ? '30px' : 'clamp(34px,4vw,54px)',
+                fontWeight: 900,
+                color: '#fff',
+                lineHeight: 1.08,
+                marginBottom: 14,
+                letterSpacing: -1
+              }}>
+                Try it for 30 days.<br />
+                <span style={{ color: '#00C4D4' }}>If it does not help, you pay nothing.</span>
+              </h2>
+
+              <p style={{
+                fontSize: isMobile ? 14 : 17,
+                color: 'rgba(255,255,255,0.74)',
+                lineHeight: 1.8,
+                maxWidth: 700,
+                margin: '0 auto 24px'
+              }}>
+                Read the book. Listen to the full audiobook. If within 30 days you do not feel it gave you clarity, direction, or something real to hold on to, email us and we will refund every cent.
+              </p>
+
+              <div style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                gap: isMobile ? 10 : 14,
+                marginBottom: 22
+              }}>
+                {['No questions asked', 'Full refund policy', 'Instant access after payment', 'Full audiobook included'].map(item => (
+                  <span key={item} style={{
+                    fontSize: 12,
+                    color: 'rgba(255,255,255,0.76)',
+                    background: 'rgba(255,255,255,0.05)',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    borderRadius: 999,
+                    padding: '8px 12px'
+                  }}>
+                    {item}
+                  </span>
+                ))}
+              </div>
+
+              <motion.button
+                whileTap={{ scale: 0.98 }}
+                onClick={handleBuy}
+                style={{
+                  background: 'linear-gradient(135deg, #FFB800, #FF8A00)',
+                  border: 'none',
+                  borderRadius: 12,
+                  padding: isMobile ? '18px' : '18px 34px',
+                  fontSize: isMobile ? 16 : 17,
+                  fontWeight: 900,
+                  color: '#0D1322',
+                  cursor: 'pointer',
+                  boxShadow: '0 16px 40px rgba(255,138,0,0.28)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 10,
+                  width: isMobile ? '100%' : 'auto',
+                  maxWidth: isMobile ? 340 : 'none'
+                }}
+              >
+                Start Risk-Free — $17
+                <ArrowRight size={17} />
+              </motion.button>
+
+              <p style={{
+                fontSize: 12,
+                color: '#8A9BBF',
+                marginTop: 12,
+                marginBottom: 0
+              }}>
+                One-time payment · 30-day guarantee · Secure checkout
+              </p>
+            </div>
+          </div>
         </motion.div>
       </section>
 
       {/* ══ FAQ ══ */}
-      <section style={{ background: '#060C18', padding: sectionPad }}>
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.7 }} viewport={{ once: true }}
-          style={{ maxWidth: 720, margin: '0 auto' }}>
-          <h2 style={{ fontSize: isMobile ? '22px' : 'clamp(26px,3vw,40px)', fontWeight: 900, color: '#fff', textAlign: 'center', marginBottom: 8 }}>
-            Preguntas<br /><span style={{ color: '#00C4D4' }}>frecuentes</span>
-          </h2>
-          <div style={{ width: 40, height: 2, background: '#00C4D4', margin: '14px auto 36px' }} />
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+      <section style={{ background: 'linear-gradient(180deg, #060C18 0%, #071120 100%)', padding: sectionPad }}>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+          style={{ maxWidth: 860, margin: '0 auto' }}
+        >
+          <div style={{ textAlign: 'center', maxWidth: 720, margin: '0 auto 34px' }}>
+            <p style={{
+              fontSize: 11,
+              letterSpacing: 4,
+              color: '#FFB800',
+              fontWeight: 800,
+              textTransform: 'uppercase',
+              marginBottom: 14
+            }}>
+              Last objections
+            </p>
+
+            <h2 style={{
+              fontSize: isMobile ? '30px' : 'clamp(36px,4vw,56px)',
+              fontWeight: 900,
+              color: '#fff',
+              textAlign: 'center',
+              lineHeight: 1.08,
+              marginBottom: 14,
+              letterSpacing: -1.1
+            }}>
+              Questions that usually stop men<br />
+              <span style={{ color: '#00C4D4' }}>from buying.</span>
+            </h2>
+
+            <p style={{
+              fontSize: isMobile ? 14 : 16,
+              color: '#8A9BBF',
+              lineHeight: 1.8,
+              margin: '0 auto'
+            }}>
+              If you are close to buying but still have one or two doubts, this section is for that exact moment.
+            </p>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 24 }}>
             {faq.map((item, i) => (
-              <div key={i} style={{ background: 'rgba(13,27,62,0.5)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 8, overflow: 'hidden' }}>
-                <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  style={{ width: '100%', padding: '16px 18px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'none', border: 'none', color: '#fff', fontSize: isMobile ? 14 : 15, fontWeight: 600, cursor: 'pointer', textAlign: 'left', gap: 12 }}>
+              <div
+                key={i}
+                style={{
+                  background: 'linear-gradient(180deg, rgba(13,27,62,0.72) 0%, rgba(10,20,38,0.88) 100%)',
+                  border: openFaq === i ? '1px solid rgba(0,196,212,0.28)' : '1px solid rgba(255,255,255,0.06)',
+                  borderRadius: 14,
+                  overflow: 'hidden',
+                  boxShadow: openFaq === i ? '0 12px 34px rgba(0,196,212,0.08)' : 'none'
+                }}
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  style={{
+                    width: '100%',
+                    padding: isMobile ? '16px 16px' : '18px 20px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    background: 'none',
+                    border: 'none',
+                    color: '#fff',
+                    fontSize: isMobile ? 15 : 16,
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    textAlign: 'left',
+                    gap: 12
+                  }}
+                >
                   {item.q}
-                  <motion.span animate={{ rotate: openFaq === i ? 180 : 0 }} style={{ color: '#00C4D4', flexShrink: 0 }}>
-                    <ChevronDown size={16} />
+                  <motion.span
+                    animate={{ rotate: openFaq === i ? 180 : 0 }}
+                    style={{ color: openFaq === i ? '#00C4D4' : '#8A9BBF', flexShrink: 0 }}
+                  >
+                    <ChevronDown size={18} />
                   </motion.span>
                 </button>
+
                 <AnimatePresence>
                   {openFaq === i && (
-                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} style={{ overflow: 'hidden' }}>
-                      <div style={{ padding: '0 18px 16px', fontSize: 13, color: '#8A9BBF', lineHeight: 1.8 }}>{item.a}</div>
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      style={{ overflow: 'hidden' }}
+                    >
+                      <div style={{
+                        padding: '0 20px 18px',
+                        fontSize: 14,
+                        color: '#B8C8E0',
+                        lineHeight: 1.8,
+                        borderTop: '1px solid rgba(255,255,255,0.06)'
+                      }}>
+                        {item.a}
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
             ))}
           </div>
+
+          <div style={{
+            textAlign: 'center',
+            background: 'rgba(255,255,255,0.03)',
+            border: '1px solid rgba(255,255,255,0.06)',
+            borderRadius: 18,
+            padding: isMobile ? '20px 16px' : '24px 22px'
+          }}>
+            <p style={{
+              fontSize: isMobile ? 15 : 16,
+              color: '#fff',
+              fontWeight: 700,
+              marginTop: 0,
+              marginBottom: 8
+            }}>
+              Still unsure?
+            </p>
+
+            <p style={{
+              fontSize: 13,
+              color: '#8A9BBF',
+              lineHeight: 1.75,
+              maxWidth: 620,
+              margin: '0 auto 16px'
+            }}>
+              Buy it, read it, listen to it, and decide after you have actually experienced it. You are still protected by the 30-day guarantee.
+            </p>
+
+            <motion.button
+              whileTap={{ scale: 0.98 }}
+              onClick={handleBuy}
+              style={{
+                background: 'linear-gradient(135deg, #00C4D4, #0099A8)',
+                border: 'none',
+                borderRadius: 12,
+                padding: isMobile ? '16px 18px' : '16px 28px',
+                fontSize: isMobile ? 15 : 16,
+                fontWeight: 900,
+                color: '#0D1322',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 10,
+                width: isMobile ? '100%' : 'auto',
+                maxWidth: isMobile ? 320 : 'none'
+              }}
+            >
+              Continue Risk-Free
+              <ArrowRight size={16} />
+            </motion.button>
+          </div>
         </motion.div>
       </section>
 
+      <SectionBlend flip />
+
       {/* ══ FINAL CTA BANNER ══ */}
-      <section style={{ position: 'relative', overflow: 'hidden', height: isMobile ? 300 : 'min(440px,55vh)' }}>
-        <img src={manStrong} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(6,12,24,0.72)' }} />
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }} viewport={{ once: true }}
-          style={{ position: 'relative', zIndex: 2, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: `0 ${px}` }}>
-          <h2 style={{ fontSize: isMobile ? '24px' : 'clamp(28px,4.5vw,60px)', fontWeight: 900, color: '#fff', lineHeight: 1.15, marginBottom: 24, maxWidth: 600 }}>
-            You Survived the Pain.<br /><span style={{ color: '#00C4D4' }}>Now It's Time to Live.</span>
+      <section style={{ position: 'relative', overflow: 'hidden', minHeight: isMobile ? 470 : 640, background: '#060C18' }}>
+        <img
+          src={manStrong}
+          alt=""
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: isMobile ? 'center top' : 'center 18%'
+          }}
+        />
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(180deg, rgba(6,12,24,0.24) 0%, rgba(6,12,24,0.68) 38%, rgba(6,12,24,0.95) 100%)'
+        }} />
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(circle at 50% 34%, rgba(0,196,212,0.16) 0%, rgba(0,196,212,0.05) 24%, transparent 54%)'
+        }} />
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9 }}
+          viewport={{ once: true }}
+          style={{
+            position: 'relative',
+            zIndex: 2,
+            minHeight: isMobile ? 470 : 640,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+            padding: isMobile ? '48px 20px 56px' : '84px 6vw'
+          }}
+        >
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            background: 'rgba(255,184,0,0.12)',
+            border: '1px solid rgba(255,184,0,0.22)',
+            borderRadius: 999,
+            padding: '8px 14px',
+            marginBottom: 18
+          }}>
+            <span style={{ width: 8, height: 8, borderRadius: 999, background: '#FFB800', display: 'inline-block' }} />
+            <span style={{ fontSize: 11, color: '#FFE7A3', fontWeight: 800, letterSpacing: 1.1, textTransform: 'uppercase' }}>
+              Your next chapter starts here
+            </span>
+          </div>
+
+          <h2 style={{
+            fontSize: isMobile ? '34px' : 'clamp(48px,5.6vw,84px)',
+            fontWeight: 900,
+            color: '#fff',
+            lineHeight: 1.02,
+            marginBottom: 18,
+            maxWidth: 940,
+            letterSpacing: -1.5
+          }}>
+            She broke you.<br />
+            <span style={{ color: '#00C4D4' }}>You do not have to stay broken.</span>
           </h2>
-          <motion.button whileTap={{ scale: 0.96 }} onClick={handleBuy}
+
+          <p style={{
+            fontSize: isMobile ? 15 : 20,
+            color: 'rgba(255,255,255,0.80)',
+            lineHeight: 1.8,
+            maxWidth: 760,
+            marginBottom: 16
+          }}>
+            You have suffered enough. This is where you stop replaying the loss, stop questioning your value, and start rebuilding with clarity.
+          </p>
+
+          <p style={{
+            fontSize: isMobile ? 14 : 16,
+            color: '#B8C8E0',
+            lineHeight: 1.75,
+            maxWidth: 720,
+            marginBottom: 26
+          }}>
+            Get the full eBook and audiobook now, and take the first real step out of the spiral today.
+          </p>
+
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: isMobile ? 10 : 14,
+            marginBottom: 26
+          }}>
+            {['Instant download', 'Full audiobook included', '30-day guarantee', 'One-time payment'].map(item => (
+              <span key={item} style={{
+                fontSize: 12,
+                color: 'rgba(255,255,255,0.74)',
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: 999,
+                padding: '8px 12px'
+              }}>
+                {item}
+              </span>
+            ))}
+          </div>
+
+          <motion.button
+            whileTap={{ scale: 0.96 }}
+            onClick={handleBuy}
             style={{
-              background: 'linear-gradient(135deg, #00C4D4, #0099A8)',
-              border: 'none', borderRadius: 8,
-              padding: isMobile ? '16px 32px' : '18px 44px',
-              fontSize: isMobile ? 15 : 17, fontWeight: 800, color: '#0D1B3E',
-              cursor: 'pointer', boxShadow: '0 8px 40px rgba(0,196,212,0.5)',
-              display: 'flex', alignItems: 'center', gap: 10
-            }}>
-            Get Instant Access — $17 <ArrowRight size={16} />
+              background: 'linear-gradient(135deg, #FFB800, #FF8A00)',
+              border: 'none',
+              borderRadius: 12,
+              padding: isMobile ? '18px 22px' : '20px 42px',
+              fontSize: isMobile ? 16 : 18,
+              fontWeight: 900,
+              color: '#0D1322',
+              cursor: 'pointer',
+              boxShadow: '0 18px 50px rgba(255,138,0,0.34)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 10,
+              width: isMobile ? '100%' : 'auto',
+              maxWidth: isMobile ? 340 : 'none'
+            }}
+          >
+            Obtén acceso inmediato — $17
+            <ArrowRight size={17} />
           </motion.button>
-          <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', marginTop: 14 }}>Garantía de devolución de 30 días · Descarga inmediata</p>
+
+          <p style={{
+            fontSize: 12,
+            color: 'rgba(255,255,255,0.58)',
+            marginTop: 12,
+            marginBottom: 0
+          }}>
+            Read today. Listen today. Start rebuilding today.
+          </p>
         </motion.div>
       </section>
 
@@ -1308,13 +2007,13 @@ export default function HomeES() {
               </div>
             </div>
             <div style={{ display: 'flex', gap: isMobile ? 16 : 24, flexWrap: 'wrap' }}>
-              {[['Privacy Policy','/en/privacy'],['Terms','/en/terms'],['Contact','/en/contact'],['🇧🇷 PT','/' ],['🇪🇸 ES','/es']].map(([label, href]) => (
+              {[['Política de Privacidad','/es/privacy'],['Términos','/es/terms'],['Contacto','/es/contact'],['🇧🇷 PT','/' ],['🇺🇸 EN','/en']].map(([label, href]) => (
                 <a key={label} href={href} style={{ color: '#8A9BBF', textDecoration: 'none', fontSize: 12 }}>{label}</a>
               ))}
             </div>
           </div>
           <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 20, display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'space-between', gap: 8 }}>
-            <p style={{ fontSize: 11, color: '#4A5A7B', margin: 0 }}>© 2026 Gilberto de Souza. All rights reserved.</p>
+            <p style={{ fontSize: 11, color: '#4A5A7B', margin: 0 }}>© 2026 Gilberto de Souza. Todos los derechos reservados.</p>
             <p style={{ fontSize: 11, color: '#4A5A7B', margin: 0 }}>⚡ Digital product — instant download worldwide</p>
           </div>
         </div>
