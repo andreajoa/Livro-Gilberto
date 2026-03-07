@@ -63,7 +63,7 @@ export default function AIChatbotEN({ lang = 'en' }) {
         onClick={() => { setIsOpen(true); setIsMinimized(false); }}
         whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
         style={{
-          position: 'fixed', bottom: 24, right: 24,
+          position: 'fixed', bottom: typeof window !== 'undefined' && window.innerWidth <= 768 ? 110 : 24, right: window.innerWidth <= 768 ? 16 : 24,
           width: 64, height: 64, borderRadius: 50,
           background: 'linear-gradient(135deg, #00C4D4, #0099A8)',
           border: 'none',
@@ -92,7 +92,7 @@ export default function AIChatbotEN({ lang = 'en' }) {
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: 'spring', damping: 25 }}
             style={{
-              position: 'fixed', bottom: 104, right: 24,
+              position: 'fixed', bottom: typeof window !== 'undefined' && window.innerWidth <= 768 ? 180 : 104, right: window.innerWidth <= 768 ? 16 : 24,
               width: 'min(420px, calc(100vw - 48px))',
               height: isMinimized ? 64 : 520,
               background: 'linear-gradient(145deg, #0D1B3E, #152347)',
