@@ -21,17 +21,17 @@ import emboraVideo from '../assets/en/embora.mp4';
 import bookCoverEN from '../assets/book/capa-livro.png';
 
 const faq = [
-  { q: 'What format is the book in?', a: 'You get an instant download: a PDF eBook you can read on any device, plus an MP3 audiobook you can listen to anywhere — in the car, at the gym, or late at night when your mind won\'t stop.' },
-  { q: 'How do I receive my purchase?', a: 'Immediately after payment, you\'ll receive an email with your download links. No waiting, no shipping — it\'s yours in under 60 seconds.' },
-  { q: 'Is this book only for men who were cheated on?', a: 'No. This book is for any man who gave everything to a relationship and was left feeling like it wasn\'t enough — whether through betrayal, breakup, or being replaced.' },
-  { q: 'What if it doesn\'t help me?', a: 'You\'re covered by a 30-day money-back guarantee. No questions asked. If you don\'t feel this book moved the needle for you, email us and we\'ll refund you in full.' },
-  { q: 'Is the audiobook the full book or just a summary?', a: 'It\'s the complete book, word for word, read in a calm and direct voice designed for men going through exactly what you\'re going through.' },
+  { q: '¿En qué formato está el libro?', a: 'Recibes acceso instantáneo: un eBook en PDF que puedes leer en cualquier dispositivo y un audiolibro en MP3 que puedes escuchar donde quieras — en el coche, en el gimnasio o por la noche cuando tu mente no se apaga.' },
+  { q: '¿Cómo recibo mi compra?', a: 'Justo después del pago recibirás un correo con tus enlaces de descarga. Sin esperas, sin envío físico — es tuyo en menos de 60 segundos.' },
+  { q: '¿Este libro es solo para hombres que fueron engañados?', a: 'No. Este libro es para cualquier hombre que lo dio todo en una relación y terminó sintiendo que no fue suficiente — ya sea por traición, ruptura o por haber sido reemplazado.' },
+  { q: '¿Y si no me ayuda?', a: 'Tu compra está protegida por una garantía de devolución de 30 días. Sin preguntas. Si no sientes que este libro te ayudó de verdad, escríbenos y te devolveremos el 100%.' },
+  { q: '¿El audiolibro es el libro completo o solo un resumen?', a: 'Es el libro completo, palabra por palabra, narrado con una voz calmada y directa para hombres que están pasando exactamente por esto.' },
 ];
 
 const testimonials = [
-  { name: 'Marcus T.', city: 'Atlanta, GA', stars: 5, text: 'I found this book at 2am when I couldn\'t sleep. Three hours later I\'d read half of it and cried for the first time in years. This hit differently.' },
-  { name: 'James R.', city: 'Toronto, ON', stars: 5, text: 'I thought I was the only one who felt this way. The chapter on "the mental loop" described my exact experience. I\'ve already recommended this to 4 friends.' },
-  { name: 'Daniel M.', city: 'London, UK', stars: 5, text: 'The audiobook got me through three weeks of daily commutes. By the end I felt like a different man. Worth every penny and more.' },
+  { name: 'Marcus T.', city: 'Atlanta, GA', stars: 5, text: 'Encontré este libro a las 2 de la mañana cuando no podía dormir. Tres horas después ya había leído la mitad y lloré por primera vez en años. Me llegó de una forma muy distinta.' },
+  { name: 'James R.', city: 'Toronto, ON', stars: 5, text: 'Pensé que yo era el único que se sentía así. El capítulo sobre “el bucle mental” describió exactamente lo que estaba viviendo. Ya se lo recomendé a 4 amigos.' },
+  { name: 'Daniel M.', city: 'London, UK', stars: 5, text: 'El audiolibro me acompañó durante tres semanas de trayectos diarios. Al final me sentía como otro hombre. Vale cada centavo y más.' },
 ];
 
 export default function HomeES() {
@@ -279,7 +279,7 @@ export default function HomeES() {
               maxWidth: 840
             }}>
               Ella se fue.<br />
-              <span style={{ color: '#FFB800' }}>You broke.</span><br />
+              <span style={{ color: '#FFB800' }}>Tú te rompiste.</span><br />
               Now rebuild<br />
               <span style={{ color: '#00C4D4' }}>stronger.</span>
             </h1>
@@ -291,7 +291,7 @@ export default function HomeES() {
               marginBottom: 26,
               maxWidth: 640
             }}>
-              A raw, practical book for men who were betrayed, replaced, or left trying to make sense of the pain. Learn how to stop the mental spiral, reclaim your self-respect, and start living with strength again.
+              Un libro directo y práctico para hombres que fueron traicionados, reemplazados o abandonados intentando entender su dolor. Aprende a detener la espiral mental, recuperar tu respeto propio y volver a vivir con fuerza.
             </p>
 
             <div style={{
@@ -302,7 +302,7 @@ export default function HomeES() {
             }}>
               {[
                 '📖 Full eBook download',
-                '🎧 Full audiobook included',
+                '🎧 Audiolibro completo incluido',
                 '⚡ Instant access after purchase',
                 '🛡️ 30-day money-back guarantee'
               ].map((item) => (
@@ -371,7 +371,7 @@ export default function HomeES() {
               color: 'rgba(255,255,255,0.60)',
               marginBottom: 26
             }}>
-              <span style={{ textDecoration: 'line-through', opacity: 0.7 }}>$34</span> today only · Includes eBook + audiobook · Secure checkout
+              <span style={{ textDecoration: 'line-through', opacity: 0.7 }}>$34</span> solo hoy · Incluye eBook + audiolibro · Pago seguro
             </p>
 
             <div style={{
@@ -383,11 +383,11 @@ export default function HomeES() {
               {[
                 {
                   title: 'Know what this is',
-                  text: 'This is not generic breakup advice. It is written for men dealing with betrayal, rejection and being replaced.'
+                  text: 'Esto no es consejo genérico de ruptura. Está escrito para hombres que están lidiando con traición, rechazo y haber sido reemplazados.'
                 },
                 {
                   title: 'Feel understood fast',
-                  text: 'The page should immediately show him: this book understands the exact pain he is carrying right now.'
+                  text: 'La página debe mostrarle de inmediato: este libro entiende exactamente el dolor que está cargando ahora mismo.'
                 },
                 {
                   title: 'Move him to action',
@@ -430,17 +430,17 @@ export default function HomeES() {
           style={{ maxWidth: 760, margin: '0 auto' }}>
           <p style={{ fontSize: 11, letterSpacing: 4, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>A letter from Gilberto</p>
           <h2 style={{ fontSize: isMobile ? '26px' : 'clamp(28px,3.5vw,46px)', fontWeight: 900, color: '#fff', lineHeight: 1.2, marginBottom: 32 }}>
-            "I gave her 7 years.<br />
-            <span style={{ color: '#00C4D4' }}>She chose someone else."</span>
+            "Le di 7 años.<br />
+            <span style={{ color: '#00C4D4' }}>Ella eligió a otro."</span>
           </h2>
           {[
-            "I remember the exact moment I found out. I was standing in my kitchen, phone in hand, reading words that felt like they were written about someone else's life. But they weren't.",
-            "I had done everything right. I built a business from scratch in a country that wasn't mine. I worked hard. I loved deeply. And none of it mattered, because she still walked out the door — and into someone else's arms.",
-            "The worst part wasn't the betrayal itself. It was the silence after. The empty apartment. The 3am thoughts that wouldn't stop. The question that played on repeat: What's wrong with me?",
-            "I spent months looking for answers. I bought books. I watched videos. I talked to friends. Most of it was useless — written by people who'd never actually been through this kind of specific, gut-wrenching pain.",
-            "So I wrote the book I wish someone had given me.",
-            "Not a book full of platitudes or 'move on' advice. A real manual for the man who gave everything and is now sitting in the rubble of what he thought was his life — trying to figure out how to stand back up.",
-            "If that's you, this book was written for you.",
+            "Recuerdo el momento exacto en que lo descubrí. Estaba de pie en mi cocina, con el teléfono en la mano, leyendo palabras que parecían escritas sobre la vida de otra persona. Pero no lo eran.",
+            "Había hecho todo bien. Construí un negocio desde cero en un país que no era el mío. Trabajé duro. Amé de verdad. Y nada de eso importó, porque igual se fue — y terminó en los brazos de otro.",
+            "La peor parte no fue la traición en sí. Fue el silencio después. El apartamento vacío. Los pensamientos de las 3 de la mañana que no paraban. La pregunta que se repetía sin parar: ¿Qué tiene de malo en mí?",
+            "Pasé meses buscando respuestas. Compré libros. Vi videos. Hablé con amigos. La mayor parte fue inútil — escrita por personas que nunca habían pasado por este tipo de dolor tan específico y devastador.",
+            "Entonces escribí el libro que me habría gustado que alguien me diera.",
+            "No un libro lleno de frases vacías o de consejos de ‘supéralo’. Un manual real para el hombre que lo dio todo y ahora está sentado entre los escombros de lo que creía que era su vida — intentando descubrir cómo volver a levantarse.",
+            "Si ese eres tú, este libro fue escrito para ti.",
           ].map((p, i) => (
             <p key={i} style={{ fontSize: isMobile ? 15 : 17, color: i === 6 ? '#fff' : 'rgba(255,255,255,0.7)', lineHeight: 1.9, marginBottom: 20 }}>
               {p}
@@ -504,7 +504,7 @@ export default function HomeES() {
               lineHeight: 1.75,
               margin: 0
             }}>
-              This is the part most people never understand. It is not just heartbreak. It is humiliation, obsession, identity collapse, comparison, and the exhausting feeling that someone else stepped into the life you thought was yours.
+              Esta es la parte que la mayoría nunca entiende. No es solo desamor. Es humillación, obsesión, derrumbe de identidad, comparación y la agotadora sensación de que otra persona entró en la vida que creías tuya.
             </p>
           </div>
 
@@ -515,14 +515,14 @@ export default function HomeES() {
             marginBottom: 34
           }}>
             {[
-              'You replay the breakup every night, trying to find the exact moment you lost her.',
-              'You compare yourself to the man she chose and wonder what he has that you do not.',
-              'You look normal in public, but your mind falls apart when you are alone.',
-              'You keep checking her profile even when you know it will ruin your day.',
-              'Part of you still wants her back. Another part of you wants your pride back.',
-              'You are not just grieving her. You are grieving the version of yourself that existed before this happened.',
-              'People tell you to move on, but they have no idea how deep this actually cut.',
-              'You do not need empty motivation. You need a way to think clearly again.'
+              'Repasas la ruptura cada noche, intentando encontrar el momento exacto en que la perdiste.',
+              'Te comparas con el hombre que ella eligió y te preguntas qué tiene él que tú no.',
+              'Te ves normal en público, pero tu mente se desmorona cuando estás solo.',
+              'Sigues revisando su perfil aunque sabes que te va a arruinar el día.',
+              'Una parte de ti todavía quiere recuperarla. Otra parte quiere recuperar tu orgullo.',
+              'No solo estás llorando por ella. También estás llorando por la versión de ti mismo que existía antes de que esto pasara.',
+              'La gente te dice que sigas adelante, pero no tiene idea de lo profundo que fue este golpe.',
+              'No necesitas motivación vacía. Necesitas una forma de volver a pensar con claridad.'
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -585,7 +585,7 @@ export default function HomeES() {
               lineHeight: 1.5,
               margin: '0 0 10px'
             }}>
-              If you saw yourself in even half of this, this book was written for you.
+              Si te viste reflejado aunque sea en la mitad de esto, este libro fue escrito para ti.
             </p>
             <p style={{
               fontSize: isMobile ? 14 : 15,
@@ -593,7 +593,7 @@ export default function HomeES() {
               lineHeight: 1.7,
               margin: 0
             }}>
-              Not for the man who wants theory. For the man who wants to stop spiraling, regain control, and rebuild with dignity.
+              No para el hombre que quiere teoría. Para el hombre que quiere detener la espiral, recuperar el control y reconstruirse con dignidad.
             </p>
           </div>
         </motion.div>
@@ -678,7 +678,7 @@ export default function HomeES() {
             textTransform: 'uppercase',
             marginBottom: 16
           }}>
-            The breaking point
+            El punto de quiebre
           </p>
 
           <h2 style={{
@@ -691,8 +691,8 @@ export default function HomeES() {
             letterSpacing: -1.4
           }}>
             She tells you to leave.<br />
-            The door closes.<br />
-            The spiral <span style={{ color: '#00C4D4' }}>starts.</span>
+            La puerta se cierra.<br />
+            La espiral <span style={{ color: '#00C4D4' }}>comienza.</span>
           </h2>
 
           <p style={{
@@ -702,7 +702,7 @@ export default function HomeES() {
             lineHeight: 1.7,
             margin: 0
           }}>
-            This is the moment the pain stops being a story and starts becoming your everyday life.
+            Este es el momento en que el dolor deja de ser una historia y empieza a convertirse en tu vida diaria.
           </p>
         </motion.div>
       </section>
@@ -770,7 +770,7 @@ export default function HomeES() {
               textTransform: 'uppercase',
               marginBottom: 18
             }}>
-              Instant access + audiobook included
+              Acceso inmediato + audiolibro incluido
             </div>
 
             <p style={{
@@ -804,7 +804,7 @@ export default function HomeES() {
               marginBottom: 14,
               maxWidth: 760
             }}>
-              This is not vague advice. It is a practical recovery guide for the man who cannot stop replaying what happened and needs a way forward now.
+              Esto no es consejo vago. Es una guía práctica de recuperación para el hombre que no puede dejar de revivir lo que pasó y necesita una salida ahora.
             </p>
 
             <p style={{
@@ -822,12 +822,12 @@ export default function HomeES() {
               marginBottom: 28
             }}>
               {[
-                'Break the mental loop and stop obsessing over her.',
-                'Rebuild your identity after the relationship collapses.',
-                'Use the 5-step framework to regain emotional control.',
+                'Rompe el bucle mental y deja de obsesionarte con ella.',
+                'Reconstruye tu identidad después del derrumbe de la relación.',
+                'Usa el marco de 5 pasos para recuperar el control emocional.',
                 'Know what actually works with no contact and what backfires.',
                 'Start trusting again without becoming cold or shut down.',
-                'Get the full eBook + full audiobook instantly after payment.'
+                'Obtén el eBook completo + el audiolibro completo al instante después del pago.'
               ].map((item, i) => (
                 <div key={i} style={{
                   display: 'flex',
@@ -908,7 +908,7 @@ export default function HomeES() {
               gap: isMobile ? 10 : 16,
               marginBottom: 10
             }}>
-              {['⚡ Instant download', '💰 30-day guarantee', '🔒 Secure checkout', '🎧 Full audiobook included'].map(item => (
+              {['⚡ Descarga inmediata', '💰 Garantía de 30 días', '🔒 Pago seguro', '🎧 Audiolibro completo incluido'].map(item => (
                 <span key={item} style={{
                   fontSize: 12,
                   color: 'rgba(255,255,255,0.68)'
@@ -923,7 +923,7 @@ export default function HomeES() {
               color: '#8A9BBF',
               margin: 0
             }}>
-              Start reading and listening today — access is delivered immediately after payment.
+              Empieza a leer y escuchar hoy — el acceso se entrega inmediatamente después del pago.
             </p>
           </div>
         </motion.div>
@@ -967,7 +967,7 @@ export default function HomeES() {
               lineHeight: 1.75,
               marginBottom: 18
             }}>
-              These men were stuck in the same mental loop, the same sleepless nights, and the same self-doubt you may be living through right now.
+              Estos hombres estaban atrapados en el mismo bucle mental, las mismas noches sin dormir y la misma duda sobre sí mismos que quizás tú estás viviendo ahora mismo.
             </p>
 
             <div style={{
@@ -980,7 +980,7 @@ export default function HomeES() {
               borderRadius: 999,
               padding: '10px 16px'
             }}>
-              {['★★★★★ Rated by readers', '🇺🇸 🇨🇦 🇬🇧 🇦🇺 Trusted internationally', '🎧 Audiobook praised by listeners'].map(item => (
+              {['★★★★★ Valorado por lectores', '🇺🇸 🇨🇦 🇬🇧 🇦🇺 Confiado internacionalmente', '🎧 Audiolibro elogiado por oyentes'].map(item => (
                 <span key={item} style={{ fontSize: 12, color: 'rgba(255,255,255,0.72)' }}>{item}</span>
               ))}
             </div>
@@ -1126,7 +1126,7 @@ export default function HomeES() {
             </motion.button>
 
             <p style={{ fontSize: 12, color: '#8A9BBF', marginTop: 10, marginBottom: 0 }}>
-              Instant download · Full audiobook included · 30-day guarantee
+              Descarga inmediata · Audiolibro completo incluido · Garantía de 30 días
             </p>
           </div>
         </motion.div>
@@ -1214,7 +1214,7 @@ export default function HomeES() {
             lineHeight: 1.75,
             marginBottom: 20
           }}>
-            Thousands of men have lived through the same humiliation, silence, obsessive thoughts, and self-doubt. The ones who recover do not do it by pretending they are fine.
+            Miles de hombres han vivido la misma humillación, el mismo silencio, los mismos pensamientos obsesivos y la misma duda sobre sí mismos. Los que se recuperan no lo logran fingiendo que están bien.
           </p>
 
           <p style={{
@@ -1224,7 +1224,7 @@ export default function HomeES() {
             lineHeight: 1.75,
             marginBottom: 26
           }}>
-            They recover when they find language for their pain, a path through the mental loop, and a guide that understands exactly what this kind of loss does to a man.
+            Se recuperan cuando encuentran palabras para su dolor, un camino para salir del bucle mental y una guía que entiende exactamente lo que este tipo de pérdida le hace a un hombre.
           </p>
 
           <div style={{
@@ -1234,7 +1234,7 @@ export default function HomeES() {
             gap: isMobile ? 10 : 16,
             marginBottom: 26
           }}>
-            {['Men across US, Canada, UK & Australia', 'Practical guidance, not empty advice', 'Read it. Listen to it. Start today.'].map(item => (
+            {['Hombres en EE.UU., Canadá, Reino Unido y Australia', 'Guía práctica, no consejos vacíos', 'Léelo. Escúchalo. Empieza hoy.'].map(item => (
               <span key={item} style={{
                 fontSize: 12,
                 color: 'rgba(255,255,255,0.72)',
@@ -1277,7 +1277,7 @@ export default function HomeES() {
             marginTop: 12,
             marginBottom: 0
           }}>
-            Instant download · Full audiobook included · 30-day guarantee
+            Descarga inmediata · Audiolibro completo incluido · Garantía de 30 días
           </p>
         </motion.div>
       </section>
@@ -1334,7 +1334,7 @@ export default function HomeES() {
                 boxShadow: '0 20px 40px rgba(0,0,0,0.24)'
               }}>
                 <p style={{ margin: 0, fontSize: 11, color: '#8A9BBF', textTransform: 'uppercase', letterSpacing: 1.2 }}>Written by</p>
-                <p style={{ margin: '4px 0 0 0', fontSize: 16, fontWeight: 800, color: '#fff' }}>A man who lived it</p>
+                <p style={{ margin: '4px 0 0 0', fontSize: 16, fontWeight: 800, color: '#fff' }}>Un hombre que lo vivió</p>
               </div>
             </div>
           </div>
@@ -1388,7 +1388,7 @@ export default function HomeES() {
               marginBottom: 16,
               maxWidth: 760
             }}>
-              This book was not written by a therapist guessing what heartbreak feels like. It was written by a man who built a life, gave everything to a relationship, got betrayed, and had to find a way to stand back up with his dignity intact.
+              Este libro no fue escrito por un terapeuta imaginando cómo se siente el desamor. Fue escrito por un hombre que construyó una vida, lo entregó todo en una relación, fue traicionado y tuvo que encontrar la forma de volver a levantarse con su dignidad intacta.
             </p>
 
             <p style={{
@@ -1398,7 +1398,7 @@ export default function HomeES() {
               marginBottom: 26,
               maxWidth: 760
             }}>
-              Gilberto turned that collapse into a practical guide for men who are stuck in the mental loop, questioning their value, and trying to understand how to move forward without becoming bitter, numb, or lost.
+              Gilberto convirtió ese derrumbe en una guía práctica para hombres que están atrapados en el bucle mental, cuestionando su propio valor e intentando entender cómo seguir adelante sin volverse amargos, vacíos o perdidos.
             </p>
 
             <div style={{
@@ -1408,10 +1408,10 @@ export default function HomeES() {
               marginBottom: 26
             }}>
               {[
-                { emoji: '🇧🇷', title: 'Brazilian roots', text: 'Born in Brazil and living in the United States for 23 years.' },
-                { emoji: '💼', title: 'Built from zero', text: 'Created his own construction company through hard work and discipline.' },
-                { emoji: '💔', title: 'Lived the betrayal', text: 'Went through deep emotional pain at the height of his success.' },
-                { emoji: '📖', title: 'Wrote the missing guide', text: 'Created the book he wishes had existed when he needed it most.' },
+                { emoji: '🇧🇷', title: 'Raíces brasileñas', text: 'Nació en Brasil y vive en Estados Unidos desde hace 23 años.' },
+                { emoji: '💼', title: 'Construido desde cero', text: 'Creó su propia empresa de construcción con trabajo duro y disciplina.' },
+                { emoji: '💔', title: 'Vivió la traición', text: 'Pasó por un profundo dolor emocional en el punto más alto de su éxito.' },
+                { emoji: '📖', title: 'Escribió la guía que faltaba', text: 'Creó el libro que le habría gustado que existiera cuando más lo necesitaba.' },
               ].map((item, i) => (
                 <div key={i} style={{
                   background: 'rgba(255,255,255,0.05)',
@@ -1440,7 +1440,7 @@ export default function HomeES() {
               lineHeight: 1.6,
               boxShadow: '0 18px 50px rgba(0,0,0,0.18)'
             }}>
-              “I wrote this book because I wanted someone to have written it for me when I needed it most.”
+              “Escribí este libro porque me habría gustado que alguien lo hubiera escrito para mí cuando más lo necesitaba.”
             </blockquote>
 
             <div style={{
@@ -1469,7 +1469,7 @@ export default function HomeES() {
                   gap: 10
                 }}
               >
-                Read Gilberto’s Guide
+                Lee la guía de Gilberto
                 <ArrowRight size={17} />
               </motion.button>
 
@@ -1478,7 +1478,7 @@ export default function HomeES() {
                 fontSize: 12,
                 color: 'rgba(255,255,255,0.58)'
               }}>
-                Instant access · Full audiobook included · 30-day guarantee
+                Acceso inmediato · Audiolibro completo incluido · Garantía de 30 días
               </p>
             </div>
           </div>
@@ -1496,7 +1496,7 @@ export default function HomeES() {
             Obtén el libro.<br /><span style={{ color: '#00C4D4' }}>Start Today.</span>
           </h2>
           <p style={{ fontSize: 14, color: '#8A9BBF', lineHeight: 1.7, marginBottom: 36 }}>
-            You've already survived the hardest part. Now let this book show you what comes next.
+            Ya sobreviviste la parte más dura. Ahora deja que este libro te muestre lo que viene después.
           </p>
 
           <div style={{
@@ -1507,10 +1507,10 @@ export default function HomeES() {
               <img src={bookCoverEN} alt="Book" style={{ width: isMobile ? 80 : 100, borderRadius: 6, boxShadow: '0 12px 40px rgba(0,0,0,0.6)', flexShrink: 0 }} />
               <div>
                 <h3 style={{ fontSize: isMobile ? 15 : 17, fontWeight: 800, color: '#fff', marginBottom: 6, lineHeight: 1.3 }}>
-                  How to Overcome the Pain of Being Replaced by Someone Else
+                  Cómo superar el dolor de ser reemplazado por otra persona
                 </h3>
                 <p style={{ fontSize: 12, color: '#8A9BBF', marginBottom: 10 }}>por Gilberto de Souza</p>
-                {['📖 Full eBook (PDF)', '🎧 Full Audiobook (MP3)', '✅ Instant download'].map(item => (
+                {['📖 eBook completo (PDF)', '🎧 Audiolibro completo (MP3)', '✅ Descarga inmediata'].map(item => (
                   <div key={item} style={{ fontSize: 12, color: '#B8C8E0', marginBottom: 4 }}>{item}</div>
                 ))}
               </div>
@@ -1619,7 +1619,7 @@ export default function HomeES() {
                 maxWidth: 700,
                 margin: '0 auto 24px'
               }}>
-                Read the book. Listen to the full audiobook. If within 30 days you do not feel it gave you clarity, direction, or something real to hold on to, email us and we will refund every cent.
+                Lee el libro. Escucha el audiolibro completo. Si dentro de 30 días no sientes que te dio claridad, dirección o algo real a lo que aferrarte, escríbenos y te devolveremos cada centavo.
               </p>
 
               <div style={{
@@ -1629,7 +1629,7 @@ export default function HomeES() {
                 gap: isMobile ? 10 : 14,
                 marginBottom: 22
               }}>
-                {['No questions asked', 'Full refund policy', 'Instant access after payment', 'Full audiobook included'].map(item => (
+                {['Sin preguntas', 'Política de reembolso total', 'Acceso inmediato después del pago', 'Audiolibro completo incluido'].map(item => (
                   <span key={item} style={{
                     fontSize: 12,
                     color: 'rgba(255,255,255,0.76)',
@@ -1674,7 +1674,7 @@ export default function HomeES() {
                 marginTop: 12,
                 marginBottom: 0
               }}>
-                One-time payment · 30-day guarantee · Secure checkout
+                Pago único · Garantía de 30 días · Pago seguro
               </p>
             </div>
           </div>
@@ -1711,8 +1711,8 @@ export default function HomeES() {
               marginBottom: 14,
               letterSpacing: -1.1
             }}>
-              Questions that usually stop men<br />
-              <span style={{ color: '#00C4D4' }}>from buying.</span>
+              Preguntas que normalmente detienen a los hombres<br />
+              <span style={{ color: '#00C4D4' }}>antes de comprar.</span>
             </h2>
 
             <p style={{
@@ -1813,7 +1813,7 @@ export default function HomeES() {
               maxWidth: 620,
               margin: '0 auto 16px'
             }}>
-              Buy it, read it, listen to it, and decide after you have actually experienced it. You are still protected by the 30-day guarantee.
+              Cómpralo, léelo, escúchalo y decide después de haberlo vivido de verdad. Sigues protegido por la garantía de 30 días.
             </p>
 
             <motion.button
@@ -1913,7 +1913,7 @@ export default function HomeES() {
             letterSpacing: -1.5
           }}>
             She broke you.<br />
-            <span style={{ color: '#00C4D4' }}>You do not have to stay broken.</span>
+            <span style={{ color: '#00C4D4' }}>No tienes que quedarte roto.</span>
           </h2>
 
           <p style={{
@@ -1923,7 +1923,7 @@ export default function HomeES() {
             maxWidth: 760,
             marginBottom: 16
           }}>
-            You have suffered enough. This is where you stop replaying the loss, stop questioning your value, and start rebuilding with clarity.
+            Ya has sufrido suficiente. Aquí es donde dejas de revivir la pérdida, de cuestionar tu valor y empiezas a reconstruirte con claridad.
           </p>
 
           <p style={{
@@ -1933,7 +1933,7 @@ export default function HomeES() {
             maxWidth: 720,
             marginBottom: 26
           }}>
-            Get the full eBook and audiobook now, and take the first real step out of the spiral today.
+            Obtén ahora el eBook completo y el audiolibro, y da hoy el primer paso real para salir de la espiral.
           </p>
 
           <div style={{
@@ -1943,7 +1943,7 @@ export default function HomeES() {
             gap: isMobile ? 10 : 14,
             marginBottom: 26
           }}>
-            {['Instant download', 'Full audiobook included', '30-day guarantee', 'One-time payment'].map(item => (
+            {['Descarga inmediata', 'Audiolibro completo incluido', 'Garantía de 30 días', 'Pago único'].map(item => (
               <span key={item} style={{
                 fontSize: 12,
                 color: 'rgba(255,255,255,0.74)',
@@ -1988,7 +1988,7 @@ export default function HomeES() {
             marginTop: 12,
             marginBottom: 0
           }}>
-            Read today. Listen today. Start rebuilding today.
+            Léelo hoy. Escúchalo hoy. Empieza a reconstruirte hoy.
           </p>
         </motion.div>
       </section>
@@ -2003,7 +2003,7 @@ export default function HomeES() {
               </div>
               <div>
                 <p style={{ color: '#fff', fontWeight: 700, fontSize: 13, margin: 0 }}>Gilberto de Souza</p>
-                <p style={{ color: '#8A9BBF', fontSize: 11, margin: 0, fontStyle: 'italic' }}>You are not alone</p>
+                <p style={{ color: '#8A9BBF', fontSize: 11, margin: 0, fontStyle: 'italic' }}>No estás solo</p>
               </div>
             </div>
             <div style={{ display: 'flex', gap: isMobile ? 16 : 24, flexWrap: 'wrap' }}>
@@ -2014,7 +2014,7 @@ export default function HomeES() {
           </div>
           <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 20, display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'space-between', gap: 8 }}>
             <p style={{ fontSize: 11, color: '#4A5A7B', margin: 0 }}>© 2026 Gilberto de Souza. Todos los derechos reservados.</p>
-            <p style={{ fontSize: 11, color: '#4A5A7B', margin: 0 }}>⚡ Digital product — instant download worldwide</p>
+            <p style={{ fontSize: 11, color: '#4A5A7B', margin: 0 }}>⚡ Producto digital — descarga inmediata en todo el mundo</p>
           </div>
         </div>
       </footer>
@@ -2032,7 +2032,7 @@ export default function HomeES() {
         >
           <div style={{ flex: 1 }}>
             <p style={{ color: '#fff', fontSize: 13, fontWeight: 700, margin: 0 }}>eBook + Audiobook</p>
-            <p style={{ color: '#00C4D4', fontSize: 12, margin: 0 }}><s style={{ color: '#8A9BBF' }}>$34</s> $17 today</p>
+            <p style={{ color: '#00C4D4', fontSize: 12, margin: 0 }}><s style={{ color: '#8A9BBF' }}>$34</s> $17 hoy</p>
           </div>
           <button onClick={handleBuy} style={{
             background: 'linear-gradient(135deg, #00C4D4, #0099A8)',
