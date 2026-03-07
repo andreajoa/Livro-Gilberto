@@ -1803,7 +1803,7 @@ export default function HomeES() {
               marginTop: 0,
               marginBottom: 8
             }}>
-              Still unsure?
+              ¿Aún tienes dudas?
             </p>
 
             <p style={{
@@ -1836,7 +1836,7 @@ export default function HomeES() {
                 maxWidth: isMobile ? 320 : 'none'
               }}
             >
-              Continue Risk-Free
+              Continúa sin riesgo
               <ArrowRight size={16} />
             </motion.button>
           </div>
