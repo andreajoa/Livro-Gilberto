@@ -1551,46 +1551,294 @@ export default function HomeEN() {
       </section>
 
       {/* ══ GUARANTEE ══ */}
-      <section style={{ background: '#0A1628', padding: sectionPad }}>
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}
-          style={{ maxWidth: 620, margin: '0 auto', textAlign: 'center' }}>
-          <img src={guarantee} alt="30-Day Money Back Guarantee" style={{ width: 100, marginBottom: 24, display: 'block', margin: '0 auto 24px' }} />
-          <h2 style={{ fontSize: isMobile ? '22px' : 'clamp(24px,3vw,36px)', fontWeight: 900, color: '#fff', marginBottom: 14 }}>
-            30-Day Money-Back Guarantee
-          </h2>
-          <p style={{ fontSize: 14, color: '#8A9BBF', lineHeight: 1.8 }}>
-            Read the book. Listen to the audiobook. If within 30 days you don't feel it gave you something real — email us and we will refund every cent. No questions, no hassle.
-          </p>
+      <section style={{ background: 'linear-gradient(180deg, #0A1628 0%, #081321 100%)', padding: sectionPad }}>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          style={{ maxWidth: 940, margin: '0 auto' }}
+        >
+          <div style={{
+            position: 'relative',
+            overflow: 'hidden',
+            background: 'linear-gradient(180deg, rgba(13,27,62,0.86) 0%, rgba(9,19,33,0.92) 100%)',
+            border: '1px solid rgba(255,255,255,0.08)',
+            borderRadius: 24,
+            padding: isMobile ? '28px 20px' : '40px 38px',
+            textAlign: 'center',
+            boxShadow: '0 28px 80px rgba(0,0,0,0.28)'
+          }}>
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'radial-gradient(circle at 50% 0%, rgba(0,196,212,0.12) 0%, rgba(0,196,212,0.03) 28%, transparent 60%)'
+            }} />
+
+            <div style={{ position: 'relative', zIndex: 2 }}>
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                background: 'rgba(255,184,0,0.10)',
+                border: '1px solid rgba(255,184,0,0.24)',
+                color: '#FFB800',
+                borderRadius: 999,
+                padding: '8px 14px',
+                fontSize: 11,
+                fontWeight: 800,
+                letterSpacing: 1.1,
+                textTransform: 'uppercase',
+                marginBottom: 18
+              }}>
+                Zero risk purchase
+              </div>
+
+              <img
+                src={guarantee}
+                alt="30-Day Money Back Guarantee"
+                style={{ width: isMobile ? 90 : 110, display: 'block', margin: '0 auto 22px' }}
+              />
+
+              <h2 style={{
+                fontSize: isMobile ? '30px' : 'clamp(34px,4vw,54px)',
+                fontWeight: 900,
+                color: '#fff',
+                lineHeight: 1.08,
+                marginBottom: 14,
+                letterSpacing: -1
+              }}>
+                Try it for 30 days.<br />
+                <span style={{ color: '#00C4D4' }}>If it does not help, you pay nothing.</span>
+              </h2>
+
+              <p style={{
+                fontSize: isMobile ? 14 : 17,
+                color: 'rgba(255,255,255,0.74)',
+                lineHeight: 1.8,
+                maxWidth: 700,
+                margin: '0 auto 24px'
+              }}>
+                Read the book. Listen to the full audiobook. If within 30 days you do not feel it gave you clarity, direction, or something real to hold on to, email us and we will refund every cent.
+              </p>
+
+              <div style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                gap: isMobile ? 10 : 14,
+                marginBottom: 22
+              }}>
+                {['No questions asked', 'Full refund policy', 'Instant access after payment', 'Full audiobook included'].map(item => (
+                  <span key={item} style={{
+                    fontSize: 12,
+                    color: 'rgba(255,255,255,0.76)',
+                    background: 'rgba(255,255,255,0.05)',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    borderRadius: 999,
+                    padding: '8px 12px'
+                  }}>
+                    {item}
+                  </span>
+                ))}
+              </div>
+
+              <motion.button
+                whileTap={{ scale: 0.98 }}
+                onClick={handleBuy}
+                style={{
+                  background: 'linear-gradient(135deg, #FFB800, #FF8A00)',
+                  border: 'none',
+                  borderRadius: 12,
+                  padding: isMobile ? '18px' : '18px 34px',
+                  fontSize: isMobile ? 16 : 17,
+                  fontWeight: 900,
+                  color: '#0D1322',
+                  cursor: 'pointer',
+                  boxShadow: '0 16px 40px rgba(255,138,0,0.28)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 10,
+                  width: isMobile ? '100%' : 'auto',
+                  maxWidth: isMobile ? 340 : 'none'
+                }}
+              >
+                Start Risk-Free — $17
+                <ArrowRight size={17} />
+              </motion.button>
+
+              <p style={{
+                fontSize: 12,
+                color: '#8A9BBF',
+                marginTop: 12,
+                marginBottom: 0
+              }}>
+                One-time payment · 30-day guarantee · Secure checkout
+              </p>
+            </div>
+          </div>
         </motion.div>
       </section>
 
       {/* ══ FAQ ══ */}
-      <section style={{ background: '#060C18', padding: sectionPad }}>
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.7 }} viewport={{ once: true }}
-          style={{ maxWidth: 720, margin: '0 auto' }}>
-          <h2 style={{ fontSize: isMobile ? '22px' : 'clamp(26px,3vw,40px)', fontWeight: 900, color: '#fff', textAlign: 'center', marginBottom: 8 }}>
-            Frequently Asked<br /><span style={{ color: '#00C4D4' }}>Questions</span>
-          </h2>
-          <div style={{ width: 40, height: 2, background: '#00C4D4', margin: '14px auto 36px' }} />
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+      <section style={{ background: 'linear-gradient(180deg, #060C18 0%, #071120 100%)', padding: sectionPad }}>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+          style={{ maxWidth: 860, margin: '0 auto' }}
+        >
+          <div style={{ textAlign: 'center', maxWidth: 720, margin: '0 auto 34px' }}>
+            <p style={{
+              fontSize: 11,
+              letterSpacing: 4,
+              color: '#FFB800',
+              fontWeight: 800,
+              textTransform: 'uppercase',
+              marginBottom: 14
+            }}>
+              Last objections
+            </p>
+
+            <h2 style={{
+              fontSize: isMobile ? '30px' : 'clamp(36px,4vw,56px)',
+              fontWeight: 900,
+              color: '#fff',
+              textAlign: 'center',
+              lineHeight: 1.08,
+              marginBottom: 14,
+              letterSpacing: -1.1
+            }}>
+              Questions that usually stop men<br />
+              <span style={{ color: '#00C4D4' }}>from buying.</span>
+            </h2>
+
+            <p style={{
+              fontSize: isMobile ? 14 : 16,
+              color: '#8A9BBF',
+              lineHeight: 1.8,
+              margin: '0 auto'
+            }}>
+              If you are close to buying but still have one or two doubts, this section is for that exact moment.
+            </p>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 24 }}>
             {faq.map((item, i) => (
-              <div key={i} style={{ background: 'rgba(13,27,62,0.5)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 8, overflow: 'hidden' }}>
-                <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  style={{ width: '100%', padding: '16px 18px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'none', border: 'none', color: '#fff', fontSize: isMobile ? 14 : 15, fontWeight: 600, cursor: 'pointer', textAlign: 'left', gap: 12 }}>
+              <div
+                key={i}
+                style={{
+                  background: 'linear-gradient(180deg, rgba(13,27,62,0.72) 0%, rgba(10,20,38,0.88) 100%)',
+                  border: openFaq === i ? '1px solid rgba(0,196,212,0.28)' : '1px solid rgba(255,255,255,0.06)',
+                  borderRadius: 14,
+                  overflow: 'hidden',
+                  boxShadow: openFaq === i ? '0 12px 34px rgba(0,196,212,0.08)' : 'none'
+                }}
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  style={{
+                    width: '100%',
+                    padding: isMobile ? '16px 16px' : '18px 20px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    background: 'none',
+                    border: 'none',
+                    color: '#fff',
+                    fontSize: isMobile ? 15 : 16,
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    textAlign: 'left',
+                    gap: 12
+                  }}
+                >
                   {item.q}
-                  <motion.span animate={{ rotate: openFaq === i ? 180 : 0 }} style={{ color: '#00C4D4', flexShrink: 0 }}>
-                    <ChevronDown size={16} />
+                  <motion.span
+                    animate={{ rotate: openFaq === i ? 180 : 0 }}
+                    style={{ color: openFaq === i ? '#00C4D4' : '#8A9BBF', flexShrink: 0 }}
+                  >
+                    <ChevronDown size={18} />
                   </motion.span>
                 </button>
+
                 <AnimatePresence>
                   {openFaq === i && (
-                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} style={{ overflow: 'hidden' }}>
-                      <div style={{ padding: '0 18px 16px', fontSize: 13, color: '#8A9BBF', lineHeight: 1.8 }}>{item.a}</div>
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      style={{ overflow: 'hidden' }}
+                    >
+                      <div style={{
+                        padding: '0 20px 18px',
+                        fontSize: 14,
+                        color: '#B8C8E0',
+                        lineHeight: 1.8,
+                        borderTop: '1px solid rgba(255,255,255,0.06)'
+                      }}>
+                        {item.a}
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
             ))}
+          </div>
+
+          <div style={{
+            textAlign: 'center',
+            background: 'rgba(255,255,255,0.03)',
+            border: '1px solid rgba(255,255,255,0.06)',
+            borderRadius: 18,
+            padding: isMobile ? '20px 16px' : '24px 22px'
+          }}>
+            <p style={{
+              fontSize: isMobile ? 15 : 16,
+              color: '#fff',
+              fontWeight: 700,
+              marginTop: 0,
+              marginBottom: 8
+            }}>
+              Still unsure?
+            </p>
+
+            <p style={{
+              fontSize: 13,
+              color: '#8A9BBF',
+              lineHeight: 1.75,
+              maxWidth: 620,
+              margin: '0 auto 16px'
+            }}>
+              Buy it, read it, listen to it, and decide after you have actually experienced it. You are still protected by the 30-day guarantee.
+            </p>
+
+            <motion.button
+              whileTap={{ scale: 0.98 }}
+              onClick={handleBuy}
+              style={{
+                background: 'linear-gradient(135deg, #00C4D4, #0099A8)',
+                border: 'none',
+                borderRadius: 12,
+                padding: isMobile ? '16px 18px' : '16px 28px',
+                fontSize: isMobile ? 15 : 16,
+                fontWeight: 900,
+                color: '#0D1322',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 10,
+                width: isMobile ? '100%' : 'auto',
+                maxWidth: isMobile ? 320 : 'none'
+              }}
+            >
+              Continue Risk-Free
+              <ArrowRight size={16} />
+            </motion.button>
           </div>
         </motion.div>
       </section>
