@@ -34,7 +34,8 @@ export default function AIChatbotEN({ lang = 'en' }) {
     setInputValue('');
     setIsLoading(true);
     try {
-      const response = await fetch(`${API_URL}/chat-en`, {
+      const endpoint = lang === 'es' ? `${API_URL}/chat-es` : `${API_URL}/chat-en`;
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: userMessage.content, conversationId, lang })
