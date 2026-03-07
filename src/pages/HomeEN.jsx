@@ -682,51 +682,223 @@ export default function HomeEN() {
       </section>
 
       {/* ══ WHAT'S INSIDE ══ */}
-      <section style={{ background: '#060C18', padding: sectionPad }}>
-        <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }} viewport={{ once: true }}
-          style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px,1fr))', gap: isMobile ? 36 : 72, alignItems: 'center', maxWidth: 1100, margin: '0 auto' }}>
-
-          <div style={{ display: 'flex', justifyContent: 'center', order: isMobile ? -1 : 0 }}>
-            <img src={bookCoverEN} alt="How to Overcome the Pain of Being Replaced"
-              style={{ width: isMobile ? 180 : 'min(300px,100%)', borderRadius: 8, boxShadow: '0 40px 80px rgba(0,0,0,0.8)', display: 'block' }} />
+      <section style={{ background: 'linear-gradient(180deg, #060C18 0%, #081225 100%)', padding: sectionPad }}>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9 }}
+          viewport={{ once: true }}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : 'minmax(320px, 420px) minmax(0, 1fr)',
+            gap: isMobile ? 34 : 76,
+            alignItems: 'center',
+            maxWidth: 1160,
+            margin: '0 auto'
+          }}
+        >
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            order: isMobile ? -1 : 0
+          }}>
+            <div style={{
+              width: isMobile ? '100%' : 380,
+              maxWidth: 380,
+              borderRadius: 26,
+              padding: isMobile ? '26px 22px' : '34px 28px',
+              background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.03) 100%)',
+              border: '1px solid rgba(0,196,212,0.14)',
+              boxShadow: '0 28px 90px rgba(0,0,0,0.42), 0 0 80px rgba(0,196,212,0.10)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <img
+                src={bookCoverEN}
+                alt="How to Overcome the Pain of Being Replaced"
+                style={{
+                  width: isMobile ? 220 : 290,
+                  maxWidth: '100%',
+                  borderRadius: 10,
+                  boxShadow: '0 30px 70px rgba(0,0,0,0.55)',
+                  display: 'block'
+                }}
+              />
+            </div>
           </div>
 
           <div>
-            <p style={{ fontSize: 10, letterSpacing: 4, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 14 }}>What's inside</p>
-            <h2 style={{ fontSize: isMobile ? '24px' : 'clamp(28px,3.5vw,46px)', fontWeight: 900, color: '#fff', lineHeight: 1.15, marginBottom: 10 }}>
-              How to Overcome<br />the Pain of Being<br /><span style={{ color: '#00C4D4' }}>Replaced by Someone Else</span>
-            </h2>
-            <p style={{ fontSize: 13, color: '#8A9BBF', marginBottom: 24 }}>by <strong style={{ color: '#fff' }}>Gilberto de Souza</strong></p>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              background: 'rgba(255,184,0,0.10)',
+              border: '1px solid rgba(255,184,0,0.22)',
+              color: '#FFB800',
+              borderRadius: 999,
+              padding: '7px 12px',
+              fontSize: 11,
+              fontWeight: 800,
+              letterSpacing: 1.2,
+              textTransform: 'uppercase',
+              marginBottom: 18
+            }}>
+              Instant access + audiobook included
+            </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 28 }}>
+            <p style={{
+              fontSize: 11,
+              letterSpacing: 4,
+              color: '#00C4D4',
+              fontWeight: 800,
+              textTransform: 'uppercase',
+              marginBottom: 14
+            }}>
+              What's inside
+            </p>
+
+            <h2 style={{
+              fontSize: isMobile ? '30px' : 'clamp(38px,4.7vw,62px)',
+              fontWeight: 900,
+              color: '#fff',
+              lineHeight: 1.04,
+              marginBottom: 14,
+              letterSpacing: -1.2,
+              maxWidth: 760
+            }}>
+              Stop the spiral.<br />
+              Rebuild with a <span style={{ color: '#00C4D4' }}>clear plan.</span>
+            </h2>
+
+            <p style={{
+              fontSize: isMobile ? 15 : 18,
+              color: 'rgba(255,255,255,0.72)',
+              lineHeight: 1.75,
+              marginBottom: 14,
+              maxWidth: 760
+            }}>
+              This is not vague advice. It is a practical recovery guide for the man who cannot stop replaying what happened and needs a way forward now.
+            </p>
+
+            <p style={{
+              fontSize: 13,
+              color: '#8A9BBF',
+              marginBottom: 26
+            }}>
+              by <strong style={{ color: '#fff' }}>Gilberto de Souza</strong>
+            </p>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, minmax(0,1fr))',
+              gap: 12,
+              marginBottom: 28
+            }}>
               {[
-                'Why being replaced hits men differently — and what to do about it',
-                'The 5-step framework for breaking the mental loop for good',
-                'How to rebuild your identity after a long relationship ends',
-                'The truth about "no contact" — what works and what backfires',
-                'How to trust again without becoming emotionally closed off',
-                'The mindset shift that separates men who recover from men who don\'t',
+                'Break the mental loop and stop obsessing over her.',
+                'Rebuild your identity after the relationship collapses.',
+                'Use the 5-step framework to regain emotional control.',
+                'Know what actually works with no contact and what backfires.',
+                'Start trusting again without becoming cold or shut down.',
+                'Get the full eBook + full audiobook instantly after payment.'
               ].map((item, i) => (
-                <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                  <CheckCircle size={15} style={{ color: '#00C4D4', flexShrink: 0, marginTop: 2 }} />
-                  <span style={{ fontSize: 13, color: '#B8C8E0', lineHeight: 1.6 }}>{item}</span>
+                <div key={i} style={{
+                  display: 'flex',
+                  gap: 10,
+                  alignItems: 'flex-start',
+                  background: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  borderRadius: 14,
+                  padding: '14px 14px'
+                }}>
+                  <CheckCircle size={16} style={{ color: '#00C4D4', flexShrink: 0, marginTop: 2 }} />
+                  <span style={{ fontSize: 13, color: '#D7E4F7', lineHeight: 1.65 }}>{item}</span>
                 </div>
               ))}
             </div>
 
-            <motion.button whileTap={{ scale: 0.98 }} onClick={handleBuy}
-              style={{
-                background: 'linear-gradient(135deg, #00C4D4, #0099A8)',
-                border: 'none', borderRadius: 8,
-                padding: isMobile ? '16px' : '16px 32px',
-                fontSize: 15, fontWeight: 800, color: '#0D1B3E',
-                cursor: 'pointer', boxShadow: '0 8px 30px rgba(0,196,212,0.4)',
-                display: 'flex', alignItems: 'center', gap: 10,
-                width: isMobile ? '100%' : 'auto', justifyContent: 'center'
+            <div style={{
+              display: 'flex',
+              alignItems: isMobile ? 'flex-start' : 'center',
+              justifyContent: 'space-between',
+              gap: 14,
+              flexDirection: isMobile ? 'column' : 'row',
+              marginBottom: 18
+            }}>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
+                <span style={{ fontSize: isMobile ? 44 : 56, fontWeight: 900, color: '#FFB800', lineHeight: 1 }}>$17</span>
+                <span style={{ fontSize: 19, color: 'rgba(255,255,255,0.38)', textDecoration: 'line-through' }}>$34</span>
+                <span style={{
+                  fontSize: 11,
+                  fontWeight: 800,
+                  color: '#FFB800',
+                  background: 'rgba(255,184,0,0.12)',
+                  border: '1px solid rgba(255,184,0,0.22)',
+                  padding: '4px 8px',
+                  borderRadius: 999
+                }}>
+                  50% OFF TODAY
+                </span>
+              </div>
+
+              <p style={{
+                fontSize: 12,
+                color: 'rgba(255,255,255,0.58)',
+                margin: 0
               }}>
-              Get Instant Access — $17 <ArrowRight size={16} />
+                One-time payment · No subscription
+              </p>
+            </div>
+
+            <motion.button
+              whileTap={{ scale: 0.98 }}
+              onClick={handleBuy}
+              style={{
+                background: 'linear-gradient(135deg, #FFB800, #FF8A00)',
+                border: 'none',
+                borderRadius: 12,
+                padding: isMobile ? '18px' : '18px 34px',
+                fontSize: isMobile ? 16 : 17,
+                fontWeight: 900,
+                color: '#0D1322',
+                cursor: 'pointer',
+                boxShadow: '0 16px 40px rgba(255,138,0,0.28)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                width: isMobile ? '100%' : 'auto',
+                justifyContent: 'center',
+                marginBottom: 14
+              }}
+            >
+              Get Instant Access — $17
+              <ArrowRight size={17} />
             </motion.button>
-            <p style={{ fontSize: 11, color: '#8A9BBF', marginTop: 8 }}>~~$34~~ · Instant download · 30-day guarantee</p>
+
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: isMobile ? 10 : 16,
+              marginBottom: 10
+            }}>
+              {['⚡ Instant download', '💰 30-day guarantee', '🔒 Secure checkout', '🎧 Full audiobook included'].map(item => (
+                <span key={item} style={{
+                  fontSize: 12,
+                  color: 'rgba(255,255,255,0.68)'
+                }}>
+                  {item}
+                </span>
+              ))}
+            </div>
+
+            <p style={{
+              fontSize: 12,
+              color: '#8A9BBF',
+              margin: 0
+            }}>
+              Start reading and listening today — access is delivered immediately after payment.
+            </p>
           </div>
         </motion.div>
       </section>
