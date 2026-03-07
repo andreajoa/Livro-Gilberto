@@ -301,10 +301,10 @@ export default function HomeES() {
               marginBottom: 24
             }}>
               {[
-                '📖 Full eBook download',
+                '📖 Descarga completa del eBook',
                 '🎧 Audiolibro completo incluido',
-                '⚡ Instant access after purchase',
-                '🛡️ 30-day money-back guarantee'
+                '⚡ Acceso inmediato después de la compra',
+                '🛡️ Garantía de devolución de 30 días'
               ].map((item) => (
                 <div key={item} style={{
                   background: 'rgba(255,255,255,0.08)',
@@ -361,7 +361,7 @@ export default function HomeES() {
                   {[1,2,3,4,5].map(i => <Star key={i} size={15} fill="#FFB800" color="#FFB800" />)}
                 </div>
                 <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.72)' }}>
-                  Trusted by readers across the US, Canada, UK & Australia
+                  Con la confianza de lectores en EE.UU., Canadá, Reino Unido y Australia
                 </span>
               </div>
             </div>
@@ -450,7 +450,7 @@ export default function HomeES() {
             <img src={authorImg} alt="Gilberto de Souza" style={{ width: 56, height: 56, borderRadius: 50, objectFit: 'cover', border: '2px solid rgba(0,196,212,0.4)', flexShrink: 0 }} />
             <div>
               <p style={{ color: '#fff', fontWeight: 700, margin: 0, fontSize: 15 }}>Gilberto de Souza</p>
-              <p style={{ color: '#8A9BBF', margin: 0, fontSize: 13 }}>Author · Entrepreneur · Survivor</p>
+              <p style={{ color: '#8A9BBF', margin: 0, fontSize: 13 }}>Autor · Emprendedor · Superviviente</p>
             </div>
           </div>
         </motion.div>
@@ -690,7 +690,7 @@ export default function HomeES() {
             marginBottom: 18,
             letterSpacing: -1.4
           }}>
-            She tells you to leave.<br />
+            Ella te dice que te vayas.<br />
             La puerta se cierra.<br />
             La espiral <span style={{ color: '#00C4D4' }}>comienza.</span>
           </h2>
@@ -707,7 +707,7 @@ export default function HomeES() {
         </motion.div>
       </section>
 
-      {/* ══ WHAT'S INSIDE ══ */}
+      {/* ══ QUÉ INCLUYE ══ */}
       <section style={{ background: 'linear-gradient(180deg, #060C18 0%, #081225 100%)', padding: sectionPad }}>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -1608,8 +1608,8 @@ export default function HomeES() {
                 marginBottom: 14,
                 letterSpacing: -1
               }}>
-                Try it for 30 days.<br />
-                <span style={{ color: '#00C4D4' }}>If it does not help, you pay nothing.</span>
+                Pruébalo durante 30 días.<br />
+                <span style={{ color: '#00C4D4' }}>Si no te ayuda, no pagas nada.</span>
               </h2>
 
               <p style={{
@@ -1912,7 +1912,7 @@ export default function HomeES() {
             maxWidth: 940,
             letterSpacing: -1.5
           }}>
-            She broke you.<br />
+            Ella te rompió.<br />
             <span style={{ color: '#00C4D4' }}>No tienes que quedarte roto.</span>
           </h2>
 
