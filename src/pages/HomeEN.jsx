@@ -35,6 +35,8 @@ const testimonials = [
 ];
 
 export default function HomeEN() {
+  const videoRef = useRef(null);
+  useEffect(() => { if (videoRef.current) { videoRef.current.play().catch(e => console.log('Auto-play blocked:', e)); } }, []);
   const [openFaq, setOpenFaq] = useState(null);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -196,7 +198,7 @@ export default function HomeEN() {
             }}
           />
         ) : (
-          <video
+          <video ref={videoRef} autoPlay loop muted playsInline webkit-playsinline="true" disablePictureInPicture 
             autoPlay
             muted
             loop
@@ -620,7 +622,7 @@ export default function HomeEN() {
             }}
           />
         ) : (
-          <video
+          <video ref={videoRef} autoPlay loop muted playsInline webkit-playsinline="true" disablePictureInPicture 
             autoPlay
             muted
             loop
@@ -1136,7 +1138,7 @@ export default function HomeEN() {
 
       {/* ══ MEN GROUP BANNER ══ */}
       <section style={{ position: 'relative', overflow: 'hidden', minHeight: isMobile ? 420 : 620, background: '#08111D' }}>
-        <video
+        <video ref={videoRef} autoPlay loop muted playsInline webkit-playsinline="true" disablePictureInPicture 
           src={helpingGroupVideo}
           autoPlay
           muted
