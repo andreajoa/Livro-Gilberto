@@ -280,7 +280,7 @@ export default function HomeES() {
             }}>
               Ella se fue.<br />
               <span style={{ color: '#FFB800' }}>Tú te rompiste.</span><br />
-              Now rebuild<br />
+              Ahora reconstruye<br />
               <span style={{ color: '#00C4D4' }}>stronger.</span>
             </h1>
 
@@ -382,7 +382,7 @@ export default function HomeES() {
             }}>
               {[
                 {
-                  title: 'Know what this is',
+                  title: 'Entiende de qué se trata',
                   text: 'Esto no es consejo genérico de ruptura. Está escrito para hombres que están lidiando con traición, rechazo y haber sido reemplazados.'
                 },
                 {
@@ -391,7 +391,7 @@ export default function HomeES() {
                 },
                 {
                   title: 'Move him to action',
-                  text: 'Clear promise. Emotional clarity. Strong CTA. That is what makes this style convert.'
+                  text: 'Promesa clara. Claridad emocional. CTA fuerte. Eso es lo que hace que este estilo convierta.'
                 }
               ].map((item) => (
                 <div key={item.title} style={{
@@ -494,7 +494,7 @@ export default function HomeES() {
               lineHeight: 1.08,
               marginBottom: 16
             }}>
-              What being <span style={{ color: '#FFB800' }}>replaced</span><br />
+              Lo que ser <span style={{ color: '#FFB800' }}>reemplazado</span><br />
               does to a man.
             </h2>
 
@@ -742,7 +742,7 @@ export default function HomeES() {
             }}>
               <img
                 src={bookCoverEN}
-                alt="How to Overcome the Pain of Being Replaced"
+                alt="Cómo superar el dolor de ser reemplazado"
                 style={{
                   width: isMobile ? 220 : 290,
                   maxWidth: '100%',
@@ -794,7 +794,7 @@ export default function HomeES() {
               maxWidth: 760
             }}>
               Detén la espiral.<br />
-              Rebuild with a <span style={{ color: '#00C4D4' }}>clear plan.</span>
+              Reconstrúyete con un <span style={{ color: '#00C4D4' }}>plan claro.</span>
             </h2>
 
             <p style={{
@@ -825,7 +825,7 @@ export default function HomeES() {
                 'Rompe el bucle mental y deja de obsesionarte con ella.',
                 'Reconstruye tu identidad después del derrumbe de la relación.',
                 'Usa el marco de 5 pasos para recuperar el control emocional.',
-                'Know what actually works with no contact and what backfires.',
+                'Entiende qué funciona de verdad con el contacto cero y qué termina empeorándolo.',
                 'Start trusting again without becoming cold or shut down.',
                 'Obtén el eBook completo + el audiolibro completo al instante después del pago.'
               ].map((item, i) => (
@@ -864,7 +864,7 @@ export default function HomeES() {
                   padding: '4px 8px',
                   borderRadius: 999
                 }}>
-                  50% OFF TODAY
+                  50% DE DESCUENTO HOY
                 </span>
               </div>
 
@@ -1190,7 +1190,7 @@ export default function HomeES() {
           }}>
             <span style={{ width: 8, height: 8, borderRadius: 999, background: '#00C4D4', display: 'inline-block' }} />
             <span style={{ fontSize: 11, color: '#D8E6F7', fontWeight: 700, letterSpacing: 1.1, textTransform: 'uppercase' }}>
-              Brotherhood. Support. Rebuilding.
+              Hermandad. Apoyo. Reconstrucción.
             </span>
           </div>
 
@@ -1493,7 +1493,7 @@ export default function HomeES() {
           style={{ maxWidth: 560, margin: '0 auto', textAlign: 'center' }}>
           <p style={{ fontSize: 10, letterSpacing: 4, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>You're Ready</p>
           <h2 style={{ fontSize: isMobile ? '28px' : 'clamp(30px,4vw,52px)', fontWeight: 900, color: '#fff', lineHeight: 1.15, marginBottom: 12 }}>
-            Obtén el libro.<br /><span style={{ color: '#00C4D4' }}>Start Today.</span>
+            Obtén el libro.<br /><span style={{ color: '#00C4D4' }}>Empieza hoy.</span>
           </h2>
           <p style={{ fontSize: 14, color: '#8A9BBF', lineHeight: 1.7, marginBottom: 36 }}>
             Ya sobreviviste la parte más dura. Ahora deja que este libro te muestre lo que viene después.
@@ -1504,7 +1504,7 @@ export default function HomeES() {
             borderRadius: 16, padding: isMobile ? '28px 20px' : '40px 36px', textAlign: 'left'
           }}>
             <div style={{ display: 'flex', gap: 16, marginBottom: 24, alignItems: 'flex-start' }}>
-              <img src={bookCoverEN} alt="Book" style={{ width: isMobile ? 80 : 100, borderRadius: 6, boxShadow: '0 12px 40px rgba(0,0,0,0.6)', flexShrink: 0 }} />
+              <img src={bookCoverEN} alt="Libro" style={{ width: isMobile ? 80 : 100, borderRadius: 6, boxShadow: '0 12px 40px rgba(0,0,0,0.6)', flexShrink: 0 }} />
               <div>
                 <h3 style={{ fontSize: isMobile ? 15 : 17, fontWeight: 800, color: '#fff', marginBottom: 6, lineHeight: 1.3 }}>
                   Cómo superar el dolor de ser reemplazado por otra persona
@@ -1542,7 +1542,7 @@ export default function HomeES() {
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'center', gap: isMobile ? 12 : 20, flexWrap: 'wrap' }}>
-              {['🔒 SSL Secure', '💰 30-Day Guarantee', '⚡ Instant Access'].map(b => (
+              {['🔒 SSL seguro', '💰 Garantía de 30 días', '⚡ Acceso inmediato'].map(b => (
                 <span key={b} style={{ fontSize: 11, color: '#8A9BBF' }}>{b}</span>
               ))}
             </div>
@@ -1596,7 +1596,7 @@ export default function HomeES() {
 
               <img
                 src={guarantee}
-                alt="30-Day Money Back Guarantee"
+                alt="Garantía de devolución de 30 días"
                 style={{ width: isMobile ? 90 : 110, display: 'block', margin: '0 auto 22px' }}
               />
 
@@ -2031,7 +2031,7 @@ export default function HomeES() {
           }}
         >
           <div style={{ flex: 1 }}>
-            <p style={{ color: '#fff', fontSize: 13, fontWeight: 700, margin: 0 }}>eBook + Audiobook</p>
+            <p style={{ color: '#fff', fontSize: 13, fontWeight: 700, margin: 0 }}>eBook + Audiolibro</p>
             <p style={{ color: '#00C4D4', fontSize: 12, margin: 0 }}><s style={{ color: '#8A9BBF' }}>$34</s> $17 hoy</p>
           </div>
           <button onClick={handleBuy} style={{
@@ -2040,7 +2040,7 @@ export default function HomeES() {
             color: '#0D1B3E', fontSize: 14, fontWeight: 800, cursor: 'pointer',
             whiteSpace: 'nowrap'
           }}>
-            Get Now →
+            Obténlo ahora →
           </button>
         </motion.div>
       )}
