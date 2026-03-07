@@ -826,7 +826,7 @@ export default function HomeES() {
                 'Reconstruye tu identidad después del derrumbe de la relación.',
                 'Usa el marco de 5 pasos para recuperar el control emocional.',
                 'Entiende qué funciona de verdad con el contacto cero y qué termina empeorándolo.',
-                'Start trusting again without becoming cold or shut down.',
+                'Vuelve a confiar sin volverte frío ni cerrarte emocionalmente.',
                 'Obtén el eBook completo + el audiolibro completo al instante después del pago.'
               ].map((item, i) => (
                 <div key={i} style={{
@@ -1664,7 +1664,7 @@ export default function HomeES() {
                   maxWidth: isMobile ? 340 : 'none'
                 }}
               >
-                Start Risk-Free — $17
+                Empieza sin riesgo — $17
                 <ArrowRight size={17} />
               </motion.button>
 
@@ -1899,7 +1899,7 @@ export default function HomeES() {
           }}>
             <span style={{ width: 8, height: 8, borderRadius: 999, background: '#FFB800', display: 'inline-block' }} />
             <span style={{ fontSize: 11, color: '#FFE7A3', fontWeight: 800, letterSpacing: 1.1, textTransform: 'uppercase' }}>
-              Your next chapter starts here
+              Tu próximo capítulo comienza aquí
             </span>
           </div>
 
