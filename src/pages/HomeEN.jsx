@@ -146,74 +146,223 @@ export default function HomeEN() {
       </AnimatePresence>
 
       {/* ══ HERO ══ */}
-      <section style={{ position: 'relative', height: '100vh', minHeight: 600, overflow: 'hidden', display: 'flex', alignItems: 'center' }}>
-        {/* Static image on mobile (saves bandwidth), GIF on desktop */}
+      <section style={{
+        position: 'relative',
+        minHeight: '100vh',
+        overflow: 'hidden',
+        display: 'flex',
+        alignItems: 'center',
+        background: 'linear-gradient(180deg, #07111f 0%, #0b1830 100%)'
+      }}>
         {isMobile
           ? <img src={heroBg} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
           : <img src={heroLoop} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
         }
-        <div style={{ position: 'absolute', inset: 0, background: isMobile
-          ? 'linear-gradient(180deg, rgba(6,12,24,0.75) 0%, rgba(6,12,24,0.96) 60%, rgba(6,12,24,1) 100%)'
-          : 'linear-gradient(105deg, rgba(6,12,24,0.97) 0%, rgba(6,12,24,0.9) 45%, rgba(6,12,24,0.3) 100%)'
+
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: isMobile
+            ? 'linear-gradient(180deg, rgba(7,17,31,0.60) 0%, rgba(7,17,31,0.86) 38%, rgba(7,17,31,0.96) 72%, rgba(7,17,31,1) 100%)'
+            : 'linear-gradient(90deg, rgba(7,17,31,0.92) 0%, rgba(7,17,31,0.76) 42%, rgba(7,17,31,0.35) 72%, rgba(7,17,31,0.18) 100%)'
         }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(6,12,24,1) 0%, transparent 35%)' }} />
 
-        <div style={{ position: 'relative', zIndex: 3, padding: `0 ${px}`, width: '100%', boxSizing: 'border-box', marginTop: isMobile ? 60 : 0 }}>
-          <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}
-            style={{ maxWidth: isMobile ? '100%' : 680 }}>
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(circle at 20% 20%, rgba(255,184,0,0.18) 0%, rgba(255,184,0,0.06) 22%, transparent 42%), radial-gradient(circle at 85% 18%, rgba(0,196,212,0.16) 0%, rgba(0,196,212,0.04) 22%, transparent 42%)'
+        }} />
 
+        <div style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          height: isMobile ? 180 : 220,
+          background: 'linear-gradient(to top, #07111f 0%, rgba(7,17,31,0.92) 35%, transparent 100%)'
+        }} />
+
+        <div style={{
+          position: 'relative',
+          zIndex: 3,
+          width: '100%',
+          padding: isMobile ? '110px 20px 70px' : '120px 6vw 90px',
+          boxSizing: 'border-box'
+        }}>
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9 }}
+            style={{ maxWidth: isMobile ? '100%' : 760 }}
+          >
             <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: 8,
-              background: 'rgba(0,196,212,0.12)', border: '1px solid rgba(0,196,212,0.25)',
-              borderRadius: 20, padding: '5px 14px', marginBottom: 20
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              background: 'rgba(255,184,0,0.14)',
+              border: '1px solid rgba(255,184,0,0.30)',
+              borderRadius: 999,
+              padding: isMobile ? '6px 12px' : '7px 14px',
+              marginBottom: 18,
+              boxShadow: '0 8px 24px rgba(255,184,0,0.10)'
             }}>
-              <span style={{ width: 6, height: 6, background: '#00C4D4', borderRadius: 50, display: 'inline-block', flexShrink: 0 }} />
-              <span style={{ fontSize: isMobile ? 10 : 12, color: '#00C4D4', fontWeight: 600, letterSpacing: 0.5 }}>NEW RELEASE 2026 — eBook + Audiobook</span>
+              <span style={{ width: 8, height: 8, background: '#FFB800', borderRadius: 999, display: 'inline-block', flexShrink: 0 }} />
+              <span style={{ fontSize: isMobile ? 10 : 12, color: '#FFE29A', fontWeight: 800, letterSpacing: 0.8 }}>
+                FOR MEN HEALING FROM BETRAYAL, HEARTBREAK & REJECTION
+              </span>
             </div>
 
             <h1 style={{
-              fontSize: isMobile ? '42px' : 'clamp(36px,5.5vw,76px)',
-              fontWeight: 900, color: '#fff', lineHeight: 1.05,
-              marginBottom: 20, letterSpacing: -1.5
+              fontSize: isMobile ? '40px' : 'clamp(48px, 6vw, 82px)',
+              fontWeight: 900,
+              color: '#FFFFFF',
+              lineHeight: isMobile ? 1.02 : 0.98,
+              letterSpacing: -2,
+              marginBottom: 18,
+              maxWidth: 840
             }}>
-              You Gave Her<br />
-              <span style={{ color: '#00C4D4' }}>Everything.</span><br />
-              She Chose<br />Someone Else.
+              She left.<br />
+              <span style={{ color: '#FFB800' }}>You broke.</span><br />
+              Now rebuild<br />
+              <span style={{ color: '#00C4D4' }}>stronger.</span>
             </h1>
 
-            <p style={{ fontSize: isMobile ? 15 : 'clamp(16px,1.8vw,20px)', color: 'rgba(255,255,255,0.65)', lineHeight: 1.7, marginBottom: 28, maxWidth: isMobile ? '100%' : 520 }}>
-              This book was written by a man who lived through exactly that — and came out the other side. It will show you how to stop surviving and start <strong style={{ color: '#fff' }}>living again.</strong>
+            <p style={{
+              fontSize: isMobile ? 16 : 'clamp(18px, 2vw, 22px)',
+              color: 'rgba(255,255,255,0.82)',
+              lineHeight: 1.65,
+              marginBottom: 26,
+              maxWidth: 640
+            }}>
+              A raw, practical book for men who were betrayed, replaced, or left trying to make sense of the pain. Learn how to stop the mental spiral, reclaim your self-respect, and start living with strength again.
             </p>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 28, flexWrap: 'wrap' }}>
-              <div style={{ display: 'flex', gap: 2 }}>
-                {[1,2,3,4,5].map(i => <Star key={i} size={14} fill="#FFB800" color="#FFB800" />)}
-              </div>
-              <span style={{ fontSize: 12, color: '#8A9BBF' }}>Trusted by men across US, Canada, UK & Australia</span>
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 10,
+              marginBottom: 24
+            }}>
+              {[
+                '📖 Full eBook download',
+                '🎧 Full audiobook included',
+                '⚡ Instant access after purchase',
+                '🛡️ 30-day money-back guarantee'
+              ].map((item) => (
+                <div key={item} style={{
+                  background: 'rgba(255,255,255,0.08)',
+                  border: '1px solid rgba(255,255,255,0.10)',
+                  borderRadius: 999,
+                  padding: isMobile ? '8px 12px' : '9px 14px',
+                  fontSize: isMobile ? 12 : 13,
+                  color: '#EAF4FF',
+                  fontWeight: 600
+                }}>
+                  {item}
+                </div>
+              ))}
             </div>
 
-            <motion.button
-              whileTap={{ scale: 0.97 }}
-              onClick={handleBuy}
-              style={{
-                background: 'linear-gradient(135deg, #00C4D4, #0099A8)',
-                border: 'none', borderRadius: 8,
-                padding: isMobile ? '16px 28px' : '18px 36px',
-                fontSize: isMobile ? 16 : 17, fontWeight: 800,
-                color: '#0D1B3E', cursor: 'pointer',
-                boxShadow: '0 8px 30px rgba(0,196,212,0.4)',
-                display: 'flex', alignItems: 'center', gap: 10,
-                width: isMobile ? '100%' : 'auto',
-                justifyContent: 'center'
-              }}
-            >
-              Get Instant Access — $17
-              <ArrowRight size={18} />
-            </motion.button>
+            <div style={{
+              display: 'flex',
+              flexDirection: isMobile ? 'column' : 'row',
+              alignItems: isMobile ? 'stretch' : 'center',
+              gap: 14,
+              marginBottom: 18
+            }}>
+              <motion.button
+                whileTap={{ scale: 0.98 }}
+                onClick={handleBuy}
+                style={{
+                  background: 'linear-gradient(135deg, #FFB800, #FF8A00)',
+                  border: 'none',
+                  borderRadius: 10,
+                  padding: isMobile ? '18px 24px' : '20px 34px',
+                  fontSize: isMobile ? 17 : 18,
+                  fontWeight: 900,
+                  color: '#0B1325',
+                  cursor: 'pointer',
+                  boxShadow: '0 18px 40px rgba(255,138,0,0.30)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 10,
+                  width: isMobile ? '100%' : 'auto'
+                }}
+              >
+                Get Instant Access — $17
+                <ArrowRight size={18} />
+              </motion.button>
 
-            <p style={{ fontSize: 11, color: '#8A9BBF', marginTop: 12 }}>
-              ~~$34~~ Today only · 📖 eBook + 🎧 Audiobook · 30-day guarantee
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                flexWrap: 'wrap'
+              }}>
+                <div style={{ display: 'flex', gap: 2 }}>
+                  {[1,2,3,4,5].map(i => <Star key={i} size={15} fill="#FFB800" color="#FFB800" />)}
+                </div>
+                <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.72)' }}>
+                  Trusted by readers across the US, Canada, UK & Australia
+                </span>
+              </div>
+            </div>
+
+            <p style={{
+              fontSize: 12,
+              color: 'rgba(255,255,255,0.60)',
+              marginBottom: 26
+            }}>
+              <span style={{ textDecoration: 'line-through', opacity: 0.7 }}>$34</span> today only · Includes eBook + audiobook · Secure checkout
             </p>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, minmax(160px, 1fr))',
+              gap: 12,
+              maxWidth: isMobile ? '100%' : 760
+            }}>
+              {[
+                {
+                  title: 'Know what this is',
+                  text: 'This is not generic breakup advice. It is written for men dealing with betrayal, rejection and being replaced.'
+                },
+                {
+                  title: 'Feel understood fast',
+                  text: 'The page should immediately show him: this book understands the exact pain he is carrying right now.'
+                },
+                {
+                  title: 'Move him to action',
+                  text: 'Clear promise. Emotional clarity. Strong CTA. That is what makes this style convert.'
+                }
+              ].map((item) => (
+                <div key={item.title} style={{
+                  background: 'linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.05) 100%)',
+                  border: '1px solid rgba(255,255,255,0.10)',
+                  borderRadius: 16,
+                  padding: isMobile ? '16px' : '18px 18px 16px',
+                  backdropFilter: 'blur(8px)'
+                }}>
+                  <p style={{
+                    color: '#FFFFFF',
+                    fontSize: 14,
+                    fontWeight: 800,
+                    margin: '0 0 8px'
+                  }}>
+                    {item.title}
+                  </p>
+                  <p style={{
+                    color: 'rgba(255,255,255,0.72)',
+                    fontSize: 13,
+                    lineHeight: 1.65,
+                    margin: 0
+                  }}>
+                    {item.text}
+                  </p>
+                </div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </section>
