@@ -681,205 +681,407 @@ export default function HomeEN() {
         </motion.div>
       </section>
 
-      {/* ══ WHAT'S INSIDE ══ */}
-      <section style={{ background: '#060C18', padding: sectionPad }}>
-        <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }} viewport={{ once: true }}
-          style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px,1fr))', gap: isMobile ? 36 : 72, alignItems: 'center', maxWidth: 1100, margin: '0 auto' }}>
+      {/* ══ SOLUTION REVEAL ══ */}
+      <section style={{
+        position: 'relative',
+        overflow: 'hidden',
+        background: 'linear-gradient(180deg, #06101D 0%, #08172A 45%, #0A1D36 100%)',
+        padding: sectionPad
+      }}>
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(circle at 25% 45%, rgba(0,196,212,0.12) 0%, transparent 28%), radial-gradient(circle at 78% 20%, rgba(255,184,0,0.10) 0%, transparent 24%)'
+        }} />
 
-          <div style={{ display: 'flex', justifyContent: 'center', order: isMobile ? -1 : 0 }}>
-            <img src={bookCoverEN} alt="How to Overcome the Pain of Being Replaced"
-              style={{ width: isMobile ? 180 : 'min(300px,100%)', borderRadius: 8, boxShadow: '0 40px 80px rgba(0,0,0,0.8)', display: 'block' }} />
-          </div>
-
-          <div>
-            <p style={{ fontSize: 10, letterSpacing: 4, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 14 }}>What's inside</p>
-            <h2 style={{ fontSize: isMobile ? '24px' : 'clamp(28px,3.5vw,46px)', fontWeight: 900, color: '#fff', lineHeight: 1.15, marginBottom: 10 }}>
-              How to Overcome<br />the Pain of Being<br /><span style={{ color: '#00C4D4' }}>Replaced by Someone Else</span>
-            </h2>
-            <p style={{ fontSize: 13, color: '#8A9BBF', marginBottom: 24 }}>by <strong style={{ color: '#fff' }}>Gilberto de Souza</strong></p>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 28 }}>
-              {[
-                'Why being replaced hits men differently — and what to do about it',
-                'The 5-step framework for breaking the mental loop for good',
-                'How to rebuild your identity after a long relationship ends',
-                'The truth about "no contact" — what works and what backfires',
-                'How to trust again without becoming emotionally closed off',
-                'The mindset shift that separates men who recover from men who don\'t',
-              ].map((item, i) => (
-                <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                  <CheckCircle size={15} style={{ color: '#00C4D4', flexShrink: 0, marginTop: 2 }} />
-                  <span style={{ fontSize: 13, color: '#B8C8E0', lineHeight: 1.6 }}>{item}</span>
-                </div>
-              ))}
-            </div>
-
-            <motion.button whileTap={{ scale: 0.98 }} onClick={handleBuy}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9 }}
+          viewport={{ once: true }}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : 'minmax(300px, 0.9fr) minmax(380px, 1.1fr)',
+            gap: isMobile ? 40 : 72,
+            alignItems: 'center',
+            maxWidth: 1180,
+            margin: '0 auto',
+            position: 'relative',
+            zIndex: 2
+          }}
+        >
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            order: isMobile ? -1 : 0,
+            position: 'relative'
+          }}>
+            <div style={{
+              position: 'absolute',
+              width: isMobile ? 220 : 360,
+              height: isMobile ? 220 : 360,
+              borderRadius: 999,
+              background: 'radial-gradient(circle, rgba(0,196,212,0.22) 0%, rgba(0,196,212,0.10) 35%, transparent 70%)',
+              filter: 'blur(8px)'
+            }} />
+            <img
+              src={bookCoverEN}
+              alt="How to Overcome the Pain of Being Replaced"
               style={{
-                background: 'linear-gradient(135deg, #00C4D4, #0099A8)',
-                border: 'none', borderRadius: 8,
-                padding: isMobile ? '16px' : '16px 32px',
-                fontSize: 15, fontWeight: 800, color: '#0D1B3E',
-                cursor: 'pointer', boxShadow: '0 8px 30px rgba(0,196,212,0.4)',
-                display: 'flex', alignItems: 'center', gap: 10,
-                width: isMobile ? '100%' : 'auto', justifyContent: 'center'
-              }}>
-              Get Instant Access — $17 <ArrowRight size={16} />
-            </motion.button>
-            <p style={{ fontSize: 11, color: '#8A9BBF', marginTop: 8 }}>~~$34~~ · Instant download · 30-day guarantee</p>
+                width: isMobile ? 210 : 'min(340px,100%)',
+                borderRadius: 10,
+                display: 'block',
+                position: 'relative',
+                zIndex: 2,
+                filter: 'drop-shadow(0 34px 70px rgba(0,0,0,0.55))'
+              }}
+            />
           </div>
-        </motion.div>
-      </section>
 
-      {/* ══ SOCIAL PROOF ══ */}
-      <section style={{ background: '#0A1628', padding: sectionPad }}>
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.8 }} viewport={{ once: true }}
-          style={{ maxWidth: 1000, margin: '0 auto' }}>
-          <h2 style={{ fontSize: isMobile ? '22px' : 'clamp(24px,3vw,40px)', fontWeight: 900, color: '#fff', textAlign: 'center', marginBottom: 8 }}>
-            Real men. Real results.
-          </h2>
-          <p style={{ fontSize: 14, color: '#8A9BBF', textAlign: 'center', marginBottom: 40 }}>They were exactly where you are now.</p>
-          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px,1fr))', gap: 16 }}>
-            {testimonials.map((t, i) => (
-              <motion.div key={i}
-                initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }} viewport={{ once: true }}
-                style={{
-                  background: 'rgba(13,27,62,0.7)', border: '1px solid rgba(0,196,212,0.12)',
-                  borderRadius: 12, padding: '24px 20px'
-                }}>
-                <div style={{ display: 'flex', gap: 2, marginBottom: 14 }}>
-                  {[1,2,3,4,5].map(s => <Star key={s} size={13} fill="#FFB800" color="#FFB800" />)}
-                </div>
-                <p style={{ fontSize: 14, color: '#B8C8E0', lineHeight: 1.8, marginBottom: 18, fontStyle: 'italic' }}>"{t.text}"</p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <div style={{ width: 34, height: 34, borderRadius: 50, background: 'rgba(0,196,212,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15, flexShrink: 0 }}>
-                    {t.name[0]}
-                  </div>
-                  <div>
-                    <p style={{ color: '#fff', fontSize: 13, fontWeight: 600, margin: 0 }}>{t.name}</p>
-                    <p style={{ color: '#8A9BBF', fontSize: 12, margin: 0 }}>{t.city}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
-
-      {/* ══ MEN GROUP BANNER ══ */}
-      <section style={{ position: 'relative', overflow: 'hidden', height: isMobile ? 260 : 'min(420px,50vh)' }}>
-        <img src={menGroup} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(6,12,24,0.78)' }} />
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 1 }} viewport={{ once: true }}
-          style={{ position: 'relative', zIndex: 2, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: `0 ${px}` }}>
-          <h2 style={{ fontSize: isMobile ? '20px' : 'clamp(26px,4vw,52px)', fontWeight: 900, color: '#fff', lineHeight: 1.2, marginBottom: 12 }}>
-            You Are Not Alone.<br /><span style={{ color: '#00C4D4' }}>Thousands of men have been here.</span>
-          </h2>
-          <p style={{ fontSize: isMobile ? 13 : 16, color: 'rgba(255,255,255,0.65)', maxWidth: 520, lineHeight: 1.7 }}>
-            The difference between the ones who recover and the ones who don't is simple: they found the right guide at the right time.
-          </p>
-        </motion.div>
-      </section>
-
-      {/* ══ ABOUT AUTHOR ══ */}
-      <section style={{ background: '#0D1B3E', padding: sectionPad }}>
-        <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }} viewport={{ once: true }}
-          style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px,1fr))', gap: isMobile ? 36 : 72, alignItems: 'center', maxWidth: 1100, margin: '0 auto' }}>
-          {!isMobile && (
-            <div style={{ position: 'relative' }}>
-              <img src={authorImg} alt="Gilberto de Souza" style={{ width: '100%', maxWidth: 420, borderRadius: 8, display: 'block', filter: 'drop-shadow(0 20px 50px rgba(0,0,0,0.7))' }} />
-            </div>
-          )}
           <div>
-            {isMobile && (
-              <img src={authorImg} alt="Gilberto de Souza" style={{ width: 80, height: 80, borderRadius: 50, objectFit: 'cover', border: '2px solid rgba(0,196,212,0.4)', marginBottom: 20 }} />
-            )}
-            <p style={{ fontSize: 10, letterSpacing: 4, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 14 }}>About The Author</p>
-            <h2 style={{ fontSize: isMobile ? '32px' : 'clamp(32px,4vw,52px)', fontWeight: 900, color: '#fff', lineHeight: 1, marginBottom: 24 }}>
-              Gilberto<br /><span style={{ color: '#00C4D4' }}>de Souza</span>
+            <p style={{
+              fontSize: 11,
+              letterSpacing: 4,
+              color: '#FFB800',
+              fontWeight: 800,
+              textTransform: 'uppercase',
+              marginBottom: 14
+            }}>
+              The solution starts here
+            </p>
+
+            <h2 style={{
+              fontSize: isMobile ? '28px' : 'clamp(34px,4.8vw,64px)',
+              fontWeight: 900,
+              color: '#fff',
+              lineHeight: 1.05,
+              marginBottom: 16,
+              letterSpacing: -1.2
+            }}>
+              This is the book that helps you stop <span style={{ color: '#00C4D4' }}>spiraling</span> and start rebuilding.
             </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
+
+            <p style={{
+              fontSize: isMobile ? 15 : 18,
+              color: 'rgba(255,255,255,0.74)',
+              lineHeight: 1.75,
+              marginBottom: 24,
+              maxWidth: 720
+            }}>
+              Not generic breakup advice. Not empty motivation. This is a direct guide for men who feel rejected, replaced, mentally exhausted, and ready to get control of their mind back.
+            </p>
+
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 14,
+              marginBottom: 30
+            }}>
               {[
-                { emoji: '🇧🇷', text: 'Born in Brazil. Living in the United States for 23 years.' },
-                { emoji: '💼', text: 'Entrepreneur — founded his own construction company from zero.' },
-                { emoji: '💔', text: 'Went through betrayal at the height of his success.' },
-                { emoji: '📖', text: 'Chose to rebuild — and wrote the book he wished existed.' },
+                'Break the obsessive mental loop and start thinking clearly again.',
+                'Rebuild your identity without begging for closure or validation.',
+                'Understand what actually helps after betrayal — and what keeps you stuck.',
+                'Regain self-respect, emotional control, and direction.'
               ].map((item, i) => (
-                <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                  <span style={{ fontSize: 16, flexShrink: 0 }}>{item.emoji}</span>
-                  <p style={{ fontSize: 13, color: '#B8C8E0', margin: 0, lineHeight: 1.7 }}>{item.text}</p>
+                <div key={i} style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: 12,
+                  background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.03) 100%)',
+                  border: '1px solid rgba(255,255,255,0.07)',
+                  borderRadius: 14,
+                  padding: isMobile ? '14px 14px' : '15px 16px'
+                }}>
+                  <CheckCircle2 size={18} color="#00C4D4" style={{ flexShrink: 0, marginTop: 2 }} />
+                  <p style={{
+                    fontSize: isMobile ? 14 : 15,
+                    color: '#EAF4FF',
+                    lineHeight: 1.7,
+                    margin: 0
+                  }}>
+                    {item}
+                  </p>
                 </div>
               ))}
             </div>
-            <blockquote style={{
-              borderLeft: '3px solid #00C4D4', paddingLeft: 16,
-              fontStyle: 'italic', fontSize: isMobile ? 16 : 18, color: '#fff',
-              lineHeight: 1.6, margin: 0
+
+            <div style={{
+              display: 'flex',
+              flexDirection: isMobile ? 'column' : 'row',
+              alignItems: isMobile ? 'stretch' : 'center',
+              gap: 14
             }}>
-              "I wrote this book because I wanted someone to have written it for me when I needed it most."
-            </blockquote>
+              <motion.button
+                whileTap={{ scale: 0.97 }}
+                onClick={handleBuy}
+                style={{
+                  background: 'linear-gradient(135deg, #FFB800, #FF8A00)',
+                  border: 'none',
+                  borderRadius: 10,
+                  padding: isMobile ? '18px 20px' : '19px 34px',
+                  fontSize: isMobile ? 16 : 18,
+                  fontWeight: 900,
+                  color: '#0B1325',
+                  cursor: 'pointer',
+                  boxShadow: '0 18px 40px rgba(255,138,0,0.28)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 10,
+                  width: isMobile ? '100%' : 'auto'
+                }}
+              >
+                Get Instant Access — $17
+                <ArrowRight size={18} />
+              </motion.button>
+
+              <p style={{
+                fontSize: 12,
+                color: 'rgba(255,255,255,0.62)',
+                margin: 0
+              }}>
+                <span style={{ textDecoration: 'line-through', opacity: 0.75 }}>$34</span> today only · eBook + audiobook · 30-day guarantee
+              </p>
+            </div>
           </div>
         </motion.div>
       </section>
 
       {/* ══ BUY SECTION ══ */}
-      <section id="buy" style={{ background: 'linear-gradient(180deg, #060C18 0%, #0D1B3E 100%)', padding: sectionPad }}>
-        <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }} viewport={{ once: true }}
-          style={{ maxWidth: 560, margin: '0 auto', textAlign: 'center' }}>
-          <p style={{ fontSize: 10, letterSpacing: 4, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>You're Ready</p>
-          <h2 style={{ fontSize: isMobile ? '28px' : 'clamp(30px,4vw,52px)', fontWeight: 900, color: '#fff', lineHeight: 1.15, marginBottom: 12 }}>
-            Get The Book.<br /><span style={{ color: '#00C4D4' }}>Start Today.</span>
+      <section id="buy" style={{
+        position: 'relative',
+        overflow: 'hidden',
+        background: 'linear-gradient(180deg, #07111F 0%, #0B1830 55%, #102142 100%)',
+        padding: sectionPad
+      }}>
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(circle at 50% 15%, rgba(0,196,212,0.10) 0%, transparent 26%), radial-gradient(circle at 80% 70%, rgba(255,184,0,0.10) 0%, transparent 24%)'
+        }} />
+
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9 }}
+          viewport={{ once: true }}
+          style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 2 }}
+        >
+          <p style={{
+            fontSize: 11,
+            letterSpacing: 4,
+            color: '#FFB800',
+            fontWeight: 800,
+            textTransform: 'uppercase',
+            marginBottom: 16
+          }}>
+            You are one step away
+          </p>
+
+          <h2 style={{
+            fontSize: isMobile ? '30px' : 'clamp(36px,4.8vw,64px)',
+            fontWeight: 900,
+            color: '#fff',
+            lineHeight: 1.08,
+            marginBottom: 14
+          }}>
+            Get the book.<br />
+            Start <span style={{ color: '#00C4D4' }}>rebuilding now.</span>
           </h2>
-          <p style={{ fontSize: 14, color: '#8A9BBF', lineHeight: 1.7, marginBottom: 36 }}>
-            You've already survived the hardest part. Now let this book show you what comes next.
+
+          <p style={{
+            fontSize: isMobile ? 15 : 17,
+            color: 'rgba(255,255,255,0.72)',
+            lineHeight: 1.75,
+            marginBottom: 34,
+            maxWidth: 620,
+            marginLeft: 'auto',
+            marginRight: 'auto'
+          }}>
+            Secure your copy now and get immediate access to the exact guide designed to help you stop spiraling, think clearly again, and move forward with dignity.
           </p>
 
           <div style={{
-            background: 'rgba(13,27,62,0.8)', border: '1px solid rgba(0,196,212,0.25)',
-            borderRadius: 16, padding: isMobile ? '28px 20px' : '40px 36px', textAlign: 'left'
+            background: 'linear-gradient(180deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.05) 100%)',
+            border: '1px solid rgba(255,255,255,0.10)',
+            borderRadius: 22,
+            padding: isMobile ? '24px 18px' : '34px 30px',
+            textAlign: 'left',
+            boxShadow: '0 26px 70px rgba(0,0,0,0.24)',
+            backdropFilter: 'blur(10px)'
           }}>
-            <div style={{ display: 'flex', gap: 16, marginBottom: 24, alignItems: 'flex-start' }}>
-              <img src={bookCoverEN} alt="Book" style={{ width: isMobile ? 80 : 100, borderRadius: 6, boxShadow: '0 12px 40px rgba(0,0,0,0.6)', flexShrink: 0 }} />
-              <div>
-                <h3 style={{ fontSize: isMobile ? 15 : 17, fontWeight: 800, color: '#fff', marginBottom: 6, lineHeight: 1.3 }}>
+            <div style={{
+              display: 'flex',
+              gap: 18,
+              marginBottom: 24,
+              alignItems: 'flex-start',
+              flexDirection: isMobile ? 'column' : 'row'
+            }}>
+              <img
+                src={bookCoverEN}
+                alt="Book"
+                style={{
+                  width: isMobile ? 92 : 116,
+                  borderRadius: 8,
+                  boxShadow: '0 18px 44px rgba(0,0,0,0.45)',
+                  flexShrink: 0
+                }}
+              />
+
+              <div style={{ flex: 1 }}>
+                <h3 style={{
+                  fontSize: isMobile ? 17 : 20,
+                  fontWeight: 900,
+                  color: '#fff',
+                  marginBottom: 6,
+                  lineHeight: 1.3
+                }}>
                   How to Overcome the Pain of Being Replaced by Someone Else
                 </h3>
-                <p style={{ fontSize: 12, color: '#8A9BBF', marginBottom: 10 }}>by Gilberto de Souza</p>
-                {['📖 Full eBook (PDF)', '🎧 Full Audiobook (MP3)', '✅ Instant download'].map(item => (
-                  <div key={item} style={{ fontSize: 12, color: '#B8C8E0', marginBottom: 4 }}>{item}</div>
-                ))}
+
+                <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.62)', marginBottom: 12 }}>
+                  by Gilberto de Souza
+                </p>
+
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, minmax(0,1fr))',
+                  gap: 10
+                }}>
+                  {[
+                    '📖 Full eBook (PDF)',
+                    '🎧 Full Audiobook (MP3)',
+                    '⚡ Instant access after payment',
+                    '🛡️ 30-day money-back guarantee'
+                  ].map(item => (
+                    <div key={item} style={{
+                      fontSize: 13,
+                      color: '#DCEBFF',
+                      background: 'rgba(255,255,255,0.04)',
+                      border: '1px solid rgba(255,255,255,0.06)',
+                      borderRadius: 10,
+                      padding: '10px 12px'
+                    }}>
+                      {item}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 24 }}>
-              <span style={{ fontSize: isMobile ? 42 : 52, fontWeight: 900, color: '#00C4D4', lineHeight: 1 }}>$17</span>
-              <span style={{ fontSize: 18, color: '#8A9BBF', textDecoration: 'line-through' }}>$34</span>
-              <span style={{ fontSize: 11, background: 'rgba(0,196,212,0.15)', border: '1px solid rgba(0,196,212,0.3)', color: '#00C4D4', padding: '3px 8px', borderRadius: 4, fontWeight: 700 }}>50% OFF</span>
+            <div style={{
+              display: 'flex',
+              alignItems: isMobile ? 'flex-start' : 'center',
+              justifyContent: 'space-between',
+              gap: 16,
+              flexDirection: isMobile ? 'column' : 'row',
+              marginBottom: 22
+            }}>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
+                <span style={{
+                  fontSize: isMobile ? 46 : 58,
+                  fontWeight: 900,
+                  color: '#FFB800',
+                  lineHeight: 1
+                }}>
+                  $17
+                </span>
+                <span style={{
+                  fontSize: 20,
+                  color: 'rgba(255,255,255,0.45)',
+                  textDecoration: 'line-through'
+                }}>
+                  $34
+                </span>
+                <span style={{
+                  fontSize: 11,
+                  background: 'rgba(255,184,0,0.14)',
+                  border: '1px solid rgba(255,184,0,0.28)',
+                  color: '#FFB800',
+                  padding: '4px 9px',
+                  borderRadius: 999,
+                  fontWeight: 800,
+                  letterSpacing: 0.4
+                }}>
+                  50% OFF TODAY
+                </span>
+              </div>
+
+              <p style={{
+                fontSize: 12,
+                color: 'rgba(255,255,255,0.58)',
+                margin: 0
+              }}>
+                One-time payment · No subscription
+              </p>
             </div>
 
-            <motion.button whileTap={{ scale: 0.98 }} onClick={handleBuy}
+            <motion.button
+              whileTap={{ scale: 0.98 }}
+              onClick={handleBuy}
               style={{
-                width: '100%', padding: isMobile ? '18px' : '20px',
-                background: 'linear-gradient(135deg, #00C4D4, #0099A8)',
-                border: 'none', borderRadius: 8,
-                color: '#0D1B3E', fontSize: isMobile ? 16 : 18, fontWeight: 900,
-                cursor: 'pointer', boxShadow: '0 8px 30px rgba(0,196,212,0.5)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
+                width: '100%',
+                padding: isMobile ? '18px' : '20px',
+                background: 'linear-gradient(135deg, #FFB800, #FF8A00)',
+                border: 'none',
+                borderRadius: 12,
+                color: '#0B1325',
+                fontSize: isMobile ? 17 : 19,
+                fontWeight: 900,
+                cursor: 'pointer',
+                boxShadow: '0 18px 38px rgba(255,138,0,0.30)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 10,
                 marginBottom: 14
-              }}>
+              }}
+            >
               Get Instant Access — $17
               <ArrowRight size={18} />
             </motion.button>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px', background: 'rgba(255,255,255,0.03)', borderRadius: 8, marginBottom: 14 }}>
-              <Shield size={14} style={{ color: '#00C4D4', flexShrink: 0 }} />
-              <p style={{ fontSize: 11, color: '#8A9BBF', margin: 0 }}>Secure payment via Stripe · Visa · Mastercard · Amex · Apple Pay</p>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 10,
+              padding: '12px 14px',
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(255,255,255,0.06)',
+              borderRadius: 10,
+              marginBottom: 14,
+              flexWrap: 'wrap'
+            }}>
+              <Shield size={15} style={{ color: '#00C4D4', flexShrink: 0 }} />
+              <p style={{
+                fontSize: 12,
+                color: 'rgba(255,255,255,0.72)',
+                margin: 0,
+                textAlign: 'center'
+              }}>
+                Secure checkout powered by Stripe · Visa · Mastercard · Amex · Apple Pay
+              </p>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'center', gap: isMobile ? 12 : 20, flexWrap: 'wrap' }}>
-              {['🔒 SSL Secure', '💰 30-Day Guarantee', '⚡ Instant Access'].map(b => (
-                <span key={b} style={{ fontSize: 11, color: '#8A9BBF' }}>{b}</span>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: isMobile ? 10 : 18,
+              flexWrap: 'wrap'
+            }}>
+              {[
+                '🔒 Secure payment',
+                '⚡ Instant delivery',
+                '💰 30-day guarantee',
+                '📱 Mobile-friendly checkout'
+              ].map(b => (
+                <span key={b} style={{
+                  fontSize: 12,
+                  color: 'rgba(255,255,255,0.64)'
+                }}>
+                  {b}
+                </span>
               ))}
             </div>
           </div>
