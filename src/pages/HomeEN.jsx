@@ -35,6 +35,13 @@ const testimonials = [
 ];
 
 export default function HomeEN() {
+  const heroVideoRef = useRef(null);
+  useEffect(() => {
+    // Força o play no mobile assim que montar
+    if (heroVideoRef.current) {
+      heroVideoRef.current.play().catch(e => console.log("Erro no autoplay do mobile:", e));
+    }
+  }, []);
   const videoRef = useRef(null);
   useEffect(() => { if (videoRef.current) { videoRef.current.play().catch(e => console.log('Auto-play blocked:', e)); } }, []);
   const [openFaq, setOpenFaq] = useState(null);
@@ -200,6 +207,7 @@ export default function HomeEN() {
         ) : (
           
 <video 
+          ref={heroVideoRef}
           src={heroVideo}
           autoPlay
           muted
