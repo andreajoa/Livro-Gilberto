@@ -35,15 +35,6 @@ const testimonials = [
 ];
 
 export default function HomeEN() {
-  const heroVideoRef = useRef(null);
-  useEffect(() => {
-    // Força o play no mobile assim que montar
-    if (heroVideoRef.current) {
-      heroVideoRef.current.play().catch(e => console.log("Erro no autoplay do mobile:", e));
-    }
-  }, []);
-  const videoRef = useRef(null);
-  useEffect(() => { if (videoRef.current) { videoRef.current.play().catch(e => console.log('Auto-play blocked:', e)); } }, []);
   const [openFaq, setOpenFaq] = useState(null);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -205,20 +196,24 @@ export default function HomeEN() {
             }}
           />
         ) : (
-          
-<video 
-          ref={heroVideoRef}
-          src={heroVideo}
-          autoPlay
-          muted
-          loop
-          playsInline
-          webkit-playsinline="true"
-          disablePictureInPicture
-          preload="auto"
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        />
-
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster={heroBg}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center'
+            }}
+          >
+            <source src={heroVideo} type="video/mp4" />
+          </video>
         )}
 
         <div style={{
@@ -625,7 +620,7 @@ export default function HomeEN() {
             }}
           />
         ) : (
-          <video ref={videoRef} autoPlay loop muted playsInline webkit-playsinline="true" disablePictureInPicture 
+          <video
             autoPlay
             muted
             loop
@@ -1141,7 +1136,7 @@ export default function HomeEN() {
 
       {/* ══ MEN GROUP BANNER ══ */}
       <section style={{ position: 'relative', overflow: 'hidden', minHeight: isMobile ? 420 : 620, background: '#08111D' }}>
-        <video ref={videoRef} autoPlay loop muted playsInline webkit-playsinline="true" disablePictureInPicture 
+        <video
           src={helpingGroupVideo}
           autoPlay
           muted
