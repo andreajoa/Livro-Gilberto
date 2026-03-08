@@ -73,9 +73,27 @@ export default function CheckoutForm({ isOpen, onClose }) {
       const result = await response.json()
 
       if (result.success) {
-        setSavedOrder(result.order)
-        setOrderSaved(true)
-        clearCart()
+        try {
+          const stripeRes = await fetch(API_URL + '/checkout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ total: total, email: formData.email, name: formData.name })
+          });
+          const stripeData = await stripeRes.json();
+          
+          if (stripeData.url) {
+            window.location.href = stripeData.url;
+          } else {
+            setSavedOrder(result.order);
+            setOrderSaved(true);
+            clearCart();
+          }
+        } catch (e) {
+          console.error('Erro Stripe:', e);
+          setSavedOrder(result.order);
+          setOrderSaved(true);
+          clearCart();
+        }
       } else {
         alert('Erro ao salvar pedido. Tente novamente.')
       }
