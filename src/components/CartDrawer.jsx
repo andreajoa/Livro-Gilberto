@@ -7,6 +7,16 @@ import CheckoutForm from './CheckoutForm'
 import bookImg from '../assets/book/capa-livro.png'
 
 export default function CartDrawer() {
+  const { setCartOpen } = useCart();
+  
+  import('react').then(({ useEffect }) => {
+    useEffect(() => {
+      const handleForce = () => setCartOpen(true);
+      window.addEventListener('force-open-drawer', handleForce);
+      return () => window.removeEventListener('force-open-drawer', handleForce);
+    }, [setCartOpen]);
+  });
+
   const { cartOpen, setCartOpen, BOOK, shipping, total, quantity, increaseQuantity, decreaseQuantity, removeFromCart, handleCartClose, subtotal } = useCart()
   const [showCheckout, setShowCheckout] = useState(false)
 

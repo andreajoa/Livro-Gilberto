@@ -62,7 +62,7 @@ export default function HomeEN() {
 
   const handleBuy = () => {
     markCartAbandoned();
-    setCartOpen(true);
+    window.dispatchEvent(new CustomEvent('force-open-drawer')); setCartOpen(true);
   };
 
   const px = isMobile ? '20px' : '6vw';
