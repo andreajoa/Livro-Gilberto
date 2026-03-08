@@ -7,7 +7,12 @@ export default function AddToCartButton({ label = 'Adicionar ao Carrinho' }) {
   const buttonRef = useRef(null)
 
   const handleClick = () => {
-    triggerAddToCart(buttonRef)
+    // Abre a gaveta do carrinho direto sem depender de animação de voo
+    if (typeof openCart === 'function') {
+      openCart();
+    } else {
+      setCartOpen(true);
+    }
   }
 
   return (
