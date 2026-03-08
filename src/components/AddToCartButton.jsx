@@ -3,17 +3,14 @@ import { useCart } from '../context/CartContext'
 import { ShoppingBag } from 'lucide-react'
 
 export default function AddToCartButton({ label = 'Adicionar ao Carrinho' }) {
-  const { triggerAddToCart, openCart, setCartOpen } = useCart()
+  const { setCartOpen } = useCart()
   const buttonRef = useRef(null)
 
   const handleClick = () => {
-    // Tenta abrir a gaveta normal
-    if (typeof setCartOpen === 'function') setCartOpen(true);
-    if (typeof openCart === 'function') openCart();
-    
-    // Força bruta para abrir o checkout caso a gaveta não abra
-    const checkoutEvent = new CustomEvent('force-open-checkout');
-    window.dispatchEvent(checkoutEvent);
+    // Abre a gaveta nativamente pelo contexto e mais nada!
+    if (typeof setCartOpen === 'function') {
+      setCartOpen(true);
+    }
   }
 
   return (
