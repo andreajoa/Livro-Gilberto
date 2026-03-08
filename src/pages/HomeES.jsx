@@ -41,6 +41,7 @@ export default function HomeES() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { markCartAbandoned } = useLead();
+  const { setCartOpen } = require("../context/CartContext").useCart();
   const navigate = useNavigate();
   const isMobile = useIsMobile();
 
@@ -58,7 +59,7 @@ export default function HomeES() {
 
   const handleBuy = () => {
     markCartAbandoned();
-    window.open('https://buy.stripe.com/PLACEHOLDER_EN', '_blank');
+    setCartOpen(true);
   };
 
   const px = isMobile ? '20px' : '6vw';
