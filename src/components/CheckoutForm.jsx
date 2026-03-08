@@ -73,16 +73,35 @@ export default function CheckoutForm({ isOpen, onClose }) {
 
       if (result.success) {
         try {
-          const stripeRes = await fetch(API_URL + '/checkout', {
+          // 1. O pedido já foi salvo no Render. Agora pede a tela da Stripe
+          const stripeResponse = await fetch(API_URL + '/checkout', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ total: total, email: formData.email, name: formData.name })
+            body: JSON.stringify({ 
+              total: total, 
+              email: formData.email, 
+              name: formData.name 
+            })
           });
-          const stripeData = await stripeRes.json();
           
-          if (stripeData.url) {
-            window.location.href = stripeData.url;
+          const stripeResult = await stripeResponse.json();
+          
+          // 2. Se a Stripe mandou o link seguro, teletransporta o cliente
+          if (stripeResult.url) {
+            window.location.href = stripeResult.url;
           } else {
+             // Fallback
+             setSavedOrder(result.order);
+             setOrderSaved(true);
+             clearCart();
+          }
+        } catch (stripeError) {
+          console.error("Falha ao comunicar com Stripe:", stripeError);
+          setSavedOrder(result.order);
+          setOrderSaved(true);
+          clearCart();
+        }
+      } else {
             setSavedOrder(result.order);
             setOrderSaved(true);
             clearCart();
