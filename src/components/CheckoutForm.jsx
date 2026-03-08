@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, CheckCircle, MapPin, Phone, Mail, CreditCard, Lock, ChevronLeft, User } from 'lucide-react'
 import { useCart } from '../context/CartContext'
@@ -7,22 +7,24 @@ const API_URL = 'https://gilberto-backend.onrender.com/api'
 
 export default function CheckoutForm({ isOpen, onClose }) {
   const { BOOK, quantity, shipping, total, subtotal, setCartOpen, clearCart } = useCart()
+  
+  // Inteligência de idioma baseada na URL
+  const isEnglish = typeof window !== 'undefined' && window.location.pathname.startsWith('/en');
+  const isSpanish = typeof window !== 'undefined' && window.location.pathname.startsWith('/es');
+  const isInternational = isEnglish || isSpanish;
+  const lang = isSpanish ? 'es' : isEnglish ? 'en' : 'pt';
+  const displayPrice = isInternational ? 17.00 : total;
+
   const [formData, setFormData] = useState({
     name: '', email: '', whatsapp: '',
     cep: '', address: '', neighborhood: '',
     city: '', state: '', complement: '', reference: ''
   })
+  
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [orderSaved, setOrderSaved] = useState(false)
   const [savedOrder, setSavedOrder] = useState(null)
   const [errors, setErrors] = useState({})
-
-  const isEnglish = window.location.pathname.startsWith('/en');
-  const isSpanish = window.location.pathname.startsWith('/es');
-  const isInternational = isEnglish || isSpanish;
-  const lang = isSpanish ? 'es' : isEnglish ? 'en' : 'pt';
-  const displayPrice = isInternational ? 17.00 : total;
-
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -45,9 +47,10 @@ export default function CheckoutForm({ isOpen, onClose }) {
 
   const validate = () => {
     const e = {}
-    if (!formData.name.trim() || formData.name.trim().split(' ').length < 2) e.name = isInternational ? 'Full Name required' : 'Informe seu nome completo'
+    if (!formData.name.trim() || formData.name.trim().split(' ').length < 2) e.name = isInternational ? 'Full name required' : 'Informe seu nome completo'
     if (!formData.email.includes('@')) e.email = 'Email invalido'
     
+    // Se não for gringo, exige o resto
     if (!isInternational) {
       if (formData.whatsapp.replace(/\D/g,'').length < 10) e.whatsapp = 'WhatsApp invalido'
       if (formData.cep.replace(/\D/g,'').length < 8) e.cep = 'CEP invalido'
@@ -66,41 +69,43 @@ export default function CheckoutForm({ isOpen, onClose }) {
     setIsSubmitting(true)
 
     try {
-      const visitorId = localStorage.getItem('visitor_id')
+      const visitorId = localStorage.getItem('visitor_id') || 'anonimo'
+      
+      const payload = isInternational ? {
+          visitorId, name: formData.name, email: formData.email, whatsapp: 'digital_order',
+          quantity: 1, shipping: { price: 0, name: 'Digital Delivery' },
+          cep: '000', address: 'Digital', neighborhood: 'Digital', city: 'Digital', state: 'DG', countryTag: lang
+      } : {
+          visitorId, name: formData.name, email: formData.email, whatsapp: formData.whatsapp,
+          quantity, shipping, cep: formData.cep, address: formData.address,
+          neighborhood: formData.neighborhood, city: formData.city, state: formData.state, complement: formData.complement, reference: formData.reference
+      }
+
       const response = await fetch(`${API_URL}/orders`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          visitorId,
-          name: formData.name, email: formData.email, whatsapp: formData.whatsapp,
-          quantity, shipping,
-          cep: formData.cep, address: formData.address,
-          neighborhood: formData.neighborhood, city: formData.city,
-          state: formData.state, complement: formData.complement, reference: formData.reference
-        })
+        body: JSON.stringify(payload)
       })
 
       const result = await response.json()
 
       if (result.success) {
-        // --- INÍCIO DA INTEGRAÇÃO COM A STRIPE ---
         try {
-          const stripeResponse = await fetch(`${API_URL}/checkout`, {
+          const endpoint = isInternational ? '/checkout-digital' : '/checkout';
+          const payloadStripe = isInternational 
+            ? { total: displayPrice, email: formData.email, name: formData.name, lang: lang }
+            : { total: total, email: formData.email, name: formData.name };
+
+          const stripeRes = await fetch(API_URL + endpoint, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-              total: total, 
-              email: formData.email, 
-              name: formData.name 
-            })
+            body: JSON.stringify(payloadStripe)
           });
+          const stripeData = await stripeRes.json();
           
-          const stripeResult = await stripeResponse.json();
-          
-          if (stripeResult.url) {
-             window.location.href = stripeResult.url; // Vai para a Stripe!
+          if (stripeData.url) {
+             window.location.href = stripeData.url;
           } else {
-             // Caso a API da Stripe não devolva a URL
              setSavedOrder(result.order);
              setOrderSaved(true);
              clearCart();
@@ -111,7 +116,6 @@ export default function CheckoutForm({ isOpen, onClose }) {
           setOrderSaved(true);
           clearCart();
         }
-        // --- FIM DA INTEGRAÇÃO COM A STRIPE ---
       } else {
         alert('Erro ao salvar pedido. Tente novamente.')
       }
@@ -156,7 +160,7 @@ export default function CheckoutForm({ isOpen, onClose }) {
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
               <button onClick={onClose} style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, width: 34, height: 34, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#8A9BBF' }}><ChevronLeft size={18} /></button>
               <div>
-                <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, fontWeight: 700, color: '#fff', margin: 0 }}>Dados de Entrega</h2>
+                <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, fontWeight: 700, color: '#fff', margin: 0 }}>{isInternational ? 'Instant Access' : 'Dados de Entrega'}</h2>
               </div>
             </div>
             <button onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#8A9BBF' }}><X size={20} /></button>
@@ -165,32 +169,43 @@ export default function CheckoutForm({ isOpen, onClose }) {
              <div style={{ padding: '48px 32px', textAlign: 'center' }}>
                <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'linear-gradient(135deg, #00C4D4, #0099A8)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}><CheckCircle size={36} color="#0D1B3E" /></div>
                <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: '#fff', margin: '0 0 8px' }}>Pedido Registrado!</h2>
-               <p style={{ color: '#B8C8E0', fontSize: 14 }}>Ocorreu um erro ao abrir a tela de pagamento. Nosso time entrará em contato pelo WhatsApp para finalizar a cobrança do pedido <strong style={{color: '#00C4D4'}}>{savedOrder?.id}</strong>.</p>
+               <p style={{ color: '#B8C8E0', fontSize: 14 }}>Ocorreu um erro na Stripe. Entraremos em contato.</p>
                <button onClick={onClose} style={{ marginTop: 16, padding: '12px 32px', background: '#00C4D4', border: 'none', borderRadius: 8, cursor: 'pointer', color: '#0D1B3E', fontWeight: 800 }}>Fechar</button>
              </div>
           ) : (
             <form onSubmit={handleSaveAndPay}>
               <div style={{ padding: '24px 24px 0' }}>
                 <div style={{ display: 'grid', gap: 14, marginBottom: 20 }}>
-                  <div><label style={labelStyle}>Nome Completo *</label><input type="text" name="name" value={formData.name} onChange={handleChange} style={inputStyle('name')} /></div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                  <div><label style={labelStyle}>{isInternational ? 'Full Name *' : 'Nome Completo *'}</label><input type="text" name="name" value={formData.name} onChange={handleChange} style={inputStyle('name')} /></div>
+                  <div style={{ display: 'grid', gridTemplateColumns: isInternational ? '1fr' : '1fr 1fr', gap: 12 }}>
                     <div><label style={labelStyle}>Email *</label><div style={{position:'relative'}}><Mail size={14} style={{position:'absolute', left:12, top:'50%', transform:'translateY(-50%)', color:'#8A9BBF'}} /><input type="email" name="email" value={formData.email} onChange={handleChange} style={{...inputStyle('email'), paddingLeft:36}} /></div></div>
-                    <div><label style={labelStyle}>WhatsApp *</label><div style={{position:'relative'}}><Phone size={14} style={{position:'absolute', left:12, top:'50%', transform:'translateY(-50%)', color:'#8A9BBF'}} /><input type="tel" name="whatsapp" value={formData.whatsapp} onChange={(e) => setFormData({ ...formData, whatsapp: formatWhatsApp(e.target.value) })} style={{...inputStyle('whatsapp'), paddingLeft:36}} /></div></div>
+                    {!isInternational && (
+                      <div><label style={labelStyle}>WhatsApp *</label><div style={{position:'relative'}}><Phone size={14} style={{position:'absolute', left:12, top:'50%', transform:'translateY(-50%)', color:'#8A9BBF'}} /><input type="tel" name="whatsapp" value={formData.whatsapp} onChange={(e) => setFormData({ ...formData, whatsapp: formatWhatsApp(e.target.value) })} style={{...inputStyle('whatsapp'), paddingLeft:36}} /></div></div>
+                    )}
                   </div>
-                  {!isInternational && (<><div style={{ display: 'grid', gridTemplateColumns: '160px 1fr', gap: 12 }}>
-                    <div><label style={labelStyle}>CEP *</label><input type="text" name="cep" value={formData.cep} onChange={(e) => setFormData({ ...formData, cep: formatCEP(e.target.value) })} style={inputStyle('cep')} /></div>
-                    <div><label style={labelStyle}>Endereço *</label><input type="text" name="address" value={formData.address} onChange={handleChange} style={inputStyle('address')} /></div>
-                  </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-                    <div><label style={labelStyle}>Bairro</label><input type="text" name="neighborhood" value={formData.neighborhood} onChange={handleChange} style={inputStyle('neighborhood')} /></div>
-                    <div><label style={labelStyle}>Complemento</label><input type="text" name="complement" value={formData.complement} onChange={handleChange} style={inputStyle('complement')} /></div>
-                  </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 80px', gap: 12 }}><div><label style={labelStyle}>Cidade *</label><input type="text" name="city" value={formData.city} onChange={handleChange} style={inputStyle('city')} /></div><div><label style={labelStyle}>Estado *</label><input type="text" name="state" value={formData.state} onChange={handleChange} maxLength="2" style={{...inputStyle('state'), textTransform: 'uppercase'}} /></div></div></>)}</div></div>
+                  
+                  {!isInternational && (
+                    <>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '16px 0 8px' }}><MapPin size={15} color="#00C4D4" /><span style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>Endereço de entrega</span></div>
+                      <div style={{ display: 'grid', gridTemplateColumns: '160px 1fr', gap: 12 }}>
+                        <div><label style={labelStyle}>CEP *</label><input type="text" name="cep" value={formData.cep} onChange={(e) => setFormData({ ...formData, cep: formatCEP(e.target.value) })} style={inputStyle('cep')} /></div>
+                        <div><label style={labelStyle}>Endereço *</label><input type="text" name="address" value={formData.address} onChange={handleChange} style={inputStyle('address')} /></div>
+                      </div>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                        <div><label style={labelStyle}>Bairro</label><input type="text" name="neighborhood" value={formData.neighborhood} onChange={handleChange} style={inputStyle('neighborhood')} /></div>
+                        <div><label style={labelStyle}>Complemento</label><input type="text" name="complement" value={formData.complement} onChange={handleChange} style={inputStyle('complement')} /></div>
+                      </div>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 80px', gap: 12 }}>
+                        <div><label style={labelStyle}>Cidade *</label><input type="text" name="city" value={formData.city} onChange={handleChange} style={inputStyle('city')} /></div>
+                        <div><label style={labelStyle}>Estado *</label><input type="text" name="state" value={formData.state} onChange={handleChange} maxLength="2" style={{...inputStyle('state'), textTransform: 'uppercase'}} /></div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
               <div style={{ padding: '20px 24px', borderTop: '1px solid rgba(255,255,255,0.08)', background: 'rgba(6,12,24,0.5)' }}>
                 <button type="submit" disabled={isSubmitting} style={{ width: '100%', padding: '16px', background: 'linear-gradient(135deg, #00C4D4, #0099A8)', border: 'none', borderRadius: 10, color: '#0D1B3E', fontSize: 16, fontWeight: 900, cursor: isSubmitting ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
-                  {isSubmitting ? '...' : <><CreditCard size={20} /><span>{isInternational ? `Pay ${displayPrice} (Instant Access)` : `Confirmar e Pagar R$ ${total.toFixed(2)}`}</span></>}
+                  {isSubmitting ? '...' : <><CreditCard size={20} /><span>{isInternational ? `Pay $${displayPrice} (Instant Access)` : `Confirmar e Pagar R$ ${total.toFixed(2)}`}</span></>}
                 </button>
               </div>
             </form>
