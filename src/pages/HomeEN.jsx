@@ -7,6 +7,7 @@ import useIsMobile from '../hooks/useIsMobile';
 import LeadPopupEN from '../components/LeadPopupEN';
 import AbandonedPopupEN from '../components/AbandonedPopupEN';
 import AIChatbotEN from '../components/AIChatbotEN';
+import AddToCartButton from '../components/AddToCartButton'; from '../components/AIChatbotEN';
 import CheckoutDigital from '../components/CheckoutDigital';
 
 import heroBg from '../assets/en/hero-bg.jpeg';
@@ -37,24 +38,7 @@ const testimonials = [
 
 export default function HomeEN() {
 
-  useEffect(() => {
-    const handleIntercept = (e) => {
-      let target = e.target;
-      
-      // Procura se o clique ou o pai dele é um link pro Stripe quebrado
-      while (target && target.tagName !== 'HTML') {
-        if (target.tagName === 'A' && target.href && target.href.includes('buy.stripe.com/PLACEHOLDER')) {
-          e.preventDefault(); // Impede o cliente de sair da página e tomar o erro
-          window.dispatchEvent(new CustomEvent('force-checkout-en')); // Abre o popup
-          return;
-        }
-        target = target.parentNode;
-      }
-    };
-    
-    document.addEventListener('click', handleIntercept);
-    return () => document.removeEventListener('click', handleIntercept);
-  }, []);
+  
 
   const [openFaq, setOpenFaq] = useState(null);
   const [scrolled, setScrolled] = useState(false);
@@ -2069,7 +2053,7 @@ export default function HomeEN() {
       <LeadPopupEN lang="en" />
       <AbandonedPopupEN lang="en" />
       <AIChatbotEN lang="en" />
-      <CheckoutDigital lang="en" />
+      
     </div>
   );
 }
