@@ -6,6 +6,17 @@ import { useCart } from '../context/CartContext'
 const API_URL = 'https://gilberto-backend.onrender.com/api'
 
 export default function CheckoutForm({ isOpen, onClose }) {
+  const [forcedOpen, setForcedOpen] = useState(false);
+  
+  useEffect(() => {
+    const handleForceOpen = () => setForcedOpen(true);
+    window.addEventListener('force-open-checkout', handleForceOpen);
+    return () => window.removeEventListener('force-open-checkout', handleForceOpen);
+  }, []);
+  
+  const realIsOpen = isOpen || forcedOpen;
+  const realOnClose = () => { setForcedOpen(false); if(onClose) onClose(); };
+
   const { BOOK, quantity, shipping, total, subtotal, setCartOpen, clearCart } = useCart()
 
   const [formData, setFormData] = useState({
@@ -105,7 +116,7 @@ export default function CheckoutForm({ isOpen, onClose }) {
     }
   }
 
-  if (!isOpen) return null
+  if (!realIsOpen) return null
 
   const inputStyle = (field) => ({
     width: '100%',
@@ -157,7 +168,7 @@ export default function CheckoutForm({ isOpen, onClose }) {
             display: 'flex', alignItems: 'center', justifyContent: 'space-between'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <button onClick={onClose} style={{
+              <button onClick={realOnClose} style={{
                 background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)',
                 borderRadius: 8, width: 34, height: 34, display: 'flex',
                 alignItems: 'center', justifyContent: 'center',
@@ -172,7 +183,7 @@ export default function CheckoutForm({ isOpen, onClose }) {
                 <p style={{ fontSize: 12, color: '#8A9BBF', margin: 0 }}>Preencha para confirmar seu pedido</p>
               </div>
             </div>
-            <button onClick={onClose} style={{
+            <button onClick={realOnClose} style={{
               background: 'none', border: 'none', cursor: 'pointer', color: '#8A9BBF'
             }}>
               <X size={20} />
@@ -216,7 +227,7 @@ export default function CheckoutForm({ isOpen, onClose }) {
               <p style={{ fontSize: 12, color: '#8A9BBF' }}>
                 Pedido: <strong style={{ color: '#00C4D4' }}>{savedOrder?.id}</strong>
               </p>
-              <button onClick={onClose} style={{
+              <button onClick={realOnClose} style={{
                 marginTop: 16, padding: '12px 32px',
                 background: 'linear-gradient(135deg, #00C4D4, #0099A8)',
                 border: 'none', borderRadius: 8, color: '#0D1B3E',
