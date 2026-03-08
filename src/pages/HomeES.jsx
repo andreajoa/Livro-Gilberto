@@ -7,6 +7,7 @@ import useIsMobile from '../hooks/useIsMobile';
 import LeadPopupEN from '../components/LeadPopupEN';
 import AbandonedPopupEN from '../components/AbandonedPopupEN';
 import AIChatbotEN from '../components/AIChatbotEN';
+import AddToCartButton from '../components/AddToCartButton'; from '../components/AIChatbotEN';
 import CheckoutDigital from '../components/CheckoutDigital';
 
 import heroBg from '../assets/en/hero-bg.jpeg';
@@ -2049,7 +2050,7 @@ export default function HomeES() {
       <LeadPopupEN lang="es" />
       <AbandonedPopupEN lang="es" />
       <AIChatbotEN lang="es" />
-      <CheckoutDigital lang="es" />
+      
     </div>
   );
 }
