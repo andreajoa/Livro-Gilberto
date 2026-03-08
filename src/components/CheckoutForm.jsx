@@ -72,9 +72,9 @@ export default function CheckoutForm({ isOpen, onClose }) {
       const result = await response.json()
 
       if (result.success) {
+        // --- INÍCIO DA INTEGRAÇÃO COM A STRIPE ---
         try {
-          // 1. O pedido já foi salvo no Render. Agora pede a tela da Stripe
-          const stripeResponse = await fetch(API_URL + '/checkout', {
+          const stripeResponse = await fetch(`${API_URL}/checkout`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
@@ -86,37 +86,26 @@ export default function CheckoutForm({ isOpen, onClose }) {
           
           const stripeResult = await stripeResponse.json();
           
-          // 2. Se a Stripe mandou o link seguro, teletransporta o cliente
           if (stripeResult.url) {
-            window.location.href = stripeResult.url;
+             window.location.href = stripeResult.url; // Vai para a Stripe!
           } else {
-             // Fallback
+             // Caso a API da Stripe não devolva a URL
              setSavedOrder(result.order);
              setOrderSaved(true);
              clearCart();
           }
         } catch (stripeError) {
-          console.error("Falha ao comunicar com Stripe:", stripeError);
+          console.error("Erro na comunicação com a Stripe:", stripeError);
           setSavedOrder(result.order);
           setOrderSaved(true);
           clearCart();
         }
-      } else {
-            setSavedOrder(result.order);
-            setOrderSaved(true);
-            clearCart();
-          }
-        } catch (e) {
-          console.error('Erro Stripe:', e);
-          setSavedOrder(result.order);
-          setOrderSaved(true);
-          clearCart();
-        }
+        // --- FIM DA INTEGRAÇÃO COM A STRIPE ---
       } else {
         alert('Erro ao salvar pedido. Tente novamente.')
       }
     } catch (error) {
-      console.error('Erro:', error)
+      console.error('Erro global do formulário:', error)
       alert('Erro ao processar. Tente novamente.')
     } finally {
       setIsSubmitting(false)
@@ -163,9 +152,10 @@ export default function CheckoutForm({ isOpen, onClose }) {
           </div>
           {orderSaved ? (
              <div style={{ padding: '48px 32px', textAlign: 'center' }}>
-               <h2 style={{ color: '#fff' }}>Pedido Registrado!</h2>
-               <p style={{ color: '#B8C8E0' }}>Se a página não redirecionar, nosso time entrará em contato.</p>
-               <button onClick={onClose} style={{ padding: '12px 32px', background: '#00C4D4', border: 'none', borderRadius: 8, cursor: 'pointer' }}>Fechar</button>
+               <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'linear-gradient(135deg, #00C4D4, #0099A8)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}><CheckCircle size={36} color="#0D1B3E" /></div>
+               <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: '#fff', margin: '0 0 8px' }}>Pedido Registrado!</h2>
+               <p style={{ color: '#B8C8E0', fontSize: 14 }}>Ocorreu um erro ao abrir a tela de pagamento. Nosso time entrará em contato pelo WhatsApp para finalizar a cobrança do pedido <strong style={{color: '#00C4D4'}}>{savedOrder?.id}</strong>.</p>
+               <button onClick={onClose} style={{ marginTop: 16, padding: '12px 32px', background: '#00C4D4', border: 'none', borderRadius: 8, cursor: 'pointer', color: '#0D1B3E', fontWeight: 800 }}>Fechar</button>
              </div>
           ) : (
             <form onSubmit={handleSaveAndPay}>
@@ -173,8 +163,8 @@ export default function CheckoutForm({ isOpen, onClose }) {
                 <div style={{ display: 'grid', gap: 14, marginBottom: 20 }}>
                   <div><label style={labelStyle}>Nome Completo *</label><input type="text" name="name" value={formData.name} onChange={handleChange} style={inputStyle('name')} /></div>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-                    <div><label style={labelStyle}>Email *</label><input type="email" name="email" value={formData.email} onChange={handleChange} style={inputStyle('email')} /></div>
-                    <div><label style={labelStyle}>WhatsApp *</label><input type="tel" name="whatsapp" value={formData.whatsapp} onChange={(e) => setFormData({ ...formData, whatsapp: formatWhatsApp(e.target.value) })} style={inputStyle('whatsapp')} /></div>
+                    <div><label style={labelStyle}>Email *</label><div style={{position:'relative'}}><Mail size={14} style={{position:'absolute', left:12, top:'50%', transform:'translateY(-50%)', color:'#8A9BBF'}} /><input type="email" name="email" value={formData.email} onChange={handleChange} style={{...inputStyle('email'), paddingLeft:36}} /></div></div>
+                    <div><label style={labelStyle}>WhatsApp *</label><div style={{position:'relative'}}><Phone size={14} style={{position:'absolute', left:12, top:'50%', transform:'translateY(-50%)', color:'#8A9BBF'}} /><input type="tel" name="whatsapp" value={formData.whatsapp} onChange={(e) => setFormData({ ...formData, whatsapp: formatWhatsApp(e.target.value) })} style={{...inputStyle('whatsapp'), paddingLeft:36}} /></div></div>
                   </div>
                   <div style={{ display: 'grid', gridTemplateColumns: '160px 1fr', gap: 12 }}>
                     <div><label style={labelStyle}>CEP *</label><input type="text" name="cep" value={formData.cep} onChange={(e) => setFormData({ ...formData, cep: formatCEP(e.target.value) })} style={inputStyle('cep')} /></div>
