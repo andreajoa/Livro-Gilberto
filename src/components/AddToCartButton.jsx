@@ -7,10 +7,14 @@ export default function AddToCartButton({ label = 'Adicionar ao Carrinho' }) {
   const buttonRef = useRef(null)
 
   const handleClick = () => {
-    // Abre a gaveta do carrinho direto sem depender de animação de voo
-    if (typeof openCart === 'function') {
-      openCart();
-    } else {
+    // Tenta primeiro abrir a gaveta normal
+    if (typeof setCartOpen === 'function') setCartOpen(true);
+    if (typeof openCart === 'function') openCart();
+    
+    // FORÇA BRUTA: Se o carrinho estiver quebrado, abre o formulário de Checkout direto na tela
+    const checkoutEvent = new CustomEvent('force-open-checkout');
+    window.dispatchEvent(checkoutEvent);
+  } else {
       setCartOpen(true);
     }
   }
