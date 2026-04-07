@@ -79,8 +79,7 @@ export default function Home() {
               marginBottom:24,
               letterSpacing:-1
             }}>
-              Como Vencer<br />
-              <span style={{ color:'#00C4D4' }}>A Dor</span>{' '}
+              Como Vencer <span style={{ color:'#00C4D4' }}>a Dor</span> de Ser Trocado Por Outro
             </h1>
 
             {/* Prova social / credencial */}
@@ -214,7 +213,7 @@ export default function Home() {
           <div>
             <span style={{ fontSize:10, letterSpacing:5, color:'#00C4D4', fontWeight:700, textTransform:'uppercase', display:'block', marginBottom:20 }}>O MANUAL QUE NINGUÉM TE DEU</span>
             <h2 style={{ fontFamily:"'Playfair Display', serif", fontSize:'clamp(30px,3.5vw,50px)', lineHeight:1.1, color:'#fff', marginBottom:16, fontWeight:900 }}>
-              Como Vencer a Dor<br />de Ser Trocado Por Outro
+              Como Vencer a Dor de Ser Trocado Por Outro
             </h2>
             <p style={{ fontSize:14, color:'#8A9BBF', marginBottom:28 }}>por <strong style={{ color:'#fff' }}>Gilberto de Souza</strong></p>
 
