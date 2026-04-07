@@ -390,7 +390,7 @@ export default function Home() {
             transition={{ duration:1.4 }} viewport={{ once:true }}
             style={{ display:'flex', flexDirection:'column', alignItems:'flex-start', gap:16 }}
           >
-            <img src={livroStack} alt="Livro empilhado"
+            <img src={'/images/imagem.jpeg'} alt="Livro - receba em casa"
               style={{ width:'min(420px,100%)', borderRadius:6, display:'block', filter:'drop-shadow(0 20px 50px rgba(0,0,0,0.7))' }} />
             <span style={{ fontSize:10, color:'#8A9BBF', letterSpacing:2 }}>ISBN 978-658462205-0</span>
             <svg viewBox="0 0 160 28" style={{ width:160, height:24 }} fill="none">
