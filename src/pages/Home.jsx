@@ -16,6 +16,7 @@ import livroJanela     from '../assets/lifestyle/livro-janela-cidade.png';
 import livroPresente   from '../assets/lifestyle/livro-embalagem-kraft.png';
 import livroStack      from '../assets/lifestyle/livro-stack-marble.png';
 import authorPose      from '../assets/author/gilberto-livro-pose.png';
+import imagemReceba    from '../../images/imagem.jpeg';
 
 const faq = [
   { q: 'Como funciona o envio?', a: 'O livro é embalado com cuidado e postado pelos Correios. Você recebe o código de rastreamento por email assim que for postado.' },
@@ -390,7 +391,7 @@ export default function Home() {
             transition={{ duration:1.4 }} viewport={{ once:true }}
             style={{ display:'flex', flexDirection:'column', alignItems:'flex-start', gap:16 }}
           >
-            <img src={'/images/imagem.jpeg'} alt="Livro - receba em casa"
+            <img src={imagemReceba} alt="Livro - receba em casa"
               style={{ width:'min(420px,100%)', borderRadius:6, display:'block', filter:'drop-shadow(0 20px 50px rgba(0,0,0,0.7))' }} />
             <span style={{ fontSize:10, color:'#8A9BBF', letterSpacing:2 }}>ISBN 978-658462205-0</span>
             <svg viewBox="0 0 160 28" style={{ width:160, height:24 }} fill="none">
