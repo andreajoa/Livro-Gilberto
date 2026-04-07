@@ -16,7 +16,7 @@ import livroJanela     from '../assets/lifestyle/livro-janela-cidade.png';
 import livroPresente   from '../assets/lifestyle/livro-embalagem-kraft.png';
 import livroStack      from '../assets/lifestyle/livro-stack-marble.png';
 import authorPose      from '../assets/author/gilberto-livro-pose.png';
-import imagemReceba    from '../../images/imagem.jpeg';
+import imagemReceba from '../../images/imagem.jpeg';
 
 const faq = [
   { q: 'Como funciona o envio?', a: 'O livro é embalado com cuidado e postado pelos Correios. Você recebe o código de rastreamento por email assim que for postado.' },
