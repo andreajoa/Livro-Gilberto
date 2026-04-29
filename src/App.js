@@ -11,6 +11,8 @@ import PopupLeadCapture from './components/PopupLeadCapture'
 import AIChatbot from './components/AIChatbot'
 import AbandonedCartPopup from './components/AbandonedCartPopup'
 import Home from './pages/Home'
+import HomeEN from './pages/HomeEN'
+import HomeES from './pages/HomeES'
 import About from './pages/Sobre'
 import Book from './pages/OLivro'
 import Contact from './pages/Contato'
@@ -19,44 +21,19 @@ import Terms from './pages/Termos'
 import Delivery from './pages/Entrega'
 import Return from './pages/Devolucao'
 
-// Wrapper component to use openCart inside CartProvider
 function AbandonedCartPopupWrapper() {
   const { openCart } = useCart()
   return <AbandonedCartPopup onOpenCart={openCart} />
 }
 
 const pageVariants = {
-  initial: {
-    opacity: 0,
-    rotateY: -8,
-    x: -40,
-    transformOrigin: 'left center'
-  },
-  animate: {
-    opacity: 1,
-    rotateY: 0,
-    x: 0,
-    transformOrigin: 'left center',
-    transition: {
-      duration: 0.55,
-      ease: [0.25, 0.46, 0.45, 0.94]
-    }
-  },
-  exit: {
-    opacity: 0,
-    rotateY: 8,
-    x: 40,
-    transformOrigin: 'right center',
-    transition: {
-      duration: 0.45,
-      ease: [0.55, 0.32, 0.45, 0.94]
-    }
-  }
+  initial: { opacity: 0, rotateY: -8, x: -40, transformOrigin: 'left center' },
+  animate: { opacity: 1, rotateY: 0, x: 0, transformOrigin: 'left center', transition: { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] } },
+  exit: { opacity: 0, rotateY: 8, x: 40, transformOrigin: 'right center', transition: { duration: 0.45, ease: [0.55, 0.32, 0.45, 0.94] } }
 }
 
 function AnimatedRoutes() {
   const location = useLocation()
-
   return (
     <div style={{ perspective: '1200px' }}>
       <AnimatePresence mode="wait">
@@ -70,6 +47,8 @@ function AnimatedRoutes() {
         >
           <Routes location={location}>
             <Route path="/" element={<Home />} />
+            <Route path="/en" element={<HomeEN />} />
+            <Route path="/es" element={<HomeES />} />
             <Route path="/sobre" element={<About />} />
             <Route path="/o-livro" element={<Book />} />
             <Route path="/contato" element={<Contact />} />
