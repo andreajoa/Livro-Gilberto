@@ -20,7 +20,7 @@ import guarantee from '../assets/en/guarantee.png';
 import helpingGroupVideo from '../assets/en/ajudando.mp4';
 import argument from '../assets/en/argument.gif';
 import emboraVideo from '../assets/en/embora.mp4';
-import bookCoverEN from '../assets/book/capa-livro.png';
+import bookCoverEN from '../assets/book/capa-livro-es.png';
 
 const faq = [
   { q: '¿En qué formato está el libro?', a: 'Recibes acceso instantáneo: un eBook en PDF que puedes leer en cualquier dispositivo y un audiolibro en MP3 que puedes escuchar donde quieras — en el coche, en el gimnasio o por la noche cuando tu mente no se apaga.' },
