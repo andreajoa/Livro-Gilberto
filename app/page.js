@@ -16,3 +16,4 @@ export default function PagePT() {
     </div>
   )
 }
+export const dynamic = 'force-dynamic'
