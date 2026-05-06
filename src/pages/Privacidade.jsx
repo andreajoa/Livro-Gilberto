@@ -1,7 +1,7 @@
 "use client"
 import { motion } from 'framer-motion';
 import { Shield, Lock, FileText, Mail, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const Privacy = () => {
   return (

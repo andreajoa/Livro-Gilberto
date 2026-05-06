@@ -1,7 +1,7 @@
 "use client"
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import Link from 'next/link'
 import { ArrowRight, Package, RotateCcw, Shield } from 'lucide-react';
 import AddToCartButton from '../components/AddToCartButton';
 import ShippingCalculator from '../components/ShippingCalculator';
@@ -336,9 +336,9 @@ export default function Home() {
               "Escrevi este livro porque queria que alguém tivesse escrito isso para mim quando eu mais precisei."
             </blockquote>
 
-            <RouterLink to="/sobre" style={{ display:'inline-flex', alignItems:'center', gap:8, border:'1px solid rgba(0,196,212,0.35)', color:'#00C4D4', padding:'14px 28px', borderRadius:3, fontSize:14, fontWeight:600, textDecoration:'none' }}>
+            <Link to="/sobre" style={{ display:'inline-flex', alignItems:'center', gap:8, border:'1px solid rgba(0,196,212,0.35)', color:'#00C4D4', padding:'14px 28px', borderRadius:3, fontSize:14, fontWeight:600, textDecoration:'none' }}>
               Conheça a história completa <ArrowRight size={16} />
-            </RouterLink>
+            </Link>
           </div>
         </motion.div>
       </section>

@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { Shield, CheckCircle, Star, ChevronDown, ArrowRight, Menu, X as XIcon } from 'lucide-react';
 import { useLead } from '../context/LeadContext';
 import useIsMobile from '../hooks/useIsMobile';
@@ -43,7 +43,7 @@ export default function HomeES() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { markCartAbandoned } = useLead();
   const { setCartOpen } = require("../context/CartContext").useCart();
-  const navigate = useNavigate();
+  const router = useRouter();
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -131,7 +131,7 @@ export default function HomeES() {
           </div>
         ) : (
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <button onClick={() => navigate('/en')} style={{
+            <button onClick={() => router.push('/en')} style={{
               background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)',
               borderRadius: 6, padding: '6px 14px', color: '#8A9BBF', fontSize: 12,
               cursor: 'pointer'
@@ -163,7 +163,7 @@ export default function HomeES() {
               padding: '20px', display: 'flex', flexDirection: 'column', gap: 12
             }}
           >
-            <button onClick={() => { navigate('/es'); setMenuOpen(false); }} style={{
+            <button onClick={() => { router.push('/es'); setMenuOpen(false); }} style={{
               background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
               borderRadius: 8, padding: '14px', color: '#fff', fontSize: 15,
               cursor: 'pointer', textAlign: 'left'

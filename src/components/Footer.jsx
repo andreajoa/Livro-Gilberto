@@ -1,7 +1,7 @@
 "use client"
-import { Link } from 'react-router-dom';
-import { Shield, CheckCircle, Package, Lock } from 'lucide-react';
-import bookCover from '../assets/book/capa-livro.png';
+import Link from 'next/link'
+import { Shield, CheckCircle, Package, Lock } from 'lucide-react'
+import bookCover from '../assets/book/capa-livro.png'
 
 export default function Footer() {
   return (
@@ -10,7 +10,6 @@ export default function Footer() {
 
         <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(180px,1fr))', gap:48, marginBottom:64 }}>
 
-          {/* Brand */}
           <div>
             <div style={{ width:52, height:52, background:'#00C4D4', borderRadius:4, display:'flex', alignItems:'center', justifyContent:'center', marginBottom:16 }}>
               <span style={{ fontFamily:"'Playfair Display', serif", fontWeight:900, fontSize:20, color:'#0D1B3E' }}>G·S</span>
@@ -24,21 +23,22 @@ export default function Footer() {
             </svg>
           </div>
 
-          {/* Navegação */}
           <div>
             <h3 style={{ fontSize:11, fontWeight:700, letterSpacing:3, textTransform:'uppercase', color:'#00C4D4', marginBottom:20 }}>Navegação</h3>
             <div style={{ display:'flex', flexDirection:'column', gap:12 }}>
-              {[['Início','/'],['O Livro','/o-livro'],['Sobre','/sobre'],['Contato','/contato']].map(([name,to]) => (
-                <Link key={name} to={to} style={{ color:'#8A9BBF', textDecoration:'none', fontSize:14 }}>{name}</Link>
+              {[['Início','/'],['O Livro','/o-livro'],['Sobre','/sobre'],['Contato','/contato']].map(([name,href]) => (
+                <Link key={name} href={href} style={{ color:'#8A9BBF', textDecoration:'none', fontSize:14 }}>{name}</Link>
               ))}
             </div>
           </div>
 
-          {/* O Livro */}
           <div>
             <h3 style={{ fontSize:11, fontWeight:700, letterSpacing:3, textTransform:'uppercase', color:'#00C4D4', marginBottom:20 }}>O Livro</h3>
-            <img src={bookCover} alt="Capa do livro"
-              style={{ width:80, borderRadius:3, marginBottom:16, boxShadow:'4px 6px 20px rgba(0,0,0,0.5)', display:'block' }} />
+            <img
+              src={bookCover}
+              alt="Capa do livro"
+              style={{ width:80, borderRadius:3, marginBottom:16, boxShadow:'4px 6px 20px rgba(0,0,0,0.5)', display:'block' }}
+            />
             <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
               {[
                 ['📖','ISBN 978-658462205-0'],
@@ -53,18 +53,16 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Legal */}
           <div>
             <h3 style={{ fontSize:11, fontWeight:700, letterSpacing:3, textTransform:'uppercase', color:'#00C4D4', marginBottom:20 }}>Legal</h3>
             <div style={{ display:'flex', flexDirection:'column', gap:12 }}>
-              {[['Política de Privacidade','/privacidade'],['Termos de Uso','/termos'],['Política de Entrega','/entrega'],['Política de Devolução','/devolucao']].map(([name,to]) => (
-                <Link key={name} to={to} style={{ color:'#8A9BBF', textDecoration:'none', fontSize:14 }}>{name}</Link>
+              {[['Política de Privacidade','/privacidade'],['Termos de Uso','/termos'],['Política de Entrega','/entrega'],['Política de Devolução','/devolucao']].map(([name,href]) => (
+                <Link key={name} href={href} style={{ color:'#8A9BBF', textDecoration:'none', fontSize:14 }}>{name}</Link>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Bottom */}
         <div style={{ borderTop:'1px solid rgba(255,255,255,0.07)', paddingTop:32 }}>
           <div style={{ display:'flex', flexWrap:'wrap', alignItems:'center', justifyContent:'space-between', gap:16, marginBottom:24 }}>
             <p style={{ fontSize:13, color:'#8A9BBF', margin:0 }}>© 2026 Gilberto de Souza · Todos os direitos reservados</p>
@@ -88,5 +86,5 @@ export default function Footer() {
 
       </div>
     </footer>
-  );
+  )
 }

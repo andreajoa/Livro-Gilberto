@@ -515,7 +515,7 @@ export default function Home() {
               <h3 style={{ fontSize:11, fontWeight:700, letterSpacing:3, textTransform:'uppercase', color:'#00C4D4', marginBottom:20 }}>Navegação</h3>
               <div style={{ display:'flex', flexDirection:'column', gap:12 }}>
                 {[['Início','/'],['O Livro','/o-livro'],['Sobre','/sobre'],['Contato','/contato']].map(([name,to]) => (
-                  <RouterLink key={name} to={to} style={{ color:'#8A9BBF', textDecoration:'none', fontSize:14 }}>{name}</RouterLink>
+                  <RouterLink key={name} href={to} style={{ color:'#8A9BBF', textDecoration:'none', fontSize:14 }}>{name}</RouterLink>
                 ))}
               </div>
             </div>
@@ -536,7 +536,7 @@ export default function Home() {
               <h3 style={{ fontSize:11, fontWeight:700, letterSpacing:3, textTransform:'uppercase', color:'#00C4D4', marginBottom:20 }}>Legal</h3>
               <div style={{ display:'flex', flexDirection:'column', gap:12 }}>
                 {[['Política de Privacidade','/privacidade'],['Termos de Uso','/termos'],['Política de Entrega','/entrega'],['Política de Devolução','/devolucao']].map(([name,to]) => (
-                  <RouterLink key={name} to={to} style={{ color:'#8A9BBF', textDecoration:'none', fontSize:14 }}>{name}</RouterLink>
+                  <RouterLink key={name} href={to} style={{ color:'#8A9BBF', textDecoration:'none', fontSize:14 }}>{name}</RouterLink>
                 ))}
               </div>
             </div>

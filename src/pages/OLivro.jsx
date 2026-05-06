@@ -1,7 +1,7 @@
 "use client"
 import { motion } from 'framer-motion';
 import { BookOpen, HeartPulse, Lightbulb, Shield, ArrowRight, Code } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import bookFront from '../assets/book-front.jpg';
 
 const emotionalImages = [

@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import CartIcon from './CartIcon'
@@ -14,8 +15,8 @@ const LANGUAGES = [
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
-  const navigate = useNavigate();
+  const location = usePathname();
+  const router = useRouter();
   const isHome = location.pathname === '/';
 
   const currentLang = location.pathname.startsWith('/en') ? 'en'
@@ -65,7 +66,7 @@ const Navbar = () => {
             {navLinks.map((link) => (
               <Link
                 key={link.name}
-                to={link.to}
+                href={link.to}
                 onClick={() => handleNavClick(link.to, link.scroll)}
                 className={`font-body text-sm tracking-wide transition-colors relative ${
                   location.pathname === link.to ? 'text-cyan' : 'text-white hover:text-cyan'
@@ -85,7 +86,7 @@ const Navbar = () => {
               {LANGUAGES.map((lang, i) => (
                 <span key={lang.code} className="flex items-center">
                   <Link
-                    to={lang.path}
+                    href={lang.path}
                     className={`font-body text-xs font-semibold tracking-widest px-2 py-0.5 rounded-full transition-all ${
                       currentLang === lang.code
                         ? 'bg-cyan text-navy'
@@ -127,7 +128,7 @@ const Navbar = () => {
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
-                  to={link.to}
+                  href={link.to}
                   onClick={() => handleNavClick(link.to)}
                   className="block font-body text-sm tracking-wide text-white"
                 >
@@ -140,7 +141,7 @@ const Navbar = () => {
                   {LANGUAGES.map((lang) => (
                     <Link
                       key={lang.code}
-                      to={lang.path}
+                      href={lang.path}
                       onClick={() => setIsMobileMenuOpen(false)}
                       className={`font-body text-sm font-semibold tracking-widest px-3 py-1.5 rounded-full transition-all ${
                         currentLang === lang.code
