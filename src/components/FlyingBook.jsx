@@ -1,3 +1,4 @@
+"use client"
 import { motion } from 'framer-motion'
 import { useCart } from '../context/CartContext'
 import bookImg from '../assets/book-front.jpg'

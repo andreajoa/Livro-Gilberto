@@ -1,3 +1,4 @@
+"use client"
 import { Package } from 'lucide-react'
 
 export default function BuyDigitalButton({ label, lang }) {

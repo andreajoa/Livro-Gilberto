@@ -1,8 +1,9 @@
+"use client"
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, Minimize2, Maximize2, MessageCircle, Bot } from 'lucide-react';
 
-const API_URL = 'https://gilberto-backend.onrender.com/api';
+const API_URL = '/api';
 
 const INIT = {
   en: "Hey brother. I'm MAX — Gilberto's assistant. I'm here to answer any questions about the book \"How to Overcome the Pain of Being Replaced by Someone Else\". What's on your mind?",

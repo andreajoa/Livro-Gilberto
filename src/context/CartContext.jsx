@@ -1,3 +1,4 @@
+"use client"
 import { createContext, useContext, useState, useRef, useEffect } from 'react'
 
 const CartContext = createContext()
@@ -11,7 +12,7 @@ export const CartProvider = ({ children }) => {
   const [inCart, setInCart] = useState(false)
   const cartIconRef = useRef(null)
 
-  const API_URL = 'https://gilberto-backend.onrender.com/api'
+  const API_URL = '/api'
 
   const BOOK = {
     title: 'Como Vencer a Dor de Ser Trocado Por Outro',

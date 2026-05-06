@@ -1,3 +1,4 @@
+"use client"
 import { motion } from 'framer-motion';
 import { RotateCcw, Clock, CheckCircle, AlertTriangle, XCircle, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';

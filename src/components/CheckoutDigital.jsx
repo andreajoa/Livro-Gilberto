@@ -1,8 +1,9 @@
+"use client"
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, CheckCircle, Mail, CreditCard, Lock, User } from 'lucide-react'
 
-const API_URL = 'https://gilberto-backend.onrender.com/api'
+const API_URL = '/api'
 
 export default function CheckoutDigital({ isOpen, onClose, lang = 'en' }) {
   const [formData, setFormData] = useState({ name: '', email: '' })

@@ -1,9 +1,10 @@
+"use client"
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, CheckCircle, MapPin, Phone, Mail, CreditCard, Lock, ChevronLeft, User } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 
-const API_URL = 'https://gilberto-backend.onrender.com/api'
+const API_URL = '/api'
 
 export default function CheckoutForm({ isOpen, onClose }) {
   const { BOOK, quantity, shipping, total, subtotal, setCartOpen, clearCart } = useCart()

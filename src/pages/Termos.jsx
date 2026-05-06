@@ -1,3 +1,4 @@
+"use client"
 import { motion } from 'framer-motion';
 import { FileText, ShoppingBag, Clock, AlertCircle, CheckCircle, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';

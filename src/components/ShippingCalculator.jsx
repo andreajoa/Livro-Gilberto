@@ -1,3 +1,4 @@
+"use client"
 import { useState } from 'react'
 import { fetchAddressByCEP, calculateShipping } from '../services/shipping'
 import { useCart } from '../context/CartContext'

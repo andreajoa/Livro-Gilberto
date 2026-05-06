@@ -1,8 +1,9 @@
+"use client"
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Send, Minimize2, Maximize2, MessageCircle, Sparkles, Bot } from 'lucide-react'
 
-const API_URL = 'https://gilberto-backend.onrender.com/api'
+const API_URL = '/api'
 
 export default function AIChatbot() {
   const [isOpen, setIsOpen] = useState(false)

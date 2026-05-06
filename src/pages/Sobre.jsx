@@ -1,3 +1,4 @@
+"use client"
 import { motion } from 'framer-motion';
 import { MapPin, Building2, HeartPulse, PenTool, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';

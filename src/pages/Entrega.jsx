@@ -1,3 +1,4 @@
+"use client"
 import { motion } from 'framer-motion';
 import { Package, Truck, MapPin, Clock, CheckCircle, Search, AlertCircle, ArrowRight } from 'lucide-react';
 

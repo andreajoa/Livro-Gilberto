@@ -1,3 +1,4 @@
+"use client"
 import { useRef } from 'react'
 import { useCart } from '../context/CartContext'
 import { ShoppingBag } from 'lucide-react'

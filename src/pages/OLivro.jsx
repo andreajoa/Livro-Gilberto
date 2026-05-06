@@ -1,3 +1,4 @@
+"use client"
 import { motion } from 'framer-motion';
 import { BookOpen, HeartPulse, Lightbulb, Shield, ArrowRight, Code } from 'lucide-react';
 import { Link } from 'react-router-dom';

@@ -1,3 +1,4 @@
+"use client"
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';

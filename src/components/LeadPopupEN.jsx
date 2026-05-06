@@ -1,3 +1,4 @@
+"use client"
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Mail, Phone, Gift } from 'lucide-react';
@@ -53,7 +54,7 @@ export default function LeadPopupEN({ lang = 'en' }) {
     saveLead({ email, phone, name });
     setSubmitted(true);
     try {
-      await fetch('https://gilberto-backend.onrender.com/api/lead', {
+      await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, phone, name, lang, source: 'popup' })

@@ -1,10 +1,11 @@
+"use client"
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Heart } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import bookFront from '../assets/book-front.jpg'
 
-const API_URL = 'https://gilberto-backend.onrender.com/api'
+const API_URL = '/api'
 
 export default function AbandonedCartPopup({ onOpenCart }) {
   const [isOpen, setIsOpen] = useState(false)

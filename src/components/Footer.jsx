@@ -1,3 +1,4 @@
+"use client"
 import { Link } from 'react-router-dom';
 import { Shield, CheckCircle, Package, Lock } from 'lucide-react';
 import bookCover from '../assets/book/capa-livro.png';
