@@ -13,14 +13,14 @@ import CheckoutDigital from '../components/CheckoutDigital';
 
 import heroBg from '../assets/en/hero-bg.jpeg';
 import heroLoop from '../assets/en/hero-loop.gif';
-import heroVideo from '../assets/en/hero-video.mp4';
+
 import authorImg from '../assets/en/author.png';
 import manStrong from '../assets/en/man-strong.png';
 import ebookBg from '../assets/en/ebook-bg.jpeg';
 import guarantee from '../assets/en/guarantee.png';
-import helpingGroupVideo from '../assets/en/ajudando.mp4';
+
 import argument from '../assets/en/argument.gif';
-import emboraVideo from '../assets/en/embora.mp4';
+
 import bookCoverEN from '../assets/book/capa-livro-es.png';
 
 const faq = [
@@ -216,7 +216,7 @@ export default function HomeES() {
               objectPosition: 'center'
             }}
           >
-            <source src={heroVideo} type="video/mp4" />
+            <source src='/videos/hero-video.mp4' type="video/mp4" />
           </video>
         )}
 
@@ -639,7 +639,7 @@ export default function HomeES() {
               objectPosition: 'center'
             }}
           >
-            <source src={emboraVideo} type="video/mp4" />
+            <source src='/videos/embora.mp4' type="video/mp4" />
           </video>
         )}
 
@@ -1141,7 +1141,7 @@ export default function HomeES() {
       {/* ══ MEN GROUP BANNER ══ */}
       <section style={{ position: 'relative', overflow: 'hidden', minHeight: isMobile ? 420 : 620, background: '#08111D' }}>
         <video
-          src={helpingGroupVideo}
+          src='/videos/ajudando.mp4'
           autoPlay
           muted
           loop
