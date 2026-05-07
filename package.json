@@ -21,6 +21,7 @@
     "react-hook-form": "^7.71.2",
     "react-intersection-observer": "^10.0.3",
     "react-scroll": "^1.9.3",
+    "resend": "^6.12.3",
     "stripe": "^22.1.0"
   },
   "devDependencies": {
