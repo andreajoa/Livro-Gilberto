@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Package, ShieldCheck, ChevronRight, Minus, Plus, Trash2 } from 'lucide-react'
 import { useCart } from '../context/CartContext'
@@ -11,13 +11,12 @@ export default function CartDrawer() {
 
   const { cartOpen, setCartOpen, BOOK, shipping, total, quantity, increaseQuantity, decreaseQuantity, removeFromCart, handleCartClose, subtotal } = useCart()
 
-  import('react').then(({ useEffect }) => {
+  
     useEffect(() => {
       const handleForce = () => setCartOpen(true);
       window.addEventListener('force-open-drawer', handleForce);
       return () => window.removeEventListener('force-open-drawer', handleForce);
     }, [setCartOpen]);
-  });
   
   const [showCheckout, setShowCheckout] = useState(false)
 
