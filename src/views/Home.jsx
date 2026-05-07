@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link'
 import { ArrowRight, Package, RotateCcw, Shield } from 'lucide-react';
 import AddToCartButton from '../components/AddToCartButton';
+import DigitalLangPopup from '../components/DigitalLangPopup';
 import ShippingCalculator from '../components/ShippingCalculator';
 
 import bannerAutor     from '../assets/banners/banner-autor-wide.png';
@@ -24,11 +25,12 @@ const faq = [
   { q: 'Qual o prazo de entrega?', a: 'PAC: 5 a 15 dias úteis dependendo da sua região. SEDEX: 1 a 7 dias úteis.' },
   { q: 'Posso devolver o livro?', a: 'Sim. Você tem 7 dias corridos após o recebimento para solicitar devolução, conforme o Código de Defesa do Consumidor.' },
   { q: 'Como acompanho meu pedido?', a: 'Enviamos o código de rastreamento por email logo após a postagem. Acompanhe em rastreamento.correios.com.br.' },
-  { q: 'O livro está disponível em versão digital?', a: 'Por enquanto apenas na versão física. O livro foi pensado para ser lido com as mãos.' },
+  { q: 'O livro está disponível em versão digital?', a: 'Sim! Disponível como eBook + Audiobook em Português (R$ 47), English e Español ($17 USD). Acesso imediato após o pagamento.' },
 ];
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState(null);
+  const [digitalOpen, setDigitalOpen] = useState(false);
 
   return (
     <div>
@@ -442,6 +444,55 @@ export default function Home() {
         </div>
       </section>
 
+
+      {/* ════════════════════════════════════════
+          EBOOK + AUDIOBOOK
+      ════════════════════════════════════════ */}
+      <section style={{ background:'linear-gradient(180deg,#0A1628 0%,#060C18 100%)', padding:'100px 6vw' }}>
+        <div style={{ maxWidth:1100, margin:'0 auto' }}>
+          <div style={{ textAlign:'center', marginBottom:56 }}>
+            <span style={{ fontSize:10, letterSpacing:5, color:'#00C4D4', fontWeight:700, textTransform:'uppercase', display:'block', marginBottom:16 }}>Também disponível em formato digital</span>
+            <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:'clamp(28px,3.5vw,48px)', color:'#fff', fontWeight:900, marginBottom:12 }}>
+              eBook + Audiobook
+            </h2>
+            <p style={{ fontSize:15, color:'#8A9BBF', maxWidth:520, margin:'0 auto' }}>
+              Leia e ouça onde quiser — disponível em Português, English e Español. Acesso imediato após o pagamento.
+            </p>
+          </div>
+
+          <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))', gap:24, marginBottom:48 }}>
+            {[
+              { flag:'🇧🇷', lang:'Português', price:'R$ 47', desc:'eBook PDF + Audiobook completo' },
+              { flag:'🇺🇸', lang:'English',   price:'$17 USD', desc:'eBook PDF + Full Audiobook' },
+              { flag:'🇪🇸', lang:'Español',   price:'$17 USD', desc:'eBook PDF + Audiolibro completo' },
+            ].map((item,i) => (
+              <div key={i} style={{ background:'rgba(13,27,62,0.6)', border:'1px solid rgba(0,196,212,0.15)', borderRadius:12, padding:'28px 24px', textAlign:'center',
+                transition:'border-color 0.2s, transform 0.2s' }}
+                onMouseEnter={e=>{ e.currentTarget.style.borderColor='rgba(0,196,212,0.4)'; e.currentTarget.style.transform='translateY(-4px)' }}
+                onMouseLeave={e=>{ e.currentTarget.style.borderColor='rgba(0,196,212,0.15)'; e.currentTarget.style.transform='translateY(0)' }}
+              >
+                <span style={{ fontSize:40, display:'block', marginBottom:12 }}>{item.flag}</span>
+                <h3 style={{ fontFamily:"'Playfair Display',serif", fontSize:18, color:'#fff', fontWeight:700, marginBottom:6 }}>{item.lang}</h3>
+                <p style={{ fontSize:13, color:'#8A9BBF', marginBottom:20 }}>{item.desc}</p>
+                <span style={{ fontSize:24, fontWeight:900, color:'#00C4D4', display:'block', marginBottom:20 }}>{item.price}</span>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ textAlign:'center' }}>
+            <button onClick={() => setDigitalOpen(true)} style={{
+              display:'inline-flex', alignItems:'center', gap:10,
+              background:'linear-gradient(135deg,#00C4D4,#0099A8)',
+              border:'none', borderRadius:8, padding:'16px 40px',
+              color:'#0D1B3E', fontSize:16, fontWeight:900, cursor:'pointer'
+            }}>
+              📥 Comprar eBook + Audiobook
+            </button>
+            <p style={{ fontSize:12, color:'#8A9BBF', marginTop:12 }}>Escolha o idioma na próxima tela • Acesso imediato</p>
+          </div>
+        </div>
+      </section>
+
       {/* ════════════════════════════════════════
           FAQ
       ════════════════════════════════════════ */}
@@ -494,6 +545,7 @@ export default function Home() {
       {/* ════════════════════════════════════════
           FOOTER
       ════════════════════════════════════════ */}
+      <DigitalLangPopup isOpen={digitalOpen} onClose={() => setDigitalOpen(false)} />
     </div>
   );
 }
