@@ -1,219 +1,131 @@
 "use client"
-import { motion } from 'framer-motion';
-import { MapPin, Building2, HeartPulse, PenTool, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
-import authorImg from '../assets/author.jpg';
+import { useState } from 'react'
+import { MapPin, Building2, HeartPulse, PenTool, ArrowRight } from 'lucide-react'
+import Link from 'next/link'
+import authorImg from '../assets/author.jpg'
 
-const emotionalImages = [
-  { src: '/images/Whisk_e9acd35e6c0a93d998a4c0dbe160bba5dr.png', alt: 'Luz no Fim do Túnel' },
-  { src: '/images/Whisk_0ff19b3870d52b9937349e384106b917dr.png', alt: 'Esperança' },
-];
+const timeline = [
+  { icon: MapPin,      year: 'Início',      title: 'Nasceu no Brasil',         description: 'Começou sua jornada em solo brasileiro, onde construiu suas primeiras lembranças e valores.' },
+  { icon: MapPin,      year: '2003',         title: 'Mudou para os EUA',        description: 'Há 23 anos, buscou novos horizontes e oportunidades nos Estados Unidos.' },
+  { icon: Building2,   year: 'Crescimento',  title: 'Fundou sua empresa',       description: 'Construiu um negócio de sucesso no setor de construção de casas.' },
+  { icon: HeartPulse,  year: 'Desafio',      title: 'Enfrentou a traição',      description: 'Passou por uma experiência que o levou ao início de uma depressão profunda.' },
+  { icon: HeartPulse,  year: 'Superação',    title: 'Escolheu se reconstruir',  description: 'Em vez de se deixar vencer, decidiu transformar a dor em força.' },
+  { icon: PenTool,     year: 'Hoje',         title: 'Escreveu este livro',      description: 'Para compartilhar sua jornada e ajudar outros a encontrarem o caminho da cura.' },
+]
 
-const About = () => {
-  const timeline = [
-    {
-      icon: MapPin,
-      title: 'Nasceu no Brasil',
-      description: 'Começou sua jornada em solo brasileiro, onde construiu suas primeiras lembranças e valores.',
-      year: 'Início'
-    },
-    {
-      icon: MapPin,
-      title: 'Mudou para os EUA',
-      description: 'Há 23 anos, buscou novos horizontes e oportunidades nos Estados Unidos.',
-      year: '2003'
-    },
-    {
-      icon: Building2,
-      title: 'Fundou sua empresa',
-      description: 'Construiu um negócio de sucesso no setor de construção de casas.',
-      year: 'Crescimento'
-    },
-    {
-      icon: HeartPulse,
-      title: 'Enfrentou a traição',
-      description: 'Passou por uma experiência que o levou ao início de uma depressão profunda.',
-      year: 'Desafio'
-    },
-    {
-      icon: HeartPulse,
-      title: 'Escolheu se reconstruir',
-      description: 'Em vez de se deixar vencer, decidiu transformar a dor em força.',
-      year: 'Superação'
-    },
-    {
-      icon: PenTool,
-      title: 'Escreveu este livro',
-      description: 'Para compartilhar sua jornada e ajudar outros a encontrarem o caminho da cura.',
-      year: 'Hoje'
-    }
-  ];
-
+export default function Sobre() {
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative min-h-[60vh] grain-overlay flex items-center justify-center overflow-hidden">
-        {/* Background emotional image */}
-        <div className="absolute inset-0 opacity-20">
-          <img
-            src={emotionalImages[0].src}
-            alt={emotionalImages[0].alt}
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy to-cyan/10" />
+    <div style={{ paddingTop: 64 }}>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="w-32 h-32 mx-auto mb-8 rounded-full overflow-hidden border-4 border-cyan shadow-glow">
-              <img
-                src={authorImg}
-                alt="Gilberto de Souza"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <h1 className="font-display font-black text-4xl sm:text-5xl lg:text-6xl mb-4">
-              Gilberto de Souza
-            </h1>
-            <p className="font-editorial italic text-2xl text-cyan-light">
-              Autor · Empreendedor · Superação
-            </p>
-          </motion.div>
+      {/* HERO */}
+      <section style={{ background: 'linear-gradient(135deg, #060C18 0%, #0D1B3E 100%)', padding: '100px 6vw', textAlign: 'center' }}>
+        <div style={{ width: 128, height: 128, borderRadius: '50%', overflow: 'hidden', border: '4px solid #00C4D4', margin: '0 auto 32px', boxShadow: '0 0 40px rgba(0,196,212,0.3)' }}>
+          <img src={authorImg.src} alt="Gilberto de Souza" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
+        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(36px,5vw,72px)', fontWeight: 900, color: '#fff', marginBottom: 16 }}>
+          Gilberto de Souza
+        </h1>
+        <p style={{ fontFamily: "'Cormorant Garant', serif", fontStyle: 'italic', fontSize: 22, color: '#00C4D4' }}>
+          Autor · Empreendedor · Superação
+        </p>
       </section>
 
-      {/* Timeline */}
-      <section className="py-24 bg-paper">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="font-display font-bold text-3xl sm:text-4xl text-navy mb-4">
-              Uma Jornada de Transformação
-            </h2>
-            <div className="editorial-divider bg-navy" />
-          </motion.div>
+      {/* TIMELINE */}
+      <section style={{ background: '#0A1628', padding: '100px 6vw' }}>
+        <div style={{ maxWidth: 900, margin: '0 auto' }}>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px,3vw,44px)', color: '#fff', textAlign: 'center', marginBottom: 12, fontWeight: 900 }}>
+            Uma Jornada de <span style={{ color: '#00C4D4' }}>Transformação</span>
+          </h2>
+          <div style={{ width: 48, height: 2, background: '#00C4D4', margin: '0 auto 64px' }} />
 
-          <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-navy/20 transform md:-translate-x-1/2" />
+          <div style={{ position: 'relative' }}>
+            {/* linha vertical */}
+            <div style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: 1, background: 'rgba(0,196,212,0.2)', transform: 'translateX(-50%)' }} />
 
-            <div className="space-y-12">
-              {timeline.map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className={`relative flex items-start md:items-center ${
-                    index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                  } gap-6`}
-                >
-                  <div className={`flex-1 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'} ml-16 md:ml-0`}>
-                    <div className="bg-white p-6 rounded-xl shadow-lg border border-navy/10">
-                      <span className="text-sm font-semibold text-cyan mb-2 block">{item.year}</span>
-                      <h3 className="font-display font-bold text-lg text-navy mb-2">{item.title}</h3>
-                      <p className="text-text-muted text-sm">{item.description}</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 48 }}>
+              {timeline.map((item, i) => {
+                const Icon = item.icon
+                const isLeft = i % 2 === 0
+                return (
+                  <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 64px 1fr', alignItems: 'center', gap: 0 }}>
+                    {/* lado esquerdo */}
+                    <div style={{ padding: '0 32px 0 0', textAlign: 'right', opacity: isLeft ? 1 : 0, pointerEvents: isLeft ? 'auto' : 'none' }}>
+                      {isLeft && (
+                        <div style={{ background: 'rgba(13,27,62,0.8)', border: '1px solid rgba(0,196,212,0.2)', borderRadius: 8, padding: '20px 24px' }}>
+                          <span style={{ fontSize: 11, fontWeight: 700, color: '#00C4D4', letterSpacing: 2, textTransform: 'uppercase', display: 'block', marginBottom: 8 }}>{item.year}</span>
+                          <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: '#fff', fontWeight: 700, marginBottom: 8 }}>{item.title}</h3>
+                          <p style={{ fontSize: 13, color: '#8A9BBF', lineHeight: 1.7, margin: 0 }}>{item.description}</p>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* dot central */}
+                    <div style={{ display: 'flex', justifyContent: 'center', zIndex: 2 }}>
+                      <div style={{ width: 48, height: 48, background: '#00C4D4', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 20px rgba(0,196,212,0.4)' }}>
+                        <Icon size={20} color="#0D1B3E" />
+                      </div>
+                    </div>
+
+                    {/* lado direito */}
+                    <div style={{ padding: '0 0 0 32px', textAlign: 'left', opacity: !isLeft ? 1 : 0, pointerEvents: !isLeft ? 'auto' : 'none' }}>
+                      {!isLeft && (
+                        <div style={{ background: 'rgba(13,27,62,0.8)', border: '1px solid rgba(0,196,212,0.2)', borderRadius: 8, padding: '20px 24px' }}>
+                          <span style={{ fontSize: 11, fontWeight: 700, color: '#00C4D4', letterSpacing: 2, textTransform: 'uppercase', display: 'block', marginBottom: 8 }}>{item.year}</span>
+                          <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: '#fff', fontWeight: 700, marginBottom: 8 }}>{item.title}</h3>
+                          <p style={{ fontSize: 13, color: '#8A9BBF', lineHeight: 1.7, margin: 0 }}>{item.description}</p>
+                        </div>
+                      )}
                     </div>
                   </div>
-
-                  {/* Timeline dot */}
-                  <div className="absolute left-8 md:left-1/2 transform -translate-x-1/2 w-12 h-12 bg-cyan rounded-full flex items-center justify-center shadow-lg">
-                    <item.icon size={20} className="text-navy" />
-                  </div>
-                </motion.div>
-              ))}
+                )
+              })}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Mission Section */}
-      <section className="py-24 grain-overlay">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-3 gap-12 items-center">
-            <div className="lg:col-span-2">
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-              >
-                <h2 className="font-display font-bold text-3xl sm:text-4xl mb-8">
-                  Por que escrevi este livro
-                </h2>
+      {/* POR QUE ESCREVI */}
+      <section style={{ background: '#0D1B3E', padding: '100px 6vw' }}>
+        <div style={{ maxWidth: 860, margin: '0 auto' }}>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px,3.5vw,48px)', color: '#fff', fontWeight: 900, marginBottom: 32 }}>
+            Por que escrevi este livro
+          </h2>
 
-                <blockquote className="font-editorial italic text-2xl sm:text-3xl text-cyan-light leading-relaxed mb-12">
-                  "Escrevi este livro porque sei que não estou sozinho. Se você está lendo isso, provavelmente também passou por algo parecido. E quero que você saiba: há luz no fim do túnel."
-                </blockquote>
+          <blockquote style={{ fontFamily: "'Cormorant Garant', serif", fontStyle: 'italic', fontSize: 'clamp(20px,2.5vw,28px)', color: '#00C4D4', borderLeft: '3px solid #00C4D4', paddingLeft: 24, lineHeight: 1.7, marginBottom: 48 }}>
+            "Escrevi este livro porque sei que não estou sozinho. Se você está lendo isso, provavelmente também passou por algo parecido. E quero que você saiba: há luz no fim do túnel."
+          </blockquote>
 
-                <div className="editorial-divider mb-12" />
-
-                <p className="text-text-muted text-lg mb-8">
-                  Quando fui traído, senti como se o mundo tivesse desmoronado. Anos de dedicação, de construir uma vida juntos, pareciam não ter valor algum. Entrei em uma depressão que quase me consumiu.
-                </p>
-
-                <p className="text-text-muted text-lg mb-8">
-                  Mas em algum momento, decidi que não deixaria aquela experiência definir quem eu era. Comecei a buscar respostas, a entender que minha validação não dependia de outra pessoa, e que merecia ser amado por quem eu realmente era.
-                </p>
-
-                <p className="text-text-muted text-lg mb-12">
-                  Este livro é o resultado dessa jornada. Não é um manual de como esquecer — porque esquecer não é o objetivo. É sobre como transformar a dor em sabedoria, como reconstruir sua autoestima e como, um dia, voltar a amar — sem medo.
-                </p>
-
-                <Link href="/o-livro" className="btn-primary">
-                  Leia o Livro
-                  <ArrowRight size={18} />
-                </Link>
-              </motion.div>
-            </div>
-
-            {/* Emotional Image Side */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="hidden lg:block"
-            >
-              <img
-                src={emotionalImages[1].src}
-                alt={emotionalImages[1].alt}
-                className="rounded-2xl shadow-2xl"
-              />
-            </motion.div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 24, marginBottom: 48 }}>
+            {[
+              'Quando fui traído, senti como se o mundo tivesse desmoronado. Anos de dedicação, de construir uma vida juntos, pareciam não ter valor algum. Entrei em uma depressão que quase me consumiu.',
+              'Mas em algum momento, decidi que não deixaria aquela experiência definir quem eu era. Comecei a buscar respostas, a entender que minha validação não dependia de outra pessoa, e que merecia ser amado por quem eu realmente era.',
+              'Este livro é o resultado dessa jornada. Não é um manual de como esquecer — porque esquecer não é o objetivo. É sobre como transformar a dor em sabedoria, como reconstruir sua autoestima e como, um dia, voltar a amar — sem medo.',
+            ].map((p, i) => (
+              <p key={i} style={{ fontSize: 16, color: '#B8C8E0', lineHeight: 1.9, margin: 0 }}>{p}</p>
+            ))}
           </div>
+
+          <Link href="/o-livro" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'linear-gradient(135deg, #00C4D4, #0099A8)', color: '#0D1B3E', padding: '14px 28px', borderRadius: 6, fontSize: 15, fontWeight: 800, textDecoration: 'none' }}>
+            Ver o Livro <ArrowRight size={18} />
+          </Link>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 bg-navy-mid">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="font-display font-bold text-3xl sm:text-4xl mb-6">
-              Você não precisa carregar esse peso sozinho
-            </h2>
-            <p className="text-text-muted text-lg mb-8">
-              Este livro foi escrito para você. Para que você saiba que é possível superar, que é possível reconstruir, que é possível voltar a sorrir de verdade.
-            </p>
-            <a href="/#comprar" className="btn-primary text-lg">
-              Peça Seu Exemplar
-            </a>
-          </motion.div>
+      {/* CTA FINAL */}
+      <section style={{ background: 'linear-gradient(135deg, #060C18, #0D1B3E)', padding: '100px 6vw', textAlign: 'center' }}>
+        <div style={{ maxWidth: 700, margin: '0 auto' }}>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px,3.5vw,48px)', color: '#fff', fontWeight: 900, marginBottom: 20 }}>
+            Você não precisa carregar esse peso sozinho
+          </h2>
+          <p style={{ fontSize: 16, color: '#8A9BBF', lineHeight: 1.8, marginBottom: 40 }}>
+            Este livro foi escrito para você. Para que você saiba que é possível superar, que é possível reconstruir, que é possível voltar a sorrir de verdade.
+          </p>
+          <a href="/#comprar" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'linear-gradient(135deg, #00C4D4, #0099A8)', color: '#0D1B3E', padding: '16px 36px', borderRadius: 6, fontSize: 16, fontWeight: 800, textDecoration: 'none' }}>
+            Peça Seu Exemplar <ArrowRight size={18} />
+          </a>
         </div>
       </section>
+
     </div>
-  );
-};
-
-export default About;
+  )
+}
