@@ -1,13 +1,14 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+
+const INITIAL_CHAPTERS_VISIBLE = 8
 
 const COPY = {
   pt: {
-    htmlLang: 'pt-BR',
     tagline: 'Livros que curam. Palavras que libertam.',
     help: 'Precisa de ajuda?',
-    support: 'suporte@gilbertodesouza.com.br',
+    support: 'suporte@gilberto-souza.com.br',
     title: 'Obrigado pela sua compra!',
     subtitle: 'Seu acesso ao conteúdo digital foi liberado com sucesso.',
     description: 'Esta é a sua página exclusiva de acesso. Aqui você pode ouvir o audiobook e baixar o eBook no idioma escolhido na compra.',
@@ -25,7 +26,8 @@ const COPY = {
     audioTitle: 'Seu Audiobook',
     audioDesc: 'Ouça os capítulos abaixo ou faça o download dos áudios.',
     download: 'Download',
-    allChapters: 'Ver todos os capítulos',
+    showAll: 'Ver todos os capítulos',
+    showLess: 'Mostrar menos',
     emailNoteTitle: 'Você também receberá por e-mail',
     emailNoteText: 'o acesso no idioma da sua compra.',
     importantTitle: 'Importante:',
@@ -35,27 +37,13 @@ const COPY = {
     loading: 'Carregando seu acesso...',
     notFoundTitle: 'Acesso não encontrado',
     notFoundText: 'Verifique o link recebido por e-mail ou fale com o suporte.',
-    emptyAudio: 'Os áudios deste idioma ainda serão conectados. Assim que os links forem configurados, eles aparecerão aqui.',
-    chapters: [
-      'Introdução',
-      'Entendendo a dor',
-      'O processo de cura',
-      'Reconstruindo sua autoestima',
-      'Cicatrizando a rejeição',
-      'Quando o amor não escolheu ficar',
-      'Recuperando sua identidade',
-      'A força de seguir em frente',
-      'O silêncio que cura',
-      'Recomeçando com dignidade',
-      'Libertando-se da comparação',
-      'Construindo amor-próprio',
-      'Uma nova versão de você',
-      'Conclusão'
-    ],
+    noEbook: 'Link do eBook ainda não configurado para este idioma.',
+    noAudio: 'Os áudios deste idioma ainda não foram conectados.',
+    play: 'Tocar',
+    pause: 'Pausar',
     cover: '/books/pt/book-front.jpg'
   },
   en: {
-    htmlLang: 'en',
     tagline: 'Books that heal. Words that set you free.',
     help: 'Need help?',
     support: 'support@gilbertodesouza.com.br',
@@ -76,7 +64,8 @@ const COPY = {
     audioTitle: 'Your Audiobook',
     audioDesc: 'Listen to the chapters below or download the audio files.',
     download: 'Download',
-    allChapters: 'View all chapters',
+    showAll: 'View all chapters',
+    showLess: 'Show less',
     emailNoteTitle: 'You will also receive this access by email',
     emailNoteText: 'in your selected language.',
     importantTitle: 'Important:',
@@ -86,27 +75,13 @@ const COPY = {
     loading: 'Loading your access...',
     notFoundTitle: 'Access not found',
     notFoundText: 'Check the link received by email or contact support.',
-    emptyAudio: 'The audio files for this language will be connected soon. Once the links are configured, they will appear here.',
-    chapters: [
-      'Introduction',
-      'Understanding the Pain',
-      'The Healing Process',
-      'Rebuilding Your Self-Esteem',
-      'Healing Rejection',
-      'When Love Did Not Choose to Stay',
-      'Recovering Your Identity',
-      'The Strength to Move Forward',
-      'The Silence That Heals',
-      'Starting Again with Dignity',
-      'Freeing Yourself from Comparison',
-      'Building Self-Love',
-      'A New Version of You',
-      'Conclusion'
-    ],
+    noEbook: 'The eBook link is not configured for this language yet.',
+    noAudio: 'The audio files for this language have not been connected yet.',
+    play: 'Play',
+    pause: 'Pause',
     cover: '/books/en/book-front.png'
   },
   es: {
-    htmlLang: 'es',
     tagline: 'Libros que sanan. Palabras que liberan.',
     help: '¿Necesitas ayuda?',
     support: 'soporte@gilbertodesouza.com.br',
@@ -127,7 +102,8 @@ const COPY = {
     audioTitle: 'Tu Audiolibro',
     audioDesc: 'Escucha los capítulos abajo o descarga los audios.',
     download: 'Descargar',
-    allChapters: 'Ver todos los capítulos',
+    showAll: 'Ver todos los capítulos',
+    showLess: 'Mostrar menos',
     emailNoteTitle: 'También recibirás este acceso por correo',
     emailNoteText: 'en el idioma de tu compra.',
     importantTitle: 'Importante:',
@@ -137,23 +113,10 @@ const COPY = {
     loading: 'Cargando tu acceso...',
     notFoundTitle: 'Acceso no encontrado',
     notFoundText: 'Verifica el enlace recibido por correo o contacta al soporte.',
-    emptyAudio: 'Los audios de este idioma serán conectados pronto. Cuando los enlaces estén configurados, aparecerán aquí.',
-    chapters: [
-      'Introducción',
-      'Entendiendo el dolor',
-      'El proceso de sanación',
-      'Reconstruyendo tu autoestima',
-      'Sanando el rechazo',
-      'Cuando el amor no eligió quedarse',
-      'Recuperando tu identidad',
-      'La fuerza de seguir adelante',
-      'El silencio que sana',
-      'Empezando de nuevo con dignidad',
-      'Liberándote de la comparación',
-      'Construyendo amor propio',
-      'Una nueva versión de ti',
-      'Conclusión'
-    ],
+    noEbook: 'El enlace del eBook aún no está configurado para este idioma.',
+    noAudio: 'Los audios de este idioma aún no han sido conectados.',
+    play: 'Reproducir',
+    pause: 'Pausar',
     cover: '/books/es/book-front.jpg'
   }
 }
@@ -165,116 +128,126 @@ function normalizeLang(value) {
   return 'pt'
 }
 
-function Icon({ children, size = 42, bg = '#e8f5e9', color = '#0f4d24' }) {
-  return (
-    <div style={{
-      width: size,
-      height: size,
-      borderRadius: 999,
-      background: bg,
-      color,
-      display: 'inline-flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexShrink: 0,
-      fontWeight: 900
-    }}>
-      {children}
-    </div>
-  )
+function getChapterLabel(lang, index) {
+  if (lang === 'en') return `Chapter ${index + 1}`
+  return `Capítulo ${index + 1}`
 }
 
-function StatusItem({ icon, text }) {
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
-      <Icon size={30}>{icon}</Icon>
-      <span style={{ color: '#1d3326', fontWeight: 800, whiteSpace: 'nowrap' }}>{text}</span>
-    </div>
-  )
+function getTokenFromBrowser() {
+  if (typeof window === 'undefined') return { token: '', lang: 'pt' }
+
+  const searchParams = new URLSearchParams(window.location.search)
+  const lang = normalizeLang(searchParams.get('lang'))
+
+  const parts = window.location.pathname.split('/').filter(Boolean)
+  const token = searchParams.get('token') || parts[parts.length - 1] || ''
+
+  return { token, lang }
 }
 
-function AudioRow({ chapter, index, t }) {
-  const hasUrl = Boolean(chapter?.url)
-  const title = chapter?.title || `${index + 1}`
-  const duration = chapter?.duration || '00:00'
+function AudioRow({ chapter, index, lang, t }) {
+  const audioRef = useRef(null)
+  const [isPlaying, setIsPlaying] = useState(false)
+
+  const title = chapter?.title || getChapterLabel(lang, index)
+  const url = chapter?.url || ''
+  const filename = chapter?.filename || `audio-${lang}-${String(index + 1).padStart(2, '0')}.wav`
+
+  async function toggleAudio() {
+    const audio = audioRef.current
+    if (!audio || !url) return
+
+    try {
+      if (audio.paused) {
+        await audio.play()
+        setIsPlaying(true)
+      } else {
+        audio.pause()
+        setIsPlaying(false)
+      }
+    } catch {
+      setIsPlaying(false)
+    }
+  }
 
   return (
-    <div style={{
-      border: '1px solid #eadfce',
-      borderRadius: 14,
-      padding: 12,
-      display: 'grid',
-      gridTemplateColumns: '42px 1fr auto',
-      gap: 14,
-      alignItems: 'center',
-      background: 'rgba(255,255,255,.82)'
-    }}>
-      <Icon size={42} bg="#0f4d24" color="#fff">▶</Icon>
+    <div className="access-audio-row">
+      <button
+        type="button"
+        className="access-play-button"
+        onClick={toggleAudio}
+        disabled={!url}
+        aria-label={isPlaying ? t.pause : t.play}
+        title={isPlaying ? t.pause : t.play}
+      >
+        {isPlaying ? '❚❚' : '▶'}
+      </button>
 
-      <div style={{ minWidth: 0 }}>
-        <div style={{ color: '#211811', fontWeight: 850, fontSize: 15, marginBottom: 8 }}>
-          {title}
-        </div>
+      <div className="access-audio-main">
+        <div className="access-audio-title">{title}</div>
 
-        {hasUrl ? (
-          <audio controls preload="none" src={chapter.url} style={{ width: '100%', height: 36 }} />
+        {url ? (
+          <audio
+            ref={audioRef}
+            controls
+            preload="none"
+            src={url}
+            onPlay={() => setIsPlaying(true)}
+            onPause={() => setIsPlaying(false)}
+            onEnded={() => setIsPlaying(false)}
+            className="access-audio-native"
+          />
         ) : (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div style={{ flex: 1, height: 6, borderRadius: 999, background: '#e2dfda', overflow: 'hidden' }}>
-              <div style={{ width: '3%', height: '100%', background: '#0f4d24' }} />
-            </div>
-            <span style={{ color: '#766f66', fontSize: 12 }}>00:00 / {duration}</span>
+          <div className="access-fake-progress">
+            <span />
           </div>
         )}
       </div>
 
-      {hasUrl ? (
-        <a href={chapter.url} download target="_blank" rel="noreferrer" style={{
-          color: '#17251b',
-          fontSize: 13,
-          fontWeight: 900,
-          textDecoration: 'none',
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 6,
-          whiteSpace: 'nowrap'
-        }}>
-          ⬇ {t.download}
+      {url ? (
+        <a
+          href={url}
+          download={filename}
+          target="_blank"
+          rel="noreferrer"
+          className="access-audio-download"
+        >
+          ⬇ <span>{t.download}</span>
         </a>
       ) : (
-        <span style={{ color: '#9a9287', fontSize: 12, fontWeight: 700, whiteSpace: 'nowrap' }}>
-          Em breve
-        </span>
+        <span className="access-audio-unavailable">—</span>
       )}
     </div>
   )
 }
 
 export default function AcessoDigital() {
+  const [{ token, initialLang }, setTokenInfo] = useState({ token: '', initialLang: 'pt' })
   const [order, setOrder] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-
-  const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null
-  const pathToken = typeof window !== 'undefined' ? window.location.pathname.split('/').filter(Boolean).pop() : ''
-  const token = params?.get('token') || pathToken || ''
-  const fallbackLang = normalizeLang(params?.get('lang'))
+  const [showAllChapters, setShowAllChapters] = useState(false)
 
   useEffect(() => {
+    const info = getTokenFromBrowser()
+    setTokenInfo({ token: info.token, initialLang: info.lang })
+  }, [])
+
+  useEffect(() => {
+    if (!token) return
+
     let active = true
 
     async function loadAccess() {
       try {
-        if (!token) {
-          setError('missing-token')
-          setLoading(false)
-          return
-        }
+        setLoading(true)
+        setError('')
 
-        const res = await fetch(`/api/digital-access?token=${encodeURIComponent(token)}`, {
+        const response = await fetch(`/api/digital-access?token=${encodeURIComponent(token)}`, {
           cache: 'no-store'
         })
-        const data = await res.json()
+
+        const data = await response.json()
 
         if (!active) return
 
@@ -283,7 +256,7 @@ export default function AcessoDigital() {
         } else {
           setError('not-found')
         }
-      } catch (err) {
+      } catch {
         if (active) setError('not-found')
       } finally {
         if (active) setLoading(false)
@@ -291,180 +264,195 @@ export default function AcessoDigital() {
     }
 
     loadAccess()
-    return () => { active = false }
+
+    return () => {
+      active = false
+    }
   }, [token])
 
-  const lang = normalizeLang(order?.lang || order?.language || fallbackLang)
+  const lang = normalizeLang(order?.lang || order?.language || initialLang)
   const t = COPY[lang]
+
   const files = order?.files || {}
   const ebookUrl = files?.ebook?.url || ''
-  const rawAudio = Array.isArray(files?.audiobook) ? files.audiobook : []
+  const allChapters = Array.isArray(files?.audiobook) ? files.audiobook.filter((item) => item?.url) : []
 
-  const audiobook = useMemo(() => {
-    const filled = rawAudio
-      .filter((item) => item && (item.url || item.title))
-      .map((item, index) => ({
-        ...item,
-        title: item.title || `${lang === 'en' ? 'Chapter' : lang === 'es' ? 'Capítulo' : 'Capítulo'} ${index + 1} — ${t.chapters[index] || ''}`,
-        duration: item.duration || ['07:12', '10:48', '12:36', '11:05'][index] || '00:00'
-      }))
+  const visibleChapters = useMemo(() => {
+    if (showAllChapters) return allChapters
+    return allChapters.slice(0, INITIAL_CHAPTERS_VISIBLE)
+  }, [allChapters, showAllChapters])
 
-    if (filled.length > 0) return filled
-
-    return t.chapters.slice(0, 4).map((title, index) => ({
-      title: `${lang === 'en' ? 'Chapter' : lang === 'es' ? 'Capítulo' : 'Capítulo'} ${index + 1} — ${title}`,
-      url: '',
-      duration: ['07:12', '10:48', '12:36', '11:05'][index] || '00:00'
-    }))
-  }, [rawAudio, lang, t])
-
-  if (loading) {
+  if (!token || loading) {
     return (
-      <main style={styles.page}>
-        <div style={styles.loadingCard}>
-          <div style={styles.spinner}>✓</div>
-          <h1 style={styles.loadingTitle}>{COPY[fallbackLang].loading}</h1>
+      <main className="access-page">
+        <div className="access-state-card">
+          <div className="access-state-icon">✓</div>
+          <h1>{t.loading}</h1>
         </div>
+        <AccessStyles />
       </main>
     )
   }
 
   if (error || !order) {
     return (
-      <main style={styles.page}>
-        <div style={styles.loadingCard}>
-          <div style={{ ...styles.spinner, background: '#fff3f0', color: '#8a2419' }}>!</div>
-          <h1 style={styles.loadingTitle}>{COPY[fallbackLang].notFoundTitle}</h1>
-          <p style={styles.muted}>{COPY[fallbackLang].notFoundText}</p>
+      <main className="access-page">
+        <div className="access-state-card">
+          <div className="access-state-icon access-state-error">!</div>
+          <h1>{t.notFoundTitle}</h1>
+          <p>{t.notFoundText}</p>
         </div>
+        <AccessStyles />
       </main>
     )
   }
 
   return (
-    <main style={styles.page}>
-      <header style={styles.header}>
-        <div style={styles.brand}>
-          <div style={styles.logo}>G</div>
+    <main className="access-page">
+      <header className="access-header">
+        <div className="access-brand">
+          <div className="access-logo">G</div>
           <div>
-            <div style={styles.brandName}>Gilberto de Souza</div>
-            <div style={styles.tagline}>{t.tagline}</div>
+            <div className="access-brand-name">Gilberto de Souza</div>
+            <div className="access-tagline">{t.tagline}</div>
           </div>
         </div>
 
-        <a href={`mailto:${t.support}`} style={styles.support}>
-          <span style={{ color: '#c98b19', fontSize: 25 }}>🎧</span>
-          <span>
+        <a href={`mailto:${t.support}`} className="access-support">
+          <span>🎧</span>
+          <div>
             <strong>{t.help}</strong>
             <small>{t.support}</small>
-          </span>
+          </div>
         </a>
       </header>
 
-      <section style={styles.hero}>
-        <div style={styles.checkWrap}>
-          <Icon size={118} bg="#e4f4df" color="#0f4d24">
-            <span style={{ fontSize: 58, lineHeight: 1 }}>✓</span>
-          </Icon>
-          <span style={styles.spark1}>✦</span>
-          <span style={styles.spark2}>✧</span>
-          <span style={styles.spark3}>•</span>
-        </div>
+      <section className="access-hero">
+        <div className="access-check">✓</div>
 
-        <div style={{ flex: 1 }}>
-          <h1 style={styles.heroTitle}>{t.title}</h1>
-          <div style={styles.goldLine} />
-          <h2 style={styles.heroSubtitle}>{t.subtitle}</h2>
-          <p style={styles.heroText}>{t.description}</p>
+        <div className="access-hero-content">
+          <h1>{t.title}</h1>
+          <div className="access-gold-line" />
+          <h2>{t.subtitle}</h2>
+          <p>{t.description}</p>
 
-          <div style={styles.status}>
-            <StatusItem icon="✓" text={t.payment} />
-            <div style={styles.divider} />
-            <StatusItem icon="🔓" text={t.access} />
-            <div style={styles.divider} />
-            <StatusItem icon="🌐" text={`${t.selectedLanguage} ${t.language}`} />
+          <div className="access-status">
+            <span>✓ {t.payment}</span>
+            <i />
+            <span>🔓 {t.access}</span>
+            <i />
+            <span>🌐 {t.selectedLanguage} <strong>{t.language}</strong></span>
           </div>
         </div>
 
-        <div style={styles.privateBox}>
-          <Icon size={42} bg="#f4f0e7" color="#0f4d24">🛡</Icon>
+        <div className="access-private">
+          <span>🛡</span>
           <div>
             <strong>{t.privateTitle}</strong>
-            <span>{t.privateText}</span>
+            <small>{t.privateText}</small>
           </div>
         </div>
       </section>
 
-      <section style={styles.grid}>
-        <article style={styles.ebookCard}>
-          <div style={styles.coverWrap}>
-            <img src={t.cover} alt={t.ebookTitle} style={styles.cover} />
+      <section className="access-content-grid">
+        <article className="access-card access-ebook-card">
+          <div className="access-cover-shell">
+            <img src={t.cover} alt={t.ebookTitle} className="access-cover" />
           </div>
 
-          <div style={styles.ebookContent}>
-            <div style={styles.sectionTitle}>
-              <span style={styles.goldIcon}>📖</span>
+          <div className="access-ebook-info">
+            <div className="access-section-heading">
+              <span>📖</span>
               <h2>{t.ebookTitle}</h2>
             </div>
-            <p style={styles.cardText}>{t.ebookDesc}</p>
+
+            <p>{t.ebookDesc}</p>
 
             {ebookUrl ? (
-              <>
-                <a href={ebookUrl} download target="_blank" rel="noreferrer" style={styles.primaryBtn}>
+              <div className="access-button-stack">
+                <a
+                  href={ebookUrl}
+                  download
+                  target="_blank"
+                  rel="noreferrer"
+                  className="access-primary-button"
+                >
                   ⬇ {t.downloadEbook}
                 </a>
-                <a href={ebookUrl} target="_blank" rel="noreferrer" style={styles.secondaryBtn}>
+
+                <a
+                  href={ebookUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="access-secondary-button"
+                >
                   📖 {t.readNow}
                 </a>
-              </>
-            ) : (
-              <div style={styles.warning}>
-                Link do eBook ainda não configurado para este idioma.
               </div>
+            ) : (
+              <div className="access-warning">{t.noEbook}</div>
             )}
 
-            <div style={styles.format}>📄 {t.format}</div>
+            <div className="access-format">📄 {t.format}</div>
           </div>
         </article>
 
-        <article style={styles.audioCard}>
-          <div style={styles.sectionTitle}>
-            <span style={styles.goldIcon}>🎧</span>
-            <div>
-              <h2>{t.audioTitle}</h2>
-              <p style={{ ...styles.cardText, margin: 0 }}>{t.audioDesc}</p>
+        <article className="access-card access-audio-card">
+          <div className="access-audio-heading">
+            <div className="access-section-heading">
+              <span>🎧</span>
+              <div>
+                <h2>{t.audioTitle}</h2>
+                <p>{t.audioDesc}</p>
+              </div>
             </div>
           </div>
 
-          <div style={styles.audioList}>
-            {audiobook.map((chapter, index) => (
-              <AudioRow key={`${chapter.url || chapter.title}-${index}`} chapter={chapter} index={index} t={t} />
-            ))}
-          </div>
+          {allChapters.length > 0 ? (
+            <>
+              <div className="access-audio-list">
+                {visibleChapters.map((chapter, index) => (
+                  <AudioRow
+                    key={`${chapter.url}-${index}`}
+                    chapter={chapter}
+                    index={index}
+                    lang={lang}
+                    t={t}
+                  />
+                ))}
+              </div>
 
-          {rawAudio.filter((item) => item?.url).length === 0 && (
-            <p style={styles.audioEmpty}>{t.emptyAudio}</p>
+              {allChapters.length > INITIAL_CHAPTERS_VISIBLE && (
+                <button
+                  type="button"
+                  className="access-show-all"
+                  onClick={() => setShowAllChapters((value) => !value)}
+                >
+                  {showAllChapters
+                    ? `↑ ${t.showLess}`
+                    : `☰ ${t.showAll} (${allChapters.length})`}
+                </button>
+              )}
+            </>
+          ) : (
+            <div className="access-warning">{t.noAudio}</div>
           )}
-
-          <button type="button" style={styles.allBtn}>
-            ☰ {t.allChapters} ({Math.max(rawAudio.length, t.chapters.length)})
-          </button>
         </article>
       </section>
 
-      <section style={styles.infoStrip}>
-        <div style={styles.infoItem}>
-          <Icon size={58} bg="#fffaf0" color="#c98b19">✉</Icon>
+      <section className="access-info-strip">
+        <div>
+          <span>✉</span>
           <div>
             <strong>{t.emailNoteTitle}</strong>
             <p>{t.emailNoteText}</p>
           </div>
         </div>
 
-        <div style={styles.verticalInfoDivider} />
+        <i />
 
-        <div style={styles.infoItem}>
-          <Icon size={58} bg="#fffaf0" color="#c98b19">🛡</Icon>
+        <div>
+          <span>🛡</span>
           <div>
             <strong>{t.importantTitle}</strong>
             <p>{t.importantText}</p>
@@ -472,267 +460,650 @@ export default function AcessoDigital() {
         </div>
       </section>
 
-      <footer style={styles.footer}>
-        <div style={styles.script}>{t.footerScript}</div>
-        <div style={styles.heart}>♡</div>
+      <footer className="access-footer">
+        <div>{t.footerScript}</div>
+        <span>♡</span>
         <p>{t.footerText}</p>
         <strong>— Gilberto de Souza</strong>
       </footer>
+
+      <AccessStyles />
     </main>
   )
 }
 
-const styles = {
-  page: {
-    minHeight: '100vh',
-    background: 'radial-gradient(circle at 0% 100%, rgba(201,139,25,.16), transparent 28%), linear-gradient(180deg,#fffaf2 0%,#fbf3e7 100%)',
-    color: '#221813',
-    padding: '24px clamp(16px,4vw,56px) 44px',
-    fontFamily: 'Inter, Jost, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
-  },
-  header: {
-    maxWidth: 1320,
-    margin: '0 auto 24px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    gap: 20,
-    alignItems: 'center'
-  },
-  brand: { display: 'flex', alignItems: 'center', gap: 14 },
-  logo: {
-    color: '#c98b19',
-    fontFamily: 'Georgia, serif',
-    fontSize: 52,
-    lineHeight: 1,
-    fontStyle: 'italic'
-  },
-  brandName: {
-    fontFamily: 'Georgia, "Times New Roman", serif',
-    fontSize: 28,
-    fontWeight: 800,
-    color: '#1c1713'
-  },
-  tagline: { color: '#786f64', fontSize: 14 },
-  support: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 10,
-    textDecoration: 'none',
-    color: '#241b14'
-  },
-  hero: {
-    maxWidth: 1320,
-    margin: '0 auto 18px',
-    background: 'rgba(255,255,255,.84)',
-    border: '1px solid #eadfce',
-    borderRadius: 24,
-    boxShadow: '0 18px 50px rgba(83,54,20,.10)',
-    padding: '34px clamp(22px,4vw,62px)',
-    display: 'flex',
-    gap: 34,
-    alignItems: 'center',
-    position: 'relative',
-    overflow: 'hidden'
-  },
-  checkWrap: { position: 'relative', flexShrink: 0 },
-  spark1: { position: 'absolute', top: -10, left: 14, color: '#c98b19' },
-  spark2: { position: 'absolute', top: 6, right: -12, color: '#0f4d24' },
-  spark3: { position: 'absolute', bottom: 2, left: -18, color: '#c98b19', fontSize: 28 },
-  heroTitle: {
-    fontFamily: 'Georgia, "Times New Roman", serif',
-    fontSize: 'clamp(34px,5vw,56px)',
-    lineHeight: 1.02,
-    margin: 0,
-    color: '#103b22',
-    letterSpacing: '-.04em'
-  },
-  goldLine: { width: 50, height: 4, borderRadius: 999, background: '#d19a2a', margin: '14px 0 14px' },
-  heroSubtitle: { color: '#c28216', fontSize: 20, margin: '0 0 10px', fontWeight: 900 },
-  heroText: { color: '#504942', fontSize: 17, lineHeight: 1.65, margin: 0, maxWidth: 760 },
-  privateBox: {
-    background: '#fffdf8',
-    border: '1px solid #eadfce',
-    borderRadius: 18,
-    padding: '18px 22px',
-    display: 'flex',
-    alignItems: 'center',
-    gap: 12,
-    minWidth: 220,
-    boxShadow: '0 12px 30px rgba(83,54,20,.06)'
-  },
-  status: {
-    marginTop: 24,
-    display: 'flex',
-    alignItems: 'center',
-    gap: 18,
-    padding: '14px 22px',
-    borderRadius: 14,
-    border: '1px solid #eadfce',
-    background: 'rgba(255,250,240,.82)',
-    width: 'fit-content',
-    maxWidth: '100%',
-    flexWrap: 'wrap'
-  },
-  divider: { width: 1, height: 26, background: '#ded2c1' },
-  grid: {
-    maxWidth: 1320,
-    margin: '0 auto 18px',
-    display: 'grid',
-    gridTemplateColumns: 'minmax(320px, 1fr) minmax(360px, 1.35fr)',
-    gap: 18
-  },
-  ebookCard: {
-    background: 'rgba(255,255,255,.86)',
-    border: '1px solid #eadfce',
-    borderRadius: 24,
-    padding: 28,
-    display: 'grid',
-    gridTemplateColumns: 'minmax(150px, 240px) 1fr',
-    gap: 30,
-    alignItems: 'center',
-    boxShadow: '0 18px 50px rgba(83,54,20,.08)'
-  },
-  coverWrap: { perspective: 1000 },
-  cover: {
-    width: '100%',
-    maxHeight: 360,
-    objectFit: 'cover',
-    borderRadius: 8,
-    boxShadow: '18px 24px 40px rgba(40,23,10,.25)'
-  },
-  ebookContent: { display: 'flex', flexDirection: 'column', gap: 16 },
-  sectionTitle: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 12
-  },
-  goldIcon: { fontSize: 34, color: '#c98b19' },
-  cardText: { color: '#554d44', lineHeight: 1.6, fontSize: 16 },
-  primaryBtn: {
-    background: 'linear-gradient(180deg,#0f5528,#0b3d1e)',
-    color: '#fff',
-    borderRadius: 12,
-    padding: '15px 18px',
-    textDecoration: 'none',
-    fontWeight: 950,
-    fontSize: 18,
-    display: 'inline-flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 10,
-    boxShadow: '0 12px 25px rgba(15,77,36,.22)'
-  },
-  secondaryBtn: {
-    background: '#fffdf8',
-    color: '#0f4d24',
-    borderRadius: 12,
-    padding: '14px 18px',
-    textDecoration: 'none',
-    fontWeight: 900,
-    fontSize: 17,
-    display: 'inline-flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 10,
-    border: '1px solid #0f4d24'
-  },
-  format: { color: '#6c645b', fontWeight: 700, marginTop: 4 },
-  warning: {
-    background: '#fff8e7',
-    border: '1px solid #eadfce',
-    color: '#7a5517',
-    borderRadius: 12,
-    padding: 14,
-    fontWeight: 800
-  },
-  audioCard: {
-    background: 'rgba(255,255,255,.86)',
-    border: '1px solid #eadfce',
-    borderRadius: 24,
-    padding: 28,
-    boxShadow: '0 18px 50px rgba(83,54,20,.08)'
-  },
-  audioList: { display: 'grid', gap: 12, marginTop: 18 },
-  audioEmpty: {
-    color: '#8a6f48',
-    background: '#fff8e7',
-    border: '1px solid #eadfce',
-    padding: 12,
-    borderRadius: 12,
-    marginTop: 14,
-    fontSize: 13,
-    fontWeight: 700
-  },
-  allBtn: {
-    margin: '18px auto 0',
-    background: '#fffdf8',
-    color: '#17251b',
-    border: '1px solid #0f4d24',
-    borderRadius: 12,
-    padding: '12px 26px',
-    fontWeight: 850,
-    display: 'flex',
-    alignItems: 'center',
-    gap: 8
-  },
-  infoStrip: {
-    maxWidth: 1320,
-    margin: '0 auto',
-    background: 'rgba(255,255,255,.72)',
-    border: '1px solid #eadfce',
-    borderRadius: 20,
-    padding: '18px clamp(18px,4vw,70px)',
-    display: 'grid',
-    gridTemplateColumns: '1fr 1px 1fr',
-    gap: 34,
-    alignItems: 'center',
-    boxShadow: '0 12px 35px rgba(83,54,20,.06)'
-  },
-  infoItem: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 18
-  },
-  verticalInfoDivider: { width: 1, height: 55, background: '#ded2c1' },
-  footer: {
-    textAlign: 'center',
-    marginTop: 22,
-    color: '#372820'
-  },
-  script: {
-    fontFamily: 'Georgia, serif',
-    fontStyle: 'italic',
-    color: '#c98b19',
-    fontSize: 'clamp(28px,4vw,42px)'
-  },
-  heart: { color: '#c98b19', fontSize: 28, lineHeight: 1 },
-  loadingCard: {
-    maxWidth: 540,
-    margin: '18vh auto',
-    textAlign: 'center',
-    background: 'rgba(255,255,255,.88)',
-    border: '1px solid #eadfce',
-    borderRadius: 24,
-    padding: 40,
-    boxShadow: '0 18px 50px rgba(83,54,20,.10)'
-  },
-  spinner: {
-    width: 86,
-    height: 86,
-    borderRadius: 999,
-    margin: '0 auto 20px',
-    background: '#e4f4df',
-    color: '#0f4d24',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: 42,
-    fontWeight: 900
-  },
-  loadingTitle: {
-    fontFamily: 'Georgia, "Times New Roman", serif',
-    fontSize: 30,
-    color: '#103b22'
-  },
-  muted: { color: '#6f675e', lineHeight: 1.6 }
+function AccessStyles() {
+  return (
+    <style jsx global>{`
+      .access-page {
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 0% 100%, rgba(201, 139, 25, 0.18), transparent 28%),
+          linear-gradient(180deg, #fffaf2 0%, #fbf0dd 100%);
+        color: #221813;
+        padding: 24px clamp(16px, 4vw, 56px) 44px;
+        font-family: Inter, Jost, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      .access-header,
+      .access-hero,
+      .access-content-grid,
+      .access-info-strip,
+      .access-footer {
+        width: min(1320px, 100%);
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .access-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 24px;
+      }
+
+      .access-brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .access-logo {
+        color: #c98b19;
+        font-family: Georgia, serif;
+        font-size: 52px;
+        line-height: 1;
+        font-style: italic;
+      }
+
+      .access-brand-name {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 28px;
+        font-weight: 800;
+        color: #1c1713;
+      }
+
+      .access-tagline {
+        color: #766d62;
+        font-size: 14px;
+      }
+
+      .access-support {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        color: #241b14;
+        text-decoration: none;
+      }
+
+      .access-support > span {
+        color: #c98b19;
+        font-size: 25px;
+      }
+
+      .access-support small {
+        display: block;
+        color: #6b6258;
+      }
+
+      .access-hero {
+        background: rgba(255, 255, 255, 0.86);
+        border: 1px solid #eadfce;
+        border-radius: 24px;
+        box-shadow: 0 18px 50px rgba(83, 54, 20, 0.1);
+        padding: clamp(24px, 4vw, 50px);
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        gap: clamp(20px, 4vw, 38px);
+        align-items: center;
+        margin-bottom: 18px;
+      }
+
+      .access-check {
+        width: clamp(78px, 11vw, 118px);
+        height: clamp(78px, 11vw, 118px);
+        border-radius: 999px;
+        background: #e4f4df;
+        color: #0f4d24;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: clamp(42px, 6vw, 62px);
+        font-weight: 900;
+        box-shadow: 0 12px 35px rgba(15, 77, 36, 0.12);
+      }
+
+      .access-hero h1 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(36px, 5vw, 58px);
+        line-height: 1.02;
+        margin: 0;
+        color: #103b22;
+        letter-spacing: -0.04em;
+      }
+
+      .access-gold-line {
+        width: 50px;
+        height: 4px;
+        border-radius: 999px;
+        background: #d19a2a;
+        margin: 14px 0;
+      }
+
+      .access-hero h2 {
+        color: #c28216;
+        font-size: clamp(17px, 2vw, 20px);
+        margin: 0 0 10px;
+        font-weight: 900;
+      }
+
+      .access-hero p {
+        color: #504942;
+        font-size: 17px;
+        line-height: 1.65;
+        margin: 0;
+        max-width: 780px;
+      }
+
+      .access-private {
+        background: #fffdf8;
+        border: 1px solid #eadfce;
+        border-radius: 18px;
+        padding: 18px 22px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 210px;
+      }
+
+      .access-private > span {
+        width: 42px;
+        height: 42px;
+        border-radius: 999px;
+        background: #f4f0e7;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .access-private small {
+        display: block;
+        color: #655d55;
+      }
+
+      .access-status {
+        margin-top: 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 14px 22px;
+        border-radius: 14px;
+        border: 1px solid #eadfce;
+        background: rgba(255, 250, 240, 0.86);
+        width: fit-content;
+        max-width: 100%;
+        flex-wrap: wrap;
+      }
+
+      .access-status span {
+        color: #1d3326;
+        font-weight: 850;
+        white-space: nowrap;
+      }
+
+      .access-status strong {
+        color: #0f4d24;
+      }
+
+      .access-status i {
+        width: 1px;
+        height: 24px;
+        background: #ded2c1;
+      }
+
+      .access-content-grid {
+        display: grid;
+        grid-template-columns: minmax(300px, 0.9fr) minmax(360px, 1.25fr);
+        gap: 18px;
+        align-items: start;
+        margin-bottom: 18px;
+      }
+
+      .access-card {
+        background: rgba(255, 255, 255, 0.88);
+        border: 1px solid #eadfce;
+        border-radius: 24px;
+        box-shadow: 0 18px 50px rgba(83, 54, 20, 0.08);
+      }
+
+      .access-ebook-card {
+        padding: clamp(22px, 3vw, 30px);
+        display: grid;
+        grid-template-columns: minmax(130px, 220px) minmax(0, 1fr);
+        gap: clamp(20px, 3vw, 30px);
+        align-items: center;
+        align-self: start;
+      }
+
+      .access-cover {
+        width: 100%;
+        max-height: 360px;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 18px 24px 40px rgba(40, 23, 10, 0.25);
+      }
+
+      .access-ebook-info {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .access-section-heading {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .access-section-heading > span {
+        font-size: 34px;
+        color: #c98b19;
+        flex-shrink: 0;
+      }
+
+      .access-section-heading h2 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(24px, 3vw, 34px);
+        color: #2a1b13;
+        margin: 0;
+      }
+
+      .access-section-heading p,
+      .access-ebook-info p {
+        color: #554d44;
+        line-height: 1.6;
+        font-size: 16px;
+        margin: 0;
+      }
+
+      .access-button-stack {
+        display: grid;
+        gap: 12px;
+      }
+
+      .access-primary-button,
+      .access-secondary-button {
+        border-radius: 12px;
+        padding: 15px 18px;
+        text-decoration: none;
+        font-weight: 950;
+        font-size: 17px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        text-align: center;
+      }
+
+      .access-primary-button {
+        background: linear-gradient(180deg, #0f5528, #0b3d1e);
+        color: #fff;
+        box-shadow: 0 12px 25px rgba(15, 77, 36, 0.22);
+      }
+
+      .access-secondary-button {
+        background: #fffdf8;
+        color: #0f4d24;
+        border: 1px solid #0f4d24;
+      }
+
+      .access-format {
+        color: #6c645b;
+        font-weight: 750;
+      }
+
+      .access-audio-card {
+        padding: clamp(22px, 3vw, 30px);
+        align-self: start;
+      }
+
+      .access-audio-heading {
+        margin-bottom: 18px;
+      }
+
+      .access-audio-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .access-audio-row {
+        border: 1px solid #eadfce;
+        border-radius: 14px;
+        padding: 12px;
+        display: grid;
+        grid-template-columns: 44px minmax(0, 1fr) auto;
+        gap: 14px;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.84);
+      }
+
+      .access-play-button {
+        width: 42px;
+        height: 42px;
+        border-radius: 999px;
+        border: 0;
+        background: #0f4d24;
+        color: #fff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        cursor: pointer;
+        transition: transform 0.18s ease, background 0.18s ease;
+      }
+
+      .access-play-button:hover:not(:disabled) {
+        background: #0a3919;
+        transform: scale(1.04);
+      }
+
+      .access-play-button:disabled {
+        background: #b8b2aa;
+        cursor: not-allowed;
+      }
+
+      .access-audio-title {
+        color: #211811;
+        font-weight: 850;
+        font-size: 14px;
+        margin-bottom: 7px;
+      }
+
+      .access-audio-native {
+        width: 100%;
+        height: 36px;
+      }
+
+      .access-audio-download {
+        color: #17251b;
+        font-size: 12px;
+        font-weight: 900;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+      }
+
+      .access-audio-download:hover {
+        text-decoration: underline;
+      }
+
+      .access-show-all {
+        margin: 18px auto 0;
+        background: #fffdf8;
+        color: #17251b;
+        border: 1px solid #0f4d24;
+        border-radius: 12px;
+        padding: 12px 26px;
+        font-weight: 850;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+      }
+
+      .access-warning {
+        background: #fff8e7;
+        border: 1px solid #eadfce;
+        color: #7a5517;
+        border-radius: 12px;
+        padding: 14px;
+        font-weight: 800;
+      }
+
+      .access-info-strip {
+        background: rgba(255, 255, 255, 0.74);
+        border: 1px solid #eadfce;
+        border-radius: 20px;
+        padding: 18px clamp(18px, 4vw, 70px);
+        display: grid;
+        grid-template-columns: 1fr 1px 1fr;
+        gap: 34px;
+        align-items: center;
+        box-shadow: 0 12px 35px rgba(83, 54, 20, 0.06);
+      }
+
+      .access-info-strip > div {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .access-info-strip > div > span {
+        width: 58px;
+        height: 58px;
+        border-radius: 999px;
+        background: #fffaf0;
+        color: #c98b19;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 25px;
+      }
+
+      .access-info-strip i {
+        width: 1px;
+        height: 55px;
+        background: #ded2c1;
+      }
+
+      .access-info-strip p {
+        margin: 4px 0 0;
+        color: #504942;
+      }
+
+      .access-footer {
+        text-align: center;
+        margin-top: 22px;
+        color: #372820;
+      }
+
+      .access-footer > div {
+        font-family: Georgia, serif;
+        font-style: italic;
+        color: #c98b19;
+        font-size: clamp(28px, 4vw, 42px);
+      }
+
+      .access-footer > span {
+        color: #c98b19;
+        font-size: 28px;
+        line-height: 1;
+      }
+
+      .access-footer p {
+        margin: 0 0 4px;
+      }
+
+      .access-state-card {
+        max-width: 540px;
+        margin: 18vh auto;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid #eadfce;
+        border-radius: 24px;
+        padding: 40px;
+        box-shadow: 0 18px 50px rgba(83, 54, 20, 0.1);
+      }
+
+      .access-state-icon {
+        width: 86px;
+        height: 86px;
+        border-radius: 999px;
+        margin: 0 auto 20px;
+        background: #e4f4df;
+        color: #0f4d24;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 42px;
+        font-weight: 900;
+      }
+
+      .access-state-error {
+        background: #fff3f0;
+        color: #8a2419;
+      }
+
+      .access-state-card h1 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 30px;
+        color: #103b22;
+      }
+
+      @media (max-width: 1024px) {
+        .access-hero {
+          grid-template-columns: auto 1fr;
+        }
+
+        .access-private {
+          grid-column: 1 / -1;
+          width: fit-content;
+        }
+
+        .access-content-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .access-ebook-card {
+          grid-template-columns: minmax(140px, 220px) minmax(0, 1fr);
+        }
+      }
+
+      @media (max-width: 720px) {
+        .access-page {
+          padding: 16px 12px 34px;
+        }
+
+        .access-header {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .access-logo {
+          font-size: 42px;
+        }
+
+        .access-brand-name {
+          font-size: 22px;
+        }
+
+        .access-support {
+          font-size: 13px;
+        }
+
+        .access-hero {
+          grid-template-columns: 1fr;
+          text-align: left;
+          border-radius: 18px;
+          padding: 22px;
+        }
+
+        .access-check {
+          width: 84px;
+          height: 84px;
+          font-size: 44px;
+        }
+
+        .access-status {
+          width: 100%;
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .access-status i {
+          display: none;
+        }
+
+        .access-private {
+          width: 100%;
+        }
+
+        .access-ebook-card {
+          grid-template-columns: 1fr;
+          text-align: center;
+          border-radius: 18px;
+        }
+
+        .access-cover-shell {
+          display: flex;
+          justify-content: center;
+        }
+
+        .access-cover {
+          width: min(250px, 82vw);
+          max-height: none;
+        }
+
+        .access-section-heading {
+          justify-content: center;
+        }
+
+        .access-audio-card {
+          border-radius: 18px;
+        }
+
+        .access-audio-heading .access-section-heading {
+          justify-content: flex-start;
+        }
+
+        .access-audio-row {
+          grid-template-columns: 42px minmax(0, 1fr);
+          gap: 10px;
+        }
+
+        .access-audio-download {
+          grid-column: 2;
+          width: fit-content;
+          padding: 8px 0 0;
+        }
+
+        .access-info-strip {
+          grid-template-columns: 1fr;
+          gap: 18px;
+          padding: 18px;
+        }
+
+        .access-info-strip i {
+          width: 100%;
+          height: 1px;
+        }
+
+        .access-info-strip > div {
+          align-items: flex-start;
+        }
+      }
+
+      @media (max-width: 420px) {
+        .access-audio-native {
+          height: 34px;
+        }
+
+        .access-audio-title {
+          font-size: 13px;
+        }
+
+        .access-primary-button,
+        .access-secondary-button {
+          width: 100%;
+          font-size: 15px;
+        }
+      }
+    `}</style>
+  )
 }
