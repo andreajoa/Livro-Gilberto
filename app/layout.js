@@ -9,7 +9,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
-      <body style={{minHeight:'100vh',display:'flex',flexDirection:'column',margin:0,padding:0}}>
+      <body>
         {children}
       </body>
     </html>
