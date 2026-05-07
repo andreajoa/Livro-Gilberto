@@ -1,4 +1,5 @@
 import './globals.css'
+import ClientWrapper from './ClientWrapper'
 
 export const metadata = {
   title: 'Como Vencer a Dor de Ser Trocado Por Outro — Gilberto de Souza',
@@ -9,8 +10,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
-      <body style={{ backgroundColor: '#0D1B3E', color: '#FFFFFF', minHeight: '100vh' }}>
-        {children}
+      <body style={{ backgroundColor: '#0D1B3E', color: '#FFFFFF', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <ClientWrapper>
+          {children}
+        </ClientWrapper>
       </body>
     </html>
   )
