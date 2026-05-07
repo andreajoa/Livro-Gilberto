@@ -3,8 +3,8 @@ const motion = { div: 'div', img: 'img' };
 import { useState } from 'react';
 import Link from 'next/link'
 import { ArrowRight, Package, RotateCcw, Shield } from 'lucide-react';
-// import AddToCartButton from '../components/AddToCartButton';
-// import ShippingCalculator from '../components/ShippingCalculator';
+import AddToCartButton from '../components/AddToCartButton';
+import ShippingCalculator from '../components/ShippingCalculator';
 
 import bannerAutor     from '../assets/banners/banner-autor-wide.png';
 import bannerCTA       from '../assets/banners/banner-autor-cta.png';
@@ -102,7 +102,7 @@ export default function Home() {
 
             {/* CTAs */}
             <div style={{ display:'flex', flexWrap:'wrap', gap:14 }}>
-              <div style={{padding:'16px',background:'#123',color:'#fff'}}>BOTAO TEMP</div>
+              <AddToCartButton />
               <a href="#historia" style={{
                 border:'1px solid rgba(255,255,255,0.2)',
                 color:'#fff',
@@ -238,7 +238,7 @@ export default function Home() {
               "A história de um homem que dedicou anos a uma mulher — e foi trocado no seu melhor momento. Entre a dor da rejeição e o medo de nunca amar de novo, ele descobre que a maior traição seria abandonar a si mesmo."
             </blockquote>
 
-            <div style={{padding:'16px',background:'#123',color:'#fff'}}>BOTAO TEMP</div>
+            <AddToCartButton />
           </div>
 
           {/* Livro na mão — direita */}
@@ -416,10 +416,10 @@ export default function Home() {
             </div>
             <span style={{ fontSize:13, color:'#8A9BBF', display:'block', marginBottom:28 }}>+ frete calculado pelo CEP</span>
 
-            <div style={{padding:'16px',background:'#234',color:'#fff'}}>FRETE TEMP</div>
+            <ShippingCalculator />
 
             <div style={{ marginTop:28 }}>
-              <div style={{padding:'16px',background:'#123',color:'#fff'}}>BOTAO TEMP</div>
+              <AddToCartButton />
             </div>
 
             <div style={{ marginTop:20, padding:'18px 20px', background:'rgba(255,255,255,0.03)', border:'1px solid rgba(255,255,255,0.07)', borderRadius:4 }}>
