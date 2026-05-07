@@ -221,7 +221,7 @@ const Terms = () => {
             <p className="text-text-muted mb-6">
               Entre em contato conosco e responderemos prontamente.
             </p>
-            <Link to="/contato" className="btn-secondary">
+            <Link href="/contato" className="btn-secondary">
               Fale Conosco
               <ArrowRight size={18} />
             </Link>

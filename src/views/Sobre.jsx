@@ -168,7 +168,7 @@ const About = () => {
                   Este livro é o resultado dessa jornada. Não é um manual de como esquecer — porque esquecer não é o objetivo. É sobre como transformar a dor em sabedoria, como reconstruir sua autoestima e como, um dia, voltar a amar — sem medo.
                 </p>
 
-                <Link to="/o-livro" className="btn-primary">
+                <Link href="/o-livro" className="btn-primary">
                   Leia o Livro
                   <ArrowRight size={18} />
                 </Link>

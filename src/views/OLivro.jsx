@@ -277,7 +277,7 @@ const Book = () => {
             <p className="text-text-muted text-lg mb-8">
               Este livro foi escrito para você. Para que você saiba que é possível superar, que é possível reconstruir, que é possível voltar a sorrir de verdade.
             </p>
-            <Link to="/#comprar" className="btn-primary text-lg">
+            <Link href="/#comprar" className="btn-primary text-lg">
               Quero Este Livro
               <ArrowRight size={18} />
             </Link>

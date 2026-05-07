@@ -35,7 +35,7 @@ export default function Footer() {
           <div>
             <h3 style={{ fontSize:11, fontWeight:700, letterSpacing:3, textTransform:'uppercase', color:'#00C4D4', marginBottom:20 }}>O Livro</h3>
             <img
-              src={bookCover}
+              src={bookCover.src}
               alt="Capa do livro"
               style={{ width:80, borderRadius:3, marginBottom:16, boxShadow:'4px 6px 20px rgba(0,0,0,0.5)', display:'block' }}
             />

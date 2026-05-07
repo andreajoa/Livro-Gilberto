@@ -40,7 +40,7 @@ export default function Home() {
       <section style={{ position:'relative', height:'100vh', minHeight:600, overflow:'hidden', display:'flex', alignItems:'center' }}>
 
         {/* Foto do autor tela cheia */}
-        <img src={bannerAutor} alt="Gilberto de Souza"
+        <img src={bannerAutor.src} alt="Gilberto de Souza"
           style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center top' }} />
 
         {/* Gradiente dramático da esquerda */}
@@ -87,7 +87,7 @@ export default function Home() {
             {/* Prova social / credencial */}
             <div style={{ display:'flex', alignItems:'center', gap:16, marginBottom:36, flexWrap:'wrap' }}>
               <div style={{ display:'flex', alignItems:'center', gap:8 }}>
-                <img src={bookCover} alt="capa"
+                <img src={bookCover.src} alt="capa"
                   style={{ width:36, height:48, objectFit:'cover', borderRadius:2, boxShadow:'0 4px 12px rgba(0,0,0,0.5)' }} />
                 <div>
                   <p style={{ fontSize:11, color:'#8A9BBF', margin:0, lineHeight:1.3 }}>Livro físico</p>
@@ -244,7 +244,7 @@ export default function Home() {
           {/* Livro na mão — direita */}
           <div style={{ display:'flex', justifyContent:'center', alignItems:'center' }}>
             <motion.img
-              src={livroMao}
+              src={livroMao.src}
               alt="Livro Como Vencer a Dor de Ser Trocado Por Outro"
               animate={{ y:[0,-12,0] }}
               transition={{ duration:4.5, repeat:Infinity, ease:'easeInOut' }}
@@ -262,7 +262,7 @@ export default function Home() {
           BANNER TRANSFORMAÇÃO — tela cheia
       ════════════════════════════════════════ */}
       <section style={{ position:'relative', height:'min(650px,75vh)', overflow:'hidden', display:'flex', alignItems:'center', justifyContent:'center' }}>
-        <motion.img src={bannerTransform} alt="Da dor à transformação"
+        <motion.img src={bannerTransform.src} alt="Da dor à transformação"
           initial={{ scale:1.06 }} whileInView={{ scale:1 }}
           transition={{ duration:1.4, ease:'easeOut' }} viewport={{ once:true }}
           style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center 30%' }} />
@@ -298,7 +298,7 @@ export default function Home() {
           style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(300px,1fr))', gap:72, alignItems:'center', maxWidth:1100, margin:'0 auto' }}
         >
           <div style={{ position:'relative' }}>
-            <img src={bannerCTA} alt="Gilberto de Souza"
+            <img src={bannerCTA.src} alt="Gilberto de Souza"
               style={{ width:'100%', maxWidth:460, display:'block', borderRadius:4, filter:'drop-shadow(0 20px 50px rgba(0,0,0,0.7))' }} />
             <div style={{ position:'absolute', bottom:-16, right:-16, width:'70%', height:'70%', border:'2px solid rgba(0,196,212,0.2)', borderRadius:4, zIndex:-1 }} />
           </div>
@@ -336,7 +336,7 @@ export default function Home() {
               "Escrevi este livro porque queria que alguém tivesse escrito isso para mim quando eu mais precisei."
             </blockquote>
 
-            <Link to="/sobre" style={{ display:'inline-flex', alignItems:'center', gap:8, border:'1px solid rgba(0,196,212,0.35)', color:'#00C4D4', padding:'14px 28px', borderRadius:3, fontSize:14, fontWeight:600, textDecoration:'none' }}>
+            <Link href="/sobre" style={{ display:'inline-flex', alignItems:'center', gap:8, border:'1px solid rgba(0,196,212,0.35)', color:'#00C4D4', padding:'14px 28px', borderRadius:3, fontSize:14, fontWeight:600, textDecoration:'none' }}>
               Conheça a história completa <ArrowRight size={16} />
             </Link>
           </div>
@@ -352,7 +352,7 @@ export default function Home() {
           transition={{ duration:0.8 }} viewport={{ once:true }}
           style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(300px,1fr))', gap:72, alignItems:'center', maxWidth:1100, margin:'0 auto' }}
         >
-          <img src={livroPresente} alt="Livro embalado com cuidado"
+          <img src={livroPresente.src} alt="Livro embalado com cuidado"
             style={{ width:'100%', maxWidth:460, borderRadius:6, boxShadow:'0 24px 60px rgba(0,0,0,0.12)', display:'block' }} />
 
           <div>
@@ -392,7 +392,7 @@ export default function Home() {
             transition={{ duration:1.4 }} viewport={{ once:true }}
             style={{ display:'flex', flexDirection:'column', alignItems:'flex-start', gap:16 }}
           >
-            <img src={imagemReceba} alt="Livro - receba em casa"
+            <img src={imagemReceba.src} alt="Livro - receba em casa"
               style={{ width:'min(420px,100%)', borderRadius:6, display:'block', filter:'drop-shadow(0 20px 50px rgba(0,0,0,0.7))' }} />
             <span style={{ fontSize:10, color:'#8A9BBF', letterSpacing:2 }}>ISBN 978-658462205-0</span>
             <svg viewBox="0 0 160 28" style={{ width:160, height:24 }} fill="none">
@@ -487,7 +487,7 @@ export default function Home() {
           BANNER FINAL — entre FAQ e footer
       ════════════════════════════════════════ */}
       <section style={{ overflow:'hidden' }}>
-        <img src={bannerVenci} alt="Eu venci"
+        <img src={bannerVenci.src} alt="Eu venci"
           style={{ width:'100%', display:'block', objectFit:'cover' }} />
       </section>
 
