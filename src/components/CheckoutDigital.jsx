@@ -1,154 +1,330 @@
 "use client"
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { X, CheckCircle, Mail, CreditCard, Lock, User } from 'lucide-react'
 
-const API_URL = '/api'
+import { useEffect, useMemo, useState } from "react"
 
-export default function CheckoutDigital({ isOpen, onClose, lang = 'en' }) {
-  const [formData, setFormData] = useState({ name: '', email: '' })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [errors, setErrors] = useState({})
-
-  const isSpanish = lang === 'es';
-  const price = isSpanish ? 17.00 : 17.00; // Preço em Dólar fixo
-
-  const content = {
-    title: isSpanish ? "Acceso Instantáneo" : "Instant Access",
-    subtitle: isSpanish ? "Recibe el eBook + Audiolibro en tu email" : "Get the eBook + Audiobook in your email",
-    nameLabel: isSpanish ? "Nombre Completo *" : "Full Name *",
-    namePlaceholder: isSpanish ? "Ej: Juan Pérez" : "Ex: John Doe",
+const COPY = {
+  pt: {
+    title: "Acesso digital imediato",
+    subtitle: "Receba o eBook + Audiobook após o pagamento",
+    product: "eBook + Audiobook — Português",
+    price: "R$ 47,00",
+    nameLabel: "Nome completo *",
     emailLabel: "Email *",
-    emailPlaceholder: "email@email.com",
-    btnLoading: isSpanish ? "Procesando..." : "Processing...",
-    btnPay: isSpanish ? `Pagar $${price} y Acceder` : `Pay $${price} & Get Access`,
-    securityText: isSpanish ? "Pago 100% seguro a través de Stripe" : "100% secure payment via Stripe"
-  };
-
-  const validate = () => {
-    const e = {}
-    if (!formData.name.trim()) e.name = isSpanish ? 'Nombre requerido' : 'Name required'
-    if (!formData.email.includes('@')) e.email = isSpanish ? 'Email inválido' : 'Invalid email'
-    setErrors(e)
-    return Object.keys(e).length === 0
+    namePlaceholder: "Seu nome completo",
+    emailPlaceholder: "seu@email.com",
+    cta: "Continuar para pagamento seguro",
+    processing: "Preparando checkout...",
+    requiredName: "Informe seu nome.",
+    requiredEmail: "Informe um email válido.",
+    guarantee: "Acesso liberado automaticamente após o pagamento."
+  },
+  en: {
+    title: "Instant digital access",
+    subtitle: "Get the eBook + Audiobook after payment",
+    product: "eBook + Audiobook — English",
+    price: "$17.00 USD",
+    nameLabel: "Full name *",
+    emailLabel: "Email *",
+    namePlaceholder: "Your full name",
+    emailPlaceholder: "you@email.com",
+    cta: "Continue to secure payment",
+    processing: "Preparing checkout...",
+    requiredName: "Enter your name.",
+    requiredEmail: "Enter a valid email.",
+    guarantee: "Access is unlocked automatically after payment."
+  },
+  es: {
+    title: "Acceso digital inmediato",
+    subtitle: "Recibe el eBook + Audiolibro después del pago",
+    product: "eBook + Audiolibro — Español",
+    price: "$17.00 USD",
+    nameLabel: "Nombre completo *",
+    emailLabel: "Email *",
+    namePlaceholder: "Tu nombre completo",
+    emailPlaceholder: "tu@email.com",
+    cta: "Continuar al pago seguro",
+    processing: "Preparando checkout...",
+    requiredName: "Ingresa tu nombre.",
+    requiredEmail: "Ingresa un email válido.",
+    guarantee: "El acceso se libera automáticamente después del pago."
   }
+}
 
-  const handleSaveAndPay = async (e) => {
-    e.preventDefault()
-    if (!validate()) return
-    setIsSubmitting(true)
+function normalizeLang(value) {
+  const lang = String(value || "pt").toLowerCase()
+  if (lang.startsWith("en")) return "en"
+  if (lang.startsWith("es")) return "es"
+  return "pt"
+}
 
-    try {
-      const visitorId = localStorage.getItem('visitor_id') || 'anonimo';
-      
-      // 1. Salva o pedido no banco de dados com a Tag do país
-      const response = await fetch(`${API_URL}/orders`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          visitorId,
-          name: formData.name, 
-          email: formData.email, 
-          whatsapp: 'digital_order', // Bypass de WhatsApp
-          quantity: 1, 
-          shipping: { price: 0, name: 'Digital Delivery' },
-          cep: '00000', address: 'Digital', neighborhood: 'Digital', 
-          city: 'Digital', state: 'DG', complement: '', reference: '',
-          countryTag: lang // Manda a tag 'en' ou 'es' para o Painel Admin
-        })
-      })
-
-      const result = await response.json()
-
-      if (result.success) {
-        // 2. Aciona a Stripe em Dólar
-        try {
-          const stripeRes = await fetch(API_URL + '/checkout-digital', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ total: price, email: formData.email, name: formData.name, lang })
-          });
-          const stripeData = await stripeRes.json();
-          
-          if (stripeData.url) {
-            window.location.href = stripeData.url;
-          } else {
-            alert(isSpanish ? 'Error al contactar pasarela de pago.' : 'Checkout gateway error.');
-          }
-        } catch (e) {
-          alert(isSpanish ? 'Error al procesar pago.' : 'Payment processing error.');
-        }
-      }
-    } catch (error) {
-      alert(isSpanish ? 'Error al procesar su solicitud.' : 'Error processing your request.')
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  // Escuta chamadas globais de botões
-  const [forcedOpen, setForcedOpen] = useState(false);
-  useEffect(() => {
-    const handleForceOpen = () => setForcedOpen(true);
-    window.addEventListener(`force-checkout-${lang}`, handleForceOpen);
-    return () => window.removeEventListener(`force-checkout-${lang}`, handleForceOpen);
-  }, [lang]);
-
-  const realIsOpen = isOpen || forcedOpen;
-  const realOnClose = () => { setForcedOpen(false); if(onClose) onClose(); };
-
-  if (!realIsOpen) return null
-
-  const inputStyle = (field) => ({
-    width: '100%', padding: '12px 16px', background: 'rgba(6,12,24,0.6)',
-    border: `1px solid ${errors[field] ? '#ef4444' : 'rgba(255,255,255,0.12)'}`,
-    borderRadius: 8, color: '#fff', fontSize: 14, outline: 'none'
+export default function CheckoutDigital({ lang = "pt" }) {
+  const activeLang = normalizeLang(lang)
+  const content = COPY[activeLang]
+  const [open, setOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [errors, setErrors] = useState({})
+  const [formData, setFormData] = useState({
+    name: "",
+    email: ""
   })
 
+  const priceNumber = useMemo(() => {
+    return activeLang === "pt" ? 47 : 17
+  }, [activeLang])
+
+  useEffect(() => {
+    function handleForceOpen() {
+      setOpen(true)
+    }
+
+    window.addEventListener(`force-checkout-${activeLang}`, handleForceOpen)
+    return () => window.removeEventListener(`force-checkout-${activeLang}`, handleForceOpen)
+  }, [activeLang])
+
+  function validate() {
+    const nextErrors = {}
+
+    if (!formData.name.trim()) {
+      nextErrors.name = content.requiredName
+    }
+
+    if (!formData.email.includes("@") || !formData.email.includes(".")) {
+      nextErrors.email = content.requiredEmail
+    }
+
+    setErrors(nextErrors)
+    return Object.keys(nextErrors).length === 0
+  }
+
+  function handleChange(event) {
+    const { name, value } = event.target
+    setFormData((current) => ({
+      ...current,
+      [name]: value
+    }))
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault()
+
+    if (!validate()) return
+
+    setLoading(true)
+
+    const order = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      lang: activeLang,
+      product: "Digital eBook Audiobook",
+      total: priceNumber
+    }
+
+    const orderParam = encodeURIComponent(JSON.stringify(order))
+    window.location.href = `/checkout-digital?lang=${activeLang}&order=${orderParam}`
+  }
+
+  if (!open) return null
+
   return (
-    <AnimatePresence>
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-        style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(10px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-        <motion.div initial={{ scale: 0.95 }} animate={{ scale: 1 }} exit={{ scale: 0.95 }}
-          style={{ width: '100%', maxWidth: 450, background: 'linear-gradient(160deg, #0D1B3E 0%, #0a1628 100%)', borderRadius: 16, border: '1px solid rgba(0,196,212,0.3)', overflow: 'hidden' }}>
-          
-          <div style={{ padding: '20px 24px', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>
-              <h2 style={{ fontSize: 18, color: '#fff', margin: 0, fontFamily: "'Playfair Display', serif" }}>{content.title}</h2>
-              <p style={{ fontSize: 12, color: '#8A9BBF', margin: 0 }}>{content.subtitle}</p>
-            </div>
-            <button onClick={realOnClose} style={{ background: 'none', border: 'none', color: '#8A9BBF', cursor: 'pointer' }}><X size={20} /></button>
+    <div style={styles.overlay} onClick={() => !loading && setOpen(false)}>
+      <div style={styles.modal} onClick={(event) => event.stopPropagation()}>
+        <button
+          type="button"
+          onClick={() => !loading && setOpen(false)}
+          style={styles.close}
+          aria-label="Close"
+        >
+          ×
+        </button>
+
+        <div style={styles.iconRow}>
+          <div style={styles.icon}>📘</div>
+          <div style={styles.icon}>🎧</div>
+        </div>
+
+        <h2 style={styles.title}>{content.title}</h2>
+        <p style={styles.subtitle}>{content.subtitle}</p>
+
+        <div style={styles.productBox}>
+          <div>
+            <strong style={styles.productTitle}>{content.product}</strong>
+            <p style={styles.guarantee}>{content.guarantee}</p>
           </div>
+          <strong style={styles.price}>{content.price}</strong>
+        </div>
 
-          <form onSubmit={handleSaveAndPay}>
-            <div style={{ padding: '24px' }}>
-              <div style={{ marginBottom: 16 }}>
-                <label style={{ display: 'block', fontSize: 11, color: '#8A9BBF', marginBottom: 5, textTransform: 'uppercase' }}>{content.nameLabel}</label>
-                <div style={{ position: 'relative' }}>
-                  <User size={14} style={{ position: 'absolute', left: 12, top: 14, color: '#8A9BBF' }} />
-                  <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder={content.namePlaceholder} style={{...inputStyle('name'), paddingLeft: 36}} />
-                </div>
-              </div>
-              <div style={{ marginBottom: 24 }}>
-                <label style={{ display: 'block', fontSize: 11, color: '#8A9BBF', marginBottom: 5, textTransform: 'uppercase' }}>{content.emailLabel}</label>
-                <div style={{ position: 'relative' }}>
-                  <Mail size={14} style={{ position: 'absolute', left: 12, top: 14, color: '#8A9BBF' }} />
-                  <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder={content.emailPlaceholder} style={{...inputStyle('email'), paddingLeft: 36}} />
-                </div>
-              </div>
+        <form onSubmit={handleSubmit} style={styles.form}>
+          <label style={styles.label}>
+            {content.nameLabel}
+            <input
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder={content.namePlaceholder}
+              style={styles.input}
+              autoComplete="name"
+            />
+            {errors.name && <span style={styles.error}>{errors.name}</span>}
+          </label>
 
-              <button type="submit" disabled={isSubmitting} style={{ width: '100%', padding: '16px', background: 'linear-gradient(135deg, #00C4D4, #0099A8)', border: 'none', borderRadius: 10, color: '#0D1B3E', fontSize: 16, fontWeight: 900, cursor: isSubmitting ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
-                 {isSubmitting ? content.btnLoading : <><CreditCard size={20} /><span>{content.btnPay}</span></>}
-              </button>
+          <label style={styles.label}>
+            {content.emailLabel}
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder={content.emailPlaceholder}
+              style={styles.input}
+              autoComplete="email"
+            />
+            {errors.email && <span style={styles.error}>{errors.email}</span>}
+          </label>
 
-              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 6, marginTop: 16, color: '#8A9BBF', fontSize: 11 }}>
-                 <Lock size={12} color="#00C4D4" /> <span>{content.securityText}</span>
-              </div>
-            </div>
-          </form>
-
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>
+          <button type="submit" disabled={loading} style={styles.button}>
+            🔒 {loading ? content.processing : content.cta}
+          </button>
+        </form>
+      </div>
+    </div>
   )
+}
+
+const styles = {
+  overlay: {
+    position: "fixed",
+    inset: 0,
+    zIndex: 99999,
+    background: "rgba(6,12,24,.78)",
+    backdropFilter: "blur(8px)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 18
+  },
+  modal: {
+    width: "min(520px, 100%)",
+    background: "linear-gradient(180deg,#101d35,#07101f)",
+    border: "1px solid rgba(0,196,212,.25)",
+    borderRadius: 18,
+    padding: "34px 28px 28px",
+    color: "#fff",
+    position: "relative",
+    boxShadow: "0 24px 80px rgba(0,0,0,.42)",
+    fontFamily: "Inter, Jost, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif"
+  },
+  close: {
+    position: "absolute",
+    top: 12,
+    right: 14,
+    width: 34,
+    height: 34,
+    borderRadius: 999,
+    border: "1px solid rgba(255,255,255,.14)",
+    background: "rgba(255,255,255,.06)",
+    color: "#fff",
+    fontSize: 24,
+    lineHeight: "30px",
+    cursor: "pointer"
+  },
+  iconRow: {
+    display: "flex",
+    gap: 12,
+    justifyContent: "center",
+    marginBottom: 16
+  },
+  icon: {
+    width: 52,
+    height: 52,
+    borderRadius: 14,
+    background: "rgba(0,196,212,.13)",
+    border: "1px solid rgba(0,196,212,.22)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: 25
+  },
+  title: {
+    margin: "0 0 8px",
+    textAlign: "center",
+    fontFamily: "Georgia, serif",
+    fontSize: 30,
+    color: "#fff"
+  },
+  subtitle: {
+    margin: "0 0 22px",
+    textAlign: "center",
+    color: "#aebbd1",
+    fontSize: 14
+  },
+  productBox: {
+    background: "rgba(0,196,212,.08)",
+    border: "1px solid rgba(0,196,212,.22)",
+    borderRadius: 14,
+    padding: 16,
+    display: "flex",
+    justifyContent: "space-between",
+    gap: 14,
+    alignItems: "center",
+    marginBottom: 22
+  },
+  productTitle: {
+    color: "#fff",
+    display: "block",
+    marginBottom: 4
+  },
+  guarantee: {
+    margin: 0,
+    color: "#91a2bc",
+    fontSize: 12,
+    lineHeight: 1.45
+  },
+  price: {
+    color: "#00C4D4",
+    fontSize: 21,
+    whiteSpace: "nowrap"
+  },
+  form: {
+    display: "grid",
+    gap: 14
+  },
+  label: {
+    color: "#dce6f4",
+    fontSize: 12,
+    fontWeight: 800,
+    textTransform: "uppercase",
+    letterSpacing: ".04em"
+  },
+  input: {
+    width: "100%",
+    boxSizing: "border-box",
+    marginTop: 7,
+    background: "rgba(255,255,255,.06)",
+    border: "1px solid rgba(255,255,255,.14)",
+    borderRadius: 10,
+    color: "#fff",
+    padding: "13px 14px",
+    fontSize: 15,
+    outline: "none"
+  },
+  error: {
+    display: "block",
+    color: "#f87171",
+    marginTop: 6,
+    fontSize: 12,
+    textTransform: "none",
+    letterSpacing: 0
+  },
+  button: {
+    marginTop: 8,
+    width: "100%",
+    border: 0,
+    borderRadius: 12,
+    padding: "15px 18px",
+    background: "linear-gradient(135deg,#00C4D4,#0099A8)",
+    color: "#06101f",
+    fontSize: 16,
+    fontWeight: 950,
+    cursor: "pointer"
+  }
 }
