@@ -1,219 +1,52 @@
 "use client"
-import { motion } from 'framer-motion';
-import { Shield, Lock, FileText, Mail, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+import { Shield, Lock, FileText, Mail, ArrowRight } from 'lucide-react'
+import Link from 'next/link'
 
-const Privacy = () => {
+const S = {
+  hero: { background:'linear-gradient(135deg,#060C18,#0D1B3E)', padding:'100px 6vw', textAlign:'center' },
+  icon: { width:80,height:80,background:'rgba(0,196,212,0.15)',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 24px' },
+  h1: { fontFamily:"'Playfair Display',serif", fontSize:'clamp(32px,5vw,56px)', fontWeight:900, color:'#fff', marginBottom:12 },
+  sub: { fontSize:15, color:'#8A9BBF' },
+  body: { background:'#0A1628', padding:'80px 6vw' },
+  wrap: { maxWidth:800, margin:'0 auto', display:'flex', flexDirection:'column', gap:40 },
+  section: { background:'rgba(13,27,62,0.6)', border:'1px solid rgba(255,255,255,0.07)', borderRadius:8, padding:'32px' },
+  h2: { fontFamily:"'Playfair Display',serif", fontSize:22, fontWeight:700, color:'#fff', marginBottom:16, display:'flex', alignItems:'center', gap:10 },
+  p: { fontSize:15, color:'#B8C8E0', lineHeight:1.9, marginBottom:12 },
+  li: { fontSize:14, color:'#B8C8E0', lineHeight:2 },
+  divider: { height:1, background:'rgba(0,196,212,0.15)', margin:'0' },
+}
+
+export default function Privacidade() {
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative min-h-[30vh] grain-overlay flex items-center justify-center">
-        <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy to-cyan/10" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="w-20 h-20 bg-cyan/20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Shield size={40} className="text-cyan" />
-            </div>
-            <h1 className="font-display font-black text-4xl sm:text-5xl mb-4">
-              Política de Privacidade
-            </h1>
-            <p className="text-text-muted text-lg">
-              Última atualização: Janeiro de 2026
-            </p>
-          </motion.div>
-        </div>
+    <div>
+      <section style={S.hero}>
+        <div style={S.icon}><Shield size={36} color="#00C4D4" /></div>
+        <h1 style={S.h1}>Política de Privacidade</h1>
+        <p style={S.sub}>Última atualização: Janeiro de 2026</p>
       </section>
-
-      {/* Content */}
-      <section className="py-16 bg-navy-mid">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="prose prose-invert max-w-none space-y-8">
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="font-display font-bold text-2xl mb-4 flex items-center gap-3">
-                <FileText size={24} className="text-cyan" />
-                1. Quem Somos
-              </h2>
-              <p className="text-text-muted leading-relaxed">
-                Somos Gilberto de Souza, autor e responsável pelo site de vendas do livro "Como Vencer a Dor de Ser Trocado Por Outro".
-              </p>
-              <div className="mt-4 flex items-center gap-3 text-text-muted">
-                <Mail size={18} className="text-cyan" />
-                <span>contato@gilbertosouza.com</span>
-              </div>
-            </motion.section>
-
-            <div className="editorial-divider" />
-
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="font-display font-bold text-2xl mb-4 flex items-center gap-3">
-                <Lock size={24} className="text-cyan" />
-                2. Quais Dados Coletamos
-              </h2>
-              <p className="text-text-muted leading-relaxed mb-4">
-                Coletamos exclusivamente os dados necessários para o processamento e envio do seu pedido:
-              </p>
-              <ul className="list-disc list-inside text-text-muted space-y-2 ml-4">
-                <li>Nome completo</li>
-                <li>Endereço postal completo (rua, número, complemento, cidade, estado, CEP)</li>
-                <li>Email</li>
-                <li>Telefone</li>
-              </ul>
-            </motion.section>
-
-            <div className="editorial-divider" />
-
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="font-display font-bold text-2xl mb-4 flex items-center gap-3">
-                <Shield size={24} className="text-cyan" />
-                3. Como Usamos os Dados
-              </h2>
-              <p className="text-text-muted leading-relaxed mb-4">
-                Seus dados são utilizados exclusivamente para:
-              </p>
-              <ul className="list-disc list-inside text-text-muted space-y-2 ml-4">
-                <li>Processamento do seu pedido do livro</li>
-                <li>Envio do livro pelo Correios para o endereço informado</li>
-                <li>Comunicação sobre o status do envio</li>
-                <li>Envio do código de rastreamento</li>
-                <li>Responder a dúvidas ou solicitações que você enviar</li>
-              </ul>
-            </motion.section>
-
-            <div className="editorial-divider" />
-
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="font-display font-bold text-2xl mb-4">4. Compartilhamento com Terceiros</h2>
-              <p className="text-text-muted leading-relaxed mb-4">
-                Compartilhamos seus dados de endereço exclusivamente com:
-              </p>
-              <ul className="list-disc list-inside text-text-muted space-y-2 ml-4">
-                <li><strong className="text-white">Correios:</strong> para fins de entrega do pedido</li>
-              </ul>
-              <p className="text-text-muted leading-relaxed mt-4">
-                Não vendemos, alugamos ou compartilhamos seus dados com qualquer outra terceira parte para fins de marketing ou publicidade.
-              </p>
-            </motion.section>
-
-            <div className="editorial-divider" />
-
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="font-display font-bold text-2xl mb-4">5. Armazenamento e Segurança</h2>
-              <p className="text-text-muted leading-relaxed">
-                Adotamos medidas de segurança adequadas para proteger seus dados contra acesso não autorizado, alteração, destruição ou perda. Seus dados são armazenados de forma segura e mantidos apenas pelo tempo necessário para cumprir as finalidades descritas nesta política.
-              </p>
-            </motion.section>
-
-            <div className="editorial-divider" />
-
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="font-display font-bold text-2xl mb-4">6. Direitos do Titular (LGPD)</h2>
-              <p className="text-text-muted leading-relaxed mb-4">
-                Conforme a Lei Geral de Proteção de Dados (Lei 13.709/2018), você possui os seguintes direitos:
-              </p>
-              <ul className="list-disc list-inside text-text-muted space-y-2 ml-4">
-                <li>Acesso aos seus dados pessoais</li>
-                <li>Correção de dados incompletos ou inexatos</li>
-                <li>Exclusão de dados (quando aplicável)</li>
-                <li>Portabilidade dos dados</li>
-                <li>Oposição ao processamento</li>
-                <li>Informação sobre compartilhamento de dados</li>
-              </ul>
-              <p className="text-text-muted leading-relaxed mt-4">
-                Para exercer esses direitos, entre em contato através do email informado acima.
-              </p>
-            </motion.section>
-
-            <div className="editorial-divider" />
-
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="font-display font-bold text-2xl mb-4">7. Cookies e Analytics</h2>
-              <p className="text-text-muted leading-relaxed">
-                Este site pode utilizar cookies para melhorar a experiência do usuário e coletar informações estatísticas anônimas sobre o tráfego. Você pode gerenciar suas preferências de cookies através das configurações do seu navegador.
-              </p>
-            </motion.section>
-
-            <div className="editorial-divider" />
-
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="font-display font-bold text-2xl mb-4">8. Encarregado (DPO)</h2>
-              <p className="text-text-muted leading-relaxed">
-                Para questões relacionadas à proteção de dados pessoais, entre em contato com nosso encarregado pelo email: <strong className="text-white">contato@gilbertosouza.com</strong>
-              </p>
-            </motion.section>
-
-            <div className="editorial-divider" />
-
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="font-display font-bold text-2xl mb-4">9. Vigência</h2>
-              <p className="text-text-muted leading-relaxed">
-                Esta política está em vigor a partir de Janeiro de 2026. Reservamo-nos o direito de atualizá-la periodicamente para refletir mudanças em nossas práticas ou por exigências legais.
-              </p>
-            </motion.section>
+      <section style={S.body}>
+        <div style={S.wrap}>
+          {[
+            { icon:<FileText size={18} color="#00C4D4"/>, title:'1. Quem Somos', content: <><p style={S.p}>Somos Gilberto de Souza, autor e responsável pelo site de vendas do livro "Como Vencer a Dor de Ser Trocado Por Outro".</p><div style={{display:'flex',alignItems:'center',gap:8,color:'#8A9BBF',fontSize:14}}><Mail size={14} color="#00C4D4"/>contato@gilbertosouza.com</div></> },
+            { icon:<Lock size={18} color="#00C4D4"/>, title:'2. Quais Dados Coletamos', content: <><p style={S.p}>Coletamos exclusivamente os dados necessários para o processamento e envio do seu pedido:</p><ul style={{paddingLeft:20}}>{['Nome completo','Endereço postal completo','Email','Telefone'].map(i=><li key={i} style={S.li}>{i}</li>)}</ul></> },
+            { icon:<Shield size={18} color="#00C4D4"/>, title:'3. Como Usamos os Dados', content: <><p style={S.p}>Seus dados são utilizados exclusivamente para:</p><ul style={{paddingLeft:20}}>{['Processamento do seu pedido','Envio pelos Correios','Comunicação sobre o status do envio','Envio do código de rastreamento'].map(i=><li key={i} style={S.li}>{i}</li>)}</ul></> },
+            { icon:<Shield size={18} color="#00C4D4"/>, title:'4. Compartilhamento com Terceiros', content: <p style={S.p}>Seus dados de endereço são compartilhados exclusivamente com os Correios para fins de entrega. Não vendemos, alugamos ou compartilhamos seus dados para fins de marketing.</p> },
+            { icon:<Lock size={18} color="#00C4D4"/>, title:'5. Armazenamento e Segurança', content: <p style={S.p}>Adotamos medidas de segurança adequadas para proteger seus dados contra acesso não autorizado, alteração, destruição ou perda.</p> },
+            { icon:<FileText size={18} color="#00C4D4"/>, title:'6. Direitos do Titular (LGPD)', content: <><p style={S.p}>Conforme a Lei Geral de Proteção de Dados (Lei 13.709/2018), você possui os seguintes direitos:</p><ul style={{paddingLeft:20}}>{['Acesso aos seus dados pessoais','Correção de dados incorretos','Exclusão de dados (quando aplicável)','Portabilidade dos dados','Oposição ao processamento'].map(i=><li key={i} style={S.li}>{i}</li>)}</ul></> },
+            { icon:<Shield size={18} color="#00C4D4"/>, title:'7. Cookies', content: <p style={S.p}>Este site pode utilizar cookies para melhorar a experiência do usuário e coletar informações estatísticas anônimas sobre o tráfego.</p> },
+            { icon:<Mail size={18} color="#00C4D4"/>, title:'8. Contato', content: <p style={S.p}>Para questões relacionadas à proteção de dados: <strong style={{color:'#fff'}}>contato@gilbertosouza.com</strong></p> },
+          ].map((sec,i) => (
+            <div key={i} style={S.section}>
+              <h2 style={S.h2}>{sec.icon}{sec.title}</h2>
+              {sec.content}
+            </div>
+          ))}
+          <div style={{textAlign:'center', background:'rgba(0,196,212,0.08)', border:'1px solid rgba(0,196,212,0.2)', borderRadius:8, padding:32}}>
+            <p style={{...S.p, marginBottom:20}}>Ainda tem dúvidas? Entre em contato conosco.</p>
+            <Link href="/contato" style={{display:'inline-flex',alignItems:'center',gap:8,background:'linear-gradient(135deg,#00C4D4,#0099A8)',color:'#0D1B3E',padding:'12px 24px',borderRadius:6,fontSize:14,fontWeight:800,textDecoration:'none'}}>Fale Conosco <ArrowRight size={16}/></Link>
           </div>
-
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-12 bg-navy p-8 rounded-2xl border border-navy-light text-center"
-          >
-            <h3 className="font-display font-bold text-xl mb-4">
-              Ainda tem dúvidas?
-            </h3>
-            <p className="text-text-muted mb-6">
-              Entre em contato conosco e responderemos prontamente.
-            </p>
-            <Link href="/contato" className="btn-secondary">
-              Fale Conosco
-              <ArrowRight size={18} />
-            </Link>
-          </motion.div>
         </div>
       </section>
     </div>
-  );
-};
-
-export default Privacy;
+  )
+}

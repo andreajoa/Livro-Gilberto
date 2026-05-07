@@ -1,4 +1,3 @@
-'use client'
 import ClientWrapper from '@/app/ClientWrapper'
 import Home from '@/src/views/Home'
 

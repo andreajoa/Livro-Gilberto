@@ -1,291 +1,96 @@
 "use client"
-import { motion } from 'framer-motion';
-import { BookOpen, HeartPulse, Lightbulb, Shield, ArrowRight, Code } from 'lucide-react';
-import Link from 'next/link';
-import bookFront from '../assets/book-front.jpg';
+import { BookOpen, HeartPulse, Lightbulb, Shield, ArrowRight } from 'lucide-react'
+import Link from 'next/link'
+import bookCover from '../assets/book/capa-livro.png'
 
-const emotionalImages = [
-  { src: '/images/Whisk_d5b6832c4aa21b8b33643c09648fa516dr.png', alt: 'Coragem' },
-  { src: '/images/Whisk_dbadcbde16cc6d18f2740b4f53af60eadr.png', alt: 'Liberdade' },
-];
+const themes = [
+  { icon:HeartPulse, title:'Reconhecendo a Dor', desc:'Entender que sentir dor não é fraqueza, mas o primeiro passo para a cura.' },
+  { icon:Shield, title:'Reconstruindo a Autoestima', desc:'Técnicas práticas para resgatar seu valor pessoal após a rejeição.' },
+  { icon:Lightbulb, title:'Compreendendo o Processo', desc:'Insights sobre por que as traições acontecem e como não tomar isso como falha pessoal.' },
+  { icon:BookOpen, title:'Recuperando a Capacidade de Amar', desc:'Como abrir seu coração novamente, com mais sabedoria e menos medo.' },
+]
 
-const Book = () => {
-  const bookDetails = [
-    { label: 'Título', value: 'Como Vencer a Dor de Ser Trocado Por Outro' },
-    { label: 'Autor', value: 'Gilberto de Souza' },
-    { label: 'ISBN', value: '978-658462205-0' },
-    { label: 'Categoria', value: 'Autoajuda / Relacionamentos / Superação' },
-    { label: 'Idioma', value: 'Português' },
-    { label: 'Formato', value: 'Livro físico' },
-    { label: 'Ano', value: '2026' }
-  ];
+const details = [
+  ['Título','Como Vencer a Dor de Ser Trocado Por Outro'],
+  ['Autor','Gilberto de Souza'],
+  ['ISBN','978-658462205-0'],
+  ['Categoria','Autoajuda / Relacionamentos / Superação'],
+  ['Idioma','Português'],
+  ['Formato','Livro físico'],
+  ['Ano','2026'],
+]
 
-  const themes = [
-    {
-      icon: HeartPulse,
-      title: 'Reconhecendo a Dor',
-      description: 'Entender que sentir dor não é sinal de fraqueza, mas o primeiro passo para a cura.'
-    },
-    {
-      icon: Shield,
-      title: 'Reconstruindo a Autoestima',
-      description: 'Técnicas práticas para resgatar seu valor pessoal após a rejeição.'
-    },
-    {
-      icon: Lightbulb,
-      title: 'Compreendendo o Processo',
-      description: 'Insights sobre por que as traições acontecem e como não tomar isso como uma falha pessoal.'
-    },
-    {
-      icon: BookOpen,
-      title: 'Recuperando a Capacidade de Amar',
-      description: 'Como abrir seu coração novamente, mas desta vez com mais sabedoria e menos medo.'
-    }
-  ];
+const S = {
+  p: { fontSize:15, color:'#B8C8E0', lineHeight:1.9, marginBottom:16 },
+  h2: { fontFamily:"'Playfair Display',serif", fontSize:'clamp(26px,3vw,40px)', fontWeight:900, color:'#fff', textAlign:'center', marginBottom:12 },
+}
 
-  const BarCode = () => (
-    <svg width="200" height="60" viewBox="0 0 200 60" className="opacity-30">
-      {/* Simulated barcode pattern based on ISBN */}
-      <rect x="10" y="10" width="2" height="40" fill="white" />
-      <rect x="15" y="10" width="1" height="40" fill="white" />
-      <rect x="18" y="10" width="3" height="40" fill="white" />
-      <rect x="23" y="10" width="1" height="40" fill="white" />
-      <rect x="26" y="10" width="2" height="40" fill="white" />
-      <rect x="31" y="10" width="4" height="40" fill="white" />
-      <rect x="37" y="10" width="1" height="40" fill="white" />
-      <rect x="40" y="10" width="3" height="40" fill="white" />
-      <rect x="45" y="10" width="2" height="40" fill="white" />
-      <rect x="50" y="10" width="1" height="40" fill="white" />
-      <rect x="53" y="10" width="3" height="40" fill="white" />
-      <rect x="58" y="10" width="1" height="40" fill="white" />
-      <rect x="61" y="10" width="2" height="40" fill="white" />
-      <rect x="66" y="10" width="3" height="40" fill="white" />
-      <rect x="71" y="10" width="1" height="40" fill="white" />
-      <rect x="74" y="10" width="2" height="40" fill="white" />
-      <rect x="79" y="10" width="4" height="40" fill="white" />
-      <rect x="85" y="10" width="1" height="40" fill="white" />
-      <rect x="88" y="10" width="3" height="40" fill="white" />
-      <rect x="93" y="10" width="2" height="40" fill="white" />
-      <rect x="98" y="10" width="1" height="40" fill="white" />
-      <rect x="101" y="10" width="3" height="40" fill="white" />
-      <rect x="106" y="10" width="1" height="40" fill="white" />
-      <rect x="109" y="10" width="2" height="40" fill="white" />
-      <rect x="114" y="10" width="3" height="40" fill="white" />
-      <rect x="119" y="10" width="1" height="40" fill="white" />
-      <rect x="122" y="10" width="2" height="40" fill="white" />
-      <rect x="127" y="10" width="4" height="40" fill="white" />
-      <rect x="133" y="10" width="1" height="40" fill="white" />
-      <rect x="136" y="10" width="3" height="40" fill="white" />
-      <rect x="141" y="10" width="2" height="40" fill="white" />
-      <rect x="146" y="10" width="1" height="40" fill="white" />
-      <rect x="149" y="10" width="3" height="40" fill="white" />
-      <rect x="154" y="10" width="1" height="40" fill="white" />
-      <rect x="157" y="10" width="2" height="40" fill="white" />
-      <rect x="162" y="10" width="3" height="40" fill="white" />
-      <rect x="167" y="10" width="1" height="40" fill="white" />
-      <rect x="170" y="10" width="2" height="40" fill="white" />
-      <rect x="175" y="10" width="4" height="40" fill="white" />
-      <rect x="181" y="10" width="1" height="40" fill="white" />
-      <rect x="184" y="10" width="3" height="40" fill="white" />
-      <rect x="189" y="10" width="2" height="40" fill="white" />
-      <rect x="194" y="10" width="2" height="40" fill="white" />
-    </svg>
-  );
-
+export default function OLivro() {
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative min-h-[70vh] grain-overlay flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy to-cyan/10" />
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-cyan/5 to-transparent" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
-          <div className="text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <motion.img
-                src={bookFront}
-                alt="Capa do livro Como Vencer a Dor de Ser Trocado Por Outro"
-                className="book-image max-w-md mx-auto mb-12"
-                animate={{ y: [0, -15, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              />
-              <h1 className="font-display font-black text-4xl sm:text-5xl lg:text-6xl mb-4">
-                O Livro
-              </h1>
-              <p className="font-editorial italic text-2xl text-cyan-light mb-8">
-                Uma jornada de superação em cada página
-              </p>
-            </motion.div>
-          </div>
-        </div>
+    <div>
+      {/* HERO */}
+      <section style={{ background:'linear-gradient(135deg,#060C18,#0D1B3E)', padding:'100px 6vw', textAlign:'center' }}>
+        <img src={bookCover.src} alt="Capa do livro" style={{ width:'min(260px,60vw)', borderRadius:6, boxShadow:'0 30px 80px rgba(0,0,0,0.7)', marginBottom:40, display:'block', margin:'0 auto 40px' }}/>
+        <h1 style={{ fontFamily:"'Playfair Display',serif", fontSize:'clamp(32px,5vw,60px)', fontWeight:900, color:'#fff', marginBottom:12 }}>O Livro</h1>
+        <p style={{ fontFamily:"'Cormorant Garant',serif", fontStyle:'italic', fontSize:20, color:'#00C4D4' }}>Uma jornada de superação em cada página</p>
       </section>
 
-      {/* Book Details */}
-      <section className="py-24 bg-navy-mid">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="font-display font-bold text-3xl sm:text-4xl mb-4">
-              Ficha Editorial
-            </h2>
-            <div className="editorial-divider" />
-          </motion.div>
-
-          <div className="bg-navy p-8 rounded-2xl border border-navy-light mb-12">
-            <div className="grid md:grid-cols-2 gap-4">
-              {bookDetails.map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                  className="flex justify-between border-b border-navy-light/30 py-3 last:border-0"
-                >
-                  <span className="text-text-muted">{item.label}</span>
-                  <span className="font-semibold">{item.value}</span>
-                </motion.div>
-              ))}
+      {/* FICHA EDITORIAL */}
+      <section style={{ background:'#0A1628', padding:'80px 6vw' }}>
+        <h2 style={S.h2}>Ficha Editorial</h2>
+        <div style={{ width:48, height:2, background:'#00C4D4', margin:'0 auto 48px' }}/>
+        <div style={{ maxWidth:700, margin:'0 auto', background:'rgba(13,27,62,0.6)', border:'1px solid rgba(255,255,255,0.07)', borderRadius:8, overflow:'hidden' }}>
+          {details.map(([label,value],i) => (
+            <div key={i} style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 24px', borderBottom: i<details.length-1 ? '1px solid rgba(255,255,255,0.06)' : 'none' }}>
+              <span style={{ fontSize:13, color:'#8A9BBF' }}>{label}</span>
+              <span style={{ fontSize:14, color:'#fff', fontWeight:600, textAlign:'right', maxWidth:'60%' }}>{value}</span>
             </div>
-
-            <div className="mt-8 flex flex-col items-center">
-              <div className="isbn-badge mb-4">
-                <Code size={16} />
-                ISBN 978-658462205-0
-              </div>
-              <BarCode />
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* Synopsis */}
-      <section className="py-24 grain-overlay">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-5 gap-12">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="lg:col-span-3"
-            >
-              <h2 className="font-display font-bold text-3xl sm:text-4xl mb-8 text-center lg:text-left">
-                Sinopse
-              </h2>
-
-              <div className="bg-navy-mid p-8 md:p-12 rounded-2xl border-l-4 border-cyan">
-                <p className="text-lg leading-relaxed mb-6">
-                  Este livro é a crônica honesta e vulnerável de um homem que dedicou anos de sua vida a construir um relacionamento, só para ser trocado quando sua parceira estava em seu melhor momento. É a história de alguém que, de repente, se viu sozinho, questionando seu valor e se tudo aquilo que construiu tinha sido em vão.
-                </p>
-
-                <p className="text-lg leading-relaxed mb-6">
-                  Mas é também a história da superação. De como, aos poucos, aprendeu que sua validação não dependia de outra pessoa. De como encontrou forças para reconstruir sua autoestima e, eventualmente, voltar a acreditar no amor — mas desta vez de forma diferente, mais consciente e menos dependente.
-                </p>
-
-                <p className="text-lg leading-relaxed">
-                  Escrito de forma direta e sem enfeites, este livro não oferece fórmulas mágicas. Oferece companhia. A certeza de que você não está sozinho nessa dor, e que outros já trilharam esse caminho e encontraram a luz no fim do túnel.
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Emotional Images Side */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="lg:col-span-2 flex flex-col gap-6"
-            >
-              {emotionalImages.map((img, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.2 }}
-                  className="relative"
-                >
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    className="rounded-2xl shadow-2xl w-full"
-                  />
-                  <div className="absolute bottom-4 left-4 bg-navy/80 px-4 py-2 rounded-lg backdrop-blur-sm">
-                    <p className="text-sm text-cyan-light">{img.alt}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
+      {/* SINOPSE */}
+      <section style={{ background:'#0D1B3E', padding:'80px 6vw' }}>
+        <h2 style={S.h2}>Sinopse</h2>
+        <div style={{ width:48, height:2, background:'#00C4D4', margin:'0 auto 48px' }}/>
+        <div style={{ maxWidth:800, margin:'0 auto', borderLeft:'3px solid #00C4D4', paddingLeft:28 }}>
+          <p style={S.p}>Este livro é a crônica honesta e vulnerável de um homem que dedicou anos de sua vida a construir um relacionamento, só para ser trocado quando mais confiava. É a história de alguém que se viu sozinho, questionando seu valor e se tudo que construiu tinha sido em vão.</p>
+          <p style={S.p}>Mas é também a história da superação. De como, aos poucos, aprendeu que sua validação não dependia de outra pessoa. De como encontrou forças para reconstruir sua autoestima e voltar a acreditar no amor — mas desta vez de forma diferente.</p>
+          <p style={{...S.p, marginBottom:0}}>Escrito de forma direta e sem enfeites, este livro não oferece fórmulas mágicas. Oferece companhia. A certeza de que você não está sozinho nessa dor.</p>
         </div>
       </section>
 
-      {/* Themes */}
-      <section className="py-24 bg-navy-mid">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="font-display font-bold text-3xl sm:text-4xl mb-4">
-              O que você vai encontrar
-            </h2>
-            <div className="editorial-divider" />
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {themes.map((theme, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-navy p-6 rounded-xl border border-navy-light hover:border-cyan/30 transition-all duration-300"
+      {/* TEMAS */}
+      <section style={{ background:'#0A1628', padding:'80px 6vw' }}>
+        <h2 style={S.h2}>O que você vai encontrar</h2>
+        <div style={{ width:48, height:2, background:'#00C4D4', margin:'0 auto 48px' }}/>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(240px,1fr))', gap:24, maxWidth:1000, margin:'0 auto' }}>
+          {themes.map((t,i) => {
+            const Icon = t.icon
+            return (
+              <div key={i} style={{ background:'rgba(13,27,62,0.6)', border:'1px solid rgba(255,255,255,0.07)', borderRadius:8, padding:'24px', transition:'border-color 0.2s' }}
+                onMouseEnter={e=>e.currentTarget.style.borderColor='rgba(0,196,212,0.35)'}
+                onMouseLeave={e=>e.currentTarget.style.borderColor='rgba(255,255,255,0.07)'}
               >
-                <div className="w-12 h-12 bg-cyan/20 rounded-lg flex items-center justify-center mb-4">
-                  <theme.icon className="text-cyan" size={24} />
+                <div style={{ width:44,height:44,background:'rgba(0,196,212,0.15)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',marginBottom:16 }}>
+                  <Icon size={20} color="#00C4D4"/>
                 </div>
-                <h3 className="font-display font-bold text-xl mb-3">{theme.title}</h3>
-                <p className="text-text-muted">{theme.description}</p>
-              </motion.div>
-            ))}
-          </div>
+                <h3 style={{ fontFamily:"'Playfair Display',serif", fontSize:16, fontWeight:700, color:'#fff', marginBottom:8 }}>{t.title}</h3>
+                <p style={{ fontSize:13, color:'#8A9BBF', lineHeight:1.7, margin:0 }}>{t.desc}</p>
+              </div>
+            )
+          })}
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-24 grain-overlay">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="font-display font-bold text-3xl sm:text-4xl mb-6">
-              Comece sua jornada de superação
-            </h2>
-            <p className="text-text-muted text-lg mb-8">
-              Este livro foi escrito para você. Para que você saiba que é possível superar, que é possível reconstruir, que é possível voltar a sorrir de verdade.
-            </p>
-            <Link href="/#comprar" className="btn-primary text-lg">
-              Quero Este Livro
-              <ArrowRight size={18} />
-            </Link>
-          </motion.div>
-        </div>
+      <section style={{ background:'linear-gradient(135deg,#060C18,#0D1B3E)', padding:'80px 6vw', textAlign:'center' }}>
+        <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:'clamp(26px,3vw,42px)', fontWeight:900, color:'#fff', marginBottom:16 }}>Comece sua jornada de superação</h2>
+        <p style={{ fontSize:15, color:'#8A9BBF', marginBottom:36, maxWidth:600, margin:'0 auto 36px' }}>Este livro foi escrito para você. Peça o seu agora.</p>
+        <Link href="/#comprar" style={{ display:'inline-flex', alignItems:'center', gap:8, background:'linear-gradient(135deg,#00C4D4,#0099A8)', color:'#0D1B3E', padding:'16px 32px', borderRadius:6, fontSize:15, fontWeight:800, textDecoration:'none' }}>
+          Quero Este Livro <ArrowRight size={18}/>
+        </Link>
       </section>
     </div>
-  );
-};
-
-export default Book;
+  )
+}
