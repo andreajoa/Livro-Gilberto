@@ -141,8 +141,9 @@ function getTokenFromBrowser() {
 
   const parts = window.location.pathname.split('/').filter(Boolean)
   const token = searchParams.get('token') || parts[parts.length - 1] || ''
+  const paymentIntent = searchParams.get('payment_intent') || searchParams.get('pi') || ''
 
-  return { token, lang }
+  return { token, lang, paymentIntent }
 }
 
 function AudioRow({ chapter, index, lang, t }) {
@@ -222,7 +223,7 @@ function AudioRow({ chapter, index, lang, t }) {
 }
 
 export default function AcessoDigital() {
-  const [{ token, initialLang }, setTokenInfo] = useState({ token: '', initialLang: 'pt' })
+  const [{ token, initialLang, paymentIntent }, setTokenInfo] = useState({ token: '', initialLang: 'pt', paymentIntent: '' })
   const [order, setOrder] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -230,7 +231,7 @@ export default function AcessoDigital() {
 
   useEffect(() => {
     const info = getTokenFromBrowser()
-    setTokenInfo({ token: info.token, initialLang: info.lang })
+    setTokenInfo({ token: info.token, initialLang: info.lang, paymentIntent: info.paymentIntent })
   }, [])
 
   useEffect(() => {
@@ -243,7 +244,10 @@ export default function AcessoDigital() {
         setLoading(true)
         setError('')
 
-        const response = await fetch(`/api/digital-access?token=${encodeURIComponent(token)}`, {
+        const query = new URLSearchParams({ token })
+        if (paymentIntent) query.set('payment_intent', paymentIntent)
+
+        const response = await fetch(`/api/digital-access?${query.toString()}`, {
           cache: 'no-store'
         })
 
@@ -268,7 +272,7 @@ export default function AcessoDigital() {
     return () => {
       active = false
     }
-  }, [token])
+  }, [token, paymentIntent])
 
   const lang = normalizeLang(order?.lang || order?.language || initialLang)
   const t = COPY[lang]

@@ -21,7 +21,7 @@ function PayForm({ total, lang, accessToken, orderData }) {
     const { error: stripeError } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/acesso/${accessToken}?lang=${lang}&name=${encodeURIComponent(orderData.name)}&email=${encodeURIComponent(orderData.email)}`,
+        return_url: `${window.location.origin}/acesso/${accessToken}?lang=${lang}`,
       },
     })
     if (stripeError) { setError(stripeError.message); setLoading(false) }

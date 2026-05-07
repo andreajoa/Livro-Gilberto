@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server'
-import fs from 'fs/promises'
-import path from 'path'
+import Stripe from 'stripe'
 
 export const dynamic = 'force-dynamic'
 
-const DIGITAL_FILE = path.join(process.cwd(), 'data', 'digital-orders.json')
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 const CHAPTER_TITLES = {
   pt: [
@@ -74,11 +73,7 @@ function getAdminLangFromToken(token) {
 function encodeObjectKey(key) {
   return key
     .split('/')
-    .map((part) =>
-      encodeURIComponent(part)
-        .replace(/\(/g, '%28')
-        .replace(/\)/g, '%29')
-    )
+    .map((part) => encodeURIComponent(part).replace(/\(/g, '%28').replace(/\)/g, '%29'))
     .join('/')
 }
 
@@ -129,6 +124,28 @@ function getFilesForLang(lang) {
   }
 }
 
+function buildOrderFromPaymentIntent(paymentIntent, token) {
+  const meta = paymentIntent.metadata || {}
+  const lang = normalizeLang(meta.lang)
+
+  return {
+    id: `DIG-${paymentIntent.id}`,
+    type: 'digital',
+    status: paymentIntent.status === 'succeeded' ? 'paid' : paymentIntent.status,
+    accessToken: token,
+    stripePaymentIntentId: paymentIntent.id,
+    customer: {
+      name: meta.customer_name || 'Cliente',
+      email: paymentIntent.receipt_email || ''
+    },
+    name: meta.customer_name || 'Cliente',
+    email: paymentIntent.receipt_email || '',
+    lang,
+    files: getFilesForLang(lang),
+    createdAt: new Date((paymentIntent.created || Date.now() / 1000) * 1000).toISOString()
+  }
+}
+
 function buildAdminOrder(token, lang) {
   return {
     id: `admin-preview-${lang}`,
@@ -152,13 +169,11 @@ function buildAdminOrder(token, lang) {
 export async function GET(request) {
   const { searchParams } = new URL(request.url)
   const token = searchParams.get('token')
+  const paymentIntentId = searchParams.get('payment_intent') || searchParams.get('pi')
   const langFromUrl = normalizeLang(searchParams.get('lang'))
 
   if (!token) {
-    return NextResponse.json(
-      { success: false, error: 'Token missing' },
-      { status: 400 }
-    )
+    return NextResponse.json({ success: false, error: 'Token missing' }, { status: 400 })
   }
 
   const adminLang = getAdminLangFromToken(token)
@@ -169,28 +184,33 @@ export async function GET(request) {
     })
   }
 
-  try {
-    const data = JSON.parse(await fs.readFile(DIGITAL_FILE, 'utf8'))
-    const order = data.orders.find((o) => o.accessToken === token)
+  if (!paymentIntentId) {
+    return NextResponse.json(
+      { success: false, error: 'Payment intent missing' },
+      { status: 404 }
+    )
+  }
 
-    if (!order) {
+  try {
+    const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId)
+    const meta = paymentIntent.metadata || {}
+
+    const tokenMatches = meta.access_token === token
+    const isDigital = String(meta.product || '').includes('Digital')
+    const isPaid = paymentIntent.status === 'succeeded'
+
+    if (!tokenMatches || !isDigital || !isPaid) {
       return NextResponse.json(
-        { success: false, error: 'Not found' },
-        { status: 404 }
+        { success: false, error: 'Access denied' },
+        { status: 403 }
       )
     }
 
-    const lang = normalizeLang(order.lang || order.language)
-
     return NextResponse.json({
       success: true,
-      order: {
-        ...order,
-        lang,
-        files: getFilesForLang(lang)
-      }
+      order: buildOrderFromPaymentIntent(paymentIntent, token)
     })
-  } catch {
+  } catch (error) {
     return NextResponse.json(
       { success: false, error: 'Not found' },
       { status: 404 }
