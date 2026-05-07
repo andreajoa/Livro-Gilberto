@@ -71,24 +71,54 @@ function getAdminLangFromToken(token) {
   return null
 }
 
+function encodeObjectKey(key) {
+  return key
+    .split('/')
+    .map((part) =>
+      encodeURIComponent(part)
+        .replace(/\(/g, '%28')
+        .replace(/\)/g, '%29')
+    )
+    .join('/')
+}
+
+function getAudioFileName(index) {
+  if (index === 0) return '00 download.wav'
+  return `download (${index}).wav`
+}
+
 function getFilesForLang(lang) {
   const upper = lang.toUpperCase()
+
+  const baseUrl = (
+    process.env.R2_BASE_URL ||
+    process.env.NEXT_PUBLIC_R2_BASE_URL ||
+    ''
+  ).replace(/\/$/, '')
+
+  const folder = process.env[`AUDIO_${upper}_FOLDER`] || upper
+  const count = Number(process.env[`AUDIO_${upper}_COUNT`] || 0)
+
   const ebookUrl =
     process.env[`EBOOK_${upper}_URL`] ||
     process.env[`NEXT_PUBLIC_EBOOK_${upper}_URL`] ||
     ''
 
-  const audiobook = Array.from({ length: 30 }, (_, index) => {
-    const number = String(index + 1).padStart(2, '0')
-    const url = process.env[`AUDIO_${upper}_${number}`] || ''
-    if (!url) return null
+  const audiobook = baseUrl && count > 0
+    ? Array.from({ length: count }, (_, index) => {
+        const filename = getAudioFileName(index)
+        const objectKey = `${folder}/${filename}`
+        const chapterNumber = index + 1
 
-    return {
-      title: CHAPTER_TITLES[lang]?.[index] || `${lang === 'en' ? 'Chapter' : 'Capítulo'} ${index + 1}`,
-      url,
-      filename: `audiobook-${lang}-${number}.mp3`
-    }
-  }).filter(Boolean)
+        return {
+          title:
+            CHAPTER_TITLES[lang]?.[index] ||
+            `${lang === 'en' ? 'Chapter' : 'Capítulo'} ${chapterNumber}`,
+          url: `${baseUrl}/${encodeObjectKey(objectKey)}`,
+          filename
+        }
+      })
+    : []
 
   return {
     ebook: {
@@ -150,7 +180,16 @@ export async function GET(request) {
       )
     }
 
-    return NextResponse.json({ success: true, order })
+    const lang = normalizeLang(order.lang || order.language)
+
+    return NextResponse.json({
+      success: true,
+      order: {
+        ...order,
+        lang,
+        files: getFilesForLang(lang)
+      }
+    })
   } catch {
     return NextResponse.json(
       { success: false, error: 'Not found' },
