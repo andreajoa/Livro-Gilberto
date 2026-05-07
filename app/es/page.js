@@ -1,4 +1,6 @@
-"use client"
-import HomeES from '@/src/pages/HomeES'
-export default function PageES() { return <HomeES /> }
+'use client'
 export const dynamic = 'force-dynamic'
+import noSSR from 'next/dynamic'
+import ClientWrapper from '@/app/ClientWrapper'
+const HomeES = noSSR(() => import('@/src/views/HomeES'), { ssr: false })
+export default function Page() { return <ClientWrapper><HomeES /></ClientWrapper> }

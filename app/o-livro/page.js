@@ -1,8 +1,6 @@
-"use client"
-import Component from '@/src/pages/OLivro'
-import Navbar from '@/src/components/Navbar'
-import Footer from '@/src/components/Footer'
-export default function Page() {
-  return (<div style={{minHeight:'100vh',display:'flex',flexDirection:'column'}}><Navbar/><div style={{flex:'1'}}><Component/></div><Footer/></div>)
-}
+'use client'
 export const dynamic = 'force-dynamic'
+import noSSR from 'next/dynamic'
+import ClientWrapper from '@/app/ClientWrapper'
+const OLivro = noSSR(() => import('@/src/views/OLivro'), { ssr: false })
+export default function Page() { return <ClientWrapper><OLivro /></ClientWrapper> }

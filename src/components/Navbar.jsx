@@ -15,12 +15,12 @@ const LANGUAGES = [
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = usePathname();
+  const pathname = usePathname() ?? "";
   const router = useRouter();
-  const isHome = location.pathname === '/';
+  const isHome = pathname === '/';
 
-  const currentLang = location.pathname.startsWith('/en') ? 'en'
-    : location.pathname.startsWith('/es') ? 'es'
+  const currentLang = pathname.startsWith('/en') ? 'en'
+    : pathname.startsWith('/es') ? 'es'
     : 'pt'
 
   useEffect(() => {
@@ -69,11 +69,11 @@ const Navbar = () => {
                 href={link.to}
                 onClick={() => handleNavClick(link.to, link.scroll)}
                 className={`font-body text-sm tracking-wide transition-colors relative ${
-                  location.pathname === link.to ? 'text-cyan' : 'text-white hover:text-cyan'
+                  pathname === link.to ? 'text-cyan' : 'text-white hover:text-cyan'
                 }`}
               >
                 {link.name}
-                {location.pathname === link.to && (
+                {pathname === link.to && (
                   <motion.div
                     layoutId="underline"
                     className="absolute bottom-[-4px] left-0 right-0 h-0.5 bg-cyan"
