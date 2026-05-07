@@ -1,6 +1,10 @@
 'use client'
-export const dynamic = 'force-dynamic'
-import noSSR from 'next/dynamic'
+import dynamic from 'next/dynamic'
 import ClientWrapper from '@/app/ClientWrapper'
-const HomeEN = noSSR(() => import('@/src/views/HomeEN'), { ssr: false })
-export default function Page() { return <ClientWrapper><HomeEN /></ClientWrapper> }
+
+const HomeEN = dynamic(() => import('@/src/views/HomeEN'), { ssr: false })
+const AIChatbotEN = dynamic(() => import('@/src/components/AIChatbotEN'), { ssr: false })
+
+export default function PageEN() {
+  return <ClientWrapper><HomeEN /><AIChatbotEN /></ClientWrapper>
+}

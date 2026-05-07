@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { Shield, CheckCircle, Star, ChevronDown, ArrowRight, Menu, X as XIcon } from 'lucide-react';
 import { useLead } from '../context/LeadContext';
+import { useCart } from '../context/CartContext';
 import useIsMobile from '../hooks/useIsMobile';
 import LeadPopupEN from '../components/LeadPopupEN';
 import AbandonedPopupEN from '../components/AbandonedPopupEN';
@@ -45,7 +46,7 @@ export default function HomeEN() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { markCartAbandoned } = useLead();
-  const { setCartOpen } = require("../context/CartContext").useCart();
+  const { setCartOpen } = useCart();
   const router = useRouter();
   const isMobile = useIsMobile();
 

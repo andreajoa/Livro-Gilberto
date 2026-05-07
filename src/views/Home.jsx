@@ -1,10 +1,10 @@
 "use client"
-import { motion, AnimatePresence } from 'framer-motion';
+const motion = { div: 'div', img: 'img' };
 import { useState } from 'react';
 import Link from 'next/link'
 import { ArrowRight, Package, RotateCcw, Shield } from 'lucide-react';
-import AddToCartButton from '../components/AddToCartButton';
-import ShippingCalculator from '../components/ShippingCalculator';
+// import AddToCartButton from '../components/AddToCartButton';
+// import ShippingCalculator from '../components/ShippingCalculator';
 
 import bannerAutor     from '../assets/banners/banner-autor-wide.png';
 import bannerCTA       from '../assets/banners/banner-autor-cta.png';
@@ -49,10 +49,10 @@ export default function Home() {
         <div style={{ position:'absolute', inset:0, background:'linear-gradient(to top, rgba(6,12,24,0.9) 0%, transparent 40%)' }} />
 
         <div style={{ position:'relative', zIndex:3, padding:'0 6vw', maxWidth:'100%' }}>
-          <motion.div
-            initial={{ opacity:0, y:40 }}
-            animate={{ opacity:1, y:0 }}
-            transition={{ duration:1, ease:'easeOut' }}
+          <div
+           
+           
+           
             style={{ maxWidth:640 }}
           >
             {/* Hook — frase de parada */}
@@ -102,7 +102,7 @@ export default function Home() {
 
             {/* CTAs */}
             <div style={{ display:'flex', flexWrap:'wrap', gap:14 }}>
-              <AddToCartButton label="Quero Este Livro — R$ 119" />
+              <div style={{padding:'16px',background:'#123',color:'#fff'}}>BOTAO TEMP</div>
               <a href="#historia" style={{
                 border:'1px solid rgba(255,255,255,0.2)',
                 color:'#fff',
@@ -117,18 +117,18 @@ export default function Home() {
                 Ver a história ↓
               </a>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Scroll indicator */}
-        <motion.div
-          animate={{ y:[0,10,0] }}
-          transition={{ duration:2, repeat:Infinity }}
+        <div
+         
+         
           style={{ position:'absolute', bottom:32, left:'50%', transform:'translateX(-50%)', zIndex:3, display:'flex', flexDirection:'column', alignItems:'center', gap:6 }}
         >
           <span style={{ fontSize:10, color:'rgba(255,255,255,0.3)', letterSpacing:3, textTransform:'uppercase' }}>scroll</span>
           <div style={{ width:1, height:40, background:'linear-gradient(to bottom, rgba(0,196,212,0.6), transparent)' }} />
-        </motion.div>
+        </div>
       </section>
 
       {/* ════════════════════════════════════════
@@ -139,8 +139,8 @@ export default function Home() {
         <div style={{ position:'absolute', inset:0, backgroundImage:`url(${livroWhiskey})`, backgroundSize:'cover', backgroundPosition:'center', filter:'brightness(0.3) saturate(0.6)' }} />
         <div style={{ position:'absolute', inset:0, background:'linear-gradient(180deg, rgba(6,12,24,0.7) 0%, rgba(6,12,24,0.5) 50%, rgba(6,12,24,0.95) 100%)' }} />
 
-        <motion.div
-          initial={{ opacity:0 }} whileInView={{ opacity:1 }} transition={{ duration:1.2 }} viewport={{ once:true }}
+        <div
+         
           style={{ position:'relative', zIndex:2, maxWidth:860, margin:'0 auto', textAlign:'center' }}
         >
           <h2 style={{
@@ -175,11 +175,11 @@ export default function Home() {
               { icon:'😔', title:'O medo do recomeço', text:'Vai conseguir amar de novo? Vai conseguir confiar?' },
               { icon:'🪞', title:'A dúvida sobre seu valor', text:'O que ele tem que você não tem? Essa pergunta corrói tudo.' },
             ].map((c,i) => (
-              <motion.div key={i}
-                initial={{ opacity:0, y:24 }}
-                whileInView={{ opacity:1, y:0 }}
-                transition={{ delay:i*0.1, duration:0.6 }}
-                viewport={{ once:true }}
+              <div key={i}
+               
+               
+               
+               
                 style={{
                   background:'rgba(13,27,62,0.7)',
                   backdropFilter:'blur(12px)',
@@ -194,21 +194,21 @@ export default function Home() {
                 <span style={{ fontSize:32, display:'block', marginBottom:16 }}>{c.icon}</span>
                 <h3 style={{ fontFamily:"'Playfair Display', serif", fontSize:16, color:'#fff', marginBottom:10, fontWeight:700 }}>{c.title}</h3>
                 <p style={{ fontSize:13, color:'#8A9BBF', lineHeight:1.7, margin:0 }}>{c.text}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* ════════════════════════════════════════
           O LIVRO — mão segurando + info editorial
       ════════════════════════════════════════ */}
       <section style={{ background:'#0A1628', padding:'100px 6vw' }}>
-        <motion.div
-          initial={{ opacity:0, y:50 }}
-          whileInView={{ opacity:1, y:0 }}
-          transition={{ duration:0.9 }}
-          viewport={{ once:true }}
+        <div
+         
+         
+         
+         
           style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(300px,1fr))', gap:72, alignItems:'center', maxWidth:1100, margin:'0 auto' }}
         >
           {/* Info editorial — esquerda */}
@@ -238,16 +238,16 @@ export default function Home() {
               "A história de um homem que dedicou anos a uma mulher — e foi trocado no seu melhor momento. Entre a dor da rejeição e o medo de nunca amar de novo, ele descobre que a maior traição seria abandonar a si mesmo."
             </blockquote>
 
-            <AddToCartButton label="Quero Este Livro — R$ 119" />
+            <div style={{padding:'16px',background:'#123',color:'#fff'}}>BOTAO TEMP</div>
           </div>
 
           {/* Livro na mão — direita */}
           <div style={{ display:'flex', justifyContent:'center', alignItems:'center' }}>
-            <motion.img
+            <img
               src={livroMao.src}
               alt="Livro Como Vencer a Dor de Ser Trocado Por Outro"
-              animate={{ y:[0,-12,0] }}
-              transition={{ duration:4.5, repeat:Infinity, ease:'easeInOut' }}
+             
+             
               style={{
                 width:'min(400px,100%)',
                 display:'block',
@@ -255,22 +255,22 @@ export default function Home() {
               }}
             />
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* ════════════════════════════════════════
           BANNER TRANSFORMAÇÃO — tela cheia
       ════════════════════════════════════════ */}
       <section style={{ position:'relative', height:'min(650px,75vh)', overflow:'hidden', display:'flex', alignItems:'center', justifyContent:'center' }}>
-        <motion.img src={bannerTransform.src} alt="Da dor à transformação"
-          initial={{ scale:1.06 }} whileInView={{ scale:1 }}
-          transition={{ duration:1.4, ease:'easeOut' }} viewport={{ once:true }}
+        <img src={bannerTransform.src} alt="Da dor à transformação"
+         
+         
           style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center 30%' }} />
         <div style={{ position:'absolute', inset:0, background:'rgba(6,12,24,0.55)' }} />
 
-        <motion.div
-          initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }}
-          transition={{ duration:0.9 }} viewport={{ once:true }}
+        <div
+         
+         
           style={{ position:'relative', zIndex:2, textAlign:'left', padding:'0 6vw', marginLeft:'45%' }}
         >
           <p style={{ fontSize:11, letterSpacing:5, color:'#00C4D4', fontWeight:700, textTransform:'uppercase', marginBottom:20 }}>A jornada que este livro conta</p>
@@ -285,16 +285,16 @@ export default function Home() {
             De Joelhos Hoje.<br />
             <span style={{ color:'#00C4D4' }}>De Pé Amanhã.</span>
           </h2>
-        </motion.div>
+        </div>
       </section>
 
       {/* ════════════════════════════════════════
           SOBRE O AUTOR — foto + story
       ════════════════════════════════════════ */}
       <section style={{ background:'#0D1B3E', padding:'100px 6vw' }}>
-        <motion.div
-          initial={{ opacity:0, y:40 }} whileInView={{ opacity:1, y:0 }}
-          transition={{ duration:0.9 }} viewport={{ once:true }}
+        <div
+         
+         
           style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(300px,1fr))', gap:72, alignItems:'center', maxWidth:1100, margin:'0 auto' }}
         >
           <div style={{ position:'relative' }}>
@@ -340,16 +340,16 @@ export default function Home() {
               Conheça a história completa <ArrowRight size={16} />
             </Link>
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* ════════════════════════════════════════
           ENTREGA — livro janela cidade + info
       ════════════════════════════════════════ */}
       <section style={{ background:'#F5F0E8', padding:'100px 6vw' }}>
-        <motion.div
-          initial={{ opacity:0, y:40 }} whileInView={{ opacity:1, y:0 }}
-          transition={{ duration:0.8 }} viewport={{ once:true }}
+        <div
+         
+         
           style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(300px,1fr))', gap:72, alignItems:'center', maxWidth:1100, margin:'0 auto' }}
         >
           <img src={livroPresente.src} alt="Livro embalado com cuidado"
@@ -378,7 +378,7 @@ export default function Home() {
               ))}
             </div>
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* ════════════════════════════════════════
@@ -387,9 +387,9 @@ export default function Home() {
       <section id="comprar" style={{ background:'linear-gradient(180deg, #060C18 0%, #0D1B3E 100%)', padding:'100px 6vw' }}>
         <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(300px,1fr))', gap:72, alignItems:'center', maxWidth:1100, margin:'0 auto' }}>
 
-          <motion.div
-            initial={{ opacity:0 }} whileInView={{ opacity:1 }}
-            transition={{ duration:1.4 }} viewport={{ once:true }}
+          <div
+           
+           
             style={{ display:'flex', flexDirection:'column', alignItems:'flex-start', gap:16 }}
           >
             <img src={imagemReceba.src} alt="Livro - receba em casa"
@@ -400,7 +400,7 @@ export default function Home() {
                 <rect key={i} x={x} y="0" width={i%4===0?3:1} height="28" fill="#00C4D4" opacity="0.4" />
               ))}
             </svg>
-          </motion.div>
+          </div>
 
           <div>
             <span style={{ fontSize:10, letterSpacing:5, color:'#00C4D4', fontWeight:700, textTransform:'uppercase', display:'block', marginBottom:20 }}>Receba em Casa</span>
@@ -416,10 +416,10 @@ export default function Home() {
             </div>
             <span style={{ fontSize:13, color:'#8A9BBF', display:'block', marginBottom:28 }}>+ frete calculado pelo CEP</span>
 
-            <ShippingCalculator />
+            <div style={{padding:'16px',background:'#234',color:'#fff'}}>FRETE TEMP</div>
 
             <div style={{ marginTop:28 }}>
-              <AddToCartButton label="Adicionar ao Carrinho" />
+              <div style={{padding:'16px',background:'#123',color:'#fff'}}>BOTAO TEMP</div>
             </div>
 
             <div style={{ marginTop:20, padding:'18px 20px', background:'rgba(255,255,255,0.03)', border:'1px solid rgba(255,255,255,0.07)', borderRadius:4 }}>
@@ -446,9 +446,9 @@ export default function Home() {
           FAQ
       ════════════════════════════════════════ */}
       <section style={{ background:'#0A1628', padding:'90px 6vw' }}>
-        <motion.div
-          initial={{ opacity:0 }} whileInView={{ opacity:1 }}
-          transition={{ duration:0.7 }} viewport={{ once:true }}
+        <div
+         
+         
           style={{ maxWidth:780, margin:'0 auto' }}
         >
           <h2 style={{ fontFamily:"'Playfair Display', serif", fontSize:'clamp(28px,3vw,44px)', color:'#fff', textAlign:'center', marginBottom:12, fontWeight:900 }}>
@@ -464,23 +464,23 @@ export default function Home() {
                   {item.q}
                   <span style={{ color:'#00C4D4', fontSize:24, transition:'transform 0.3s', transform:openFaq===i?'rotate(45deg)':'none', flexShrink:0 }}>+</span>
                 </button>
-                <AnimatePresence>
+                
                   {openFaq===i && (
-                    <motion.div
-                      initial={{ height:0, opacity:0 }}
-                      animate={{ height:'auto', opacity:1 }}
+                    <div
+                     
+                     
                       exit={{ height:0, opacity:0 }}
-                      transition={{ duration:0.3 }}
+                     
                       style={{ overflow:'hidden' }}
                     >
                       <div style={{ padding:'0 24px 20px', fontSize:14, color:'#8A9BBF', lineHeight:1.8 }}>{item.a}</div>
-                    </motion.div>
+                    </div>
                   )}
-                </AnimatePresence>
+                
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* ════════════════════════════════════════
