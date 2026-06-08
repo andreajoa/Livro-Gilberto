@@ -1,287 +1,466 @@
+"use client";
+
 import Image from "next/image";
-import {
-  ArrowUpRight,
-  BookOpen,
-  Headphones,
-  Globe2,
-  ShoppingBag,
-  Sparkles,
-  Star,
-} from "lucide-react";
+import { ArrowUpRight, BookOpen, Globe2, Headphones, ShoppingBag, Star } from "lucide-react";
 
-import bookCover from "@/src/assets/book-front.jpg";
-import authorPhoto from "@/src/assets/author/gilberto-perfil.jpeg";
-
-export const metadata = {
-  title: "Gilberto Souza | Official Book Links",
-  description:
-    "Official links to Gilberto Souza's book. Available in English, Spanish and Portuguese. Ebook, Audiobook and Paperback.",
-};
+import authorPhoto from "@/src/assets/en/author.png";
+import bookCover from "@/src/assets/en/ebook-bg.jpeg";
 
 const digitalLinks = [
-  {
-    label: "Read the Book + Audiobook",
-    detail: "English edition • Instant access",
-    href: "https://www.gilberto-souza.com/en",
-    icon: "🌐",
-    featured: true,
-  },
-  {
-    label: "Leer Libro + Audiolibro",
-    detail: "Spanish edition • Acceso inmediato",
-    href: "https://www.gilberto-souza.com/es",
-    icon: "🌎",
-  },
-  {
-    label: "Ler Livro + Audiobook",
-    detail: "Portuguese edition • Acesso imediato",
-    href: "https://www.gilberto-souza.com",
-    icon: "🇧🇷",
-  },
+  ["🌐", "Read Book + Audiobook", "English edition • Instant access", "https://www.gilberto-souza.com/en"],
+  ["🌎", "Leer Libro + Audiolibro", "Spanish edition • Instant access", "https://www.gilberto-souza.com/es"],
+  ["🇧🇷", "Ler Livro + Audiobook", "Portuguese edition • Instant access", "https://www.gilberto-souza.com"],
 ];
 
 const amazonLinks = [
-  {
-    label: "Amazon",
-    detail: "English paperback",
-    href: "https://www.amazon.com/dp/B0H2LXHCH4",
-    flag: "🇺🇸",
-  },
-  {
-    label: "Amazon",
-    detail: "Spanish paperback",
-    href: "https://www.amazon.com/dp/B0H2LHZT7X",
-    flag: "🇪🇸",
-  },
-  {
-    label: "Amazon",
-    detail: "Portuguese paperback",
-    href: "https://www.amazon.com/dp/B0H2LM4TXH",
-    flag: "🇧🇷",
-  },
+  ["🇺🇸", "Amazon", "English paperback", "https://www.amazon.com/dp/B0H2LXHCH4"],
+  ["🇪🇸", "Amazon", "Spanish paperback", "https://www.amazon.com/dp/B0H2LHZT7X"],
+  ["🇧🇷", "Amazon", "Portuguese paperback", "https://www.amazon.com/dp/B0H2LM4TXH"],
 ];
 
 const barnesLinks = [
-  {
-    label: "Barnes & Noble",
-    detail: "English edition",
-    href: "https://www.barnesandnoble.com/w/how-to-overcome-the-pain-of-being-replaced-by-someone-else-gilberto-de-souza/1150279536?ean=9798256373504",
-    flag: "🇺🇸",
-  },
-  {
-    label: "Barnes & Noble",
-    detail: "Spanish edition",
-    href: "https://www.barnesandnoble.com/w/como-vencer-el-dolor-de-ser-reemplazado-por-otro-gilberto-de-souza/1150279538?ean=9786584622050",
-    flag: "🇪🇸",
-  },
-  {
-    label: "Barnes & Noble",
-    detail: "Portuguese edition",
-    href: "https://www.barnesandnoble.com/w/como-vencer-a-dor-de-ser-trocado-por-outro-gilberto-de-souza/1150279850?ean=9798256373542",
-    flag: "🇧🇷",
-  },
+  ["🇺🇸", "Barnes & Noble", "English edition", "https://www.barnesandnoble.com/w/how-to-overcome-the-pain-of-being-replaced-by-someone-else-gilberto-de-souza/1150279536?ean=9798256373504"],
+  ["🇪🇸", "Barnes & Noble", "Spanish edition", "https://www.barnesandnoble.com/w/como-vencer-el-dolor-de-ser-reemplazado-por-otro-gilberto-de-souza/1150279538?ean=9786584622050"],
+  ["🇧🇷", "Barnes & Noble", "Portuguese edition", "https://www.barnesandnoble.com/w/como-vencer-a-dor-de-ser-trocado-por-outro-gilberto-de-souza/1150279850?ean=9798256373542"],
 ];
 
-function MainButton({ item }) {
+function LinkButton({ item, small = false }) {
   return (
-    <a
-      href={item.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`group flex items-center gap-4 rounded-3xl border bg-white/85 px-5 py-5 shadow-[0_18px_50px_rgba(13,42,85,0.10)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-sky-300 hover:bg-white hover:shadow-[0_22px_70px_rgba(14,165,233,0.22)] ${
-        item.featured ? "border-sky-300 ring-1 ring-sky-100" : "border-slate-200"
-      }`}
-    >
-      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-50 text-3xl ring-1 ring-sky-100">
-        {item.icon}
-      </div>
-
-      <div className="min-w-0 flex-1">
-        <p className="text-lg font-semibold tracking-tight text-slate-950">
-          {item.label}
-        </p>
-        <p className="mt-1 text-xs font-bold uppercase tracking-[0.22em] text-sky-600">
-          {item.detail}
-        </p>
-      </div>
-
-      <ArrowUpRight className="h-6 w-6 text-sky-500 transition group-hover:translate-x-1 group-hover:-translate-y-1" />
-    </a>
-  );
-}
-
-function RetailButton({ item }) {
-  return (
-    <a
-      href={item.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group flex items-center gap-4 rounded-3xl border border-slate-200 bg-white/85 px-5 py-5 shadow-[0_14px_40px_rgba(13,42,85,0.08)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-sky-300 hover:bg-white hover:shadow-[0_18px_55px_rgba(14,165,233,0.18)]"
-    >
-      <div className="text-4xl">{item.flag}</div>
-      <div className="flex-1">
-        <p className="text-lg font-bold text-slate-950">{item.label}</p>
-        <p className="text-sm text-slate-600">{item.detail}</p>
-      </div>
-      <ArrowUpRight className="h-5 w-5 text-sky-500 transition group-hover:translate-x-1 group-hover:-translate-y-1" />
+    <a className={small ? "retailCard" : "mainButton"} href={item[3]} target="_blank" rel="noopener noreferrer">
+      <span className="icon">{item[0]}</span>
+      <span className="linkText">
+        <strong>{item[1]}</strong>
+        <small>{item[2]}</small>
+      </span>
+      <ArrowUpRight className="arrow" />
     </a>
   );
 }
 
 function SectionTitle({ children }) {
   return (
-    <div className="my-10 flex items-center gap-5">
-      <div className="h-px flex-1 bg-gradient-to-r from-transparent via-sky-200 to-sky-200" />
-      <h2 className="text-center text-xs font-black uppercase tracking-[0.34em] text-slate-900">
-        {children}
-      </h2>
-      <div className="h-px flex-1 bg-gradient-to-l from-transparent via-sky-200 to-sky-200" />
+    <div className="sectionTitle">
+      <span />
+      <h2>{children}</h2>
+      <span />
     </div>
   );
 }
 
 export default function LinksPage() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#f7fbff] text-slate-950">
-      <div className="pointer-events-none fixed inset-0">
-        <div className="absolute left-[-18%] top-[-10%] h-[520px] w-[520px] rounded-full bg-sky-200/45 blur-3xl" />
-        <div className="absolute right-[-14%] top-[8%] h-[480px] w-[480px] rounded-full bg-cyan-100/70 blur-3xl" />
-        <div className="absolute bottom-[-20%] left-[20%] h-[420px] w-[420px] rounded-full bg-blue-100/70 blur-3xl" />
-      </div>
+    <main className="linksPage">
+      <section className="hero">
+        <div className="authorWrap">
+          <Image src={authorPhoto} alt="Gilberto Souza" className="authorImg" priority />
+        </div>
 
-      <section className="relative mx-auto max-w-6xl px-5 pb-16 pt-10 sm:px-8 lg:pt-16">
-        <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.05fr_0.9fr]">
-          <div className="order-2 flex justify-center lg:order-1 lg:justify-start">
-            <div className="relative h-[330px] w-[250px] sm:h-[390px] sm:w-[295px]">
-              <div className="absolute inset-0 rounded-[2rem] bg-sky-300/30 blur-3xl" />
-              <Image
-                src={authorPhoto}
-                alt="Gilberto Souza"
-                fill
-                priority
-                className="rounded-[2rem] object-cover object-top shadow-[0_30px_90px_rgba(15,23,42,0.20)]"
-              />
-            </div>
-          </div>
+        <div className="heroText">
+          <p className="name">Gilberto Souza</p>
+          <p className="role">Author</p>
 
-          <div className="order-1 text-center lg:order-2">
-            <p className="text-sm font-black uppercase tracking-[0.55em] text-slate-900">
-              Gilberto Souza
-            </p>
-            <p className="mt-3 text-xs font-bold uppercase tracking-[0.34em] text-sky-600">
-              Author
-            </p>
+          <h1>
+            She chose <br />
+            someone else. <br />
+            <span>I wrote about what happened next.</span>
+          </h1>
 
-            <div className="mx-auto mt-5 h-px w-16 bg-sky-400" />
+          <p className="subtitle">
+            A book for the man who was replaced, betrayed, rejected — and is ready to get back up.
+          </p>
 
-            <h1 className="mt-8 font-serif text-5xl leading-[0.98] tracking-tight text-slate-950 sm:text-6xl">
-              She chose
-              <br />
-              someone else.
-              <br />
-              <span className="text-sky-500">
-                I wrote about
-                <br />
-                what happened next.
-              </span>
-            </h1>
-
-            <p className="mx-auto mt-7 max-w-xl text-lg leading-8 text-slate-650">
-              A book for the man who was replaced, rejected, betrayed — and is
-              ready to get back up.
-            </p>
-
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-5 text-xs font-bold uppercase tracking-[0.18em] text-slate-700">
-              <span className="inline-flex items-center gap-2">
-                <BookOpen className="h-5 w-5 text-sky-500" /> Ebook
-              </span>
-              <span className="h-5 w-px bg-slate-300" />
-              <span className="inline-flex items-center gap-2">
-                <Headphones className="h-5 w-5 text-sky-500" /> Audiobook
-              </span>
-              <span className="h-5 w-px bg-slate-300" />
-              <span className="inline-flex items-center gap-2">
-                <ShoppingBag className="h-5 w-5 text-sky-500" /> Paperback
-              </span>
-            </div>
-          </div>
-
-          <div className="order-3 flex justify-center lg:justify-end">
-            <div className="relative h-[330px] w-[245px] sm:h-[390px] sm:w-[290px]">
-              <div className="absolute inset-0 translate-y-6 rounded-[2rem] bg-sky-300/35 blur-3xl" />
-              <Image
-                src={bookCover}
-                alt="How to Overcome the Pain of Being Replaced by Someone Else"
-                fill
-                priority
-                className="object-contain drop-shadow-[0_35px_55px_rgba(2,132,199,0.26)]"
-              />
-            </div>
+          <div className="formats">
+            <span><BookOpen size={18} /> Ebook</span>
+            <span><Headphones size={18} /> Audiobook</span>
+            <span><ShoppingBag size={18} /> Paperback</span>
           </div>
         </div>
 
-        <div className="mx-auto mt-12 max-w-3xl rounded-[2rem] border border-sky-100 bg-white/70 p-4 shadow-[0_18px_70px_rgba(13,42,85,0.08)] backdrop-blur-xl">
-          <div className="flex flex-wrap items-center justify-center gap-3 text-center text-sm font-semibold text-slate-700">
-            <Sparkles className="h-5 w-5 text-sky-500" />
-            Official links only • Available worldwide • Instant digital access
-          </div>
+        <div className="bookWrap">
+          <Image src={bookCover} alt="Gilberto Souza book" className="bookImg" priority />
         </div>
+      </section>
 
+      <section className="content">
         <SectionTitle>Read The Book + Audiobook</SectionTitle>
 
-        <div className="mx-auto grid max-w-3xl gap-5">
-          {digitalLinks.map((item) => (
-            <MainButton key={item.href} item={item} />
-          ))}
+        <div className="mainLinks">
+          {digitalLinks.map((item) => <LinkButton key={item[3]} item={item} />)}
         </div>
 
         <SectionTitle>Paperback — Amazon</SectionTitle>
 
-        <div className="grid gap-5 md:grid-cols-3">
-          {amazonLinks.map((item) => (
-            <RetailButton key={item.href} item={item} />
-          ))}
+        <div className="retailGrid">
+          {amazonLinks.map((item) => <LinkButton key={item[3]} item={item} small />)}
         </div>
 
         <SectionTitle>Paperback — Barnes & Noble</SectionTitle>
 
-        <div className="grid gap-5 md:grid-cols-3">
-          {barnesLinks.map((item) => (
-            <RetailButton key={item.href} item={item} />
-          ))}
+        <div className="retailGrid">
+          {barnesLinks.map((item) => <LinkButton key={item[3]} item={item} small />)}
         </div>
 
-        <section className="mt-12 overflow-hidden rounded-[2rem] border border-sky-100 bg-gradient-to-br from-sky-50 via-white to-blue-50 p-8 text-center shadow-[0_18px_70px_rgba(13,42,85,0.08)] sm:p-12">
-          <div className="mx-auto flex justify-center gap-1 text-sky-500">
-            <Star className="h-5 w-5 fill-current" />
-            <Star className="h-5 w-5 fill-current" />
-            <Star className="h-5 w-5 fill-current" />
-            <Star className="h-5 w-5 fill-current" />
-            <Star className="h-5 w-5 fill-current" />
+        <div className="quote">
+          <div className="stars">
+            {[1,2,3,4,5].map((s) => <Star key={s} size={18} fill="currentColor" />)}
           </div>
+          <p>“I didn’t write this book because I had all the answers. I wrote it because I was trying to survive the pain myself.”</p>
+          <strong>— Gilberto Souza</strong>
+        </div>
 
-          <p className="mx-auto mt-6 max-w-3xl font-serif text-2xl leading-10 text-slate-900 sm:text-3xl">
-            “I didn’t write this book because I had all the answers. I wrote it
-            because I was trying to survive the pain myself.”
-          </p>
-
-          <p className="mt-6 text-sm font-black uppercase tracking-[0.3em] text-sky-600">
-            — Gilberto Souza
-          </p>
-        </section>
-
-        <footer className="mt-12 grid gap-6 border-t border-sky-100 pt-8 text-center text-xs font-bold uppercase tracking-[0.22em] text-slate-500 md:grid-cols-3">
-          <div className="flex items-center justify-center gap-3">
-            <Globe2 className="h-5 w-5 text-sky-500" />
-            Available worldwide
-          </div>
-          <div className="flex items-center justify-center gap-3">
-            <BookOpen className="h-5 w-5 text-sky-500" />
-            Ebook • Audiobook • Paperback
-          </div>
-          <div className="text-sky-600">Gilberto Souza • Author</div>
+        <footer>
+          <span><Globe2 size={18} /> Available worldwide</span>
+          <span><BookOpen size={18} /> Ebook • Audiobook • Paperback</span>
+          <span>Gilberto Souza • Author</span>
         </footer>
       </section>
+
+      <style jsx>{`
+        .linksPage {
+          min-height: 100vh;
+          background:
+            radial-gradient(circle at 10% 10%, rgba(56,189,248,.22), transparent 32%),
+            radial-gradient(circle at 90% 12%, rgba(14,165,233,.16), transparent 30%),
+            linear-gradient(180deg, #f8fcff 0%, #eef8ff 48%, #ffffff 100%);
+          color: #08162d;
+          font-family: Inter, Arial, sans-serif;
+          overflow-x: hidden;
+        }
+
+        .hero {
+          max-width: 1180px;
+          margin: 0 auto;
+          padding: 64px 28px 52px;
+          display: grid;
+          grid-template-columns: 0.9fr 1.25fr 0.95fr;
+          gap: 42px;
+          align-items: center;
+        }
+
+        .authorWrap, .bookWrap {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .authorImg {
+          width: 100%;
+          max-width: 310px;
+          height: auto;
+          border-radius: 34px;
+          box-shadow: 0 35px 90px rgba(15, 23, 42, .18);
+          object-fit: cover;
+        }
+
+        .bookImg {
+          width: 100%;
+          max-width: 310px;
+          height: auto;
+          filter: drop-shadow(0 34px 44px rgba(14, 165, 233, .25));
+        }
+
+        .heroText {
+          text-align: center;
+        }
+
+        .name {
+          margin: 0;
+          text-transform: uppercase;
+          letter-spacing: .5em;
+          font-size: 15px;
+          font-weight: 900;
+        }
+
+        .role {
+          margin: 14px 0 0;
+          text-transform: uppercase;
+          letter-spacing: .32em;
+          font-size: 12px;
+          font-weight: 800;
+          color: #0284c7;
+        }
+
+        .heroText h1 {
+          margin: 34px 0 0;
+          font-family: Georgia, serif;
+          font-size: clamp(42px, 5vw, 72px);
+          line-height: .98;
+          letter-spacing: -0.04em;
+          color: #061126;
+        }
+
+        .heroText h1 span {
+          color: #149ee7;
+        }
+
+        .subtitle {
+          max-width: 560px;
+          margin: 28px auto 0;
+          font-size: 19px;
+          line-height: 1.7;
+          color: #334155;
+        }
+
+        .formats {
+          margin-top: 28px;
+          display: flex;
+          justify-content: center;
+          gap: 22px;
+          flex-wrap: wrap;
+          text-transform: uppercase;
+          letter-spacing: .14em;
+          font-size: 12px;
+          font-weight: 800;
+          color: #0f2748;
+        }
+
+        .formats span, footer span {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .content {
+          max-width: 980px;
+          margin: 0 auto;
+          padding: 0 22px 56px;
+        }
+
+        .sectionTitle {
+          margin: 38px 0 26px;
+          display: flex;
+          align-items: center;
+          gap: 20px;
+        }
+
+        .sectionTitle span {
+          height: 1px;
+          flex: 1;
+          background: linear-gradient(90deg, transparent, #7dd3fc, transparent);
+        }
+
+        .sectionTitle h2 {
+          margin: 0;
+          text-transform: uppercase;
+          letter-spacing: .3em;
+          font-size: 13px;
+          font-weight: 950;
+          color: #08162d;
+          text-align: center;
+        }
+
+        .mainLinks {
+          max-width: 760px;
+          margin: 0 auto;
+          display: grid;
+          gap: 16px;
+        }
+
+        .mainButton, .retailCard {
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+          gap: 18px;
+          border: 1px solid rgba(14, 165, 233, .22);
+          background: rgba(255,255,255,.82);
+          backdrop-filter: blur(18px);
+          border-radius: 22px;
+          box-shadow: 0 18px 54px rgba(15, 23, 42, .09);
+          transition: .25s ease;
+          color: #08162d;
+        }
+
+        .mainButton {
+          padding: 20px 24px;
+        }
+
+        .retailCard {
+          padding: 20px;
+        }
+
+        .mainButton:hover, .retailCard:hover {
+          transform: translateY(-4px);
+          border-color: rgba(14, 165, 233, .65);
+          box-shadow: 0 24px 70px rgba(14, 165, 233, .18);
+        }
+
+        .icon {
+          width: 54px;
+          height: 54px;
+          border-radius: 18px;
+          background: #eff9ff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 30px;
+          flex: 0 0 auto;
+        }
+
+        .linkText {
+          display: grid;
+          gap: 5px;
+          flex: 1;
+          min-width: 0;
+        }
+
+        .linkText strong {
+          font-size: 19px;
+          line-height: 1.2;
+        }
+
+        .linkText small {
+          text-transform: uppercase;
+          letter-spacing: .16em;
+          color: #0284c7;
+          font-size: 11px;
+          font-weight: 900;
+        }
+
+        .arrow {
+          color: #0284c7;
+          flex: 0 0 auto;
+        }
+
+        .retailGrid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 18px;
+        }
+
+        .quote {
+          margin-top: 44px;
+          border: 1px solid rgba(14,165,233,.18);
+          background: linear-gradient(135deg, rgba(240,249,255,.95), rgba(255,255,255,.92));
+          border-radius: 28px;
+          padding: 40px 28px;
+          text-align: center;
+          box-shadow: 0 18px 60px rgba(15, 23, 42, .08);
+        }
+
+        .stars {
+          display: flex;
+          justify-content: center;
+          gap: 4px;
+          color: #0284c7;
+        }
+
+        .quote p {
+          max-width: 760px;
+          margin: 22px auto 0;
+          font-family: Georgia, serif;
+          font-size: 25px;
+          line-height: 1.6;
+          color: #08162d;
+        }
+
+        .quote strong {
+          display: block;
+          margin-top: 22px;
+          text-transform: uppercase;
+          letter-spacing: .22em;
+          color: #0284c7;
+          font-size: 12px;
+        }
+
+        footer {
+          margin-top: 34px;
+          padding-top: 24px;
+          border-top: 1px solid rgba(14,165,233,.16);
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 14px;
+          text-align: center;
+          text-transform: uppercase;
+          letter-spacing: .14em;
+          font-size: 11px;
+          font-weight: 850;
+          color: #475569;
+        }
+
+        @media (max-width: 900px) {
+          .hero {
+            grid-template-columns: 1fr;
+            padding-top: 34px;
+            gap: 24px;
+          }
+
+          .authorWrap {
+            order: 2;
+          }
+
+          .heroText {
+            order: 1;
+          }
+
+          .bookWrap {
+            order: 3;
+          }
+
+          .authorImg {
+            max-width: 220px;
+            border-radius: 28px;
+          }
+
+          .bookImg {
+            max-width: 230px;
+          }
+
+          .retailGrid {
+            grid-template-columns: 1fr;
+          }
+
+          footer {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        @media (max-width: 520px) {
+          .hero {
+            padding: 28px 18px 34px;
+          }
+
+          .name {
+            font-size: 12px;
+            letter-spacing: .36em;
+          }
+
+          .heroText h1 {
+            font-size: 43px;
+          }
+
+          .subtitle {
+            font-size: 16px;
+          }
+
+          .sectionTitle h2 {
+            font-size: 11px;
+            letter-spacing: .2em;
+          }
+
+          .mainButton, .retailCard {
+            padding: 17px;
+            border-radius: 20px;
+          }
+
+          .icon {
+            width: 48px;
+            height: 48px;
+            font-size: 26px;
+          }
+
+          .linkText strong {
+            font-size: 16px;
+          }
+
+          .linkText small {
+            font-size: 10px;
+          }
+
+          .quote p {
+            font-size: 20px;
+          }
+        }
+      `}</style>
     </main>
   );
 }
