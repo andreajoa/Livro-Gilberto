@@ -1,466 +1,527 @@
-"use client";
+'use client'
 
-import Image from "next/image";
-import { ArrowUpRight, BookOpen, Globe2, Headphones, ShoppingBag, Star } from "lucide-react";
+import { motion } from 'framer-motion';
+import { ArrowRight, BookOpen, Headphones, ShoppingBag, Star, Globe2 } from 'lucide-react';
 
-import authorPhoto from "@/src/assets/en/author.png";
-import bookCover from "@/src/assets/en/ebook-bg.jpeg";
+import bookCoverEN from '@/src/assets/book/capa-livro.png';
+import authorImg from '@/src/assets/en/author.png';
 
 const digitalLinks = [
-  ["🌐", "Read Book + Audiobook", "English edition • Instant access", "https://www.gilberto-souza.com/en"],
-  ["🌎", "Leer Libro + Audiolibro", "Spanish edition • Instant access", "https://www.gilberto-souza.com/es"],
-  ["🇧🇷", "Ler Livro + Audiobook", "Portuguese edition • Instant access", "https://www.gilberto-souza.com"],
+  {
+    eyebrow: 'Best option',
+    title: 'Read the Book + Audiobook',
+    subtitle: 'English edition • Instant access • Digital download',
+    price: 'Website exclusive',
+    href: 'https://www.gilberto-souza.com/en',
+    cta: 'Start Reading Today',
+    flag: '🇺🇸'
+  },
+  {
+    eyebrow: 'Spanish edition',
+    title: 'Leer Libro + Audiolibro',
+    subtitle: 'Spanish edition • Instant access • Digital download',
+    price: 'Acceso inmediato',
+    href: 'https://www.gilberto-souza.com/es',
+    cta: 'Leer Ahora',
+    flag: '🇪🇸'
+  },
 ];
 
 const amazonLinks = [
-  ["🇺🇸", "Amazon", "English paperback", "https://www.amazon.com/dp/B0H2LXHCH4"],
-  ["🇪🇸", "Amazon", "Spanish paperback", "https://www.amazon.com/dp/B0H2LHZT7X"],
-  ["🇧🇷", "Amazon", "Portuguese paperback", "https://www.amazon.com/dp/B0H2LM4TXH"],
+  ['🇺🇸', 'Amazon', 'English Paperback', 'https://www.amazon.com/dp/B0H2LXHCH4'],
+  ['🇪🇸', 'Amazon', 'Spanish Paperback', 'https://www.amazon.com/dp/B0H2LHZT7X'],
+  ['🇧🇷', 'Amazon', 'Portuguese Paperback', 'https://www.amazon.com/dp/B0H2LM4TXH'],
 ];
 
 const barnesLinks = [
-  ["🇺🇸", "Barnes & Noble", "English edition", "https://www.barnesandnoble.com/w/how-to-overcome-the-pain-of-being-replaced-by-someone-else-gilberto-de-souza/1150279536?ean=9798256373504"],
-  ["🇪🇸", "Barnes & Noble", "Spanish edition", "https://www.barnesandnoble.com/w/como-vencer-el-dolor-de-ser-reemplazado-por-otro-gilberto-de-souza/1150279538?ean=9786584622050"],
-  ["🇧🇷", "Barnes & Noble", "Portuguese edition", "https://www.barnesandnoble.com/w/como-vencer-a-dor-de-ser-trocado-por-outro-gilberto-de-souza/1150279850?ean=9798256373542"],
+  ['🇺🇸', 'Barnes & Noble', 'English Edition', 'https://www.barnesandnoble.com/w/how-to-overcome-the-pain-of-being-replaced-by-someone-else-gilberto-de-souza/1150279536?ean=9798256373504'],
+  ['🇪🇸', 'Barnes & Noble', 'Spanish Edition', 'https://www.barnesandnoble.com/w/como-vencer-el-dolor-de-ser-reemplazado-por-otro-gilberto-de-souza/1150279538?ean=9786584622050'],
+  ['🇧🇷', 'Barnes & Noble', 'Portuguese Edition', 'https://www.barnesandnoble.com/w/como-vencer-a-dor-de-ser-trocado-por-outro-gilberto-de-souza/1150279850?ean=9798256373542'],
 ];
 
-function LinkButton({ item, small = false }) {
+const isMobileQuery = `
+@media (max-width: 768px) {
+  .linksHeroGrid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+    text-align: center !important;
+  }
+  .linksHeroText {
+    order: 1 !important;
+  }
+  .linksBook {
+    order: 2 !important;
+  }
+  .linksAuthor {
+    order: 3 !important;
+  }
+  .linksHeroTitle {
+    font-size: 42px !important;
+    letter-spacing: -1.2px !important;
+  }
+  .linksDigitalGrid {
+    grid-template-columns: 1fr !important;
+  }
+  .linksRetailGrid {
+    grid-template-columns: 1fr !important;
+  }
+  .linksHeroSection {
+    padding: 92px 20px 54px !important;
+  }
+  .linksContent {
+    padding: 54px 20px !important;
+  }
+  .linksAuthorImg {
+    max-width: 260px !important;
+  }
+  .linksBookImg {
+    width: 230px !important;
+  }
+}
+`;
+
+function PrimaryDigitalCard({ item, index }) {
   return (
-    <a className={small ? "retailCard" : "mainButton"} href={item[3]} target="_blank" rel="noopener noreferrer">
-      <span className="icon">{item[0]}</span>
-      <span className="linkText">
-        <strong>{item[1]}</strong>
-        <small>{item[2]}</small>
-      </span>
-      <ArrowUpRight className="arrow" />
+    <motion.a
+      href={item.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.08 }}
+      viewport={{ once: true }}
+      style={{
+        textDecoration: 'none',
+        background: 'linear-gradient(180deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.045) 100%)',
+        border: '1px solid rgba(0,196,212,0.22)',
+        borderRadius: 22,
+        padding: 24,
+        display: 'grid',
+        gap: 18,
+        boxShadow: '0 24px 70px rgba(0,0,0,0.24), 0 0 60px rgba(0,196,212,0.06)',
+        color: '#fff'
+      }}
+    >
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 14, alignItems: 'flex-start' }}>
+        <div>
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            background: 'rgba(255,184,0,0.12)',
+            border: '1px solid rgba(255,184,0,0.24)',
+            color: '#FFB800',
+            borderRadius: 999,
+            padding: '7px 12px',
+            fontSize: 11,
+            fontWeight: 900,
+            letterSpacing: 1.2,
+            textTransform: 'uppercase',
+            marginBottom: 16
+          }}>
+            {item.eyebrow}
+          </div>
+
+          <h2 style={{ margin: 0, color: '#fff', fontSize: 26, lineHeight: 1.15, fontWeight: 900 }}>
+            {item.flag} {item.title}
+          </h2>
+
+          <p style={{ margin: '10px 0 0', color: 'rgba(255,255,255,0.68)', fontSize: 15, lineHeight: 1.65 }}>
+            {item.subtitle}
+          </p>
+        </div>
+
+        <ArrowRight size={24} color="#00C4D4" />
+      </div>
+
+      <div style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: 10,
+        color: '#EAF4FF',
+        fontSize: 13,
+        fontWeight: 700
+      }}>
+        <span style={pillStyle}><BookOpen size={15} /> eBook</span>
+        <span style={pillStyle}><Headphones size={15} /> Audiobook</span>
+        <span style={pillStyle}>⚡ Instant access</span>
+      </div>
+
+      <div style={{
+        background: 'linear-gradient(135deg, #FFB800, #FF8A00)',
+        color: '#0B1325',
+        borderRadius: 12,
+        padding: '15px 18px',
+        fontSize: 15,
+        fontWeight: 950,
+        textAlign: 'center',
+        boxShadow: '0 16px 36px rgba(255,138,0,0.22)'
+      }}>
+        {item.cta}
+      </div>
+    </motion.a>
+  );
+}
+
+function RetailCard({ item }) {
+  return (
+    <a
+      href={item[3]}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        textDecoration: 'none',
+        background: 'linear-gradient(180deg, rgba(255,255,255,0.075) 0%, rgba(255,255,255,0.035) 100%)',
+        border: '1px solid rgba(255,255,255,0.10)',
+        borderRadius: 18,
+        padding: 18,
+        display: 'flex',
+        alignItems: 'center',
+        gap: 14,
+        color: '#fff',
+        minHeight: 92
+      }}
+    >
+      <div style={{
+        width: 48,
+        height: 48,
+        borderRadius: 14,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'rgba(255,255,255,0.08)',
+        fontSize: 26,
+        flexShrink: 0
+      }}>
+        {item[0]}
+      </div>
+
+      <div style={{ flex: 1 }}>
+        <p style={{ margin: 0, color: '#fff', fontSize: 17, fontWeight: 900 }}>{item[1]}</p>
+        <p style={{ margin: '4px 0 0', color: 'rgba(255,255,255,0.64)', fontSize: 13 }}>{item[2]}</p>
+      </div>
+
+      <ArrowRight size={18} color="#00C4D4" />
     </a>
   );
 }
 
-function SectionTitle({ children }) {
+const pillStyle = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: 7,
+  background: 'rgba(255,255,255,0.08)',
+  border: '1px solid rgba(255,255,255,0.10)',
+  borderRadius: 999,
+  padding: '8px 12px'
+};
+
+function SectionTitle({ eyebrow, title, subtitle }) {
   return (
-    <div className="sectionTitle">
-      <span />
-      <h2>{children}</h2>
-      <span />
+    <div style={{ textAlign: 'center', maxWidth: 720, margin: '0 auto 30px' }}>
+      <p style={{
+        margin: '0 0 12px',
+        color: '#FFB800',
+        fontSize: 11,
+        letterSpacing: 4,
+        textTransform: 'uppercase',
+        fontWeight: 900
+      }}>
+        {eyebrow}
+      </p>
+      <h2 style={{
+        margin: 0,
+        color: '#fff',
+        fontSize: 'clamp(28px, 4vw, 48px)',
+        lineHeight: 1.08,
+        fontWeight: 950,
+        letterSpacing: -1
+      }}>
+        {title}
+      </h2>
+      {subtitle && (
+        <p style={{
+          margin: '14px auto 0',
+          color: 'rgba(255,255,255,0.66)',
+          fontSize: 16,
+          lineHeight: 1.75
+        }}>
+          {subtitle}
+        </p>
+      )}
     </div>
   );
 }
 
 export default function LinksPage() {
   return (
-    <main className="linksPage">
-      <section className="hero">
-        <div className="authorWrap">
-          <Image src={authorPhoto} alt="Gilberto Souza" className="authorImg" priority />
-        </div>
+    <main style={{
+      minHeight: '100vh',
+      background: '#060C18',
+      fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif",
+      overflowX: 'hidden'
+    }}>
+      <style dangerouslySetInnerHTML={{ __html: isMobileQuery }} />
 
-        <div className="heroText">
-          <p className="name">Gilberto Souza</p>
-          <p className="role">Author</p>
+      <section
+        className="linksHeroSection"
+        style={{
+          position: 'relative',
+          padding: '110px 6vw 74px',
+          background: 'linear-gradient(180deg, #07111f 0%, #0b1830 100%)',
+          overflow: 'hidden'
+        }}
+      >
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(circle at 18% 18%, rgba(255,184,0,0.16) 0%, rgba(255,184,0,0.05) 24%, transparent 42%), radial-gradient(circle at 84% 16%, rgba(0,196,212,0.18) 0%, rgba(0,196,212,0.045) 26%, transparent 46%)'
+        }} />
 
-          <h1>
-            She chose <br />
-            someone else. <br />
-            <span>I wrote about what happened next.</span>
-          </h1>
-
-          <p className="subtitle">
-            A book for the man who was replaced, betrayed, rejected — and is ready to get back up.
-          </p>
-
-          <div className="formats">
-            <span><BookOpen size={18} /> Ebook</span>
-            <span><Headphones size={18} /> Audiobook</span>
-            <span><ShoppingBag size={18} /> Paperback</span>
+        <div
+          className="linksHeroGrid"
+          style={{
+            position: 'relative',
+            zIndex: 2,
+            maxWidth: 1160,
+            margin: '0 auto',
+            display: 'grid',
+            gridTemplateColumns: '320px minmax(0, 1fr) 300px',
+            gap: 54,
+            alignItems: 'center'
+          }}
+        >
+          <div className="linksBook" style={{ display: 'flex', justifyContent: 'center' }}>
+            <div style={{
+              background: 'linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.03) 100%)',
+              border: '1px solid rgba(0,196,212,0.16)',
+              borderRadius: 28,
+              padding: 28,
+              boxShadow: '0 28px 90px rgba(0,0,0,0.40), 0 0 80px rgba(0,196,212,0.10)'
+            }}>
+              <img
+                className="linksBookImg"
+                src={bookCoverEN.src}
+                alt="How to Overcome the Pain of Being Replaced by Someone Else"
+                style={{
+                  width: 240,
+                  maxWidth: '100%',
+                  borderRadius: 10,
+                  display: 'block',
+                  boxShadow: '0 30px 70px rgba(0,0,0,0.50)'
+                }}
+              />
+            </div>
           </div>
-        </div>
 
-        <div className="bookWrap">
-          <Image src={bookCover} alt="Gilberto Souza book" className="bookImg" priority />
+          <div className="linksHeroText">
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              background: 'rgba(255,184,0,0.14)',
+              border: '1px solid rgba(255,184,0,0.30)',
+              borderRadius: 999,
+              padding: '7px 14px',
+              marginBottom: 18
+            }}>
+              <span style={{ width: 8, height: 8, background: '#FFB800', borderRadius: 999, display: 'inline-block' }} />
+              <span style={{ fontSize: 11, color: '#FFE29A', fontWeight: 900, letterSpacing: 1 }}>
+                OFFICIAL BOOK LINKS
+              </span>
+            </div>
+
+            <h1
+              className="linksHeroTitle"
+              style={{
+                fontSize: 'clamp(50px, 6vw, 82px)',
+                fontWeight: 950,
+                color: '#FFFFFF',
+                lineHeight: 0.98,
+                letterSpacing: -2,
+                margin: '0 0 20px'
+              }}
+            >
+              She left.<br />
+              <span style={{ color: '#FFB800' }}>You broke.</span><br />
+              Now rebuild<br />
+              <span style={{ color: '#00C4D4' }}>stronger.</span>
+            </h1>
+
+            <p style={{
+              fontSize: 18,
+              color: 'rgba(255,255,255,0.78)',
+              lineHeight: 1.75,
+              maxWidth: 650,
+              margin: '0 0 26px'
+            }}>
+              Choose the format that fits you best. Read the book, listen to the audiobook, or order the paperback from Amazon or Barnes & Noble.
+            </p>
+
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 10
+            }}>
+              {['📖 eBook', '🎧 Audiobook', '📚 Paperback', '🌎 Worldwide'].map((item) => (
+                <span key={item} style={{
+                  background: 'rgba(255,255,255,0.08)',
+                  border: '1px solid rgba(255,255,255,0.10)',
+                  borderRadius: 999,
+                  padding: '9px 14px',
+                  fontSize: 13,
+                  color: '#EAF4FF',
+                  fontWeight: 700
+                }}>
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="linksAuthor" style={{ display: 'flex', justifyContent: 'center' }}>
+            <img
+              className="linksAuthorImg"
+              src={authorImg.src}
+              alt="Gilberto Souza"
+              style={{
+                width: '100%',
+                maxWidth: 280,
+                borderRadius: 28,
+                objectFit: 'cover',
+                boxShadow: '0 26px 80px rgba(0,0,0,0.36)',
+                border: '1px solid rgba(0,196,212,0.16)'
+              }}
+            />
+          </div>
         </div>
       </section>
 
-      <section className="content">
-        <SectionTitle>Read The Book + Audiobook</SectionTitle>
+      <section className="linksContent" style={{
+        padding: '74px 6vw',
+        background: 'linear-gradient(180deg, #060C18 0%, #081225 55%, #060C18 100%)'
+      }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <SectionTitle
+            eyebrow="Start here"
+            title="Read it today. Listen tonight."
+            subtitle="For most readers, the digital edition is the fastest way to start: eBook + full audiobook together."
+          />
 
-        <div className="mainLinks">
-          {digitalLinks.map((item) => <LinkButton key={item[3]} item={item} />)}
-        </div>
-
-        <SectionTitle>Paperback — Amazon</SectionTitle>
-
-        <div className="retailGrid">
-          {amazonLinks.map((item) => <LinkButton key={item[3]} item={item} small />)}
-        </div>
-
-        <SectionTitle>Paperback — Barnes & Noble</SectionTitle>
-
-        <div className="retailGrid">
-          {barnesLinks.map((item) => <LinkButton key={item[3]} item={item} small />)}
-        </div>
-
-        <div className="quote">
-          <div className="stars">
-            {[1,2,3,4,5].map((s) => <Star key={s} size={18} fill="currentColor" />)}
+          <div className="linksDigitalGrid" style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+            gap: 20,
+            marginBottom: 70
+          }}>
+            {digitalLinks.map((item, index) => (
+              <PrimaryDigitalCard key={item.href} item={item} index={index} />
+            ))}
           </div>
-          <p>“I didn’t write this book because I had all the answers. I wrote it because I was trying to survive the pain myself.”</p>
-          <strong>— Gilberto Souza</strong>
+
+          <SectionTitle
+            eyebrow="Paperback editions"
+            title="Want the physical book?"
+            subtitle="Order your paperback through the retailer you already trust."
+          />
+
+          <div style={{ marginBottom: 34 }}>
+            <p style={{
+              color: '#00C4D4',
+              fontSize: 12,
+              letterSpacing: 3.5,
+              fontWeight: 900,
+              textTransform: 'uppercase',
+              margin: '0 0 18px'
+            }}>
+              Amazon
+            </p>
+
+            <div className="linksRetailGrid" style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+              gap: 16
+            }}>
+              {amazonLinks.map((item) => <RetailCard key={item[3]} item={item} />)}
+            </div>
+          </div>
+
+          <div>
+            <p style={{
+              color: '#00C4D4',
+              fontSize: 12,
+              letterSpacing: 3.5,
+              fontWeight: 900,
+              textTransform: 'uppercase',
+              margin: '0 0 18px'
+            }}>
+              Barnes & Noble
+            </p>
+
+            <div className="linksRetailGrid" style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+              gap: 16
+            }}>
+              {barnesLinks.map((item) => <RetailCard key={item[3]} item={item} />)}
+            </div>
+          </div>
+
+          <section style={{
+            marginTop: 70,
+            background: 'linear-gradient(135deg, rgba(255,184,0,0.12), rgba(0,196,212,0.10))',
+            border: '1px solid rgba(255,255,255,0.10)',
+            borderRadius: 24,
+            padding: '34px 24px',
+            textAlign: 'center'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: 3, marginBottom: 18 }}>
+              {[1,2,3,4,5].map((i) => <Star key={i} size={18} fill="#FFB800" color="#FFB800" />)}
+            </div>
+
+            <p style={{
+              color: '#fff',
+              fontSize: 'clamp(22px, 3vw, 34px)',
+              lineHeight: 1.45,
+              maxWidth: 850,
+              margin: '0 auto',
+              fontWeight: 800
+            }}>
+              “I didn’t write this book because I had all the answers. I wrote it because I was trying to survive the pain myself.”
+            </p>
+
+            <p style={{
+              margin: '20px 0 0',
+              color: '#00C4D4',
+              fontSize: 12,
+              letterSpacing: 3,
+              fontWeight: 900,
+              textTransform: 'uppercase'
+            }}>
+              — Gilberto Souza
+            </p>
+          </section>
+
+          <footer style={{
+            marginTop: 44,
+            paddingTop: 28,
+            borderTop: '1px solid rgba(255,255,255,0.08)',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+            gap: 18,
+            textAlign: 'center',
+            color: 'rgba(255,255,255,0.58)',
+            fontSize: 12,
+            fontWeight: 800,
+            letterSpacing: 1.5,
+            textTransform: 'uppercase'
+          }}>
+            <div><Globe2 size={16} style={{ verticalAlign: 'middle', marginRight: 6 }} /> Available worldwide</div>
+            <div><BookOpen size={16} style={{ verticalAlign: 'middle', marginRight: 6 }} /> Ebook • Audiobook • Paperback</div>
+            <div><ShoppingBag size={16} style={{ verticalAlign: 'middle', marginRight: 6 }} /> Official author links</div>
+          </footer>
         </div>
-
-        <footer>
-          <span><Globe2 size={18} /> Available worldwide</span>
-          <span><BookOpen size={18} /> Ebook • Audiobook • Paperback</span>
-          <span>Gilberto Souza • Author</span>
-        </footer>
       </section>
-
-      <style jsx>{`
-        .linksPage {
-          min-height: 100vh;
-          background:
-            radial-gradient(circle at 10% 10%, rgba(56,189,248,.22), transparent 32%),
-            radial-gradient(circle at 90% 12%, rgba(14,165,233,.16), transparent 30%),
-            linear-gradient(180deg, #f8fcff 0%, #eef8ff 48%, #ffffff 100%);
-          color: #08162d;
-          font-family: Inter, Arial, sans-serif;
-          overflow-x: hidden;
-        }
-
-        .hero {
-          max-width: 1180px;
-          margin: 0 auto;
-          padding: 64px 28px 52px;
-          display: grid;
-          grid-template-columns: 0.9fr 1.25fr 0.95fr;
-          gap: 42px;
-          align-items: center;
-        }
-
-        .authorWrap, .bookWrap {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        .authorImg {
-          width: 100%;
-          max-width: 310px;
-          height: auto;
-          border-radius: 34px;
-          box-shadow: 0 35px 90px rgba(15, 23, 42, .18);
-          object-fit: cover;
-        }
-
-        .bookImg {
-          width: 100%;
-          max-width: 310px;
-          height: auto;
-          filter: drop-shadow(0 34px 44px rgba(14, 165, 233, .25));
-        }
-
-        .heroText {
-          text-align: center;
-        }
-
-        .name {
-          margin: 0;
-          text-transform: uppercase;
-          letter-spacing: .5em;
-          font-size: 15px;
-          font-weight: 900;
-        }
-
-        .role {
-          margin: 14px 0 0;
-          text-transform: uppercase;
-          letter-spacing: .32em;
-          font-size: 12px;
-          font-weight: 800;
-          color: #0284c7;
-        }
-
-        .heroText h1 {
-          margin: 34px 0 0;
-          font-family: Georgia, serif;
-          font-size: clamp(42px, 5vw, 72px);
-          line-height: .98;
-          letter-spacing: -0.04em;
-          color: #061126;
-        }
-
-        .heroText h1 span {
-          color: #149ee7;
-        }
-
-        .subtitle {
-          max-width: 560px;
-          margin: 28px auto 0;
-          font-size: 19px;
-          line-height: 1.7;
-          color: #334155;
-        }
-
-        .formats {
-          margin-top: 28px;
-          display: flex;
-          justify-content: center;
-          gap: 22px;
-          flex-wrap: wrap;
-          text-transform: uppercase;
-          letter-spacing: .14em;
-          font-size: 12px;
-          font-weight: 800;
-          color: #0f2748;
-        }
-
-        .formats span, footer span {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-        }
-
-        .content {
-          max-width: 980px;
-          margin: 0 auto;
-          padding: 0 22px 56px;
-        }
-
-        .sectionTitle {
-          margin: 38px 0 26px;
-          display: flex;
-          align-items: center;
-          gap: 20px;
-        }
-
-        .sectionTitle span {
-          height: 1px;
-          flex: 1;
-          background: linear-gradient(90deg, transparent, #7dd3fc, transparent);
-        }
-
-        .sectionTitle h2 {
-          margin: 0;
-          text-transform: uppercase;
-          letter-spacing: .3em;
-          font-size: 13px;
-          font-weight: 950;
-          color: #08162d;
-          text-align: center;
-        }
-
-        .mainLinks {
-          max-width: 760px;
-          margin: 0 auto;
-          display: grid;
-          gap: 16px;
-        }
-
-        .mainButton, .retailCard {
-          text-decoration: none;
-          display: flex;
-          align-items: center;
-          gap: 18px;
-          border: 1px solid rgba(14, 165, 233, .22);
-          background: rgba(255,255,255,.82);
-          backdrop-filter: blur(18px);
-          border-radius: 22px;
-          box-shadow: 0 18px 54px rgba(15, 23, 42, .09);
-          transition: .25s ease;
-          color: #08162d;
-        }
-
-        .mainButton {
-          padding: 20px 24px;
-        }
-
-        .retailCard {
-          padding: 20px;
-        }
-
-        .mainButton:hover, .retailCard:hover {
-          transform: translateY(-4px);
-          border-color: rgba(14, 165, 233, .65);
-          box-shadow: 0 24px 70px rgba(14, 165, 233, .18);
-        }
-
-        .icon {
-          width: 54px;
-          height: 54px;
-          border-radius: 18px;
-          background: #eff9ff;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 30px;
-          flex: 0 0 auto;
-        }
-
-        .linkText {
-          display: grid;
-          gap: 5px;
-          flex: 1;
-          min-width: 0;
-        }
-
-        .linkText strong {
-          font-size: 19px;
-          line-height: 1.2;
-        }
-
-        .linkText small {
-          text-transform: uppercase;
-          letter-spacing: .16em;
-          color: #0284c7;
-          font-size: 11px;
-          font-weight: 900;
-        }
-
-        .arrow {
-          color: #0284c7;
-          flex: 0 0 auto;
-        }
-
-        .retailGrid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 18px;
-        }
-
-        .quote {
-          margin-top: 44px;
-          border: 1px solid rgba(14,165,233,.18);
-          background: linear-gradient(135deg, rgba(240,249,255,.95), rgba(255,255,255,.92));
-          border-radius: 28px;
-          padding: 40px 28px;
-          text-align: center;
-          box-shadow: 0 18px 60px rgba(15, 23, 42, .08);
-        }
-
-        .stars {
-          display: flex;
-          justify-content: center;
-          gap: 4px;
-          color: #0284c7;
-        }
-
-        .quote p {
-          max-width: 760px;
-          margin: 22px auto 0;
-          font-family: Georgia, serif;
-          font-size: 25px;
-          line-height: 1.6;
-          color: #08162d;
-        }
-
-        .quote strong {
-          display: block;
-          margin-top: 22px;
-          text-transform: uppercase;
-          letter-spacing: .22em;
-          color: #0284c7;
-          font-size: 12px;
-        }
-
-        footer {
-          margin-top: 34px;
-          padding-top: 24px;
-          border-top: 1px solid rgba(14,165,233,.16);
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 14px;
-          text-align: center;
-          text-transform: uppercase;
-          letter-spacing: .14em;
-          font-size: 11px;
-          font-weight: 850;
-          color: #475569;
-        }
-
-        @media (max-width: 900px) {
-          .hero {
-            grid-template-columns: 1fr;
-            padding-top: 34px;
-            gap: 24px;
-          }
-
-          .authorWrap {
-            order: 2;
-          }
-
-          .heroText {
-            order: 1;
-          }
-
-          .bookWrap {
-            order: 3;
-          }
-
-          .authorImg {
-            max-width: 220px;
-            border-radius: 28px;
-          }
-
-          .bookImg {
-            max-width: 230px;
-          }
-
-          .retailGrid {
-            grid-template-columns: 1fr;
-          }
-
-          footer {
-            grid-template-columns: 1fr;
-          }
-        }
-
-        @media (max-width: 520px) {
-          .hero {
-            padding: 28px 18px 34px;
-          }
-
-          .name {
-            font-size: 12px;
-            letter-spacing: .36em;
-          }
-
-          .heroText h1 {
-            font-size: 43px;
-          }
-
-          .subtitle {
-            font-size: 16px;
-          }
-
-          .sectionTitle h2 {
-            font-size: 11px;
-            letter-spacing: .2em;
-          }
-
-          .mainButton, .retailCard {
-            padding: 17px;
-            border-radius: 20px;
-          }
-
-          .icon {
-            width: 48px;
-            height: 48px;
-            font-size: 26px;
-          }
-
-          .linkText strong {
-            font-size: 16px;
-          }
-
-          .linkText small {
-            font-size: 10px;
-          }
-
-          .quote p {
-            font-size: 20px;
-          }
-        }
-      `}</style>
     </main>
   );
 }
