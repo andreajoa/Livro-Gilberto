@@ -301,7 +301,7 @@ export default function LinksPage() {
             }}>
               <img
                 className="linksBookImg"
-                src={bookCoverEN.src}
+                src={bookCoverEN}
                 alt="How to Overcome the Pain of Being Replaced by Someone Else"
                 style={{
                   width: 240,
@@ -382,7 +382,7 @@ export default function LinksPage() {
           <div className="linksAuthor" style={{ display: 'flex', justifyContent: 'center' }}>
             <img
               className="linksAuthorImg"
-              src={authorImg.src}
+              src={authorImg}
               alt="Gilberto Souza"
               style={{
                 width: '100%',
