@@ -3,8 +3,6 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, BookOpen, Headphones, ShoppingBag, Star, Globe2 } from 'lucide-react';
 
-import bookCoverEN from '@/src/assets/book/capa-livro.png';
-import authorImg from '@/src/assets/en/author.png';
 
 const digitalLinks = [
   {
@@ -301,7 +299,7 @@ export default function LinksPage() {
             }}>
               <img
                 className="linksBookImg"
-                src={bookCoverEN}
+                src="/links-assets/book-en.png"
                 alt="How to Overcome the Pain of Being Replaced by Someone Else"
                 style={{
                   width: 240,
@@ -382,7 +380,7 @@ export default function LinksPage() {
           <div className="linksAuthor" style={{ display: 'flex', justifyContent: 'center' }}>
             <img
               className="linksAuthorImg"
-              src={authorImg}
+              src="/links-assets/author-en.png"
               alt="Gilberto Souza"
               style={{
                 width: '100%',
