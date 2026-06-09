@@ -11,9 +11,9 @@ export default function LinkPage() {
   }, [])
 
   const ebook_links = [
-    { icon: "🌎", title: "Ler Livro + Audiobook",    sub: "Português · Ebook & Audiobook",   href: "https://www.gilberto-souza.com" },
-    { icon: "🌎", title: "Read Book + Audiobook",    sub: "English · Ebook & Audiobook",    href: "https://www.gilberto-souza.com/en" },
-    { icon: "🌎", title: "Leer Libro + Audiolibro",  sub: "Español · Ebook & Audiolibro",  href: "https://www.gilberto-souza.com/es" },
+    { icon: "🌎", title: "Ler Livro + Audiobook",   sub: "Português · Ebook & Audiobook",   href: "https://www.gilberto-souza.com" },
+    { icon: "🌎", title: "Read Book + Audiobook",   sub: "English · Ebook & Audiobook",    href: "https://www.gilberto-souza.com/en" },
+    { icon: "🌎", title: "Leer Libro + Audiolibro", sub: "Español · Ebook & Audiolibro",  href: "https://www.gilberto-souza.com/es" },
   ]
 
   const pb_links = [
@@ -36,15 +36,11 @@ export default function LinkPage() {
   return (
     <main style={{ minHeight: '100vh', background: 'linear-gradient(180deg,#0A1420 0%,#0F1E30 50%,#0D1A28 100%)', fontFamily: 'Inter,Helvetica Neue,sans-serif', overflowX: 'hidden' }}>
 
-      {/*
-        HERO — proporção exata da imagem, sem corte:
-        Desktop 1536x1024 → paddingBottom 66.67% (razão 3:2)
-        Mobile  1024x1536 → paddingBottom 150%   (razão 2:3)
-      */}
+      {/* HERO — mobile 1024x1536 (150%) | desktop 1536x1024 (66.67%) — sem corte */}
       <section style={{ position: 'relative', width: '100%', paddingBottom: isMobile ? '150%' : '66.67%', overflow: 'hidden' }}>
 
         <img
-          src={isMobile ? '/links-assets/hero-mobile.png' : '/links-assets/hero-desktop.png'}
+          src={isMobile ? '/links-assets/hero-mobile-pt.png' : '/links-assets/hero-desktop-pt.png'}
           alt='Gilberto Souza — Autor'
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center', display: 'block' }}
         />
@@ -134,7 +130,7 @@ export default function LinkPage() {
           </div>
           {!isMobile && (
             <div style={{ position: 'relative', overflow: 'hidden' }}>
-              <img src='/links-assets/hero-desktop.png' alt='' style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center', opacity: 0.40 }} />
+              <img src='/links-assets/hero-desktop-pt.png' alt='' style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center', opacity: 0.40 }} />
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg,rgba(12,20,32,0.95) 0%,transparent 55%)' }} />
             </div>
           )}
