@@ -36,16 +36,23 @@ export default function LinksPage() {
   return (
     <main style={{ minHeight: '100vh', background: 'linear-gradient(180deg,#0A1420 0%,#0F1E30 50%,#0D1A28 100%)', fontFamily: 'Inter,Helvetica Neue,sans-serif', overflowX: 'hidden' }}>
 
-      {/* HERO */}
-      <section style={{ position: 'relative', width: '100%', overflow: 'hidden', minHeight: isMobile ? 520 : 580 }}>
+      {/*
+        HERO — proporção exata da imagem, sem corte:
+        Desktop 1536x1024 → paddingBottom 66.67% (ratio 3:2)
+        Mobile  1024x1536 → paddingBottom 150%   (ratio 2:3)
+      */}
+      <section style={{ position: 'relative', width: '100%', paddingBottom: isMobile ? '150%' : '66.67%', overflow: 'hidden' }}>
+
         <img
           src={isMobile ? '/links-assets/hero-mobile.png' : '/links-assets/hero-desktop.png'}
-          alt='Gilberto Souza'
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: isMobile ? 'center top' : 'center 20%', display: 'block' }}
+          alt='Gilberto Souza — Author'
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center', display: 'block' }}
         />
-        <div style={{ position: 'absolute', inset: 0, background: isMobile
-          ? 'linear-gradient(to top, rgba(8,16,28,0.97) 0%, rgba(8,16,28,0.65) 38%, rgba(8,16,28,0.15) 70%, transparent 100%)'
-          : 'linear-gradient(to right, rgba(8,16,28,0.92) 0%, rgba(8,16,28,0.68) 38%, rgba(8,16,28,0.15) 68%, transparent 100%)'
+
+        <div style={{ position: 'absolute', inset: 0,
+          background: isMobile
+            ? 'linear-gradient(to top, rgba(8,16,28,0.97) 0%, rgba(8,16,28,0.55) 35%, rgba(8,16,28,0.10) 60%, transparent 100%)'
+            : 'linear-gradient(to right, rgba(8,16,28,0.93) 0%, rgba(8,16,28,0.70) 32%, rgba(8,16,28,0.20) 58%, transparent 100%)'
         }} />
 
         {isMobile ? (
@@ -62,25 +69,26 @@ export default function LinksPage() {
             </div>
           </div>
         ) : (
-          <div style={{ position: 'relative', zIndex: 2, maxWidth: 1100, margin: '0 auto', padding: '0 64px', height: 580, display: 'flex', alignItems: 'center' }}>
-            <div style={{ maxWidth: 500 }}>
-              <p style={{ fontSize: 11, letterSpacing: 4.5, color: '#7EC8E8', fontWeight: 800, textTransform: 'uppercase', margin: '0 0 4px' }}>GILBERTO SOUZA</p>
-              <p style={{ fontSize: 10, letterSpacing: 3, color: '#5AAAC8', fontWeight: 700, textTransform: 'uppercase', margin: '0 0 16px' }}>AUTHOR</p>
-              <div style={{ width: 48, height: 2, background: 'linear-gradient(90deg,#1A90C8,#4BBCD8)', marginBottom: 28, borderRadius: 2 }} />
-              <h1 style={{ fontSize: 'clamp(36px,4.5vw,58px)', fontWeight: 900, color: '#FFFFFF', lineHeight: 1.08, margin: '0 0 16px', letterSpacing: -1.2, textShadow: '0 3px 20px rgba(0,0,0,0.6)' }}>She chose<br/>someone else.</h1>
-              <h2 style={{ fontSize: 'clamp(22px,2.8vw,34px)', fontWeight: 700, color: '#7EC8E8', lineHeight: 1.3, margin: '0 0 20px', fontStyle: 'italic' }}>I wrote about<br/>what happened next.</h2>
-              <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.72)', lineHeight: 1.7, margin: '0 0 26px' }}>A book about betrayal, heartbreak<br/>and rebuilding your life.</p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 16, fontSize: 11, color: 'rgba(255,255,255,0.50)', fontWeight: 700, letterSpacing: 1.5 }}>
-                <span>EBOOK</span><span style={{ color: '#2A5A7A' }}>|</span>
-                <span>AUDIOBOOK</span><span style={{ color: '#2A5A7A' }}>|</span>
-                <span>PAPERBACK</span>
+          <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center' }}>
+            <div style={{ maxWidth: 1100, width: '100%', margin: '0 auto', padding: '0 64px' }}>
+              <div style={{ maxWidth: 500 }}>
+                <p style={{ fontSize: 11, letterSpacing: 4.5, color: '#7EC8E8', fontWeight: 800, textTransform: 'uppercase', margin: '0 0 4px' }}>GILBERTO SOUZA</p>
+                <p style={{ fontSize: 10, letterSpacing: 3, color: '#5AAAC8', fontWeight: 700, textTransform: 'uppercase', margin: '0 0 16px' }}>AUTHOR</p>
+                <div style={{ width: 48, height: 2, background: 'linear-gradient(90deg,#1A90C8,#4BBCD8)', marginBottom: 28, borderRadius: 2 }} />
+                <h1 style={{ fontSize: 'clamp(36px,4.5vw,58px)', fontWeight: 900, color: '#FFFFFF', lineHeight: 1.08, margin: '0 0 16px', letterSpacing: -1.2, textShadow: '0 3px 20px rgba(0,0,0,0.6)' }}>She chose<br/>someone else.</h1>
+                <h2 style={{ fontSize: 'clamp(22px,2.8vw,34px)', fontWeight: 700, color: '#7EC8E8', lineHeight: 1.3, margin: '0 0 20px', fontStyle: 'italic' }}>I wrote about<br/>what happened next.</h2>
+                <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.72)', lineHeight: 1.7, margin: '0 0 26px' }}>A book about betrayal, heartbreak<br/>and rebuilding your life.</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 16, fontSize: 11, color: 'rgba(255,255,255,0.50)', fontWeight: 700, letterSpacing: 1.5 }}>
+                  <span>EBOOK</span><span style={{ color: '#2A5A7A' }}>|</span>
+                  <span>AUDIOBOOK</span><span style={{ color: '#2A5A7A' }}>|</span>
+                  <span>PAPERBACK</span>
+                </div>
               </div>
             </div>
           </div>
         )}
       </section>
 
-      {/* LINKS */}
       <section style={{ maxWidth: 700, margin: '0 auto', padding: isMobile ? '32px 16px 0' : '44px 20px 0' }}>
         {divider('READ THE BOOK + AUDIOBOOK')}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 36 }}>
@@ -97,31 +105,23 @@ export default function LinksPage() {
             </a>
           ))}
         </div>
-
         {divider('PAPERBACK')}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 44 }}>
           {pb_links.map((row, i) => (
             <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
               <a href={row.hrefa} target='_blank' rel='noopener noreferrer' style={pbCard}>
                 <span style={{ fontSize: 20, flexShrink: 0 }}>{row.icon}</span>
-                <div>
-                  <p style={{ margin: 0, fontSize: isMobile ? 13 : 14, fontWeight: 800, color: '#FFFFFF' }}>Amazon</p>
-                  <p style={{ margin: 0, fontSize: 10, color: '#5AB8DC', fontWeight: 600, marginTop: 2 }}>{row.lang}</p>
-                </div>
+                <div><p style={{ margin: 0, fontSize: isMobile ? 13 : 14, fontWeight: 800, color: '#FFFFFF' }}>Amazon</p><p style={{ margin: 0, fontSize: 10, color: '#5AB8DC', fontWeight: 600, marginTop: 2 }}>{row.lang}</p></div>
               </a>
               <a href={row.hrefb} target='_blank' rel='noopener noreferrer' style={pbCard}>
                 <span style={{ fontSize: 20, flexShrink: 0 }}>{row.icon}</span>
-                <div>
-                  <p style={{ margin: 0, fontSize: isMobile ? 13 : 14, fontWeight: 800, color: '#FFFFFF' }}>Barnes & Noble</p>
-                  <p style={{ margin: 0, fontSize: 10, color: '#5AB8DC', fontWeight: 600, marginTop: 2 }}>{row.lang}</p>
-                </div>
+                <div><p style={{ margin: 0, fontSize: isMobile ? 13 : 14, fontWeight: 800, color: '#FFFFFF' }}>Barnes & Noble</p><p style={{ margin: 0, fontSize: 10, color: '#5AB8DC', fontWeight: 600, marginTop: 2 }}>{row.lang}</p></div>
               </a>
             </div>
           ))}
         </div>
       </section>
 
-      {/* QUOTE */}
       <section style={{ maxWidth: 700, margin: '0 auto 44px', padding: '0 20px' }}>
         <div style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.11)', borderRadius: 22, overflow: 'hidden', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 140px', minHeight: 170 }}>
           <div style={{ padding: isMobile ? '28px 22px 24px' : '32px 28px 28px' }}>
@@ -131,18 +131,16 @@ export default function LinksPage() {
           </div>
           {!isMobile && (
             <div style={{ position: 'relative', overflow: 'hidden' }}>
-              <img src='/links-assets/hero-desktop.png' alt='' style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', opacity: 0.40 }} />
+              <img src='/links-assets/hero-desktop.png' alt='' style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center', opacity: 0.40 }} />
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg,rgba(12,20,32,0.95) 0%,transparent 55%)' }} />
             </div>
           )}
         </div>
       </section>
 
-      {/* FOOTER */}
       <footer style={{ borderTop: '1px solid rgba(255,255,255,0.08)', padding: '28px 20px', textAlign: 'center', background: 'rgba(0,0,0,0.30)' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 24, flexWrap: 'wrap', marginBottom: 16, fontSize: 10, color: 'rgba(255,255,255,0.38)', fontWeight: 700, letterSpacing: 1.8, textTransform: 'uppercase' }}>
-          <span>Available Worldwide</span>
-          <span>Ebook · Audiobook · Paperback</span>
+          <span>Available Worldwide</span><span>Ebook · Audiobook · Paperback</span>
         </div>
         <p style={{ fontFamily: 'Georgia,serif', fontStyle: 'italic', fontSize: 24, color: '#FFFFFF', margin: '0 0 4px', fontWeight: 400 }}>Gilberto Souza</p>
         <p style={{ fontSize: 9, letterSpacing: 3.5, color: '#5AB8DC', textTransform: 'uppercase', margin: 0 }}>AUTHOR</p>
