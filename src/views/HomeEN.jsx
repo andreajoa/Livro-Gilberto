@@ -752,7 +752,7 @@ export default function HomeEN() {
               justifyContent: 'center'
             }}>
               <img
-                src={bookCoverEN}
+                src="/book-assets/gilberto-ingles.png"
                 alt="How to Overcome the Pain of Being Replaced"
                 style={{
                   width: isMobile ? 220 : 290,
@@ -1599,7 +1599,7 @@ export default function HomeEN() {
               </div>
 
               <div style={{ display: 'flex', gap: 16, marginBottom: 22, alignItems: 'flex-start' }}>
-                <img src={bookCoverEN} alt="Book" style={{ width: isMobile ? 82 : 96, borderRadius: 7, boxShadow: '0 14px 44px rgba(0,0,0,0.6)', flexShrink: 0 }} />
+                <img src="/book-assets/gilberto-ingles.png" alt="Book" style={{ width: isMobile ? 82 : 96, borderRadius: 7, boxShadow: '0 14px 44px rgba(0,0,0,0.6)', flexShrink: 0 }} />
                 <div>
                   <h3 style={{ fontSize: isMobile ? 18 : 21, fontWeight: 900, color: '#fff', marginBottom: 6, lineHeight: 1.25 }}>
                     eBook + Full Audiobook
