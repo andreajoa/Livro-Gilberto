@@ -1,5 +1,48 @@
 "use client"
 
+
+function todayKey() {
+  return new Date().toISOString().slice(0, 10)
+}
+
+function popupKeys(lang) {
+  return {
+    views: `gs_lead_popup_views_${lang}_${todayKey()}`,
+    subscribed: `gs_lead_popup_subscribed_${lang}`,
+    dismissedSession: `gs_lead_popup_dismissed_session_${lang}_${todayKey()}`
+  }
+}
+
+function shouldShowLeadPopup(lang) {
+  if (typeof window === "undefined") return false
+  const keys = popupKeys(lang)
+
+  if (localStorage.getItem(keys.subscribed) === "true") return false
+  if (sessionStorage.getItem(keys.dismissedSession) === "true") return false
+
+  const views = Number(localStorage.getItem(keys.views) || "0")
+  return views < 2
+}
+
+function registerLeadPopupView(lang) {
+  if (typeof window === "undefined") return
+  const keys = popupKeys(lang)
+  const views = Number(localStorage.getItem(keys.views) || "0")
+  localStorage.setItem(keys.views, String(views + 1))
+}
+
+function registerLeadPopupClose(lang) {
+  if (typeof window === "undefined") return
+  const keys = popupKeys(lang)
+  sessionStorage.setItem(keys.dismissedSession, "true")
+}
+
+function registerLeadPopupSubscribed(lang) {
+  if (typeof window === "undefined") return
+  const keys = popupKeys(lang)
+  localStorage.setItem(keys.subscribed, "true")
+}
+
 function getVisitorId() {
   if (typeof window === "undefined") return ""
   let id = localStorage.getItem("visitor_id")
@@ -74,15 +117,23 @@ export default function LeadPopupEN({ lang = 'en' }) {
 
   useEffect(() => {
     if (lead.captured) return;
-    const timer = setTimeout(() => setShow(true), 30000);
+
+    const timer = setTimeout(() => {
+      if (shouldShowLeadPopup(lang)) {
+        registerLeadPopupView(lang)
+        setShow(true)
+      }
+    }, 2000)
+
     return () => clearTimeout(timer);
-  }, [lead.captured]);
+  }, [lead.captured, lang]);
 
   const handleSubmit = async () => {
     if (!email.includes('@')) { setError('Please enter a valid email.'); return; }
     setError('');
     saveLead({ email, phone, name });
     await saveLeadToCRM({ name, email, whatsapp: '', lang, source: 'lead_popup' })
+    registerLeadPopupSubscribed(lang)
 
     try {
       await fetch("/api/crm/enqueue-lead-sequence", {
@@ -141,7 +192,7 @@ export default function LeadPopupEN({ lang = 'en' }) {
               boxShadow: '0 40px 100px rgba(0,0,0,0.8), 0 0 80px rgba(0,196,212,0.15)'
             }}
           >
-            <button onClick={() => setShow(false)} style={{
+            <button onClick={() => { registerLeadPopupClose(lang); setShow(false); }} style={{
               position: 'absolute', top: 16, right: 16,
               background: 'rgba(255,255,255,0.08)', border: 'none',
               borderRadius: 8, width: 32, height: 32,
@@ -245,7 +296,7 @@ export default function LeadPopupEN({ lang = 'en' }) {
                   {t.privacy}
                 </p>
 
-                <button onClick={() => setShow(false)} style={{
+                <button onClick={() => { registerLeadPopupClose(lang); setShow(false); }} style={{
                   background: 'none', border: 'none', color: '#4A5A7B',
                   fontSize: 12, cursor: 'pointer', display: 'block',
                   margin: '8px auto 0', textDecoration: 'underline'
