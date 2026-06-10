@@ -13,14 +13,10 @@ import CheckoutDigital from '../components/CheckoutDigital';
 import heroBg from '../assets/en/hero-bg.jpeg';
 import heroLoop from '../assets/en/hero-loop.gif';
 
-import authorImg from '../assets/en/author.png';
-import manStrong from '../assets/en/man-strong.png';
 import ebookBg from '../assets/en/ebook-bg.jpeg';
-import guarantee from '../assets/en/guarantee.png';
 
 import argument from '../assets/en/argument.gif';
 
-import bookCoverEN from '../assets/book/capa-livro-es.png';
 
 const faq = [
   { q: '¿En qué formato está el libro?', a: 'Recibes acceso instantáneo: un eBook en PDF que puedes leer en cualquier dispositivo y un audiolibro en MP3 que puedes escuchar donde quieras — en el coche, en el gimnasio o por la noche cuando tu mente no se apaga.' },
@@ -59,6 +55,11 @@ export default function HomeES() {
   const handleBuy = () => {
     window.location.href = '/checkout-digital?lang=es'
   };
+
+  const authorImg = '/book-assets/gilberto-ingles.png';
+  const guarantee = '/book-assets/gilberto-ingles.png';
+  const manStrong = '/book-assets/gilberto-ingles.png';
+  const bookCoverEN = '/books/es/book-front.jpg';
 
   const px = isMobile ? '20px' : '6vw';
   const sectionPad = isMobile ? '64px 20px' : '100px 6vw';
