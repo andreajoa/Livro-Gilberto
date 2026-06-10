@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { ArrowRight, Package, RotateCcw, Shield } from 'lucide-react';
 import AddToCartButton from '../components/AddToCartButton';
 import DigitalLangPopup from '../components/DigitalLangPopup';
+import LeadPopupEN from '../components/LeadPopupEN';
 import ShippingCalculator from '../components/ShippingCalculator';
 
 import bannerAutor     from '../assets/banners/banner-autor-wide.png';
@@ -746,6 +747,7 @@ export default function Home() {
       {/* ════════════════════════════════════════
           FOOTER
       ════════════════════════════════════════ */}
+      <LeadPopupEN lang="pt" />
       <DigitalLangPopup isOpen={digitalOpen} onClose={() => setDigitalOpen(false)} />
     </div>
   );

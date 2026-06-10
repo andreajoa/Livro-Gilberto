@@ -87,6 +87,19 @@ export default function LeadPopupEN({ lang = 'en' }) {
   const [error, setError] = useState('');
 
   const t = {
+    pt: {
+      badge: '🎁 PRESENTE GRÁTIS — Por tempo limitado',
+      title: 'Receba o Capítulo 1 Grátis',
+      sub: 'Digite seus dados abaixo e receba o primeiro capítulo — além de dicas de reconstrução emocional.',
+      namePlaceholder: 'Seu primeiro nome',
+      emailPlaceholder: 'Seu melhor email',
+      phonePlaceholder: '(11) 99999-9999',
+      cta: 'Quero Receber o Capítulo 1 →',
+      privacy: '🔒 Sem spam. Você pode cancelar quando quiser.',
+      thanks: 'Confira seu email!',
+      thanksDesc: 'O Capítulo 1 está a caminho. Bem-vindo.',
+      skip: 'Não, obrigado. Vou ver depois',
+    },
     en: {
       badge: '🎁 FREE GIFT — Limited Time',
       title: 'Get Chapter 1 FREE',
