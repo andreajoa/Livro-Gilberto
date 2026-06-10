@@ -90,6 +90,7 @@ export default function HomeES() {
           : 'linear-gradient(180deg, rgba(10,22,40,1) 0%, rgba(8,18,37,0.72) 58%, rgba(6,12,24,0) 100%)'
       }}
     >
+      <CRMTracker language="es" />
       <div
         style={{
           position: 'absolute',
