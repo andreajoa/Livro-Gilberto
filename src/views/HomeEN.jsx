@@ -1,4 +1,5 @@
 "use client"
+import CRMTracker, { trackCRMEvent } from '../components/CRMTracker';
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
@@ -58,6 +59,10 @@ export default function HomeEN() {
   }, [menuOpen]);
 
   const handleBuy = () => {
+    trackCRMEvent('checkout_open', {
+      language: 'en',
+      metadata: { product: 'digital_bundle', price: 24.99, currency: 'USD' }
+    })
     window.location.href = '/checkout-digital?lang=en'
   };
 
@@ -194,26 +199,13 @@ export default function HomeEN() {
         alignItems: 'center',
         background: 'linear-gradient(180deg, #07111f 0%, #0b1830 100%)'
       }}>
-        {isMobile ? (
-          <img
-            src={heroBg}
-            alt=""
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              objectPosition: 'center'
-            }}
-          />
-        ) : (
-          <video
+        <video
             autoPlay
             muted
             loop
             playsInline
-            preload="auto"
+            webkit-playsinline="true"
+            preload="metadata"
             poster={heroBg}
             style={{
               position: 'absolute',
@@ -226,7 +218,6 @@ export default function HomeEN() {
           >
             <source src='/videos/hero-video.mp4' type="video/mp4" />
           </video>
-        )}
 
         <div style={{
           position: 'absolute',
@@ -618,26 +609,13 @@ export default function HomeEN() {
         height: isMobile ? 360 : 'min(680px,78vh)',
         background: '#081221'
       }}>
-        {isMobile ? (
-          <img
-            src={argument}
-            alt=""
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              objectPosition: 'center'
-            }}
-          />
-        ) : (
-          <video
+        <video
             autoPlay
             muted
             loop
             playsInline
-            preload="auto"
+            webkit-playsinline="true"
+            preload="metadata"
             style={{
               position: 'absolute',
               inset: 0,
@@ -649,7 +627,6 @@ export default function HomeEN() {
           >
             <source src='/videos/embora.mp4' type="video/mp4" />
           </video>
-        )}
 
         <div style={{
           position: 'absolute',
@@ -1154,6 +1131,8 @@ export default function HomeEN() {
           muted
           loop
           playsInline
+          webkit-playsinline="true"
+          preload="metadata"
           style={{
             position: 'absolute',
             inset: 0,
@@ -2201,7 +2180,7 @@ export default function HomeEN() {
         >
           <div style={{ flex: 1 }}>
             <p style={{ color: '#fff', fontSize: 13, fontWeight: 700, margin: 0 }}>eBook + Audiobook</p>
-            <p style={{ color: '#00C4D4', fontSize: 12, margin: 0 }}><s style={{ color: '#8A9BBF' }}>$34</s> $24.99 today</p>
+            <p style={{ color: '#00C4D4', fontSize: 12, margin: 0 }}><s style={{ color: '#8A9BBF' }}>$49.99</s> $24.99 today</p>
           </div>
           <button onClick={handleBuy} style={{
             background: 'linear-gradient(135deg, #00C4D4, #0099A8)',

@@ -1,4 +1,5 @@
 "use client"
+import CRMTracker, { trackCRMEvent } from "../components/CRMTracker";
 const motion = { div: 'div', img: 'img' };
 import { useState } from 'react';
 import Link from 'next/link'
@@ -34,6 +35,7 @@ export default function Home() {
 
   return (
     <div>
+      <CRMTracker language="pt" />
 
       {/* ════════════════════════════════════════
           HERO — Gilberto em tela cheia
@@ -510,7 +512,7 @@ export default function Home() {
           </div>
 
           <div style={{ textAlign:'center' }}>
-            <button onClick={() => setDigitalOpen(true)} style={{
+            <button onClick={() => { trackCRMEvent('checkout_open', { language: 'pt', metadata: { product: 'digital_bundle', price: 97, currency: 'BRL' } }); setDigitalOpen(true); }} style={{
               display:'inline-flex', alignItems:'center', gap:10,
               background:'linear-gradient(135deg,#00C4D4,#0099A8)',
               border:'none', borderRadius:8, padding:'16px 40px',
@@ -622,7 +624,7 @@ export default function Home() {
               {['eBook PDF completo', 'Audiobook completo', 'Acesso imediato por email', 'Leia ou ouça onde quiser', 'Sem frete'].map(item => (
                 <div key={item} style={{ color:'#EAF4FF', fontSize:13, marginBottom:10 }}>✓ {item}</div>
               ))}
-              <button onClick={() => setDigitalOpen(true)} style={{
+              <button onClick={() => { trackCRMEvent('checkout_open', { language: 'pt', metadata: { product: 'digital_bundle', price: 97, currency: 'BRL' } }); setDigitalOpen(true); }} style={{
                 marginTop:'auto',
                 width:'100%',
                 padding:'17px',

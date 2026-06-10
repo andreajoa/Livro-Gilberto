@@ -49,6 +49,23 @@ export async function POST(request) {
         }
       })
     })
+
+    await fetch(`${baseUrl}/api/crm/customer`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        visitorId: meta.visitor_id || '',
+        name: meta.customer_name || 'Cliente',
+        email: pi.receipt_email || '',
+        language: lang,
+        product: 'eBook + Audiobook',
+        productType: 'digital',
+        amount: pi.amount / 100,
+        currency: String(pi.currency || '').toUpperCase(),
+        stripePaymentIntent: pi.id,
+        accessToken: meta.access_token || ''
+      })
+    })
   }
 
   if (meta.product === 'Livro Fisico PT') {
@@ -73,6 +90,23 @@ export async function POST(request) {
           total: (pi.amount / 100).toFixed(2),
           paymentIntentId: pi.id
         }
+      })
+    })
+
+    await fetch(`${baseUrl}/api/crm/customer`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        visitorId: meta.visitor_id || '',
+        name: meta.customer_name || 'Cliente',
+        email: pi.receipt_email || '',
+        whatsapp: meta.whatsapp || '',
+        language: 'pt',
+        product: 'Livro físico PT',
+        productType: 'physical',
+        amount: pi.amount / 100,
+        currency: String(pi.currency || '').toUpperCase(),
+        stripePaymentIntent: pi.id
       })
     })
   }

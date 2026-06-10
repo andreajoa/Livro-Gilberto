@@ -1,4 +1,34 @@
 "use client"
+
+function getVisitorId() {
+  if (typeof window === "undefined") return ""
+  let id = localStorage.getItem("visitor_id")
+  if (!id) {
+    id = `v_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`
+    localStorage.setItem("visitor_id", id)
+  }
+  return id
+}
+
+async function saveLeadToCRM({ name, email, whatsapp, lang, source }) {
+  try {
+    await fetch("/api/crm/lead", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        visitorId: getVisitorId(),
+        name,
+        email,
+        whatsapp,
+        language: lang,
+        source,
+        page: typeof window !== "undefined" ? window.location.pathname : ""
+      })
+    })
+  } catch (error) {
+    console.warn("CRM lead save failed:", error)
+  }
+}
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Mail, Phone, Gift } from 'lucide-react';
@@ -52,7 +82,8 @@ export default function LeadPopupEN({ lang = 'en' }) {
     if (!email.includes('@')) { setError('Please enter a valid email.'); return; }
     setError('');
     saveLead({ email, phone, name });
-    setSubmitted(true);
+    await saveLeadToCRM({ name, email, whatsapp: '', lang, source: 'lead_popup' })
+      setSubmitted(true);
     try {
       await fetch('/api/lead', {
         method: 'POST',

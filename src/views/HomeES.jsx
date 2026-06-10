@@ -1,4 +1,5 @@
 "use client"
+import CRMTracker, { trackCRMEvent } from '../components/CRMTracker';
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
@@ -53,6 +54,10 @@ export default function HomeES() {
   }, [menuOpen]);
 
   const handleBuy = () => {
+    trackCRMEvent('checkout_open', {
+      language: 'es',
+      metadata: { product: 'digital_bundle', price: 24.99, currency: 'USD' }
+    })
     window.location.href = '/checkout-digital?lang=es'
   };
 
