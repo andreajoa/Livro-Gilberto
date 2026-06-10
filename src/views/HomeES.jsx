@@ -56,6 +56,13 @@ export default function HomeES() {
     window.location.href = '/checkout-digital?lang=es'
   };
 
+  const AMAZON_ES_URL = 'https://www.amazon.com/dp/B0H2LHZT7X';
+  const BARNES_ES_URL = 'https://www.barnesandnoble.com/w/como-vencer-el-dolor-de-ser-reemplazado-por-otro-gilberto-de-souza/1150279538?ean=9786584622050';
+
+  const openExternal = (url) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
   const authorImg = '/book-assets/gilberto-ingles.png';
   const guarantee = '/book-assets/gilberto-ingles.png';
   const manStrong = '/book-assets/gilberto-ingles.png';
