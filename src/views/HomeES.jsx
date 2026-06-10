@@ -169,7 +169,7 @@ export default function HomeES() {
               background: 'linear-gradient(135deg, #00C4D4, #0099A8)',
               border: 'none', borderRadius: 8, padding: '16px',
               color: '#0D1B3E', fontSize: 15, fontWeight: 800, cursor: 'pointer'
-            }}>Obtén acceso inmediato — $17</button>
+            }}>Obtén acceso inmediato — $24.99</button>
           </motion.div>
         )}
       </AnimatePresence>
@@ -183,26 +183,13 @@ export default function HomeES() {
         alignItems: 'center',
         background: 'linear-gradient(180deg, #07111f 0%, #0b1830 100%)'
       }}>
-        {isMobile ? (
-          <img
-            src={heroBg}
-            alt=""
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              objectPosition: 'center'
-            }}
-          />
-        ) : (
-          <video
+        <video
             autoPlay
             muted
             loop
             playsInline
-            preload="auto"
+            webkit-playsinline="true"
+            preload="metadata"
             poster={heroBg}
             style={{
               position: 'absolute',
@@ -215,7 +202,6 @@ export default function HomeES() {
           >
             <source src='/videos/hero-video.mp4' type="video/mp4" />
           </video>
-        )}
 
         <div style={{
           position: 'absolute',
@@ -336,7 +322,7 @@ export default function HomeES() {
                   border: 'none',
                   borderRadius: 10,
                   padding: isMobile ? '18px 24px' : '20px 34px',
-                  fontSize: isMobile ? 17 : 18,
+                  fontSize: isMobile ? 24.99 : 18,
                   fontWeight: 900,
                   color: '#0B1325',
                   cursor: 'pointer',
@@ -348,7 +334,7 @@ export default function HomeES() {
                   width: isMobile ? '100%' : 'auto'
                 }}
               >
-                Obtén acceso inmediato — $17
+                Obtén acceso inmediato — $24.99
                 <ArrowRight size={18} />
               </motion.button>
 
@@ -372,7 +358,7 @@ export default function HomeES() {
               color: 'rgba(255,255,255,0.60)',
               marginBottom: 26
             }}>
-              <span style={{ textDecoration: 'line-through', opacity: 0.7 }}>$34</span> solo hoy · Incluye eBook + audiolibro · Pago seguro
+              <span style={{ textDecoration: 'line-through', opacity: 0.7 }}>$49.99</span> solo hoy · Incluye eBook + audiolibro · Pago seguro
             </p>
 
             <div style={{
@@ -443,7 +429,7 @@ export default function HomeES() {
             "No un libro lleno de frases vacías o de consejos de ‘supéralo’. Un manual real para el hombre que lo dio todo y ahora está sentado entre los escombros de lo que creía que era su vida — intentando descubrir cómo volver a levantarse.",
             "Si ese eres tú, este libro fue escrito para ti.",
           ].map((p, i) => (
-            <p key={i} style={{ fontSize: isMobile ? 15 : 17, color: i === 6 ? '#fff' : 'rgba(255,255,255,0.7)', lineHeight: 1.9, marginBottom: 20 }}>
+            <p key={i} style={{ fontSize: isMobile ? 15 : 24.99, color: i === 6 ? '#fff' : 'rgba(255,255,255,0.7)', lineHeight: 1.9, marginBottom: 20 }}>
               {p}
             </p>
           ))}
@@ -607,26 +593,13 @@ export default function HomeES() {
         height: isMobile ? 360 : 'min(680px,78vh)',
         background: '#081221'
       }}>
-        {isMobile ? (
-          <img
-            src={argument}
-            alt=""
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              objectPosition: 'center'
-            }}
-          />
-        ) : (
-          <video
+        <video
             autoPlay
             muted
             loop
             playsInline
-            preload="auto"
+            webkit-playsinline="true"
+            preload="metadata"
             style={{
               position: 'absolute',
               inset: 0,
@@ -638,7 +611,6 @@ export default function HomeES() {
           >
             <source src='/videos/embora.mp4' type="video/mp4" />
           </video>
-        )}
 
         <div style={{
           position: 'absolute',
@@ -854,8 +826,8 @@ export default function HomeES() {
               marginBottom: 18
             }}>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
-                <span style={{ fontSize: isMobile ? 44 : 56, fontWeight: 900, color: '#FFB800', lineHeight: 1 }}>$17</span>
-                <span style={{ fontSize: 19, color: 'rgba(255,255,255,0.38)', textDecoration: 'line-through' }}>$34</span>
+                <span style={{ fontSize: isMobile ? 44 : 56, fontWeight: 900, color: '#FFB800', lineHeight: 1 }}>$24.99</span>
+                <span style={{ fontSize: 19, color: 'rgba(255,255,255,0.38)', textDecoration: 'line-through' }}>$49.99</span>
                 <span style={{
                   fontSize: 11,
                   fontWeight: 800,
@@ -886,7 +858,7 @@ export default function HomeES() {
                 border: 'none',
                 borderRadius: 12,
                 padding: isMobile ? '18px' : '18px 34px',
-                fontSize: isMobile ? 16 : 17,
+                fontSize: isMobile ? 16 : 24.99,
                 fontWeight: 900,
                 color: '#0D1322',
                 cursor: 'pointer',
@@ -899,7 +871,7 @@ export default function HomeES() {
                 marginBottom: 14
               }}
             >
-              Obtén acceso inmediato — $17
+              Obtén acceso inmediato — $24.99
               <ArrowRight size={17} />
             </motion.button>
 
@@ -963,7 +935,7 @@ export default function HomeES() {
             </h2>
 
             <p style={{
-              fontSize: isMobile ? 14 : 17,
+              fontSize: isMobile ? 14 : 24.99,
               color: 'rgba(255,255,255,0.70)',
               lineHeight: 1.75,
               marginBottom: 18
@@ -1111,7 +1083,7 @@ export default function HomeES() {
                 border: 'none',
                 borderRadius: 12,
                 padding: isMobile ? '18px' : '18px 34px',
-                fontSize: isMobile ? 16 : 17,
+                fontSize: isMobile ? 16 : 24.99,
                 fontWeight: 900,
                 color: '#0D1322',
                 cursor: 'pointer',
@@ -1143,6 +1115,8 @@ export default function HomeES() {
           muted
           loop
           playsInline
+          webkit-playsinline="true"
+          preload="metadata"
           style={{
             position: 'absolute',
             inset: 0,
@@ -1219,7 +1193,7 @@ export default function HomeES() {
           </p>
 
           <p style={{
-            fontSize: isMobile ? 14 : 17,
+            fontSize: isMobile ? 14 : 24.99,
             color: '#B8C8E0',
             maxWidth: 760,
             lineHeight: 1.75,
@@ -1257,7 +1231,7 @@ export default function HomeES() {
               border: 'none',
               borderRadius: 12,
               padding: isMobile ? '18px 20px' : '18px 34px',
-              fontSize: isMobile ? 16 : 17,
+              fontSize: isMobile ? 16 : 24.99,
               fontWeight: 900,
               color: '#0D1322',
               cursor: 'pointer',
@@ -1393,7 +1367,7 @@ export default function HomeES() {
             </p>
 
             <p style={{
-              fontSize: isMobile ? 14 : 17,
+              fontSize: isMobile ? 14 : 24.99,
               color: '#B8C8E0',
               lineHeight: 1.8,
               marginBottom: 26,
@@ -1421,7 +1395,7 @@ export default function HomeES() {
                   padding: '16px 16px'
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-                    <span style={{ fontSize: 17 }}>{item.emoji}</span>
+                    <span style={{ fontSize: 24.99 }}>{item.emoji}</span>
                     <span style={{ fontSize: 14, fontWeight: 800, color: '#fff' }}>{item.title}</span>
                   </div>
                   <p style={{ margin: 0, fontSize: 13, color: '#C7D6EA', lineHeight: 1.7 }}>{item.text}</p>
@@ -1459,7 +1433,7 @@ export default function HomeES() {
                   border: 'none',
                   borderRadius: 12,
                   padding: isMobile ? '18px' : '18px 30px',
-                  fontSize: isMobile ? 16 : 17,
+                  fontSize: isMobile ? 16 : 24.99,
                   fontWeight: 900,
                   color: '#0D1322',
                   cursor: 'pointer',
@@ -1507,7 +1481,7 @@ export default function HomeES() {
             <div style={{ display: 'flex', gap: 16, marginBottom: 24, alignItems: 'flex-start' }}>
               <img src={bookCoverEN} alt="Libro" style={{ width: isMobile ? 80 : 100, borderRadius: 6, boxShadow: '0 12px 40px rgba(0,0,0,0.6)', flexShrink: 0 }} />
               <div>
-                <h3 style={{ fontSize: isMobile ? 15 : 17, fontWeight: 800, color: '#fff', marginBottom: 6, lineHeight: 1.3 }}>
+                <h3 style={{ fontSize: isMobile ? 15 : 24.99, fontWeight: 800, color: '#fff', marginBottom: 6, lineHeight: 1.3 }}>
                   Cómo superar el dolor de ser reemplazado por otra persona
                 </h3>
                 <p style={{ fontSize: 12, color: '#8A9BBF', marginBottom: 10 }}>por Gilberto de Souza</p>
@@ -1518,8 +1492,8 @@ export default function HomeES() {
             </div>
 
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 24 }}>
-              <span style={{ fontSize: isMobile ? 42 : 52, fontWeight: 900, color: '#00C4D4', lineHeight: 1 }}>$17</span>
-              <span style={{ fontSize: 18, color: '#8A9BBF', textDecoration: 'line-through' }}>$34</span>
+              <span style={{ fontSize: isMobile ? 42 : 52, fontWeight: 900, color: '#00C4D4', lineHeight: 1 }}>$24.99</span>
+              <span style={{ fontSize: 18, color: '#8A9BBF', textDecoration: 'line-through' }}>$49.99</span>
               <span style={{ fontSize: 11, background: 'rgba(0,196,212,0.15)', border: '1px solid rgba(0,196,212,0.3)', color: '#00C4D4', padding: '3px 8px', borderRadius: 4, fontWeight: 700 }}>50% OFF</span>
             </div>
 
@@ -1533,7 +1507,7 @@ export default function HomeES() {
                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
                 marginBottom: 14
               }}>
-              Obtén acceso inmediato — $17
+              Obtén acceso inmediato — $24.99
               <ArrowRight size={18} />
             </motion.button>
 
@@ -1614,7 +1588,7 @@ export default function HomeES() {
               </h2>
 
               <p style={{
-                fontSize: isMobile ? 14 : 17,
+                fontSize: isMobile ? 14 : 24.99,
                 color: 'rgba(255,255,255,0.74)',
                 lineHeight: 1.8,
                 maxWidth: 700,
@@ -1652,7 +1626,7 @@ export default function HomeES() {
                   border: 'none',
                   borderRadius: 12,
                   padding: isMobile ? '18px' : '18px 34px',
-                  fontSize: isMobile ? 16 : 17,
+                  fontSize: isMobile ? 16 : 24.99,
                   fontWeight: 900,
                   color: '#0D1322',
                   cursor: 'pointer',
@@ -1665,7 +1639,7 @@ export default function HomeES() {
                   maxWidth: isMobile ? 340 : 'none'
                 }}
               >
-                Empieza sin riesgo — $17
+                Empieza sin riesgo — $24.99
                 <ArrowRight size={17} />
               </motion.button>
 
@@ -1979,7 +1953,7 @@ export default function HomeES() {
               maxWidth: isMobile ? 340 : 'none'
             }}
           >
-            Obtén acceso inmediato — $17
+            Obtén acceso inmediato — $24.99
             <ArrowRight size={17} />
           </motion.button>
 
@@ -2033,7 +2007,7 @@ export default function HomeES() {
         >
           <div style={{ flex: 1 }}>
             <p style={{ color: '#fff', fontSize: 13, fontWeight: 700, margin: 0 }}>eBook + Audiolibro</p>
-            <p style={{ color: '#00C4D4', fontSize: 12, margin: 0 }}><s style={{ color: '#8A9BBF' }}>$34</s> $17 hoy</p>
+            <p style={{ color: '#00C4D4', fontSize: 12, margin: 0 }}><s style={{ color: '#8A9BBF' }}>$49.99</s> $24.99 hoy</p>
           </div>
           <button onClick={handleBuy} style={{
             background: 'linear-gradient(135deg, #00C4D4, #0099A8)',

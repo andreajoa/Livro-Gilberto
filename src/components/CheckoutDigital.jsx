@@ -7,7 +7,7 @@ const COPY = {
     title: "Acesso digital imediato",
     subtitle: "Receba o eBook + Audiobook após o pagamento",
     product: "eBook + Audiobook — Português",
-    price: "R$ 47,00",
+    price: "R$ 97,00",
     nameLabel: "Nome completo *",
     emailLabel: "Email *",
     namePlaceholder: "Seu nome completo",
@@ -22,7 +22,7 @@ const COPY = {
     title: "Instant digital access",
     subtitle: "Get the eBook + Audiobook after payment",
     product: "eBook + Audiobook — English",
-    price: "$17.00 USD",
+    price: "$24.99 USD",
     nameLabel: "Full name *",
     emailLabel: "Email *",
     namePlaceholder: "Your full name",
@@ -37,7 +37,7 @@ const COPY = {
     title: "Acceso digital inmediato",
     subtitle: "Recibe el eBook + Audiolibro después del pago",
     product: "eBook + Audiolibro — Español",
-    price: "$17.00 USD",
+    price: "$24.99 USD",
     nameLabel: "Nombre completo *",
     emailLabel: "Email *",
     namePlaceholder: "Tu nombre completo",
@@ -69,7 +69,7 @@ export default function CheckoutDigital({ lang = "pt" }) {
   })
 
   const priceNumber = useMemo(() => {
-    return activeLang === "pt" ? 47 : 17
+    return activeLang === "pt" ? 97 : 24.99
   }, [activeLang])
 
   useEffect(() => {

@@ -13,7 +13,7 @@ const COPY = {
     title: 'eBook + Audiobook',
     subtitle: 'Acesso imediato após o pagamento',
     product: 'eBook + Audiobook — Português',
-    price: 'R$ 47,00',
+    price: 'R$ 97,00',
     name: 'Nome completo',
     email: 'Email',
     namePlaceholder: 'Seu nome completo',

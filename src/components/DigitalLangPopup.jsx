@@ -4,9 +4,9 @@ import { useRouter } from 'next/navigation'
 import { X, Download, Headphones } from 'lucide-react'
 
 const LANGS = [
-  { code:'pt', flag:'🇧🇷', label:'Português', price:'R$ 47', sub:'eBook + Audiobook' },
-  { code:'en', flag:'🇺🇸', label:'English',   price:'$17 USD', sub:'eBook + Audiobook' },
-  { code:'es', flag:'🇪🇸', label:'Español',   price:'$17 USD', sub:'eBook + Audiobook' },
+  { code:'pt', flag:'🇧🇷', label:'Português', price:'R$ 97', sub:'eBook + Audiobook' },
+  { code:'en', flag:'🇺🇸', label:'English',   price:'$24.99 USD', sub:'eBook + Audiobook' },
+  { code:'es', flag:'🇪🇸', label:'Español',   price:'$24.99 USD', sub:'eBook + Audiobook' },
 ]
 
 export default function DigitalLangPopup({ isOpen, onClose }) {
