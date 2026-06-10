@@ -25,7 +25,7 @@ const faq = [
   { q: 'Qual o prazo de entrega?', a: 'PAC: 5 a 15 dias úteis dependendo da sua região. SEDEX: 1 a 7 dias úteis.' },
   { q: 'Posso devolver o livro?', a: 'Sim. Você tem 7 dias corridos após o recebimento para solicitar devolução, conforme o Código de Defesa do Consumidor.' },
   { q: 'Como acompanho meu pedido?', a: 'Enviamos o código de rastreamento por email logo após a postagem. Acompanhe em rastreamento.correios.com.br.' },
-  { q: 'O livro está disponível em versão digital?', a: 'Sim! Disponível como eBook + Audiobook em Português (R$ 47), English e Español ($17 USD). Acesso imediato após o pagamento.' },
+  { q: 'O livro está disponível em versão digital?', a: 'Sim! Disponível como eBook + Audiobook em Português (R$ 97), English e Español ($24.99 USD). Acesso imediato após o pagamento.' },
 ];
 
 export default function Home() {
@@ -492,9 +492,9 @@ export default function Home() {
 
           <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))', gap:24, marginBottom:48 }}>
             {[
-              { flag:'🇧🇷', lang:'Português', price:'R$ 47', desc:'eBook PDF + Audiobook completo' },
-              { flag:'🇺🇸', lang:'English',   price:'$17 USD', desc:'eBook PDF + Full Audiobook' },
-              { flag:'🇪🇸', lang:'Español',   price:'$17 USD', desc:'eBook PDF + Audiolibro completo' },
+              { flag:'🇧🇷', lang:'Português', price:'R$ 97', desc:'eBook PDF + Audiobook completo' },
+              { flag:'🇺🇸', lang:'English',   price:'$24.99 USD', desc:'eBook PDF + Full Audiobook' },
+              { flag:'🇪🇸', lang:'Español',   price:'$24.99 USD', desc:'eBook PDF + Audiolibro completo' },
             ].map((item,i) => (
               <div key={i} style={{ background:'rgba(13,27,62,0.6)', border:'1px solid rgba(0,196,212,0.15)', borderRadius:12, padding:'28px 24px', textAlign:'center',
                 transition:'border-color 0.2s, transform 0.2s' }}
@@ -520,6 +520,175 @@ export default function Home() {
             </button>
             <p style={{ fontSize:12, color:'#8A9BBF', marginTop:12 }}>Escolha o idioma na próxima tela • Acesso imediato</p>
           </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════
+          ESCOLHA COMO VOCÊ QUER LER
+      ════════════════════════════════════════ */}
+      <section style={{ background:'linear-gradient(180deg,#060C18 0%,#0D1B3E 100%)', padding:'100px 6vw' }}>
+        <div style={{ maxWidth:1180, margin:'0 auto' }}>
+          <div style={{ textAlign:'center', marginBottom:52 }}>
+            <span style={{ fontSize:10, letterSpacing:5, color:'#00C4D4', fontWeight:700, textTransform:'uppercase', display:'block', marginBottom:16 }}>
+              Escolha Como Você Quer Ler
+            </span>
+            <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:'clamp(30px,4vw,56px)', color:'#fff', fontWeight:900, marginBottom:14, lineHeight:1.1 }}>
+              Comece sua reconstrução<br/><span style={{ color:'#00C4D4' }}>do jeito certo.</span>
+            </h2>
+            <p style={{ fontSize:15, color:'#8A9BBF', maxWidth:720, margin:'0 auto', lineHeight:1.8 }}>
+              Escolha o livro físico para receber em casa, o combo digital com acesso imediato, ou compre pela Amazon para ter ainda mais confiança na sua compra.
+            </p>
+          </div>
+
+          <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))', gap:22, alignItems:'stretch' }}>
+
+            <div style={{
+              background:'rgba(13,27,62,0.72)',
+              border:'1px solid rgba(255,255,255,0.10)',
+              borderRadius:18,
+              padding:'30px 24px',
+              display:'flex',
+              flexDirection:'column'
+            }}>
+              <div style={{ fontSize:34, marginBottom:16 }}>📦</div>
+              <h3 style={{ fontFamily:"'Playfair Display',serif", color:'#fff', fontSize:24, fontWeight:900, margin:'0 0 8px' }}>
+                Livro Físico
+              </h3>
+              <p style={{ color:'#8A9BBF', fontSize:13, lineHeight:1.7, margin:'0 0 20px' }}>
+                Para quem quer segurar o livro nas mãos, marcar páginas e receber em casa.
+              </p>
+              <div style={{ marginBottom:22 }}>
+                <span style={{ fontSize:40, fontWeight:900, color:'#00C4D4' }}>R$119</span>
+                <span style={{ color:'#8A9BBF', fontSize:13 }}> + frete</span>
+              </div>
+              {['Livro impresso', 'Enviado pelos Correios', 'Código de rastreamento', 'Ideal para presentear'].map(item => (
+                <div key={item} style={{ color:'#B8C8E0', fontSize:13, marginBottom:10 }}>✓ {item}</div>
+              ))}
+              <a href="#comprar" style={{
+                marginTop:'auto',
+                display:'flex',
+                justifyContent:'center',
+                alignItems:'center',
+                padding:'16px',
+                borderRadius:10,
+                background:'rgba(0,196,212,0.14)',
+                border:'1px solid rgba(0,196,212,0.35)',
+                color:'#00C4D4',
+                fontSize:14,
+                fontWeight:900,
+                textDecoration:'none'
+              }}>
+                Comprar Livro Físico
+              </a>
+            </div>
+
+            <div style={{
+              position:'relative',
+              background:'linear-gradient(180deg,rgba(0,196,212,0.18) 0%,rgba(13,27,62,0.95) 100%)',
+              border:'2px solid rgba(0,196,212,0.55)',
+              borderRadius:22,
+              padding:'34px 26px',
+              display:'flex',
+              flexDirection:'column',
+              boxShadow:'0 28px 90px rgba(0,196,212,0.18)'
+            }}>
+              <div style={{
+                position:'absolute',
+                top:-14,
+                left:'50%',
+                transform:'translateX(-50%)',
+                background:'linear-gradient(135deg,#FFB800,#FF8A00)',
+                color:'#0D1322',
+                fontSize:11,
+                fontWeight:900,
+                padding:'7px 14px',
+                borderRadius:999,
+                letterSpacing:1,
+                whiteSpace:'nowrap'
+              }}>
+                MAIS ESCOLHIDO · ACESSO IMEDIATO
+              </div>
+              <div style={{ fontSize:34, marginBottom:16 }}>🎧</div>
+              <h3 style={{ fontFamily:"'Playfair Display',serif", color:'#fff', fontSize:26, fontWeight:900, margin:'0 0 8px' }}>
+                eBook + Audiobook
+              </h3>
+              <p style={{ color:'#B8C8E0', fontSize:13, lineHeight:1.7, margin:'0 0 20px' }}>
+                Leia no celular e ouça o audiobook completo onde quiser. Sem frete. Sem espera.
+              </p>
+              <div style={{ marginBottom:22 }}>
+                <span style={{ fontSize:46, fontWeight:900, color:'#FFB800' }}>R$97</span>
+                <span style={{ color:'#8A9BBF', fontSize:16, textDecoration:'line-through', marginLeft:10 }}>R$147</span>
+              </div>
+              {['eBook PDF completo', 'Audiobook completo', 'Acesso imediato por email', 'Leia ou ouça onde quiser', 'Sem frete'].map(item => (
+                <div key={item} style={{ color:'#EAF4FF', fontSize:13, marginBottom:10 }}>✓ {item}</div>
+              ))}
+              <button onClick={() => setDigitalOpen(true)} style={{
+                marginTop:'auto',
+                width:'100%',
+                padding:'17px',
+                borderRadius:12,
+                background:'linear-gradient(135deg,#FFB800,#FF8A00)',
+                border:'none',
+                color:'#0D1322',
+                fontSize:15,
+                fontWeight:900,
+                cursor:'pointer'
+              }}>
+                Comprar eBook + Audiobook
+              </button>
+            </div>
+
+            <div style={{
+              background:'rgba(13,27,62,0.72)',
+              border:'1px solid rgba(255,255,255,0.10)',
+              borderRadius:18,
+              padding:'30px 24px',
+              display:'flex',
+              flexDirection:'column'
+            }}>
+              <div style={{
+                background:'#fff',
+                borderRadius:12,
+                padding:'10px 14px',
+                marginBottom:18,
+                display:'inline-flex',
+                alignItems:'center',
+                justifyContent:'center',
+                width:'fit-content'
+              }}>
+                <img src="/retailer-logos/amazon.png" alt="Amazon" style={{ height:34, width:'auto', display:'block' }} />
+              </div>
+              <h3 style={{ fontFamily:"'Playfair Display',serif", color:'#fff', fontSize:24, fontWeight:900, margin:'0 0 8px' }}>
+                Comprar na Amazon
+              </h3>
+              <p style={{ color:'#8A9BBF', fontSize:13, lineHeight:1.7, margin:'0 0 20px' }}>
+                Prefere comprar por uma plataforma conhecida? O livro também está disponível na Amazon.
+              </p>
+              {['Listagem oficial na Amazon', 'Compra em ambiente conhecido', 'Mais credibilidade', 'Livro físico'].map(item => (
+                <div key={item} style={{ color:'#B8C8E0', fontSize:13, marginBottom:10 }}>✓ {item}</div>
+              ))}
+              <a href="https://www.amazon.com/dp/B0H2LM4TXH" target="_blank" rel="noopener noreferrer" style={{
+                marginTop:'auto',
+                display:'flex',
+                justifyContent:'center',
+                alignItems:'center',
+                padding:'16px',
+                borderRadius:10,
+                background:'rgba(255,184,0,0.14)',
+                border:'1px solid rgba(255,184,0,0.35)',
+                color:'#FFB800',
+                fontSize:14,
+                fontWeight:900,
+                textDecoration:'none'
+              }}>
+                Comprar na Amazon
+              </a>
+            </div>
+          </div>
+
+          <p style={{ textAlign:'center', color:'#8A9BBF', fontSize:12, marginTop:28 }}>
+            Compra segura · Acesso imediato no digital · Livro físico com envio pelos Correios · Também disponível em grandes livrarias
+          </p>
         </div>
       </section>
 

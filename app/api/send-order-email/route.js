@@ -164,7 +164,7 @@ function digitalAdminEmail(order) {
       ${row('Nome', order.name)}
       ${row('Email', order.email)}
       ${row('Idioma', langLabel(order.lang))}
-      ${row('Valor', order.lang === 'pt' ? 'R$ 47,00' : '$17.00 USD')}
+      ${row('Valor', order.lang === 'pt' ? 'R$ 97,00' : '$24.99 USD')}
       ${row('Payment Intent', order.paymentIntentId)}
       ${row('Link de acesso', order.accessUrl)}
     </table>
