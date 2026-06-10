@@ -41,9 +41,25 @@ export default function Home() {
       ════════════════════════════════════════ */}
       <section style={{ position:'relative', height:'100vh', minHeight:600, overflow:'hidden', display:'flex', alignItems:'center' }}>
 
-        {/* Foto do autor tela cheia */}
-        <img src={bannerAutor.src} alt="Gilberto de Souza"
-          style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center top' }} />
+        {/* Video Hero */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          webkit-playsinline="true"
+          preload="metadata"
+          style={{
+            position:'absolute',
+            inset:0,
+            width:'100%',
+            height:'100%',
+            objectFit:'cover',
+            objectPosition:'center center'
+          }}
+        >
+          <source src="/videos/hero-video.mp4" type="video/mp4" />
+        </video>
 
         {/* Gradiente dramático da esquerda */}
         <div style={{ position:'absolute', inset:0, background:'linear-gradient(105deg, rgba(6,12,24,0.97) 0%, rgba(6,12,24,0.88) 38%, rgba(6,12,24,0.4) 62%, rgba(6,12,24,0.05) 100%)' }} />
