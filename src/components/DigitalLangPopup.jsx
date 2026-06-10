@@ -3,6 +3,36 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { X, Download, Headphones } from 'lucide-react'
 
+function getVisitorId() {
+  if (typeof window === "undefined") return ""
+  let id = localStorage.getItem("visitor_id")
+  if (!id) {
+    id = `v_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`
+    localStorage.setItem("visitor_id", id)
+  }
+  return id
+}
+
+async function saveDigitalLeadToCRM({ name, email, lang }) {
+  try {
+    await fetch("/api/crm/lead", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        visitorId: getVisitorId(),
+        name,
+        email,
+        language: lang,
+        source: "digital_lang_popup",
+        page: typeof window !== "undefined" ? window.location.pathname : ""
+      })
+    })
+  } catch (error) {
+    console.warn("CRM digital lead save failed:", error)
+  }
+}
+
+
 const LANGS = [
   { code:'pt', flag:'🇧🇷', label:'Português', price:'R$ 97', sub:'eBook + Audiobook' },
   { code:'en', flag:'🇺🇸', label:'English',   price:'$24.99 USD', sub:'eBook + Audiobook' },
@@ -32,10 +62,17 @@ export default function DigitalLangPopup({ isOpen, onClose }) {
     return Object.keys(e).length === 0
   }
 
-  const handlePay = (e) => {
+  const handlePay = async (e) => {
     e.preventDefault()
     if (!validate()) return
     setLoading(true)
+
+    await saveDigitalLeadToCRM({
+      name: form.name.trim(),
+      email: form.email.trim(),
+      lang: selected
+    })
+
     const order = { name: form.name, email: form.email }
     router.push(`/checkout-digital?lang=${selected}&order=${encodeURIComponent(JSON.stringify(order))}`)
   }
