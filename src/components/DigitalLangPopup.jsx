@@ -73,6 +73,22 @@ export default function DigitalLangPopup({ isOpen, onClose }) {
       lang: selected
     })
 
+    try {
+      await fetch("/api/crm/enqueue-lead-sequence", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          visitorId: getVisitorId(),
+          name: form.name.trim(),
+          email: form.email.trim(),
+          language: selected,
+          page: typeof window !== "undefined" ? window.location.pathname : ""
+        })
+      })
+    } catch (error) {
+      console.warn("CRM digital lead sequence enqueue failed:", error)
+    }
+
     const order = { name: form.name, email: form.email }
     router.push(`/checkout-digital?lang=${selected}&order=${encodeURIComponent(JSON.stringify(order))}`)
   }

@@ -83,6 +83,23 @@ export default function LeadPopupEN({ lang = 'en' }) {
     setError('');
     saveLead({ email, phone, name });
     await saveLeadToCRM({ name, email, whatsapp: '', lang, source: 'lead_popup' })
+
+    try {
+      await fetch("/api/crm/enqueue-lead-sequence", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          visitorId: getVisitorId(),
+          name,
+          email,
+          language: lang,
+          page: typeof window !== "undefined" ? window.location.pathname : ""
+        })
+      })
+    } catch (error) {
+      console.warn("CRM lead sequence enqueue failed:", error)
+    }
+
       setSubmitted(true);
     try {
       await fetch('/api/lead', {
