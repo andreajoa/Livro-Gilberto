@@ -437,7 +437,7 @@ export default function HomeES() {
             "No un libro lleno de frases vacías o de consejos de ‘supéralo’. Un manual real para el hombre que lo dio todo y ahora está sentado entre los escombros de lo que creía que era su vida — intentando descubrir cómo volver a levantarse.",
             "Si ese eres tú, este libro fue escrito para ti.",
           ].map((p, i) => (
-            <p key={i} style={{ fontSize: isMobile ? 15 : 24.99, color: i === 6 ? '#fff' : 'rgba(255,255,255,0.7)', lineHeight: 1.9, marginBottom: 20 }}>
+            <p key={i} style={{ fontSize: isMobile ? 15 : 17, color: i === 6 ? '#fff' : 'rgba(255,255,255,0.7)', lineHeight: 1.9, marginBottom: 20 }}>
               {p}
             </p>
           ))}
@@ -866,7 +866,7 @@ export default function HomeES() {
                 border: 'none',
                 borderRadius: 12,
                 padding: isMobile ? '18px' : '18px 34px',
-                fontSize: isMobile ? 16 : 24.99,
+                fontSize: isMobile ? 16 : 17,
                 fontWeight: 900,
                 color: '#0D1322',
                 cursor: 'pointer',
@@ -943,7 +943,7 @@ export default function HomeES() {
             </h2>
 
             <p style={{
-              fontSize: isMobile ? 14 : 24.99,
+              fontSize: isMobile ? 14 : 17,
               color: 'rgba(255,255,255,0.70)',
               lineHeight: 1.75,
               marginBottom: 18
@@ -1091,7 +1091,7 @@ export default function HomeES() {
                 border: 'none',
                 borderRadius: 12,
                 padding: isMobile ? '18px' : '18px 34px',
-                fontSize: isMobile ? 16 : 24.99,
+                fontSize: isMobile ? 16 : 17,
                 fontWeight: 900,
                 color: '#0D1322',
                 cursor: 'pointer',
@@ -1201,7 +1201,7 @@ export default function HomeES() {
           </p>
 
           <p style={{
-            fontSize: isMobile ? 14 : 24.99,
+            fontSize: isMobile ? 14 : 17,
             color: '#B8C8E0',
             maxWidth: 760,
             lineHeight: 1.75,
@@ -1239,7 +1239,7 @@ export default function HomeES() {
               border: 'none',
               borderRadius: 12,
               padding: isMobile ? '18px 20px' : '18px 34px',
-              fontSize: isMobile ? 16 : 24.99,
+              fontSize: isMobile ? 16 : 17,
               fontWeight: 900,
               color: '#0D1322',
               cursor: 'pointer',
@@ -1375,7 +1375,7 @@ export default function HomeES() {
             </p>
 
             <p style={{
-              fontSize: isMobile ? 14 : 24.99,
+              fontSize: isMobile ? 14 : 17,
               color: '#B8C8E0',
               lineHeight: 1.8,
               marginBottom: 26,
@@ -1441,7 +1441,7 @@ export default function HomeES() {
                   border: 'none',
                   borderRadius: 12,
                   padding: isMobile ? '18px' : '18px 30px',
-                  fontSize: isMobile ? 16 : 24.99,
+                  fontSize: isMobile ? 16 : 17,
                   fontWeight: 900,
                   color: '#0D1322',
                   cursor: 'pointer',
@@ -1473,62 +1473,219 @@ export default function HomeES() {
       {/* ══ BUY SECTION ══ */}
       <section id="buy" style={{ background: 'linear-gradient(180deg, #060C18 0%, #0D1B3E 100%)', padding: sectionPad }}>
         <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }} viewport={{ once: true }}
-          style={{ maxWidth: 560, margin: '0 auto', textAlign: 'center' }}>
-          <p style={{ fontSize: 10, letterSpacing: 4, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>Estás listo</p>
-          <h2 style={{ fontSize: isMobile ? '28px' : 'clamp(30px,4vw,52px)', fontWeight: 900, color: '#fff', lineHeight: 1.15, marginBottom: 12 }}>
-            Obtén el libro.<br /><span style={{ color: '#00C4D4' }}>Empieza hoy.</span>
+          style={{ maxWidth: 1120, margin: '0 auto', textAlign: 'center' }}>
+
+          <p style={{ fontSize: 10, letterSpacing: 4, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>
+            Elige tu formato
+          </p>
+
+          <h2 style={{ fontSize: isMobile ? '30px' : 'clamp(34px,4vw,56px)', fontWeight: 900, color: '#fff', lineHeight: 1.1, marginBottom: 12 }}>
+            Compra el libro como prefieras.<br /><span style={{ color: '#00C4D4' }}>Empieza a reconstruirte hoy.</span>
           </h2>
-          <p style={{ fontSize: 14, color: '#8A9BBF', lineHeight: 1.7, marginBottom: 36 }}>
-            Ya sobreviviste la parte más dura. Ahora deja que este libro te muestre lo que viene después.
+
+          <p style={{ fontSize: isMobile ? 14 : 16, color: '#8A9BBF', lineHeight: 1.7, margin: '0 auto 40px', maxWidth: 720 }}>
+            Elige acceso digital inmediato con el audiolibro completo incluido, o compra el libro físico en Amazon o Barnes & Noble.
           </p>
 
           <div style={{
-            background: 'rgba(13,27,62,0.8)', border: '1px solid rgba(0,196,212,0.25)',
-            borderRadius: 16, padding: isMobile ? '28px 20px' : '40px 36px', textAlign: 'left'
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : '0.95fr 1.15fr 0.95fr',
+            gap: 18,
+            alignItems: 'stretch'
           }}>
-            <div style={{ display: 'flex', gap: 16, marginBottom: 24, alignItems: 'flex-start' }}>
-              <img src={bookCoverEN} alt="Libro" style={{ width: isMobile ? 80 : 100, borderRadius: 6, boxShadow: '0 12px 40px rgba(0,0,0,0.6)', flexShrink: 0 }} />
-              <div>
-                <h3 style={{ fontSize: isMobile ? 15 : 24.99, fontWeight: 800, color: '#fff', marginBottom: 6, lineHeight: 1.3 }}>
-                  Cómo superar el dolor de ser reemplazado por otra persona
-                </h3>
-                <p style={{ fontSize: 12, color: '#8A9BBF', marginBottom: 10 }}>por Gilberto de Souza</p>
-                {['📖 eBook completo (PDF)', '🎧 Audiolibro completo (MP3)', '✅ Descarga inmediata'].map(item => (
-                  <div key={item} style={{ fontSize: 12, color: '#B8C8E0', marginBottom: 4 }}>{item}</div>
-                ))}
-              </div>
-            </div>
 
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 24 }}>
-              <span style={{ fontSize: isMobile ? 42 : 52, fontWeight: 900, color: '#00C4D4', lineHeight: 1 }}>$24.99</span>
-              <span style={{ fontSize: 18, color: '#8A9BBF', textDecoration: 'line-through' }}>$49.99</span>
-              <span style={{ fontSize: 11, background: 'rgba(0,196,212,0.15)', border: '1px solid rgba(0,196,212,0.3)', color: '#00C4D4', padding: '3px 8px', borderRadius: 4, fontWeight: 700 }}>50% OFF</span>
-            </div>
-
-            <motion.button whileTap={{ scale: 0.98 }} onClick={handleBuy}
-              style={{
-                width: '100%', padding: isMobile ? '18px' : '20px',
-                background: 'linear-gradient(135deg, #00C4D4, #0099A8)',
-                border: 'none', borderRadius: 8,
-                color: '#0D1B3E', fontSize: isMobile ? 16 : 18, fontWeight: 900,
-                cursor: 'pointer', boxShadow: '0 8px 30px rgba(0,196,212,0.5)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
-                marginBottom: 14
+            <div style={{
+              background: 'rgba(13,27,62,0.72)',
+              border: '1px solid rgba(255,255,255,0.10)',
+              borderRadius: 18,
+              padding: isMobile ? '26px 20px' : '30px 24px',
+              textAlign: 'left'
+            }}>
+              <div style={{
+                background: '#fff',
+                borderRadius: 12,
+                padding: '10px 14px',
+                marginBottom: 18,
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center'
               }}>
-              Obtén acceso inmediato — $24.99
-              <ArrowRight size={18} />
-            </motion.button>
+                <img src="/retailer-logos/amazon.png" alt="Amazon" style={{ height: 34, width: 'auto', display: 'block' }} />
+              </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px', background: 'rgba(255,255,255,0.03)', borderRadius: 8, marginBottom: 14 }}>
-              <Shield size={14} style={{ color: '#00C4D4', flexShrink: 0 }} />
-              <p style={{ fontSize: 11, color: '#8A9BBF', margin: 0 }}>Pago seguro por Stripe · Visa · Mastercard · Amex · Apple Pay</p>
-            </div>
+              <h3 style={{ color: '#fff', fontSize: 20, fontWeight: 900, marginBottom: 8 }}>
+                Edición física
+              </h3>
 
-            <div style={{ display: 'flex', justifyContent: 'center', gap: isMobile ? 12 : 20, flexWrap: 'wrap' }}>
-              {['🔒 SSL seguro', '💰 Garantía de 30 días', '⚡ Acceso inmediato'].map(b => (
-                <span key={b} style={{ fontSize: 11, color: '#8A9BBF' }}>{b}</span>
+              <p style={{ color: '#8A9BBF', fontSize: 13, lineHeight: 1.7, marginBottom: 20 }}>
+                Compra el libro físico directamente en Amazon.
+              </p>
+
+              {['Página oficial en Amazon', 'Libro impreso', 'Entrega por Amazon'].map(item => (
+                <div key={item} style={{ display: 'flex', gap: 8, alignItems: 'center', color: '#B8C8E0', fontSize: 13, marginBottom: 9 }}>
+                  <CheckCircle size={15} style={{ color: '#FFB800', flexShrink: 0 }} />
+                  {item}
+                </div>
               ))}
+
+              <button onClick={() => openExternal(AMAZON_ES_URL)} style={{
+                width: '100%',
+                marginTop: 24,
+                padding: '16px',
+                borderRadius: 10,
+                border: '1px solid rgba(255,184,0,0.35)',
+                background: 'rgba(255,184,0,0.12)',
+                color: '#FFB800',
+                fontSize: 14,
+                fontWeight: 900,
+                cursor: 'pointer'
+              }}>
+                Comprar en Amazon
+              </button>
             </div>
+
+            <div style={{
+              position: 'relative',
+              background: 'linear-gradient(180deg, rgba(0,196,212,0.18) 0%, rgba(13,27,62,0.92) 100%)',
+              border: '2px solid rgba(0,196,212,0.55)',
+              borderRadius: 22,
+              padding: isMobile ? '30px 22px' : '36px 30px',
+              textAlign: 'left',
+              boxShadow: '0 28px 90px rgba(0,196,212,0.20)'
+            }}>
+              <div style={{
+                position: 'absolute',
+                top: -14,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                background: 'linear-gradient(135deg, #FFB800, #FF8A00)',
+                color: '#0D1322',
+                fontSize: 11,
+                fontWeight: 900,
+                padding: '7px 14px',
+                borderRadius: 999,
+                letterSpacing: 1,
+                whiteSpace: 'nowrap'
+              }}>
+                MEJOR VALOR · ACCESO INMEDIATO
+              </div>
+
+              <div style={{ display: 'flex', gap: 16, marginBottom: 22, alignItems: 'flex-start' }}>
+                <img src={bookCoverEN} alt="Libro" style={{ width: isMobile ? 82 : 96, borderRadius: 7, boxShadow: '0 14px 44px rgba(0,0,0,0.6)', flexShrink: 0 }} />
+                <div>
+                  <h3 style={{ fontSize: isMobile ? 18 : 21, fontWeight: 900, color: '#fff', marginBottom: 6, lineHeight: 1.25 }}>
+                    eBook + Audiolibro completo
+                  </h3>
+                  <p style={{ fontSize: 12, color: '#B8C8E0', marginBottom: 8 }}>por Gilberto de Souza</p>
+                  <p style={{ fontSize: 12, color: '#00C4D4', fontWeight: 800, margin: 0 }}>
+                    Léelo. Escúchalo. Empieza hoy.
+                  </p>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 22, flexWrap: 'wrap' }}>
+                <span style={{ fontSize: isMobile ? 44 : 56, fontWeight: 900, color: '#FFB800', lineHeight: 1 }}>$24.99</span>
+                <span style={{ fontSize: 18, color: '#8A9BBF', textDecoration: 'line-through' }}>$49.99</span>
+              </div>
+
+              {['eBook PDF completo', 'Audiolibro MP3 completo', 'Entrega inmediata por email', 'Garantía de devolución de 30 días'].map(item => (
+                <div key={item} style={{ display: 'flex', gap: 8, alignItems: 'center', color: '#EAF4FF', fontSize: 13, marginBottom: 9 }}>
+                  <CheckCircle size={15} style={{ color: '#00C4D4', flexShrink: 0 }} />
+                  {item}
+                </div>
+              ))}
+
+              <motion.button whileTap={{ scale: 0.98 }} onClick={handleBuy}
+                style={{
+                  width: '100%',
+                  marginTop: 24,
+                  padding: isMobile ? '18px' : '20px',
+                  background: 'linear-gradient(135deg, #FFB800, #FF8A00)',
+                  border: 'none',
+                  borderRadius: 12,
+                  color: '#0D1322',
+                  fontSize: isMobile ? 16 : 18,
+                  fontWeight: 900,
+                  cursor: 'pointer',
+                  boxShadow: '0 14px 40px rgba(255,138,0,0.34)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 10
+                }}>
+                Obtener acceso inmediato — $24.99
+                <ArrowRight size={18} />
+              </motion.button>
+
+              <p style={{ fontSize: 11, color: '#8A9BBF', textAlign: 'center', marginTop: 14, marginBottom: 0 }}>
+                Pago seguro por Stripe · Acceso entregado inmediatamente
+              </p>
+            </div>
+
+            <div style={{
+              background: 'rgba(13,27,62,0.72)',
+              border: '1px solid rgba(255,255,255,0.10)',
+              borderRadius: 18,
+              padding: isMobile ? '26px 20px' : '30px 24px',
+              textAlign: 'left'
+            }}>
+              <div style={{
+                background: '#fff',
+                borderRadius: 12,
+                padding: '10px 14px',
+                marginBottom: 18,
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <img src="/retailer-logos/barnes.png" alt="Barnes & Noble" style={{ height: 42, width: 'auto', display: 'block' }} />
+              </div>
+
+              <h3 style={{ color: '#fff', fontSize: 20, fontWeight: 900, marginBottom: 8 }}>
+                Edición física
+              </h3>
+
+              <p style={{ color: '#8A9BBF', fontSize: 13, lineHeight: 1.7, marginBottom: 20 }}>
+                Compra el libro físico en Barnes & Noble.
+              </p>
+
+              {['Página oficial en Barnes & Noble', 'Libro impreso', 'Librería reconocida'].map(item => (
+                <div key={item} style={{ display: 'flex', gap: 8, alignItems: 'center', color: '#B8C8E0', fontSize: 13, marginBottom: 9 }}>
+                  <CheckCircle size={15} style={{ color: '#00C4D4', flexShrink: 0 }} />
+                  {item}
+                </div>
+              ))}
+
+              <button onClick={() => openExternal(BARNES_ES_URL)} style={{
+                width: '100%',
+                marginTop: 24,
+                padding: '16px',
+                borderRadius: 10,
+                border: '1px solid rgba(0,196,212,0.35)',
+                background: 'rgba(0,196,212,0.12)',
+                color: '#00C4D4',
+                fontSize: 14,
+                fontWeight: 900,
+                cursor: 'pointer'
+              }}>
+                Comprar en Barnes & Noble
+              </button>
+            </div>
+          </div>
+
+          <div style={{
+            marginTop: 26,
+            display: 'flex',
+            justifyContent: 'center',
+            gap: isMobile ? 12 : 20,
+            flexWrap: 'wrap',
+            color: '#8A9BBF',
+            fontSize: 12
+          }}>
+            <span>🔒 Pago seguro</span>
+            <span>💰 Garantía de 30 días</span>
+            <span>⚡ Acceso digital inmediato</span>
+            <span>📦 Libro físico disponible en grandes librerías</span>
           </div>
         </motion.div>
       </section>
@@ -1596,7 +1753,7 @@ export default function HomeES() {
               </h2>
 
               <p style={{
-                fontSize: isMobile ? 14 : 24.99,
+                fontSize: isMobile ? 14 : 17,
                 color: 'rgba(255,255,255,0.74)',
                 lineHeight: 1.8,
                 maxWidth: 700,
@@ -1634,7 +1791,7 @@ export default function HomeES() {
                   border: 'none',
                   borderRadius: 12,
                   padding: isMobile ? '18px' : '18px 34px',
-                  fontSize: isMobile ? 16 : 24.99,
+                  fontSize: isMobile ? 16 : 17,
                   fontWeight: 900,
                   color: '#0D1322',
                   cursor: 'pointer',
