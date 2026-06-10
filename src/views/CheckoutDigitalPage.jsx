@@ -29,7 +29,7 @@ const COPY = {
     title: 'eBook + Audiobook',
     subtitle: 'Instant access after payment',
     product: 'eBook + Audiobook — English',
-    price: '$17.00 USD',
+    price: '$24.99 USD',
     name: 'Full name',
     email: 'Email',
     namePlaceholder: 'Your full name',
@@ -45,7 +45,7 @@ const COPY = {
     title: 'eBook + Audiolibro',
     subtitle: 'Acceso inmediato después del pago',
     product: 'eBook + Audiolibro — Español',
-    price: '$17.00 USD',
+    price: '$24.99 USD',
     name: 'Nombre completo',
     email: 'Email',
     namePlaceholder: 'Tu nombre completo',
@@ -121,7 +121,7 @@ export default function CheckoutDigitalPage() {
   const params = useSearchParams()
   const lang = normalizeLang(params.get('lang'))
   const t = COPY[lang]
-  const total = lang === 'pt' ? 47 : 17
+  const total = lang === 'pt' ? 47 : 24.99
 
   const [formData, setFormData] = useState({ name: '', email: '' })
   const [errors, setErrors] = useState({})

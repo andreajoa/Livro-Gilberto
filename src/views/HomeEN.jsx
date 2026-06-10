@@ -63,6 +63,13 @@ export default function HomeEN() {
     window.location.href = '/checkout-digital?lang=en'
   };
 
+  const AMAZON_EN_URL = 'https://www.amazon.com/dp/B0H2LXHCH4';
+  const BARNES_EN_URL = 'https://www.barnesandnoble.com/w/how-to-overcome-the-pain-of-being-replaced-by-someone-else-gilberto-de-souza/1150279536?ean=9798256373504';
+
+  const openExternal = (url) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
   const px = isMobile ? '20px' : '6vw';
   const sectionPad = isMobile ? '64px 20px' : '100px 6vw';
 
@@ -172,7 +179,7 @@ export default function HomeEN() {
               background: 'linear-gradient(135deg, #00C4D4, #0099A8)',
               border: 'none', borderRadius: 8, padding: '16px',
               color: '#0D1B3E', fontSize: 15, fontWeight: 800, cursor: 'pointer'
-            }}>Get Instant Access — $17</button>
+            }}>Get Instant Access — $24.99</button>
           </motion.div>
         )}
       </AnimatePresence>
@@ -351,7 +358,7 @@ export default function HomeEN() {
                   width: isMobile ? '100%' : 'auto'
                 }}
               >
-                Get Instant Access — $17
+                Get Instant Access — $24.99
                 <ArrowRight size={18} />
               </motion.button>
 
@@ -375,7 +382,7 @@ export default function HomeEN() {
               color: 'rgba(255,255,255,0.60)',
               marginBottom: 26
             }}>
-              <span style={{ textDecoration: 'line-through', opacity: 0.7 }}>$34</span> today only · Includes eBook + audiobook · Secure checkout
+              <span style={{ textDecoration: 'line-through', opacity: 0.7 }}>$49.99</span> today only · Includes eBook + audiobook · Secure checkout
             </p>
 
             <div style={{
@@ -857,8 +864,8 @@ export default function HomeEN() {
               marginBottom: 18
             }}>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
-                <span style={{ fontSize: isMobile ? 44 : 56, fontWeight: 900, color: '#FFB800', lineHeight: 1 }}>$17</span>
-                <span style={{ fontSize: 19, color: 'rgba(255,255,255,0.38)', textDecoration: 'line-through' }}>$34</span>
+                <span style={{ fontSize: isMobile ? 44 : 56, fontWeight: 900, color: '#FFB800', lineHeight: 1 }}>$24.99</span>
+                <span style={{ fontSize: 19, color: 'rgba(255,255,255,0.38)', textDecoration: 'line-through' }}>$49.99</span>
                 <span style={{
                   fontSize: 11,
                   fontWeight: 800,
@@ -868,7 +875,7 @@ export default function HomeEN() {
                   padding: '4px 8px',
                   borderRadius: 999
                 }}>
-                  50% OFF TODAY
+                  LIMITED DIGITAL BUNDLE
                 </span>
               </div>
 
@@ -902,7 +909,7 @@ export default function HomeEN() {
                 marginBottom: 14
               }}
             >
-              Get Instant Access — $17
+              Get Instant Access — $24.99
               <ArrowRight size={17} />
             </motion.button>
 
@@ -1494,62 +1501,219 @@ export default function HomeEN() {
       {/* ══ BUY SECTION ══ */}
       <section id="buy" style={{ background: 'linear-gradient(180deg, #060C18 0%, #0D1B3E 100%)', padding: sectionPad }}>
         <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }} viewport={{ once: true }}
-          style={{ maxWidth: 560, margin: '0 auto', textAlign: 'center' }}>
-          <p style={{ fontSize: 10, letterSpacing: 4, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>You're Ready</p>
-          <h2 style={{ fontSize: isMobile ? '28px' : 'clamp(30px,4vw,52px)', fontWeight: 900, color: '#fff', lineHeight: 1.15, marginBottom: 12 }}>
-            Get The Book.<br /><span style={{ color: '#00C4D4' }}>Start Today.</span>
+          style={{ maxWidth: 1120, margin: '0 auto', textAlign: 'center' }}>
+
+          <p style={{ fontSize: 10, letterSpacing: 4, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>
+            Choose Your Format
+          </p>
+
+          <h2 style={{ fontSize: isMobile ? '30px' : 'clamp(34px,4vw,56px)', fontWeight: 900, color: '#fff', lineHeight: 1.1, marginBottom: 12 }}>
+            Get the book your way.<br /><span style={{ color: '#00C4D4' }}>Start rebuilding today.</span>
           </h2>
-          <p style={{ fontSize: 14, color: '#8A9BBF', lineHeight: 1.7, marginBottom: 36 }}>
-            You've already survived the hardest part. Now let this book show you what comes next.
+
+          <p style={{ fontSize: isMobile ? 14 : 16, color: '#8A9BBF', lineHeight: 1.7, margin: '0 auto 40px', maxWidth: 720 }}>
+            Choose instant digital access with the full audiobook included, or buy the physical paperback from trusted retailers.
           </p>
 
           <div style={{
-            background: 'rgba(13,27,62,0.8)', border: '1px solid rgba(0,196,212,0.25)',
-            borderRadius: 16, padding: isMobile ? '28px 20px' : '40px 36px', textAlign: 'left'
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : '0.95fr 1.15fr 0.95fr',
+            gap: 18,
+            alignItems: 'stretch'
           }}>
-            <div style={{ display: 'flex', gap: 16, marginBottom: 24, alignItems: 'flex-start' }}>
-              <img src={bookCoverEN} alt="Book" style={{ width: isMobile ? 80 : 100, borderRadius: 6, boxShadow: '0 12px 40px rgba(0,0,0,0.6)', flexShrink: 0 }} />
-              <div>
-                <h3 style={{ fontSize: isMobile ? 15 : 17, fontWeight: 800, color: '#fff', marginBottom: 6, lineHeight: 1.3 }}>
-                  How to Overcome the Pain of Being Replaced by Someone Else
-                </h3>
-                <p style={{ fontSize: 12, color: '#8A9BBF', marginBottom: 10 }}>by Gilberto de Souza</p>
-                {['📖 Full eBook (PDF)', '🎧 Full Audiobook (MP3)', '✅ Instant download'].map(item => (
-                  <div key={item} style={{ fontSize: 12, color: '#B8C8E0', marginBottom: 4 }}>{item}</div>
-                ))}
-              </div>
-            </div>
 
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 24 }}>
-              <span style={{ fontSize: isMobile ? 42 : 52, fontWeight: 900, color: '#00C4D4', lineHeight: 1 }}>$17</span>
-              <span style={{ fontSize: 18, color: '#8A9BBF', textDecoration: 'line-through' }}>$34</span>
-              <span style={{ fontSize: 11, background: 'rgba(0,196,212,0.15)', border: '1px solid rgba(0,196,212,0.3)', color: '#00C4D4', padding: '3px 8px', borderRadius: 4, fontWeight: 700 }}>50% OFF</span>
-            </div>
-
-            <motion.button whileTap={{ scale: 0.98 }} onClick={handleBuy}
-              style={{
-                width: '100%', padding: isMobile ? '18px' : '20px',
-                background: 'linear-gradient(135deg, #00C4D4, #0099A8)',
-                border: 'none', borderRadius: 8,
-                color: '#0D1B3E', fontSize: isMobile ? 16 : 18, fontWeight: 900,
-                cursor: 'pointer', boxShadow: '0 8px 30px rgba(0,196,212,0.5)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
-                marginBottom: 14
+            <div style={{
+              background: 'rgba(13,27,62,0.72)',
+              border: '1px solid rgba(255,255,255,0.10)',
+              borderRadius: 18,
+              padding: isMobile ? '26px 20px' : '30px 24px',
+              textAlign: 'left'
+            }}>
+              <div style={{
+                background: '#fff',
+                borderRadius: 12,
+                padding: '10px 14px',
+                marginBottom: 18,
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center'
               }}>
-              Get Instant Access — $17
-              <ArrowRight size={18} />
-            </motion.button>
+                <img src="/retailer-logos/amazon.png" alt="Amazon" style={{ height: 34, width: 'auto', display: 'block' }} />
+              </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px', background: 'rgba(255,255,255,0.03)', borderRadius: 8, marginBottom: 14 }}>
-              <Shield size={14} style={{ color: '#00C4D4', flexShrink: 0 }} />
-              <p style={{ fontSize: 11, color: '#8A9BBF', margin: 0 }}>Secure payment via Stripe · Visa · Mastercard · Amex · Apple Pay</p>
-            </div>
+              <h3 style={{ color: '#fff', fontSize: 20, fontWeight: 900, marginBottom: 8 }}>
+                Paperback Edition
+              </h3>
 
-            <div style={{ display: 'flex', justifyContent: 'center', gap: isMobile ? 12 : 20, flexWrap: 'wrap' }}>
-              {['🔒 SSL Secure', '💰 30-Day Guarantee', '⚡ Instant Access'].map(b => (
-                <span key={b} style={{ fontSize: 11, color: '#8A9BBF' }}>{b}</span>
+              <p style={{ color: '#8A9BBF', fontSize: 13, lineHeight: 1.7, marginBottom: 20 }}>
+                Buy the physical book directly from Amazon.
+              </p>
+
+              {['Official Amazon listing', 'Printed paperback', 'Delivered by Amazon'].map(item => (
+                <div key={item} style={{ display: 'flex', gap: 8, alignItems: 'center', color: '#B8C8E0', fontSize: 13, marginBottom: 9 }}>
+                  <CheckCircle size={15} style={{ color: '#FFB800', flexShrink: 0 }} />
+                  {item}
+                </div>
               ))}
+
+              <button onClick={() => openExternal(AMAZON_EN_URL)} style={{
+                width: '100%',
+                marginTop: 24,
+                padding: '16px',
+                borderRadius: 10,
+                border: '1px solid rgba(255,184,0,0.35)',
+                background: 'rgba(255,184,0,0.12)',
+                color: '#FFB800',
+                fontSize: 14,
+                fontWeight: 900,
+                cursor: 'pointer'
+              }}>
+                Buy on Amazon
+              </button>
             </div>
+
+            <div style={{
+              position: 'relative',
+              background: 'linear-gradient(180deg, rgba(0,196,212,0.18) 0%, rgba(13,27,62,0.92) 100%)',
+              border: '2px solid rgba(0,196,212,0.55)',
+              borderRadius: 22,
+              padding: isMobile ? '30px 22px' : '36px 30px',
+              textAlign: 'left',
+              boxShadow: '0 28px 90px rgba(0,196,212,0.20)'
+            }}>
+              <div style={{
+                position: 'absolute',
+                top: -14,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                background: 'linear-gradient(135deg, #FFB800, #FF8A00)',
+                color: '#0D1322',
+                fontSize: 11,
+                fontWeight: 900,
+                padding: '7px 14px',
+                borderRadius: 999,
+                letterSpacing: 1,
+                whiteSpace: 'nowrap'
+              }}>
+                BEST VALUE · INSTANT ACCESS
+              </div>
+
+              <div style={{ display: 'flex', gap: 16, marginBottom: 22, alignItems: 'flex-start' }}>
+                <img src={bookCoverEN} alt="Book" style={{ width: isMobile ? 82 : 96, borderRadius: 7, boxShadow: '0 14px 44px rgba(0,0,0,0.6)', flexShrink: 0 }} />
+                <div>
+                  <h3 style={{ fontSize: isMobile ? 18 : 21, fontWeight: 900, color: '#fff', marginBottom: 6, lineHeight: 1.25 }}>
+                    eBook + Full Audiobook
+                  </h3>
+                  <p style={{ fontSize: 12, color: '#B8C8E0', marginBottom: 8 }}>by Gilberto de Souza</p>
+                  <p style={{ fontSize: 12, color: '#00C4D4', fontWeight: 800, margin: 0 }}>
+                    Read it. Listen to it. Start today.
+                  </p>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 22, flexWrap: 'wrap' }}>
+                <span style={{ fontSize: isMobile ? 44 : 56, fontWeight: 900, color: '#FFB800', lineHeight: 1 }}>$24.99</span>
+                <span style={{ fontSize: 18, color: '#8A9BBF', textDecoration: 'line-through' }}>$49.99</span>
+              </div>
+
+              {['Full eBook PDF', 'Full audiobook MP3', 'Instant email delivery', '30-day money-back guarantee'].map(item => (
+                <div key={item} style={{ display: 'flex', gap: 8, alignItems: 'center', color: '#EAF4FF', fontSize: 13, marginBottom: 9 }}>
+                  <CheckCircle size={15} style={{ color: '#00C4D4', flexShrink: 0 }} />
+                  {item}
+                </div>
+              ))}
+
+              <motion.button whileTap={{ scale: 0.98 }} onClick={handleBuy}
+                style={{
+                  width: '100%',
+                  marginTop: 24,
+                  padding: isMobile ? '18px' : '20px',
+                  background: 'linear-gradient(135deg, #FFB800, #FF8A00)',
+                  border: 'none',
+                  borderRadius: 12,
+                  color: '#0D1322',
+                  fontSize: isMobile ? 16 : 18,
+                  fontWeight: 900,
+                  cursor: 'pointer',
+                  boxShadow: '0 14px 40px rgba(255,138,0,0.34)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 10
+                }}>
+                Get Instant Access — $24.99
+                <ArrowRight size={18} />
+              </motion.button>
+
+              <p style={{ fontSize: 11, color: '#8A9BBF', textAlign: 'center', marginTop: 14, marginBottom: 0 }}>
+                Secure payment via Stripe · Access delivered immediately
+              </p>
+            </div>
+
+            <div style={{
+              background: 'rgba(13,27,62,0.72)',
+              border: '1px solid rgba(255,255,255,0.10)',
+              borderRadius: 18,
+              padding: isMobile ? '26px 20px' : '30px 24px',
+              textAlign: 'left'
+            }}>
+              <div style={{
+                background: '#fff',
+                borderRadius: 12,
+                padding: '10px 14px',
+                marginBottom: 18,
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <img src="/retailer-logos/barnes.png" alt="Barnes & Noble" style={{ height: 42, width: 'auto', display: 'block' }} />
+              </div>
+
+              <h3 style={{ color: '#fff', fontSize: 20, fontWeight: 900, marginBottom: 8 }}>
+                Paperback Edition
+              </h3>
+
+              <p style={{ color: '#8A9BBF', fontSize: 13, lineHeight: 1.7, marginBottom: 20 }}>
+                Buy the physical book from Barnes & Noble.
+              </p>
+
+              {['Official Barnes & Noble listing', 'Printed paperback', 'Trusted book retailer'].map(item => (
+                <div key={item} style={{ display: 'flex', gap: 8, alignItems: 'center', color: '#B8C8E0', fontSize: 13, marginBottom: 9 }}>
+                  <CheckCircle size={15} style={{ color: '#00C4D4', flexShrink: 0 }} />
+                  {item}
+                </div>
+              ))}
+
+              <button onClick={() => openExternal(BARNES_EN_URL)} style={{
+                width: '100%',
+                marginTop: 24,
+                padding: '16px',
+                borderRadius: 10,
+                border: '1px solid rgba(0,196,212,0.35)',
+                background: 'rgba(0,196,212,0.12)',
+                color: '#00C4D4',
+                fontSize: 14,
+                fontWeight: 900,
+                cursor: 'pointer'
+              }}>
+                Buy on Barnes & Noble
+              </button>
+            </div>
+          </div>
+
+          <div style={{
+            marginTop: 26,
+            display: 'flex',
+            justifyContent: 'center',
+            gap: isMobile ? 12 : 20,
+            flexWrap: 'wrap',
+            color: '#8A9BBF',
+            fontSize: 12
+          }}>
+            <span>🔒 Secure checkout</span>
+            <span>💰 30-day guarantee</span>
+            <span>⚡ Instant digital access</span>
+            <span>📦 Paperback available through major retailers</span>
           </div>
         </motion.div>
       </section>
@@ -1668,7 +1832,7 @@ export default function HomeEN() {
                   maxWidth: isMobile ? 340 : 'none'
                 }}
               >
-                Start Risk-Free — $17
+                Start Risk-Free — $24.99
                 <ArrowRight size={17} />
               </motion.button>
 
@@ -1982,7 +2146,7 @@ export default function HomeEN() {
               maxWidth: isMobile ? 340 : 'none'
             }}
           >
-            Get Instant Access — $17
+            Get Instant Access — $24.99
             <ArrowRight size={17} />
           </motion.button>
 
@@ -2036,7 +2200,7 @@ export default function HomeEN() {
         >
           <div style={{ flex: 1 }}>
             <p style={{ color: '#fff', fontSize: 13, fontWeight: 700, margin: 0 }}>eBook + Audiobook</p>
-            <p style={{ color: '#00C4D4', fontSize: 12, margin: 0 }}><s style={{ color: '#8A9BBF' }}>$34</s> $17 today</p>
+            <p style={{ color: '#00C4D4', fontSize: 12, margin: 0 }}><s style={{ color: '#8A9BBF' }}>$34</s> $24.99 today</p>
           </div>
           <button onClick={handleBuy} style={{
             background: 'linear-gradient(135deg, #00C4D4, #0099A8)',
