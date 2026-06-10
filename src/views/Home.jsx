@@ -1,12 +1,13 @@
 "use client"
+import dynamic from 'next/dynamic';
 import CRMTracker, { trackCRMEvent } from "../components/CRMTracker";
 const motion = { div: 'div', img: 'img' };
+const LeadPopupEN = dynamic(() => import('../components/LeadPopupEN'), { ssr: false });
 import { useState } from 'react';
 import Link from 'next/link'
 import { ArrowRight, Package, RotateCcw, Shield } from 'lucide-react';
 import AddToCartButton from '../components/AddToCartButton';
 import DigitalLangPopup from '../components/DigitalLangPopup';
-import LeadPopupEN from '../components/LeadPopupEN';
 import ShippingCalculator from '../components/ShippingCalculator';
 
 import bannerAutor     from '../assets/banners/banner-autor-wide.png';
