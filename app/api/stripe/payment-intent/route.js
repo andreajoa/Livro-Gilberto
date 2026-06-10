@@ -14,6 +14,7 @@ export async function POST(request) {
         customer_name:  name          || '',
         quantity:       String(quantity || 1),
         product:        'Livro Fisico PT',
+        visitor_id:     visitorId || '',
         whatsapp:       address?.whatsapp     || '',
         cep:            address?.cep          || '',
         address:        address?.address      || '',

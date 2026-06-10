@@ -171,7 +171,7 @@ export default function CheckoutDigitalPage() {
       const response = await fetch('/api/stripe/payment-intent-digital', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ total, email: order.email, name: order.name, lang })
+        body: JSON.stringify({ total, email: order.email, name: order.name, lang, visitorId: getVisitorId() })
       })
 
       const data = await response.json()
