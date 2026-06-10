@@ -58,8 +58,8 @@ export default function HomeEN() {
     return () => { document.body.style.overflow = ''; };
   }, [menuOpen]);
 
-  const handleBuy = () => {
-    trackCRMEvent('checkout_open', {
+  const handleBuy = async () => {
+    await trackCRMEvent('checkout_open', {
       language: 'en',
       metadata: { product: 'digital_bundle', price: 24.99, currency: 'USD' }
     })
