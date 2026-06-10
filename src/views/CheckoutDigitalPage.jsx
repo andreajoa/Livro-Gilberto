@@ -8,6 +8,20 @@ import { Lock, Download, Headphones } from 'lucide-react'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 
+function getVisitorId() {
+  if (typeof window === 'undefined') return ''
+
+  let id = localStorage.getItem('visitor_id')
+
+  if (!id) {
+    id = `v_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`
+    localStorage.setItem('visitor_id', id)
+  }
+
+  return id
+}
+
+
 const COPY = {
   pt: {
     title: 'eBook + Audiobook',
