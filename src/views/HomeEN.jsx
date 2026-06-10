@@ -13,10 +13,8 @@ import CheckoutDigital from '../components/CheckoutDigital';
 import heroBg from '../assets/en/hero-bg.jpeg';
 import heroLoop from '../assets/en/hero-loop.gif';
 
-import authorImg from '../assets/en/author.png';
 import manStrong from '../assets/en/man-strong.png';
 import ebookBg from '../assets/en/ebook-bg.jpeg';
-import guarantee from '../assets/en/guarantee.png';
 
 import argument from '../assets/en/argument.gif';
 
@@ -69,6 +67,9 @@ export default function HomeEN() {
   const openExternal = (url) => {
     window.open(url, '_blank', 'noopener,noreferrer');
   };
+
+  const authorImg = '/book-assets/gilberto-ingles.png';
+  const guarantee = '/book-assets/gilberto-ingles.png';
 
   const px = isMobile ? '20px' : '6vw';
   const sectionPad = isMobile ? '64px 20px' : '100px 6vw';
