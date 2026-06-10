@@ -280,10 +280,24 @@ export default function Home() {
           BANNER TRANSFORMAÇÃO — tela cheia
       ════════════════════════════════════════ */}
       <section style={{ position:'relative', height:'min(650px,75vh)', overflow:'hidden', display:'flex', alignItems:'center', justifyContent:'center' }}>
-        <img src={bannerTransform.src} alt="Da dor à transformação"
-         
-         
-          style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center 30%' }} />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          webkit-playsinline="true"
+          preload="metadata"
+          style={{
+            position:'absolute',
+            inset:0,
+            width:'100%',
+            height:'100%',
+            objectFit:'cover',
+            objectPosition:'center center'
+          }}
+        >
+          <source src="/videos/embora.mp4" type="video/mp4" />
+        </video>
         <div style={{ position:'absolute', inset:0, background:'rgba(6,12,24,0.55)' }} />
 
         <div
