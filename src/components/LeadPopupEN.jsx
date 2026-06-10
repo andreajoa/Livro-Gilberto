@@ -75,10 +75,8 @@ async function saveLeadToCRM({ name, email, whatsapp, lang, source }) {
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Mail, Phone, Gift } from 'lucide-react';
-import { useLead } from '../context/LeadContext';
 
 export default function LeadPopupEN({ lang = 'en' }) {
-  const { lead, saveLead } = useLead();
   const [show, setShow] = useState(false);
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -129,8 +127,6 @@ export default function LeadPopupEN({ lang = 'en' }) {
   }[lang];
 
   useEffect(() => {
-    if (lead.captured) return;
-
     const timer = setTimeout(() => {
       if (shouldShowLeadPopup(lang)) {
         registerLeadPopupView(lang)
@@ -139,12 +135,11 @@ export default function LeadPopupEN({ lang = 'en' }) {
     }, 2000)
 
     return () => clearTimeout(timer);
-  }, [lead.captured, lang]);
+  }, [lang]);
 
   const handleSubmit = async () => {
     if (!email.includes('@')) { setError('Please enter a valid email.'); return; }
     setError('');
-    saveLead({ email, phone, name });
     await saveLeadToCRM({ name, email, whatsapp: '', lang, source: 'lead_popup' })
     registerLeadPopupSubscribed(lang)
 
