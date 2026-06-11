@@ -122,21 +122,81 @@ const RETAILERS = {
 
 const LEAD_TOPICS = {
   pt: [
-    ['Você não precisa carregar essa dor sozinho','A dor que ninguém vê','Talvez você esteja tentando parecer forte por fora, mas por dentro ainda tenta entender por que tudo aconteceu. Esse email é um lembrete simples: você não precisa atravessar isso sem direção.'],
-    ['O erro que mantém muitos homens presos ao passado','A pergunta que prende sua mente','Quando você vive tentando entender por que ela escolheu outro caminho, sua vida fica parada no mesmo ponto. A cura começa quando você para de girar em torno da decisão dela.'],
-    ['Uma forma diferente de recomeçar','Recomeçar não é esquecer','Recomeçar é recuperar clareza, respeito próprio e direção. Você não precisa apagar o passado; precisa impedir que ele continue comandando seu futuro.'],
-    ['O dia em que você para de esperar respostas','Nem toda resposta liberta','Às vezes a resposta que você espera nunca chega. E mesmo que chegasse, talvez ela não curasse. O que cura é voltar a se escolher.'],
-    ['Por que ser trocado dói tanto','Não é só saudade','Ser trocado fere identidade, orgulho, memória e futuro imaginado. Por isso dói tanto. Mas essa dor pode ser transformada em reconstrução.'],
-    ['Como parar de se comparar com outra pessoa','O outro homem não define você','Comparar sua vida com a dele só aumenta a ferida. Você não precisa vencer uma comparação; precisa reconstruir sua própria força.'],
-    ['O perigo de vigiar o passado','Redes sociais podem virar prisão','Cada visita ao perfil dela pode reabrir a ferida. Às vezes, paz começa com distância, silêncio e disciplina emocional.'],
-    ['A esperança também pode virar prisão','Esperar pode impedir você de viver','Esperança sem realidade pode manter um homem preso por meses ou anos. Existe uma diferença entre fé e apego ao que já acabou.'],
-    ['O que a rejeição tenta fazer com você','A rejeição mente','Ela tenta fazer você acreditar que perdeu valor. Mas o seu valor não diminuiu porque alguém deixou de enxergar você.'],
-    ['Como recuperar sua autoestima aos poucos','Reconstrução começa pequeno','Não é um grande discurso que muda tudo. São pequenas atitudes repetidas: dormir melhor, cuidar do corpo, organizar a mente e parar de se humilhar por amor.'],
-    ['Você ainda pode reconstruir sua vida','O fim não precisa ser o fim de você','O que terminou foi uma relação. Não foi sua capacidade de amar, viver, crescer e ser respeitado novamente.'],
-    ['O que muda quando você volta para si mesmo','Voltar para si é poder','Quando você deixa de viver tentando provar algo para ela, sua energia volta. E com ela, sua dignidade também.'],
-    ['Uma decisão silenciosa que muda tudo','A decisão de não se abandonar','O maior ponto de virada acontece quando você decide: eu posso ter sido deixado, mas não vou me abandonar.'],
-    ['Você não foi destruído, você está em reconstrução','Existe vida depois disso','Talvez hoje ainda doa. Mas dor não é destino. É fase. E fases podem ser atravessadas com direção.'],
-    ['Um convite para começar hoje','Dê o primeiro passo','Se você chegou até aqui, talvez esteja pronto para parar de sobreviver ao passado e começar a reconstruir sua vida com clareza.']
+    [
+      'Você não precisa carregar essa dor sozinho',
+      'A dor que ninguém vê',
+      'Talvez você continue trabalhando, sorrindo e respondendo “estou bem”. Mas por dentro ainda existe uma pergunta que não deixa sua mente descansar. Este email é um lembrete: você não precisa atravessar essa dor sem direção.'
+    ],
+    [
+      'O erro que mantém muitos homens presos ao passado',
+      'A pergunta que prende sua mente',
+      'Quando um homem é deixado, ele tenta encontrar uma explicação perfeita. Ele revisa conversas, lembra detalhes e procura sinais. Mas quanto mais ele tenta entender a decisão dela, mais sua vida fica parada no mesmo lugar.'
+    ],
+    [
+      'Uma forma diferente de recomeçar',
+      'Recomeçar não é esquecer',
+      'Você não precisa apagar a história, fingir que não amou ou agir como se nada tivesse acontecido. Recomeçar é parar de permitir que o passado continue decidindo quem você será amanhã.'
+    ],
+    [
+      'O dia em que você para de esperar respostas',
+      'Nem toda resposta liberta',
+      'Talvez a resposta que você espera nunca venha. E talvez, mesmo que viesse, ela não curasse tudo. A paz começa quando você entende que não precisa da explicação dela para recuperar seu valor.'
+    ],
+    [
+      'Por que ser trocado dói tanto',
+      'Não é só saudade',
+      'Ser trocado não fere apenas o coração. Fere identidade, orgulho, memória e o futuro que você imaginou. Por isso dói tanto. Mas essa dor não precisa virar prisão; ela pode virar reconstrução.'
+    ],
+    [
+      'Como parar de se comparar com outra pessoa',
+      'O outro homem não define você',
+      'A comparação é uma armadilha silenciosa. Você começa a se perguntar o que ele tem, o que você perdeu, onde falhou. Mas sua reconstrução não começa vencendo outro homem. Começa voltando a respeitar quem você é.'
+    ],
+    [
+      'O perigo de vigiar o passado',
+      'Redes sociais podem virar prisão',
+      'Cada visita ao perfil dela pode parecer pequena, mas reabre a ferida. Às vezes você não está buscando informação; está buscando dor familiar. Paz começa quando você para de alimentar aquilo que destrói sua mente.'
+    ],
+    [
+      'A esperança também pode virar prisão',
+      'Esperar pode impedir você de viver',
+      'Existe uma esperança que cura. Mas existe uma esperança que prende. Quando você espera alguém voltar enquanto sua vida fica parada, talvez não seja amor. Talvez seja medo de aceitar que você precisa seguir.'
+    ],
+    [
+      'O que a rejeição tenta fazer com você',
+      'A rejeição mente',
+      'A rejeição tenta convencer você de que perdeu valor. Ela tenta fazer você acreditar que foi insuficiente. Mas o seu valor não diminuiu porque alguém deixou de enxergá-lo.'
+    ],
+    [
+      'Como recuperar sua autoestima aos poucos',
+      'Reconstrução começa pequeno',
+      'A autoestima não volta em um único dia. Ela volta quando você para de se humilhar, cuida do corpo, organiza a mente, dorme melhor e começa a cumprir pequenas promessas feitas a si mesmo.'
+    ],
+    [
+      'Você ainda pode reconstruir sua vida',
+      'O fim não precisa ser o fim de você',
+      'O que terminou foi uma relação. Não foi sua capacidade de amar, crescer, vencer e ser respeitado novamente. Existe uma versão sua depois dessa dor — e ela pode ser mais forte do que a anterior.'
+    ],
+    [
+      'O que muda quando você volta para si mesmo',
+      'Voltar para si é recuperar poder',
+      'Quando você para de viver tentando provar algo para ela, sua energia volta. Sua dignidade volta. Sua visão volta. O homem que estava escondido atrás da dor começa a respirar de novo.'
+    ],
+    [
+      'Uma decisão silenciosa que muda tudo',
+      'A decisão de não se abandonar',
+      'O maior ponto de virada não acontece quando ela volta, pede desculpas ou explica tudo. Acontece quando você decide: eu posso ter sido deixado, mas não vou me abandonar.'
+    ],
+    [
+      'Você não foi destruído, você está em reconstrução',
+      'Existe vida depois disso',
+      'Talvez hoje ainda doa. Talvez algumas noites ainda sejam difíceis. Mas dor não é destino. É uma fase. E fases podem ser atravessadas quando você tem direção.'
+    ],
+    [
+      'Um convite para começar hoje',
+      'Dê o primeiro passo',
+      'Se você chegou até aqui, talvez já saiba que continuar parado vai custar caro. Este é o convite: pare de sobreviver ao passado e comece a reconstruir sua vida com clareza, respeito próprio e direção.'
+    ]
   ],
   en: [
     ['You do not have to carry this pain alone','The pain nobody sees','You may look strong on the outside while still trying to understand what happened inside. This is a reminder: you do not have to walk through this without direction.'],
