@@ -44,6 +44,23 @@ export async function POST(request) {
       ]
     )
 
+    try {
+      const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || 'https://www.gilberto-souza.com').replace(/\/$/, '')
+      await fetch(`${baseUrl}/api/crm/enqueue-customer-sequence`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          visitorId,
+          name,
+          email,
+          language,
+          page: cleanText(body.page || '', 300)
+        })
+      })
+    } catch (error) {
+      console.warn('Customer sequence enqueue failed:', error)
+    }
+
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error('CRM customer error:', error)
