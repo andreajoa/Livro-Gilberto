@@ -670,3 +670,127 @@ export function getCheckoutEmailHtml({ language = 'pt', name = '', emailNumber =
 </html>
 `
 }
+
+
+const MANUAL_TOPICS = {
+  pt: [
+    ['Como ouvir sua esposa de verdade','Ouvir não é esperar sua vez de responder','Muitos homens acham que estão ouvindo, mas na verdade estão preparando defesa. Ouvir de verdade é tentar entender antes de tentar vencer.'],
+    ['O erro mais comum dos maridos','Presença não é apenas estar em casa','Estar fisicamente perto não significa estar emocionalmente presente. Sua esposa percebe quando você está ali, mas sua mente está longe.'],
+    ['O que faz uma mulher se sentir amada','Amor também é atenção aos detalhes','Muitas vezes, o que mais toca uma mulher não é algo grande. É perceber que você prestou atenção, lembrou e se importou.'],
+    ['Como evitar discussões desnecessárias','Nem toda conversa precisa virar disputa','Uma discussão cresce quando os dois tentam vencer. Um casamento melhora quando pelo menos um decide proteger a relação antes do orgulho.'],
+    ['A importância da presença','Sua atenção comunica valor','Quando você entrega atenção real, sua esposa sente que ainda importa. Pequenos momentos de presença podem curar grandes distâncias emocionais.'],
+    ['O poder das pequenas atitudes','O casamento não se perde de uma vez','Ele se enfraquece em pequenas ausências, pequenos descuidos e pequenas friezas. Mas também pode ser reconstruído com pequenas atitudes repetidas.'],
+    ['Quando o orgulho atrapalha','Pedir desculpas não diminui você','Muitos homens confundem humildade com fraqueza. Mas saber reconhecer um erro é uma das formas mais fortes de liderança emocional.'],
+    ['Como reconstruir confiança','Confiança volta com consistência','Não adianta prometer mudança uma vez e desaparecer depois. Confiança volta quando suas atitudes começam a repetir aquilo que suas palavras dizem.'],
+    ['Comunicação masculina','Falar menos não significa comunicar melhor','O silêncio pode parecer proteção, mas muitas vezes vira distância. Um homem maduro aprende a falar sem ferir e ouvir sem fugir.'],
+    ['Liderança dentro do casamento','Liderar não é controlar','Liderança saudável é criar segurança, direção e respeito. Não é mandar. Não é dominar. É servir com firmeza e responsabilidade.'],
+    ['O que sua esposa realmente precisa','Ela talvez não queira perfeição','Muitas vezes sua esposa não precisa de um homem perfeito. Ela precisa de um homem presente, honesto, respeitoso e disposto a crescer.'],
+    ['Como criar conexão novamente','Conexão volta com intenção','A conexão não volta por acidente. Ela volta quando você decide conversar melhor, observar mais, reagir menos e amar com atitudes concretas.'],
+    ['O marido que ela merece','Você também pode se tornar melhor','Ser um bom marido não é nascer pronto. É aprender, corrigir, crescer e escolher todos os dias não repetir velhos padrões.'],
+    ['Amor é decisão','Sentimento muda, decisão sustenta','Todo relacionamento passa por fases difíceis. O amor maduro não depende apenas de emoção. Ele também depende de escolha, postura e compromisso.'],
+    ['Construindo um casamento forte','Uma relação forte é construída no cotidiano','Casamento forte não nasce de grandes discursos. Nasce da forma como você trata, responde, respeita e cuida todos os dias.']
+  ],
+  en: [
+    ['How to truly listen to your wife','Listening is not waiting to reply','Many men think they are listening, but they are actually preparing a defense. Real listening tries to understand before trying to win.'],
+    ['The most common mistake husbands make','Presence is not just being home','Being physically close does not mean being emotionally present. Your wife notices when you are there, but your mind is far away.'],
+    ['What makes a woman feel loved','Love also lives in details','Often, what touches a woman most is not something huge. It is noticing that you paid attention, remembered, and cared.'],
+    ['How to avoid unnecessary arguments','Not every conversation needs to become a battle','Arguments grow when both people try to win. A marriage improves when at least one person chooses the relationship over pride.'],
+    ['The importance of presence','Your attention communicates value','When you give real attention, your wife feels she still matters. Small moments of presence can heal large emotional distances.'],
+    ['The power of small actions','A marriage is not lost all at once','It weakens through small absences, small neglects, and small coldness. But it can also be rebuilt through repeated small actions.'],
+    ['When pride gets in the way','Apologizing does not make you smaller','Many men confuse humility with weakness. But recognizing a mistake is one of the strongest forms of emotional leadership.'],
+    ['How to rebuild trust','Trust returns through consistency','One promise is not enough. Trust returns when your actions begin to repeat what your words say.'],
+    ['Masculine communication','Speaking less does not always mean communicating better','Silence can feel like protection, but often becomes distance. A mature man learns to speak without hurting and listen without running.'],
+    ['Leadership inside marriage','Leadership is not control','Healthy leadership creates safety, direction, and respect. It is not domination. It is service with firmness and responsibility.'],
+    ['What your wife really needs','She may not need perfection','Often your wife does not need a perfect man. She needs a present, honest, respectful man who is willing to grow.'],
+    ['How to create connection again','Connection returns with intention','Connection does not return by accident. It returns when you decide to communicate better, observe more, react less, and love through actions.'],
+    ['The husband she deserves','You can become better too','Being a good husband is not something you are born with. It is learning, correcting, growing, and choosing not to repeat old patterns.'],
+    ['Love is a decision','Feelings change, decisions sustain','Every relationship faces difficult seasons. Mature love is not only emotion. It is also choice, posture, and commitment.'],
+    ['Building a stronger marriage','A strong relationship is built daily','A strong marriage is not built with big speeches. It is built in how you treat, respond, respect, and care every day.']
+  ],
+  es: [
+    ['Cómo escuchar de verdad a tu esposa','Escuchar no es esperar tu turno para responder','Muchos hombres creen que escuchan, pero en realidad están preparando una defensa. Escuchar de verdad es intentar entender antes de intentar ganar.'],
+    ['El error más común de los esposos','Presencia no es solo estar en casa','Estar físicamente cerca no significa estar emocionalmente presente. Tu esposa nota cuando estás ahí, pero tu mente está lejos.'],
+    ['Lo que hace que una mujer se sienta amada','El amor también vive en los detalles','Muchas veces lo que más toca a una mujer no es algo enorme. Es notar que prestaste atención, recordaste y te importó.'],
+    ['Cómo evitar discusiones innecesarias','No toda conversación debe convertirse en batalla','Una discusión crece cuando ambos intentan ganar. Un matrimonio mejora cuando al menos uno decide proteger la relación antes que el orgullo.'],
+    ['La importancia de estar presente','Tu atención comunica valor','Cuando entregas atención real, tu esposa siente que todavía importa. Pequeños momentos de presencia pueden sanar grandes distancias emocionales.'],
+    ['El poder de las pequeñas acciones','El matrimonio no se pierde de una vez','Se debilita con pequeñas ausencias, pequeños descuidos y pequeñas frialdades. Pero también puede reconstruirse con pequeñas acciones repetidas.'],
+    ['Cuando el orgullo estorba','Pedir perdón no te hace menos hombre','Muchos hombres confunden humildad con debilidad. Pero reconocer un error es una de las formas más fuertes de liderazgo emocional.'],
+    ['Cómo reconstruir la confianza','La confianza vuelve con consistencia','No basta prometer cambio una vez. La confianza vuelve cuando tus acciones empiezan a repetir lo que dicen tus palabras.'],
+    ['Comunicación masculina','Hablar menos no siempre es comunicar mejor','El silencio puede parecer protección, pero muchas veces se convierte en distancia. Un hombre maduro aprende a hablar sin herir y escuchar sin huir.'],
+    ['Liderazgo dentro del matrimonio','Liderar no es controlar','El liderazgo saludable crea seguridad, dirección y respeto. No es dominar. Es servir con firmeza y responsabilidad.'],
+    ['Lo que tu esposa realmente necesita','Tal vez ella no quiere perfección','Muchas veces tu esposa no necesita un hombre perfecto. Necesita un hombre presente, honesto, respetuoso y dispuesto a crecer.'],
+    ['Cómo crear conexión otra vez','La conexión vuelve con intención','La conexión no vuelve por accidente. Vuelve cuando decides comunicarte mejor, observar más, reaccionar menos y amar con acciones concretas.'],
+    ['El esposo que ella merece','Tú también puedes mejorar','Ser un buen esposo no es nacer listo. Es aprender, corregir, crecer y elegir cada día no repetir viejos patrones.'],
+    ['El amor es una decisión','El sentimiento cambia, la decisión sostiene','Toda relación pasa por etapas difíciles. El amor maduro no depende solo de emoción. También depende de elección, postura y compromiso.'],
+    ['Construyendo un matrimonio fuerte','Una relación fuerte se construye cada día','Un matrimonio fuerte no nace de grandes discursos. Nace de la forma en que tratas, respondes, respetas y cuidas todos los días.']
+  ]
+}
+
+function getManualTopic(language, emailNumber) {
+  const lang = MANUAL_TOPICS[language] ? language : 'pt'
+  return MANUAL_TOPICS[lang][emailNumber - 1] || MANUAL_TOPICS[lang][0]
+}
+
+export function getManualEmailHtml({ language = 'pt', name = '', emailNumber = 1 }) {
+  const lang = COPY[language] ? language : 'pt'
+  const root = COPY[lang]
+  const topic = getManualTopic(lang, emailNumber)
+  const item = root.emails[((emailNumber - 1) % 3) + 1] || root.emails[1]
+  const firstName = String(name || '').trim().split(' ')[0] || ''
+  const buyUrl = `${baseUrl()}${lang === 'pt' ? '' : `/${lang}`}#buy`
+  const instagram = 'https://www.instagram.com/gilberto.rebuild/'
+
+  return `
+<!doctype html>
+<html>
+<body style="margin:0;padding:0;background:#f3f5f8;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f3f5f8;">
+    <tr>
+      <td align="center" style="padding:24px 12px;">
+        <table role="presentation" width="680" cellspacing="0" cellpadding="0" style="width:100%;max-width:680px;background:#060C18;border-radius:18px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.24);">
+          <tr>
+            <td style="padding:28px 24px;text-align:center;background:#060C18;">
+              <div style="font-family:Georgia,serif;font-size:22px;letter-spacing:8px;color:#fff;font-weight:700;">${root.brand}</div>
+              <div style="font-family:Arial,sans-serif;font-size:13px;letter-spacing:3px;color:#5FD3E3;font-weight:700;margin-top:8px;">MANUAL DO HOMEM</div>
+              <div style="width:120px;height:2px;background:#5FD3E3;margin:14px auto 0;"></div>
+            </td>
+          </tr>
+          <tr>
+            <td background="${asset(item.hero)}" style="background-image:url('${asset(item.hero)}');background-size:cover;background-position:center;padding:86px 42px;">
+              <h1 style="font-family:Georgia,serif;font-size:42px;line-height:1.08;color:#fff;margin:0;max-width:430px;">${topic[0]}</h1>
+              <div style="width:70px;height:2px;background:#5FD3E3;margin-top:24px;"></div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:38px 42px;background:#0D1B3E;">
+              <p style="font-family:Georgia,serif;font-size:20px;color:#5FD3E3;margin:0 0 18px;">${firstName ? `Olá, ${firstName}.` : 'Olá.'}</p>
+              <h2 style="font-family:Georgia,serif;font-size:28px;color:#fff;margin:0 0 16px;">${topic[1]}</h2>
+              <p style="font-family:Arial,sans-serif;font-size:17px;line-height:1.8;color:#B8C8E0;margin:0 0 26px;">${topic[2]}</p>
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#050B15;border-radius:14px;">
+                <tr>
+                  <td width="42%" style="padding:28px;">
+                    <img src="${asset(item.book)}" width="210" style="width:100%;max-width:210px;border-radius:8px;display:block;">
+                  </td>
+                  <td width="58%" style="padding:28px 28px 28px 0;">
+                    <h3 style="font-family:Georgia,serif;font-size:26px;color:#fff;margin:0 0 14px;">Continue construindo maturidade emocional.</h3>
+                    <p style="font-family:Arial,sans-serif;font-size:15px;line-height:1.7;color:#B8C8E0;margin:0 0 20px;">O livro aprofunda a reconstrução interior que sustenta relacionamentos mais fortes.</p>
+                    <a href="${instagram}" style="display:inline-block;background:#5FD3E3;color:#06101F;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;font-weight:900;padding:14px 20px;border-radius:10px;">SEGUIR NO INSTAGRAM →</a>
+                  </td>
+                </tr>
+              </table>
+              ${retailerBlock(lang, buyUrl)}
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:24px 34px;text-align:center;background:#060C18;">
+              <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0;">${root.footer}</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+`
+}

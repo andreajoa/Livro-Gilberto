@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { d1Query } from '@/src/lib/d1'
-import { getLeadEmailHtml, getCustomerEmailHtml, getCheckoutEmailHtml } from '@/src/lib/email/leadEmailTemplates'
+import { getLeadEmailHtml, getCustomerEmailHtml, getCheckoutEmailHtml, getManualEmailHtml } from '@/src/lib/email/leadEmailTemplates'
 
 export const dynamic = 'force-dynamic'
 
@@ -145,7 +145,7 @@ export async function GET(request) {
           sequence.includes('relationship') ||
           sequence.includes('reconstruccion')
         ) {
-          html = getLeadEmailHtml({
+          html = getManualEmailHtml({
             language: item.language,
             name: item.name,
             emailNumber: item.email_number
