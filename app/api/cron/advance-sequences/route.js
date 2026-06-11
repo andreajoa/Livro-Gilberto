@@ -17,6 +17,14 @@ function nextSequenceFor(code) {
   return null
 }
 
+async function isUnsubscribed(email) {
+  const result = await d1Query(
+    `SELECT email FROM contact_status WHERE email=? AND unsubscribed=1 LIMIT 1`,
+    [email]
+  )
+  return Boolean(result?.[0]?.results?.length)
+}
+
 async function hasCustomer(email) {
   const result = await d1Query(
     `SELECT id FROM customers WHERE email=? LIMIT 1`,
@@ -186,6 +194,7 @@ export async function GET(request) {
       const next = nextSequenceFor(sequenceCode)
 
       if (!next) continue
+      if (await isUnsubscribed(email)) continue
       if (await hasCustomer(email)) continue
       if (await hasPendingInSequence(email, sequenceCode)) continue
 
