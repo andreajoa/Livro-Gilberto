@@ -44,6 +44,26 @@ export async function POST(request) {
       ]
     )
 
+    await d1Query(
+      `UPDATE email_queue
+       SET status='stopped'
+       WHERE email=?
+         AND status='pending'
+         AND sequence_code LIKE '%checkout_abandoned%'`,
+      [email]
+    )
+
+    await d1Query(
+      `INSERT INTO contact_status (email, language, checkout_completed, customer, updated_at)
+       VALUES (?, ?, 1, 1, ?)
+       ON CONFLICT(email) DO UPDATE SET
+         language = excluded.language,
+         checkout_completed = 1,
+         customer = 1,
+         updated_at = excluded.updated_at`,
+      [email, language, now]
+    )
+
     try {
       const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || 'https://www.gilberto-souza.com').replace(/\/$/, '')
       await fetch(`${baseUrl}/api/crm/enqueue-customer-sequence`, {

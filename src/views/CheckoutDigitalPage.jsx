@@ -182,6 +182,32 @@ export default function CheckoutDigitalPage() {
     setErrors({})
 
     try {
+
+      await fetch('/api/crm/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          visitorId: getVisitorId(),
+          name: order.name,
+          email: order.email,
+          language: lang,
+          source: 'checkout_digital',
+          page: '/checkout-digital'
+        })
+      })
+
+      await fetch('/api/crm/enqueue-checkout-sequence', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          visitorId: getVisitorId(),
+          name: order.name,
+          email: order.email,
+          language: lang,
+          page: '/checkout-digital'
+        })
+      })
+
       const response = await fetch('/api/stripe/payment-intent-digital', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
