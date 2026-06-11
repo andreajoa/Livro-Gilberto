@@ -26,11 +26,43 @@ const SEQUENCES = {
   },
   en: {
     code: 'en_checkout_abandoned',
-    subjects: Array(15).fill(0).map((_,i)=>`Checkout Reminder ${i+1}`)
+    subjects: [
+      'Your access is still waiting for you',
+      'You were one step away',
+      'Still thinking about it?',
+      'The cost of staying stuck',
+      'How long will you carry this pain?',
+      'What happens when you postpone healing',
+      'A personal message for you',
+      'Maybe this is the right moment',
+      'You deserve peace',
+      'Do not lose another year',
+      'The book I wish I had earlier',
+      'One important question',
+      'Your next chapter starts here',
+      'A final reflection',
+      'Last invitation'
+    ]
   },
   es: {
     code: 'es_checkout_abandoned',
-    subjects: Array(15).fill(0).map((_,i)=>`Recordatorio ${i+1}`)
+    subjects: [
+      'Tu acceso todavía te está esperando',
+      'Estuviste a un paso',
+      '¿Todavía lo estás pensando?',
+      'El costo de quedarse atrapado',
+      '¿Cuánto tiempo más cargarás este dolor?',
+      'Qué ocurre cuando pospones tu recuperación',
+      'Un mensaje personal para ti',
+      'Tal vez este sea el momento correcto',
+      'Mereces paz',
+      'No pierdas otro año',
+      'El libro que me hubiera gustado leer antes',
+      'Una pregunta importante',
+      'Tu próximo capítulo comienza aquí',
+      'Una última reflexión',
+      'Última invitación'
+    ]
   }
 }
 
