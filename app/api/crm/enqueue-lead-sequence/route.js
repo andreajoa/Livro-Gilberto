@@ -9,7 +9,19 @@ const SEQUENCES = {
     subjects: [
       'Você não precisa carregar essa dor sozinho',
       'O erro que mantém muitos homens presos ao passado',
-      'Uma forma diferente de recomeçar'
+      'Uma forma diferente de recomeçar',
+      'O dia em que você para de esperar respostas',
+      'Por que ser trocado dói tanto',
+      'Como parar de se comparar com outra pessoa',
+      'O perigo de vigiar o passado',
+      'A esperança também pode virar prisão',
+      'O que a rejeição tenta fazer com você',
+      'Como recuperar sua autoestima aos poucos',
+      'Você ainda pode reconstruir sua vida',
+      'O que muda quando você volta para si mesmo',
+      'Uma decisão silenciosa que muda tudo',
+      'Você não foi destruído, você está em reconstrução',
+      'Um convite para começar hoje'
     ]
   },
   en: {
@@ -17,7 +29,19 @@ const SEQUENCES = {
     subjects: [
       'You do not have to carry this pain alone',
       'The mistake that keeps many men stuck in the past',
-      'A different way to start again'
+      'A different way to start again',
+      'The day you stop waiting for answers',
+      'Why being replaced hurts so deeply',
+      'How to stop comparing yourself to someone else',
+      'The danger of watching the past',
+      'Hope can also become a prison',
+      'What rejection tries to do to you',
+      'How to rebuild your self-worth slowly',
+      'You can still rebuild your life',
+      'What changes when you come back to yourself',
+      'A quiet decision that changes everything',
+      'You were not destroyed, you are being rebuilt',
+      'An invitation to start today'
     ]
   },
   es: {
@@ -25,7 +49,19 @@ const SEQUENCES = {
     subjects: [
       'No tienes que cargar este dolor solo',
       'El error que mantiene a muchos hombres atrapados en el pasado',
-      'Una forma diferente de empezar de nuevo'
+      'Una forma diferente de empezar de nuevo',
+      'El día en que dejas de esperar respuestas',
+      'Por qué ser reemplazado duele tanto',
+      'Cómo dejar de compararte con otra persona',
+      'El peligro de vigilar el pasado',
+      'La esperanza también puede convertirse en prisión',
+      'Lo que el rechazo intenta hacer contigo',
+      'Cómo reconstruir tu autoestima poco a poco',
+      'Todavía puedes reconstruir tu vida',
+      'Lo que cambia cuando vuelves a ti mismo',
+      'Una decisión silenciosa que cambia todo',
+      'No fuiste destruido, estás en reconstrucción',
+      'Una invitación para empezar hoy'
     ]
   }
 }
@@ -61,7 +97,7 @@ export async function POST(request) {
       return NextResponse.json({ success: true, existing: true })
     }
 
-    const scheduleDays = [0, 1, 3]
+    const scheduleDays = sequence.subjects.map((_, index) => index * 3)
     const now = nowIso()
 
     for (let i = 0; i < sequence.subjects.length; i++) {
@@ -82,6 +118,16 @@ export async function POST(request) {
         ]
       )
     }
+
+    await d1Query(
+      `INSERT INTO contact_status (email, language, lead_started, updated_at)
+       VALUES (?, ?, 1, ?)
+       ON CONFLICT(email) DO UPDATE SET
+         language = excluded.language,
+         lead_started = 1,
+         updated_at = excluded.updated_at`,
+      [email, language, now]
+    )
 
     await d1Query(
       `INSERT INTO events (visitor_id, email, language, event_type, page, metadata, created_at)
