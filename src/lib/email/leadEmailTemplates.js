@@ -6,6 +6,18 @@ function asset(path) {
   return `${baseUrl()}${path}`
 }
 
+function unsubscribeUrl(email, language) {
+  const safeEmail = encodeURIComponent(String(email || ''))
+  const safeLang = encodeURIComponent(String(language || 'pt'))
+  return `${baseUrl()}/api/unsubscribe?email=${safeEmail}&lang=${safeLang}`
+}
+
+function unsubscribeText(language) {
+  if (language === 'en') return 'Unsubscribe'
+  if (language === 'es') return 'Cancelar suscripción'
+  return 'Cancelar inscrição'
+}
+
 const COLORS = {
   bg: '#060C18',
   card: '#0D1B3E',
@@ -265,7 +277,7 @@ export function getLeadEmailSubject({ language = 'pt', emailNumber = 1 }) {
   return getLeadTopic(lang, emailNumber)[0]
 }
 
-export function getLeadEmailHtml({ language = 'pt', name = '', emailNumber = 1 }) {
+export function getLeadEmailHtml({ language = 'pt', name = '', emailNumber = 1, email = '' }) {
   const lang = COPY[language] ? language : 'pt'
   const root = COPY[lang]
   const item = root.emails[emailNumber] || root.emails[((emailNumber - 1) % 3) + 1] || root.emails[1]
@@ -436,7 +448,7 @@ export function getLeadEmailHtml({ language = 'pt', name = '', emailNumber = 1 }
                 ${root.footer}
               </p>
               <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:${COLORS.soft};margin:0;">
-                ${root.unsubscribe}
+                ${root.unsubscribe} <a href="${unsubscribeUrl(email, lang)}" style="color:#5FD3E3;text-decoration:none;">${unsubscribeText(lang)}</a>
               </p>
             </td>
           </tr>
@@ -478,7 +490,7 @@ export function getCustomerEmailSubject({ language = 'pt', emailNumber = 1 }) {
   return getCustomerTopic(language, emailNumber)[0]
 }
 
-export function getCustomerEmailHtml({ language = 'pt', name = '', emailNumber = 1 }) {
+export function getCustomerEmailHtml({ language = 'pt', name = '', emailNumber = 1, email = '' }) {
   const lang = COPY[language] ? language : 'pt'
   const root = COPY[lang]
   const topic = getCustomerTopic(lang, emailNumber)
@@ -534,7 +546,8 @@ export function getCustomerEmailHtml({ language = 'pt', name = '', emailNumber =
 
           <tr>
             <td style="padding:24px 34px;text-align:center;background:#060C18;">
-              <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0;">${root.footer}</p>
+              <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0 0 8px;">${root.footer}</p>
+              <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0;"><a href="${unsubscribeUrl(email, lang)}" style="color:#5FD3E3;text-decoration:none;">${unsubscribeText(lang)}</a></p>
             </td>
           </tr>
         </table>
@@ -606,7 +619,7 @@ function getCheckoutTopic(language, emailNumber) {
   return CHECKOUT_TOPICS[lang][emailNumber - 1] || CHECKOUT_TOPICS[lang][0]
 }
 
-export function getCheckoutEmailHtml({ language = 'pt', name = '', emailNumber = 1 }) {
+export function getCheckoutEmailHtml({ language = 'pt', name = '', emailNumber = 1, email = '' }) {
   const lang = COPY[language] ? language : 'pt'
   const root = COPY[lang]
   const topic = getCheckoutTopic(lang, emailNumber)
@@ -659,7 +672,8 @@ export function getCheckoutEmailHtml({ language = 'pt', name = '', emailNumber =
           </tr>
           <tr>
             <td style="padding:24px 34px;text-align:center;background:#060C18;">
-              <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0;">${root.footer}</p>
+              <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0 0 8px;">${root.footer}</p>
+              <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0;"><a href="${unsubscribeUrl(email, lang)}" style="color:#5FD3E3;text-decoration:none;">${unsubscribeText(lang)}</a></p>
             </td>
           </tr>
         </table>
@@ -731,7 +745,7 @@ function getManualTopic(language, emailNumber) {
   return MANUAL_TOPICS[lang][emailNumber - 1] || MANUAL_TOPICS[lang][0]
 }
 
-export function getManualEmailHtml({ language = 'pt', name = '', emailNumber = 1 }) {
+export function getManualEmailHtml({ language = 'pt', name = '', emailNumber = 1, email = '' }) {
   const lang = COPY[language] ? language : 'pt'
   const root = COPY[lang]
   const topic = getManualTopic(lang, emailNumber)
@@ -783,7 +797,8 @@ export function getManualEmailHtml({ language = 'pt', name = '', emailNumber = 1
           </tr>
           <tr>
             <td style="padding:24px 34px;text-align:center;background:#060C18;">
-              <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0;">${root.footer}</p>
+              <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0 0 8px;">${root.footer}</p>
+              <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0;"><a href="${unsubscribeUrl(email, lang)}" style="color:#5FD3E3;text-decoration:none;">${unsubscribeText(lang)}</a></p>
             </td>
           </tr>
         </table>

@@ -111,6 +111,11 @@ export async function GET(request) {
        FROM email_queue
        WHERE status = 'pending'
          AND scheduled_at <= ?
+         AND NOT EXISTS (
+           SELECT 1 FROM contact_status
+           WHERE contact_status.email = email_queue.email
+             AND contact_status.unsubscribed = 1
+         )
        ORDER BY scheduled_at ASC
        LIMIT 10`,
       [now]
