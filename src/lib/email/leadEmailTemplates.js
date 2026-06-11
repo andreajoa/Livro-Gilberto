@@ -545,3 +545,128 @@ export function getCustomerEmailHtml({ language = 'pt', name = '', emailNumber =
 </html>
 `
 }
+
+
+const CHECKOUT_TOPICS = {
+  pt: [
+    ['Seu acesso ainda está esperando por você','Você chegou muito perto de começar','Você já deu o passo mais difícil: parou, olhou para essa dor e considerou fazer algo por você. Talvez tenha fechado a página por dúvida, pressa ou medo. Mas sua reconstrução ainda pode começar hoje.'],
+    ['Você chegou perto de começar','O quase também revela desejo','Quando alguém chega até o checkout, isso mostra uma coisa: existe uma parte de você cansada de continuar carregando tudo sozinho. Não ignore esse sinal.'],
+    ['Ainda pensando?','A dúvida também fala','Talvez você esteja pensando se o livro realmente pode ajudar. A verdade é simples: ele não promete apagar o passado, mas pode ajudar você a atravessar essa fase com mais clareza.'],
+    ['O custo de continuar parado','Adiar também tem preço','Às vezes parece mais fácil deixar para depois. Mas cada dia preso à mesma dor cobra energia, sono, foco e paz. A pergunta é: quanto custa continuar do mesmo jeito?'],
+    ['Quanto tempo você vai carregar isso?','A dor não precisa virar identidade','Existe uma diferença entre sentir dor e morar dentro dela. Você não precisa transformar uma perda em uma sentença sobre o resto da sua vida.'],
+    ['O que acontece quando você adia','O tempo sozinho nem sempre cura','Muita gente diz que o tempo cura tudo. Mas tempo sem direção pode apenas prolongar a confusão. Cura exige decisão, clareza e movimento.'],
+    ['Uma mensagem pessoal para você','Eu sei como esse silêncio pesa','Se você está lendo isso, talvez ainda exista uma parte sua procurando força. Eu escrevi este livro para homens que não conseguem explicar em voz alta o que estão sentindo.'],
+    ['Talvez este seja o momento certo','Nem todo recomeço parece grande','Às vezes o recomeço não começa com uma grande mudança. Começa com uma pequena decisão: hoje eu vou parar de me abandonar.'],
+    ['Você merece paz','Paz não é fraqueza','Você não precisa continuar em guerra com lembranças, perguntas e comparações. Paz não significa que nada doeu. Significa que a dor não manda mais em você.'],
+    ['Não espere mais um ano','O tempo vai passar de qualquer forma','Daqui a alguns meses, sua vida pode estar exatamente igual — ou você pode ter começado a reconstruí-la. O tempo vai passar. A decisão é o que muda o resultado.'],
+    ['O livro que eu gostaria de ter lido antes','Eu escrevi o que precisei ouvir','Este livro nasceu de uma dor real. Não foi escrito de fora. Foi escrito por alguém que também precisou aprender a se levantar depois de ser quebrado por dentro.'],
+    ['Uma pergunta importante','E se você pudesse atravessar isso diferente?','E se, em vez de apenas tentar esquecer, você pudesse entender o que essa dor está tentando revelar sobre seus limites, sua autoestima e sua reconstrução?'],
+    ['Seu próximo capítulo começa aqui','O passado não precisa escrever o final','O que aconteceu faz parte da sua história, mas não precisa ser o título da sua vida inteira. Existe um próximo capítulo esperando por uma decisão sua.'],
+    ['Uma última reflexão','Talvez você não precise de mais tempo','Talvez você não precise esperar se sentir pronto. Talvez o primeiro passo seja justamente o que vai ajudar você a se sentir pronto.'],
+    ['Último convite','Comece antes que a dor vire rotina','Este é meu convite final nesta sequência: não normalize viver preso ao que acabou. Se o livro puder ser uma luz neste momento, permita-se começar.']
+  ],
+  en: [
+    ['Your access is still waiting for you','You were very close to starting','You already took the hardest step: you stopped, looked at the pain, and considered doing something for yourself. Maybe you closed the page out of doubt or fear. But rebuilding can still begin today.'],
+    ['You were one step away','Almost buying says something','When someone reaches checkout, it means part of them is tired of carrying everything alone. Do not ignore that signal.'],
+    ['Still thinking about it?','Doubt is also a message','Maybe you wonder if the book can really help. It will not erase the past, but it can help you move through this season with more clarity.'],
+    ['The cost of staying stuck','Postponing also has a price','It may feel easier to leave it for later. But every day stuck in the same pain costs energy, sleep, focus, and peace.'],
+    ['How long will you carry this pain?','Pain does not have to become identity','There is a difference between feeling pain and living inside it. You do not have to turn a loss into a sentence over your future.'],
+    ['What happens when you postpone healing','Time alone does not always heal','People say time heals everything. But time without direction can simply extend confusion. Healing requires decision, clarity, and movement.'],
+    ['A personal message for you','I know how heavy the silence feels','If you are reading this, maybe a part of you is still looking for strength. I wrote this book for men who cannot explain out loud what they feel.'],
+    ['Maybe this is the right moment','Not every restart looks dramatic','Sometimes rebuilding starts with one quiet decision: today I will stop abandoning myself.'],
+    ['You deserve peace','Peace is not weakness','You do not have to keep fighting memories, questions, and comparisons. Peace means the pain no longer controls you.'],
+    ['Do not lose another year','Time will pass anyway','A few months from now, your life may look the same — or you may have started rebuilding it. Time will pass. Your decision changes the result.'],
+    ['The book I wish I had earlier','I wrote what I needed to hear','This book came from real pain. It was not written from the outside. It was written by someone who had to learn how to stand again.'],
+    ['One important question','What if you could go through this differently?','What if instead of trying to forget, you could understand what this pain is revealing about your boundaries, self-worth, and rebuilding?'],
+    ['Your next chapter starts here','The past does not have to write the ending','What happened is part of your story, but it does not have to be the title of your entire life.'],
+    ['A final reflection','Maybe you do not need more time','Maybe you do not need to wait until you feel ready. Maybe the first step is what helps you become ready.'],
+    ['Last invitation','Start before pain becomes routine','This is my final invitation in this sequence: do not normalize living trapped in what ended. If this book can be a light right now, allow yourself to begin.']
+  ],
+  es: [
+    ['Tu acceso todavía te está esperando','Estuviste muy cerca de empezar','Ya diste el paso más difícil: te detuviste, miraste este dolor y consideraste hacer algo por ti. Tal vez cerraste la página por duda o miedo. Pero tu reconstrucción todavía puede comenzar hoy.'],
+    ['Estuviste a un paso','Casi comprar también dice algo','Cuando alguien llega al checkout, eso muestra que una parte de él está cansada de cargar todo solo. No ignores esa señal.'],
+    ['¿Todavía lo estás pensando?','La duda también habla','Tal vez te preguntas si el libro realmente puede ayudarte. No promete borrar el pasado, pero puede ayudarte a atravesar esta etapa con más claridad.'],
+    ['El costo de quedarse atrapado','Postergar también tiene precio','A veces parece más fácil dejarlo para después. Pero cada día atrapado en el mismo dolor cobra energía, sueño, enfoque y paz.'],
+    ['¿Cuánto tiempo más cargarás este dolor?','El dolor no tiene que convertirse en identidad','Hay una diferencia entre sentir dolor y vivir dentro de él. No necesitas convertir una pérdida en una sentencia sobre tu futuro.'],
+    ['Qué ocurre cuando pospones tu recuperación','El tiempo solo no siempre cura','Muchos dicen que el tiempo cura todo. Pero el tiempo sin dirección solo puede alargar la confusión. Sanar exige decisión, claridad y movimiento.'],
+    ['Un mensaje personal para ti','Sé cuánto pesa este silencio','Si estás leyendo esto, tal vez una parte de ti todavía busca fuerza. Escribí este libro para hombres que no logran explicar en voz alta lo que sienten.'],
+    ['Tal vez este sea el momento correcto','No todo reinicio parece grande','A veces la reconstrucción empieza con una decisión silenciosa: hoy voy a dejar de abandonarme.'],
+    ['Mereces paz','La paz no es debilidad','No necesitas seguir peleando con recuerdos, preguntas y comparaciones. Paz significa que el dolor ya no manda sobre ti.'],
+    ['No pierdas otro año','El tiempo pasará de todos modos','Dentro de unos meses tu vida puede estar igual — o puedes haber comenzado a reconstruirla. El tiempo pasará. Tu decisión cambia el resultado.'],
+    ['El libro que me hubiera gustado leer antes','Escribí lo que necesitaba escuchar','Este libro nació de un dolor real. No fue escrito desde afuera. Fue escrito por alguien que también tuvo que aprender a levantarse.'],
+    ['Una pregunta importante','¿Y si pudieras atravesar esto de otra manera?','¿Y si en lugar de solo intentar olvidar, pudieras entender lo que este dolor revela sobre tus límites, tu autoestima y tu reconstrucción?'],
+    ['Tu próximo capítulo comienza aquí','El pasado no tiene que escribir el final','Lo que ocurrió es parte de tu historia, pero no tiene que ser el título de toda tu vida.'],
+    ['Una última reflexión','Tal vez no necesitas más tiempo','Tal vez no necesitas esperar a sentirte listo. Tal vez el primer paso es justamente lo que te ayudará a estar listo.'],
+    ['Última invitación','Empieza antes de que el dolor se vuelva rutina','Esta es mi última invitación en esta secuencia: no normalices vivir atrapado en lo que terminó. Si este libro puede ser una luz ahora, permítete empezar.']
+  ]
+}
+
+function getCheckoutTopic(language, emailNumber) {
+  const lang = CHECKOUT_TOPICS[language] ? language : 'pt'
+  return CHECKOUT_TOPICS[lang][emailNumber - 1] || CHECKOUT_TOPICS[lang][0]
+}
+
+export function getCheckoutEmailHtml({ language = 'pt', name = '', emailNumber = 1 }) {
+  const lang = COPY[language] ? language : 'pt'
+  const root = COPY[lang]
+  const topic = getCheckoutTopic(lang, emailNumber)
+  const item = root.emails[((emailNumber - 1) % 3) + 1] || root.emails[1]
+  const firstName = String(name || '').trim().split(' ')[0] || ''
+  const buyUrl = `${baseUrl()}${lang === 'pt' ? '' : `/${lang}`}#buy`
+  const instagram = 'https://www.instagram.com/gilberto.rebuild/'
+
+  return `
+<!doctype html>
+<html>
+<body style="margin:0;padding:0;background:#f3f5f8;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f3f5f8;">
+    <tr>
+      <td align="center" style="padding:24px 12px;">
+        <table role="presentation" width="680" cellspacing="0" cellpadding="0" style="width:100%;max-width:680px;background:#060C18;border-radius:18px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.24);">
+          <tr>
+            <td style="padding:28px 24px;text-align:center;background:#060C18;">
+              <div style="font-family:Georgia,serif;font-size:22px;letter-spacing:8px;color:#fff;font-weight:700;">${root.brand}</div>
+              <div style="font-family:Arial,sans-serif;font-size:13px;letter-spacing:3px;color:#5FD3E3;font-weight:700;margin-top:8px;">ACESSO PENDENTE</div>
+              <div style="width:120px;height:2px;background:#5FD3E3;margin:14px auto 0;"></div>
+            </td>
+          </tr>
+          <tr>
+            <td background="${asset(item.hero)}" style="background-image:url('${asset(item.hero)}');background-size:cover;background-position:center;padding:86px 42px;">
+              <h1 style="font-family:Georgia,serif;font-size:42px;line-height:1.08;color:#fff;margin:0;max-width:430px;">${topic[0]}</h1>
+              <div style="width:70px;height:2px;background:#5FD3E3;margin-top:24px;"></div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:38px 42px;background:#0D1B3E;">
+              <p style="font-family:Georgia,serif;font-size:20px;color:#5FD3E3;margin:0 0 18px;">${firstName ? `Olá, ${firstName}.` : 'Olá.'}</p>
+              <h2 style="font-family:Georgia,serif;font-size:28px;color:#fff;margin:0 0 16px;">${topic[1]}</h2>
+              <p style="font-family:Arial,sans-serif;font-size:17px;line-height:1.8;color:#B8C8E0;margin:0 0 26px;">${topic[2]}</p>
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#050B15;border-radius:14px;">
+                <tr>
+                  <td width="42%" style="padding:28px;">
+                    <img src="${asset(item.book)}" width="210" style="width:100%;max-width:210px;border-radius:8px;display:block;">
+                  </td>
+                  <td width="58%" style="padding:28px 28px 28px 0;">
+                    <h3 style="font-family:Georgia,serif;font-size:26px;color:#fff;margin:0 0 14px;">Sua reconstrução pode começar agora.</h3>
+                    <p style="font-family:Arial,sans-serif;font-size:15px;line-height:1.7;color:#B8C8E0;margin:0 0 20px;">Escolha o formato que mais combina com você e continue de onde parou.</p>
+                    <a href="${buyUrl}" style="display:inline-block;background:#5FD3E3;color:#06101F;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;font-weight:900;padding:14px 20px;border-radius:10px;">CONCLUIR AGORA →</a>
+                  </td>
+                </tr>
+              </table>
+              ${retailerBlock(lang, buyUrl)}
+              <p style="font-family:Arial,sans-serif;font-size:13px;line-height:1.7;color:#7182A6;margin:24px 0 0;text-align:center;">Instagram: <a href="${instagram}" style="color:#5FD3E3;text-decoration:none;">@gilberto.rebuild</a></p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:24px 34px;text-align:center;background:#060C18;">
+              <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0;">${root.footer}</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+`
+}
