@@ -1,0 +1,248 @@
+import { NextResponse } from 'next/server'
+import { d1Query, nowIso } from '@/src/lib/d1'
+
+export const dynamic = 'force-dynamic'
+
+function getBaseUrl() {
+  return (process.env.NEXT_PUBLIC_BASE_URL || 'https://www.gilberto-souza.com').replace(/\/$/, '')
+}
+
+function nextSequenceFor(code) {
+  const c = String(code || '')
+
+  if (c.includes('lead_ebook')) return 'checkout'
+  if (c.includes('checkout_abandoned')) return 'manual'
+  if (c.includes('manual') || c.includes('relationship') || c.includes('reconstruccion')) return 'completed'
+
+  return null
+}
+
+async function hasCustomer(email) {
+  const result = await d1Query(
+    `SELECT id FROM customers WHERE email=? LIMIT 1`,
+    [email]
+  )
+  return Boolean(result?.[0]?.results?.length)
+}
+
+async function hasPendingInSequence(email, sequenceCode) {
+  const result = await d1Query(
+    `SELECT id
+     FROM email_queue
+     WHERE email=?
+       AND sequence_code=?
+       AND status='pending'
+     LIMIT 1`,
+    [email, sequenceCode]
+  )
+  return Boolean(result?.[0]?.results?.length)
+}
+
+async function hasAnySequence(email, sequenceCode) {
+  const result = await d1Query(
+    `SELECT id
+     FROM email_queue
+     WHERE email=?
+       AND sequence_code=?
+     LIMIT 1`,
+    [email, sequenceCode]
+  )
+  return Boolean(result?.[0]?.results?.length)
+}
+
+function manualCode(language) {
+  if (language === 'en') return 'en_relationship_rebuild'
+  if (language === 'es') return 'es_reconstruccion_hombre'
+  return 'pt_manual_homem'
+}
+
+async function enqueueManual({ visitorId, email, name, language }) {
+  const code = manualCode(language)
+
+  if (await hasAnySequence(email, code)) {
+    return { skipped: true, reason: 'manual_exists' }
+  }
+
+  const subjects = {
+    pt: [
+      'Como ouvir sua esposa de verdade',
+      'O erro mais comum dos maridos',
+      'O que faz uma mulher se sentir amada',
+      'Como evitar discussões desnecessárias',
+      'A importância da presença',
+      'O poder das pequenas atitudes',
+      'Quando o orgulho atrapalha',
+      'Como reconstruir confiança',
+      'Comunicação masculina',
+      'Liderança dentro do casamento',
+      'O que sua esposa realmente precisa',
+      'Como criar conexão novamente',
+      'O marido que ela merece',
+      'Amor é decisão',
+      'Construindo um casamento forte'
+    ],
+    en: [
+      'How to truly listen to your wife',
+      'The most common mistake husbands make',
+      'What makes a woman feel loved',
+      'How to avoid unnecessary arguments',
+      'The importance of presence',
+      'The power of small actions',
+      'When pride gets in the way',
+      'How to rebuild trust',
+      'Masculine communication',
+      'Leadership inside marriage',
+      'What your wife really needs',
+      'How to create connection again',
+      'The husband she deserves',
+      'Love is a decision',
+      'Building a stronger marriage'
+    ],
+    es: [
+      'Cómo escuchar de verdad a tu esposa',
+      'El error más común de los esposos',
+      'Lo que hace que una mujer se sienta amada',
+      'Cómo evitar discusiones innecesarias',
+      'La importancia de estar presente',
+      'El poder de las pequeñas acciones',
+      'Cuando el orgullo estorba',
+      'Cómo reconstruir la confianza',
+      'Comunicación masculina',
+      'Liderazgo dentro del matrimonio',
+      'Lo que tu esposa realmente necesita',
+      'Cómo crear conexión otra vez',
+      'El esposo que ella merece',
+      'El amor es una decisión',
+      'Construyendo un matrimonio fuerte'
+    ]
+  }[language] || []
+
+  const now = nowIso()
+
+  for (let i = 0; i < subjects.length; i++) {
+    const d = new Date()
+    d.setDate(d.getDate() + (i * 3))
+
+    await d1Query(
+      `INSERT INTO email_queue
+       (visitor_id,email,name,language,sequence_code,email_number,subject,status,scheduled_at,created_at)
+       VALUES (?,?,?,?,?,?,?,'pending',?,?)`,
+      [visitorId, email, name, language, code, i + 1, subjects[i], d.toISOString(), now]
+    )
+  }
+
+  await d1Query(
+    `INSERT INTO contact_status (email, language, manual_started, updated_at)
+     VALUES (?, ?, 1, ?)
+     ON CONFLICT(email) DO UPDATE SET
+       language=excluded.language,
+       manual_started=1,
+       updated_at=excluded.updated_at`,
+    [email, language, now]
+  )
+
+  await d1Query(
+    `INSERT INTO events (visitor_id,email,language,event_type,page,metadata,created_at)
+     VALUES (?,?,?,'manual_sequence_queued','/cron/advance-sequences',?,?)`,
+    [visitorId, email, language, JSON.stringify({ sequence_code: code, emails: subjects.length }), now]
+  )
+
+  return { queued: true, code, emails: subjects.length }
+}
+
+export async function GET(request) {
+  try {
+    const url = new URL(request.url)
+    const token = url.searchParams.get('token')
+
+    if (!process.env.EMAIL_CRON_TOKEN || token !== process.env.EMAIL_CRON_TOKEN) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const completed = await d1Query(
+      `SELECT
+         email,
+         language,
+         sequence_code,
+         MAX(visitor_id) AS visitor_id,
+         MAX(name) AS name,
+         COUNT(*) AS total,
+         SUM(CASE WHEN status='sent' THEN 1 ELSE 0 END) AS sent_total,
+         SUM(CASE WHEN status='pending' THEN 1 ELSE 0 END) AS pending_total
+       FROM email_queue
+       GROUP BY email, language, sequence_code
+       HAVING total = sent_total
+          AND pending_total = 0
+       LIMIT 50`
+    )
+
+    const rows = completed?.[0]?.results || []
+    const actions = []
+
+    for (const row of rows) {
+      const email = row.email
+      const language = row.language || 'pt'
+      const sequenceCode = row.sequence_code
+      const next = nextSequenceFor(sequenceCode)
+
+      if (!next) continue
+      if (await hasCustomer(email)) continue
+      if (await hasPendingInSequence(email, sequenceCode)) continue
+
+      const now = nowIso()
+
+      if (next === 'checkout') {
+        await d1Query(
+          `INSERT INTO contact_status (email, language, lead_completed, updated_at)
+           VALUES (?, ?, 1, ?)
+           ON CONFLICT(email) DO UPDATE SET
+             language=excluded.language,
+             lead_completed=1,
+             updated_at=excluded.updated_at`,
+          [email, language, now]
+        )
+        actions.push({ email, completed: sequenceCode, next: 'checkout_waiting' })
+      }
+
+      if (next === 'manual') {
+        await d1Query(
+          `INSERT INTO contact_status (email, language, checkout_completed, updated_at)
+           VALUES (?, ?, 1, ?)
+           ON CONFLICT(email) DO UPDATE SET
+             language=excluded.language,
+             checkout_completed=1,
+             updated_at=excluded.updated_at`,
+          [email, language, now]
+        )
+
+        const result = await enqueueManual({
+          visitorId: row.visitor_id || '',
+          email,
+          name: row.name || '',
+          language
+        })
+
+        actions.push({ email, completed: sequenceCode, next: 'manual', result })
+      }
+
+      if (next === 'completed') {
+        await d1Query(
+          `INSERT INTO contact_status (email, language, manual_completed, completed_all_sequences, updated_at)
+           VALUES (?, ?, 1, 1, ?)
+           ON CONFLICT(email) DO UPDATE SET
+             language=excluded.language,
+             manual_completed=1,
+             completed_all_sequences=1,
+             updated_at=excluded.updated_at`,
+          [email, language, now]
+        )
+
+        actions.push({ email, completed: sequenceCode, next: 'standby' })
+      }
+    }
+
+    return NextResponse.json({ success: true, checked: rows.length, actions })
+  } catch (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+}
