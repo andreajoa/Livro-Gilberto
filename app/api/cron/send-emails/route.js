@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { d1Query } from '@/src/lib/d1'
+import { getLeadEmailHtml } from '@/src/lib/email/leadEmailTemplates'
 
 export const dynamic = 'force-dynamic'
 
@@ -121,7 +122,7 @@ export async function GET(request) {
 
     for (const item of pending) {
       try {
-        const html = getEmailBody({
+        const html = getLeadEmailHtml({
           language: item.language,
           name: item.name,
           emailNumber: item.email_number
