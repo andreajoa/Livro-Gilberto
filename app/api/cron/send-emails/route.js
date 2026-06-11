@@ -122,17 +122,41 @@ export async function GET(request) {
 
     for (const item of pending) {
       try {
-        const html = String(item.sequence_code || '').includes('customer')
-          ? getCustomerEmailHtml({
-              language: item.language,
-              name: item.name,
-              emailNumber: item.email_number
-            })
-          : getLeadEmailHtml({
-              language: item.language,
-              name: item.name,
-              emailNumber: item.email_number
-            })
+        const sequence = String(item.sequence_code || '').toLowerCase()
+
+        let html
+
+        if (sequence.includes('customer')) {
+          html = getCustomerEmailHtml({
+            language: item.language,
+            name: item.name,
+            emailNumber: item.email_number
+          })
+        } else if (
+          sequence.includes('checkout')
+        ) {
+          html = getLeadEmailHtml({
+            language: item.language,
+            name: item.name,
+            emailNumber: item.email_number
+          })
+        } else if (
+          sequence.includes('manual') ||
+          sequence.includes('relationship') ||
+          sequence.includes('reconstruccion')
+        ) {
+          html = getLeadEmailHtml({
+            language: item.language,
+            name: item.name,
+            emailNumber: item.email_number
+          })
+        } else {
+          html = getLeadEmailHtml({
+            language: item.language,
+            name: item.name,
+            emailNumber: item.email_number
+          })
+        }
 
         const response = await resend.emails.send({
           from: process.env.EMAIL_FROM || 'Gilberto de Souza <contato@gilberto-souza.com>',
