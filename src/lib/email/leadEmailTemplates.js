@@ -389,3 +389,99 @@ export function getLeadEmailHtml({ language = 'pt', name = '', emailNumber = 1 }
 </html>
 `
 }
+
+
+const CUSTOMER_TOPICS = {
+  pt: [
+    ['Seu acesso está pronto — comece por aqui','Obrigado pela sua compra','Seu eBook + Audiobook já está disponível. Comece pelo primeiro capítulo e escute com calma. Esse processo não precisa ser apressado. O importante é você começar.'],
+    ['Como aproveitar melhor o livro e o audiobook','Um passo por vez','Separe um momento do dia para ouvir o audiobook sem distrações. Anote as frases que mais mexerem com você. A reconstrução acontece quando você transforma leitura em prática.'],
+    ['Continue acompanhando o Gilberto','Siga essa reconstrução de perto','Continue recebendo reflexões, frases e conteúdos práticos no Instagram oficial do Gilberto. Isso vai ajudar você a manter a mente focada na sua recuperação.']
+  ],
+  en: [
+    ['Your access is ready — start here','Thank you for your purchase','Your eBook + Audiobook is now available. Start with the first chapter and listen slowly. This process does not need to be rushed. What matters is that you begin.'],
+    ['How to get the most from the book and audiobook','One step at a time','Choose a quiet moment to listen without distractions. Write down the lines that hit you the hardest. Rebuilding begins when reading becomes practice.'],
+    ['Keep following Gilberto','Stay close to the rebuilding process','Follow Gilberto’s official Instagram for reflections, quotes, and practical content that will help you stay focused on recovery.']
+  ],
+  es: [
+    ['Tu acceso está listo — empieza aquí','Gracias por tu compra','Tu eBook + Audiolibro ya está disponible. Empieza por el primer capítulo y escucha con calma. Este proceso no necesita ser apresurado. Lo importante es empezar.'],
+    ['Cómo aprovechar mejor el libro y el audiolibro','Un paso a la vez','Elige un momento tranquilo para escuchar sin distracciones. Anota las frases que más te impacten. La reconstrucción comienza cuando la lectura se convierte en práctica.'],
+    ['Sigue acompañando a Gilberto','Mantente cerca de esta reconstrucción','Sigue el Instagram oficial de Gilberto para recibir reflexiones, frases y contenido práctico que te ayudará a mantener el foco en tu recuperación.']
+  ]
+}
+
+function getCustomerTopic(language, emailNumber) {
+  const lang = CUSTOMER_TOPICS[language] ? language : 'pt'
+  return CUSTOMER_TOPICS[lang][emailNumber - 1] || CUSTOMER_TOPICS[lang][0]
+}
+
+export function getCustomerEmailSubject({ language = 'pt', emailNumber = 1 }) {
+  return getCustomerTopic(language, emailNumber)[0]
+}
+
+export function getCustomerEmailHtml({ language = 'pt', name = '', emailNumber = 1 }) {
+  const lang = COPY[language] ? language : 'pt'
+  const root = COPY[lang]
+  const topic = getCustomerTopic(lang, emailNumber)
+  const firstName = String(name || '').trim().split(' ')[0] || ''
+  const buyUrl = `${baseUrl()}${lang === 'pt' ? '' : `/${lang}`}#buy`
+  const instagram = 'https://www.instagram.com/gilberto.rebuild/'
+
+  return `
+<!doctype html>
+<html>
+<body style="margin:0;padding:0;background:#f3f5f8;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f3f5f8;">
+    <tr>
+      <td align="center" style="padding:24px 12px;">
+        <table role="presentation" width="680" cellspacing="0" cellpadding="0" style="width:100%;max-width:680px;background:#060C18;border-radius:18px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.24);">
+          <tr>
+            <td style="padding:28px 24px;text-align:center;background:#060C18;">
+              <div style="font-family:Georgia,serif;font-size:22px;letter-spacing:8px;color:#fff;font-weight:700;">${root.brand}</div>
+              <div style="font-family:Arial,sans-serif;font-size:13px;letter-spacing:3px;color:#5FD3E3;font-weight:700;margin-top:8px;">CLIENTE OFICIAL</div>
+              <div style="width:120px;height:2px;background:#5FD3E3;margin:14px auto 0;"></div>
+            </td>
+          </tr>
+
+          <tr>
+            <td background="${asset('/email-assets/email3-hero.png')}" style="background-image:url('${asset('/email-assets/email3-hero.png')}');background-size:cover;background-position:center;padding:86px 42px;">
+              <h1 style="font-family:Georgia,serif;font-size:42px;line-height:1.08;color:#fff;margin:0;max-width:430px;">${topic[0]}</h1>
+              <div style="width:70px;height:2px;background:#5FD3E3;margin-top:24px;"></div>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:38px 42px;background:#0D1B3E;">
+              <p style="font-family:Georgia,serif;font-size:20px;color:#5FD3E3;margin:0 0 18px;">${firstName ? `Olá, ${firstName}.` : 'Olá.'}</p>
+              <h2 style="font-family:Georgia,serif;font-size:28px;color:#fff;margin:0 0 16px;">${topic[1]}</h2>
+              <p style="font-family:Arial,sans-serif;font-size:17px;line-height:1.8;color:#B8C8E0;margin:0 0 26px;">${topic[2]}</p>
+
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#050B15;border-radius:14px;">
+                <tr>
+                  <td width="42%" style="padding:28px;">
+                    <img src="${asset('/email-assets/book-pt.png')}" width="210" style="width:100%;max-width:210px;border-radius:8px;display:block;">
+                  </td>
+                  <td width="58%" style="padding:28px 28px 28px 0;">
+                    <h3 style="font-family:Georgia,serif;font-size:26px;color:#fff;margin:0 0 14px;">Você já deu o primeiro passo.</h3>
+                    <p style="font-family:Arial,sans-serif;font-size:15px;line-height:1.7;color:#B8C8E0;margin:0 0 20px;">Agora continue caminhando com clareza.</p>
+                    <a href="${instagram}" style="display:inline-block;background:#5FD3E3;color:#06101F;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;font-weight:900;padding:14px 20px;border-radius:10px;">SEGUIR NO INSTAGRAM →</a>
+                  </td>
+                </tr>
+              </table>
+
+              ${retailerBlock(lang, buyUrl)}
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:24px 34px;text-align:center;background:#060C18;">
+              <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0;">${root.footer}</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+`
+}
