@@ -231,9 +231,37 @@ export function getLeadEmailHtml({ language = 'pt', name = '', emailNumber = 1, 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  @media only screen and (max-width: 600px) {
+    .wrapper { width: 100% !important; border-radius: 0 !important; }
+    .hero { padding: 40px 20px !important; }
+    .content { padding: 24px 20px !important; }
+    .stack { display: block !important; width: 100% !important; text-align: center !important; padding-left: 0 !important; padding-right: 0 !important; padding-top: 10px !important; padding-bottom: 10px !important; }
+    .stack img { display: inline-block !important; margin: 0 auto 16px auto !important; max-width: 180px !important; }
+    h1 { font-size: 28px !important; }
+    h2 { font-size: 22px !important; }
+    h3 { font-size: 20px !important; }
+    .quote { font-size: 24px !important; }
+  }
+</style>
+
   <title>${topic[0]}</title>
 </head>
 <body style="margin:0;padding:0;background:#f3f5f8;">
+<style>
+  @media only screen and (max-width: 600px) {
+    .wrapper { width: 100% !important; border-radius: 0 !important; }
+    .hero { padding: 40px 20px !important; }
+    .content { padding: 24px 20px !important; }
+    .stack { display: block !important; width: 100% !important; text-align: center !important; padding-left: 0 !important; padding-right: 0 !important; padding-top: 10px !important; padding-bottom: 10px !important; }
+    .stack img { display: inline-block !important; margin: 0 auto 16px auto !important; max-width: 180px !important; }
+    h1 { font-size: 28px !important; }
+    h2 { font-size: 22px !important; }
+    h3 { font-size: 20px !important; }
+    .quote { font-size: 24px !important; }
+  }
+</style>
+
   <div style="display:none;max-height:0;overflow:hidden;color:transparent;">
     ${topic[0]}
   </div>
@@ -241,7 +269,7 @@ export function getLeadEmailHtml({ language = 'pt', name = '', emailNumber = 1, 
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f3f5f8;margin:0;padding:0;">
     <tr>
       <td align="center" style="padding:24px 12px;">
-        <table role="presentation" width="680" cellspacing="0" cellpadding="0" style="width:100%;max-width:680px;background:${COLORS.bg};border-radius:18px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.24);">
+        <table role="presentation" width="680" cellspacing="0" cellpadding="0" class="wrapper" style="width:100%;max-width:680px;background:${COLORS.bg};border-radius:18px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.24);">
 
           <tr>
             <td style="padding:18px 24px;text-align:center;background:${COLORS.bg};">
@@ -259,7 +287,7 @@ export function getLeadEmailHtml({ language = 'pt', name = '', emailNumber = 1, 
           </tr>
 
           <tr>
-            <td background="${asset(item.hero)}" style="background-image:url('${asset(item.hero)}');background-size:cover;background-position:center;padding:92px 40px 86px;">
+            <td background="${asset(item.hero)}" style="background-image:url('${asset(item.hero)}');background-size:cover;background-position:center;padding:92px 40px 86px;" class="hero">
               <table role="presentation" width="100%">
                 <tr>
                   <td width="42%"></td>
@@ -275,7 +303,7 @@ export function getLeadEmailHtml({ language = 'pt', name = '', emailNumber = 1, 
           </tr>
 
           <tr>
-            <td style="padding:34px 40px 10px;background:linear-gradient(180deg,#0D1B3E 0%,#071224 100%);">
+            <td class="content" style="padding:34px 40px 10px;background:linear-gradient(180deg,#0D1B3E 0%,#071224 100%);">
               <p style="font-family:Georgia,serif;font-size:20px;line-height:1.7;color:${COLORS.cyan};margin:0 0 18px;">
                 ${item.greeting(firstName)}
               </p>
@@ -305,7 +333,7 @@ export function getLeadEmailHtml({ language = 'pt', name = '', emailNumber = 1, 
           </tr>
 
           <tr>
-            <td style="padding:30px 40px;background:#071224;">
+            <td class="content" style="padding:30px 40px;background:#071224;">
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
                   <td width="28%" valign="top" style="padding-right:24px;">
@@ -328,10 +356,10 @@ export function getLeadEmailHtml({ language = 'pt', name = '', emailNumber = 1, 
             <td style="padding:0;background:#050B15;">
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td width="45%" valign="middle" style="padding:28px 20px 28px 34px;">
+                  <td width="45%" valign="middle" class="stack" style="padding:28px 20px 28px 34px;">
                     <img src="${asset(item.book)}" alt="${item.bookTitle}" width="250" style="width:100%;max-width:250px;display:block;border:0;border-radius:8px;">
                   </td>
-                  <td width="55%" valign="middle" style="padding:34px 34px 34px 10px;">
+                  <td width="55%" valign="middle" class="stack" style="padding:34px 34px 34px 10px;">
                     <h2 style="font-family:Georgia,serif;font-size:32px;line-height:1.12;color:${COLORS.text};margin:0 0 16px;">
                       ${item.bookTitle}
                     </h2>
@@ -353,14 +381,14 @@ export function getLeadEmailHtml({ language = 'pt', name = '', emailNumber = 1, 
             <td style="padding:30px 40px;background:${COLORS.card};">
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td width="96" valign="middle">
+                  <td width="96" valign="middle" class="stack">
                     <img src="${asset(item.author)}" alt="Gilberto de Souza" width="82" height="82" style="width:82px;height:82px;border-radius:50%;border:2px solid ${COLORS.cyan};object-fit:cover;display:block;">
                   </td>
-                  <td valign="middle" style="padding-left:18px;">
+                  <td valign="middle" class="stack" style="padding-left:18px;">
                     <div style="font-family:Georgia,serif;font-size:22px;color:${COLORS.cyan};margin-bottom:4px;">Gilberto de Souza</div>
                     <div style="font-family:Arial,sans-serif;font-size:14px;color:${COLORS.muted};">Autor</div>
                   </td>
-                  <td valign="middle" style="padding-left:24px;text-align:left;">
+                  <td valign="middle" class="stack" style="padding-left:24px;text-align:left;">
                     <div style="font-family:Georgia,serif;font-size:24px;line-height:1.35;color:${COLORS.text};">
                       “${item.signature}”
                     </div>
@@ -371,19 +399,19 @@ export function getLeadEmailHtml({ language = 'pt', name = '', emailNumber = 1, 
           </tr>
 
           <tr>
-            <td style="padding:22px 30px;background:#071224;border-top:1px solid rgba(95,211,227,.18);border-bottom:1px solid rgba(95,211,227,.18);">
+            <td class="content" style="padding:22px 30px;background:#071224;border-top:1px solid rgba(95,211,227,.18);border-bottom:1px solid rgba(95,211,227,.18);">
               <table role="presentation" width="100%">
                 <tr>
-                  <td align="center" style="font-family:Arial,sans-serif;color:${COLORS.muted};font-size:13px;">🔒 ${root.secure1}</td>
-                  <td align="center" style="font-family:Arial,sans-serif;color:${COLORS.muted};font-size:13px;">📖 ${root.secure2}</td>
-                  <td align="center" style="font-family:Arial,sans-serif;color:${COLORS.muted};font-size:13px;">🛡️ ${root.secure3}</td>
+                  <td align="center" class="stack" style="font-family:Arial,sans-serif;color:${COLORS.muted};font-size:13px;">🔒 ${root.secure1}</td>
+                  <td align="center" class="stack" style="font-family:Arial,sans-serif;color:${COLORS.muted};font-size:13px;">📖 ${root.secure2}</td>
+                  <td align="center" class="stack" style="font-family:Arial,sans-serif;color:${COLORS.muted};font-size:13px;">🛡️ ${root.secure3}</td>
                 </tr>
               </table>
             </td>
           </tr>
 
           <tr>
-            <td style="padding:24px 34px;text-align:center;background:${COLORS.bg};">
+            <td class="content" style="padding:24px 34px;text-align:center;background:${COLORS.bg};">
               <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:${COLORS.soft};margin:0 0 6px;">
                 ${root.footer}
               </p>
@@ -442,10 +470,24 @@ export function getCustomerEmailHtml({ language = 'pt', name = '', emailNumber =
 <!doctype html>
 <html>
 <body style="margin:0;padding:0;background:#f3f5f8;">
+<style>
+  @media only screen and (max-width: 600px) {
+    .wrapper { width: 100% !important; border-radius: 0 !important; }
+    .hero { padding: 40px 20px !important; }
+    .content { padding: 24px 20px !important; }
+    .stack { display: block !important; width: 100% !important; text-align: center !important; padding-left: 0 !important; padding-right: 0 !important; padding-top: 10px !important; padding-bottom: 10px !important; }
+    .stack img { display: inline-block !important; margin: 0 auto 16px auto !important; max-width: 180px !important; }
+    h1 { font-size: 28px !important; }
+    h2 { font-size: 22px !important; }
+    h3 { font-size: 20px !important; }
+    .quote { font-size: 24px !important; }
+  }
+</style>
+
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f3f5f8;">
     <tr>
       <td align="center" style="padding:24px 12px;">
-        <table role="presentation" width="680" cellspacing="0" cellpadding="0" style="width:100%;max-width:680px;background:#060C18;border-radius:18px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.24);">
+        <table role="presentation" width="680" cellspacing="0" cellpadding="0" class="wrapper" style="width:100%;max-width:680px;background:#060C18;border-radius:18px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.24);">
           <tr>
             <td style="padding:28px 24px;text-align:center;background:#060C18;">
               <div style="font-family:Georgia,serif;font-size:22px;letter-spacing:8px;color:#fff;font-weight:700;">${root.brand}</div>
@@ -455,24 +497,24 @@ export function getCustomerEmailHtml({ language = 'pt', name = '', emailNumber =
           </tr>
 
           <tr>
-            <td background="${asset('/email-assets/email3-hero.png')}" style="background-image:url('${asset('/email-assets/email3-hero.png')}');background-size:cover;background-position:center;padding:86px 42px;">
+            <td background="${asset('/email-assets/email3-hero.png')}" style="background-image:url('${asset('/email-assets/email3-hero.png')}');background-size:cover;background-position:center;padding:86px 42px;" class="hero">
               <h1 style="font-family:Georgia,serif;font-size:42px;line-height:1.08;color:#fff;margin:0;max-width:430px;">${topic[0]}</h1>
               <div style="width:70px;height:2px;background:#5FD3E3;margin-top:24px;"></div>
             </td>
           </tr>
 
           <tr>
-            <td style="padding:38px 42px;background:#0D1B3E;">
+            <td class="content" style="padding:38px 42px;background:#0D1B3E;">
               <p style="font-family:Georgia,serif;font-size:20px;color:#5FD3E3;margin:0 0 18px;">${firstName ? `Olá, ${firstName}.` : 'Olá.'}</p>
               <h2 style="font-family:Georgia,serif;font-size:28px;color:#fff;margin:0 0 16px;">${topic[1]}</h2>
               <p style="font-family:Arial,sans-serif;font-size:17px;line-height:1.8;color:#B8C8E0;margin:0 0 26px;">${topic[2]}</p>
 
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#050B15;border-radius:14px;">
                 <tr>
-                  <td width="42%" style="padding:28px;">
+                  <td width="42%" class="stack" style="padding:28px;">
                     <img src="${asset('/email-assets/book-pt.png')}" width="210" style="width:100%;max-width:210px;border-radius:8px;display:block;">
                   </td>
-                  <td width="58%" style="padding:28px 28px 28px 0;">
+                  <td width="58%" class="stack" style="padding:28px 28px 28px 0;">
                     <h3 style="font-family:Georgia,serif;font-size:26px;color:#fff;margin:0 0 14px;">Você já deu o primeiro passo.</h3>
                     <p style="font-family:Arial,sans-serif;font-size:15px;line-height:1.7;color:#B8C8E0;margin:0 0 20px;">Agora continue caminhando com clareza.</p>
                     <a href="${instagram}" style="display:inline-block;background:#5FD3E3;color:#06101F;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;font-weight:900;padding:14px 20px;border-radius:10px;">SEGUIR NO INSTAGRAM →</a>
@@ -485,7 +527,7 @@ export function getCustomerEmailHtml({ language = 'pt', name = '', emailNumber =
           </tr>
 
           <tr>
-            <td style="padding:24px 34px;text-align:center;background:#060C18;">
+            <td class="content" style="padding:24px 34px;text-align:center;background:#060C18;">
               <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0 0 8px;">${root.footer}</p>
               <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0;"><a href="${unsubscribeUrl(email, lang)}" style="color:#5FD3E3;text-decoration:none;">${unsubscribeText(lang)}</a></p>
             </td>
@@ -572,10 +614,24 @@ export function getCheckoutEmailHtml({ language = 'pt', name = '', emailNumber =
 <!doctype html>
 <html>
 <body style="margin:0;padding:0;background:#f3f5f8;">
+<style>
+  @media only screen and (max-width: 600px) {
+    .wrapper { width: 100% !important; border-radius: 0 !important; }
+    .hero { padding: 40px 20px !important; }
+    .content { padding: 24px 20px !important; }
+    .stack { display: block !important; width: 100% !important; text-align: center !important; padding-left: 0 !important; padding-right: 0 !important; padding-top: 10px !important; padding-bottom: 10px !important; }
+    .stack img { display: inline-block !important; margin: 0 auto 16px auto !important; max-width: 180px !important; }
+    h1 { font-size: 28px !important; }
+    h2 { font-size: 22px !important; }
+    h3 { font-size: 20px !important; }
+    .quote { font-size: 24px !important; }
+  }
+</style>
+
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f3f5f8;">
     <tr>
       <td align="center" style="padding:24px 12px;">
-        <table role="presentation" width="680" cellspacing="0" cellpadding="0" style="width:100%;max-width:680px;background:#060C18;border-radius:18px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.24);">
+        <table role="presentation" width="680" cellspacing="0" cellpadding="0" class="wrapper" style="width:100%;max-width:680px;background:#060C18;border-radius:18px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.24);">
           <tr>
             <td style="padding:28px 24px;text-align:center;background:#060C18;">
               <div style="font-family:Georgia,serif;font-size:22px;letter-spacing:8px;color:#fff;font-weight:700;">${root.brand}</div>
@@ -584,22 +640,22 @@ export function getCheckoutEmailHtml({ language = 'pt', name = '', emailNumber =
             </td>
           </tr>
           <tr>
-            <td background="${asset(item.hero)}" style="background-image:url('${asset(item.hero)}');background-size:cover;background-position:center;padding:86px 42px;">
+            <td background="${asset(item.hero)}" style="background-image:url('${asset(item.hero)}');background-size:cover;background-position:center;padding:86px 42px;" class="hero">
               <h1 style="font-family:Georgia,serif;font-size:42px;line-height:1.08;color:#fff;margin:0;max-width:430px;">${topic[0]}</h1>
               <div style="width:70px;height:2px;background:#5FD3E3;margin-top:24px;"></div>
             </td>
           </tr>
           <tr>
-            <td style="padding:38px 42px;background:#0D1B3E;">
+            <td class="content" style="padding:38px 42px;background:#0D1B3E;">
               <p style="font-family:Georgia,serif;font-size:20px;color:#5FD3E3;margin:0 0 18px;">${firstName ? `Olá, ${firstName}.` : 'Olá.'}</p>
               <h2 style="font-family:Georgia,serif;font-size:28px;color:#fff;margin:0 0 16px;">${topic[1]}</h2>
               <p style="font-family:Arial,sans-serif;font-size:17px;line-height:1.8;color:#B8C8E0;margin:0 0 26px;">${topic[2]}</p>
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#050B15;border-radius:14px;">
                 <tr>
-                  <td width="42%" style="padding:28px;">
+                  <td width="42%" class="stack" style="padding:28px;">
                     <img src="${asset(item.book)}" width="210" style="width:100%;max-width:210px;border-radius:8px;display:block;">
                   </td>
-                  <td width="58%" style="padding:28px 28px 28px 0;">
+                  <td width="58%" class="stack" style="padding:28px 28px 28px 0;">
                     <h3 style="font-family:Georgia,serif;font-size:26px;color:#fff;margin:0 0 14px;">Sua reconstrução pode começar agora.</h3>
                     <p style="font-family:Arial,sans-serif;font-size:15px;line-height:1.7;color:#B8C8E0;margin:0 0 20px;">Escolha o formato que mais combina com você e continue de onde parou.</p>
                     <a href="${buyUrl}" style="display:inline-block;background:#5FD3E3;color:#06101F;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;font-weight:900;padding:14px 20px;border-radius:10px;">CONCLUIR AGORA →</a>
@@ -611,7 +667,7 @@ export function getCheckoutEmailHtml({ language = 'pt', name = '', emailNumber =
             </td>
           </tr>
           <tr>
-            <td style="padding:24px 34px;text-align:center;background:#060C18;">
+            <td class="content" style="padding:24px 34px;text-align:center;background:#060C18;">
               <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0 0 8px;">${root.footer}</p>
               <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0;"><a href="${unsubscribeUrl(email, lang)}" style="color:#5FD3E3;text-decoration:none;">${unsubscribeText(lang)}</a></p>
             </td>
@@ -698,10 +754,24 @@ export function getManualEmailHtml({ language = 'pt', name = '', emailNumber = 1
 <!doctype html>
 <html>
 <body style="margin:0;padding:0;background:#f3f5f8;">
+<style>
+  @media only screen and (max-width: 600px) {
+    .wrapper { width: 100% !important; border-radius: 0 !important; }
+    .hero { padding: 40px 20px !important; }
+    .content { padding: 24px 20px !important; }
+    .stack { display: block !important; width: 100% !important; text-align: center !important; padding-left: 0 !important; padding-right: 0 !important; padding-top: 10px !important; padding-bottom: 10px !important; }
+    .stack img { display: inline-block !important; margin: 0 auto 16px auto !important; max-width: 180px !important; }
+    h1 { font-size: 28px !important; }
+    h2 { font-size: 22px !important; }
+    h3 { font-size: 20px !important; }
+    .quote { font-size: 24px !important; }
+  }
+</style>
+
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f3f5f8;">
     <tr>
       <td align="center" style="padding:24px 12px;">
-        <table role="presentation" width="680" cellspacing="0" cellpadding="0" style="width:100%;max-width:680px;background:#060C18;border-radius:18px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.24);">
+        <table role="presentation" width="680" cellspacing="0" cellpadding="0" class="wrapper" style="width:100%;max-width:680px;background:#060C18;border-radius:18px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.24);">
           <tr>
             <td style="padding:28px 24px;text-align:center;background:#060C18;">
               <div style="font-family:Georgia,serif;font-size:22px;letter-spacing:8px;color:#fff;font-weight:700;">${root.brand}</div>
@@ -710,22 +780,22 @@ export function getManualEmailHtml({ language = 'pt', name = '', emailNumber = 1
             </td>
           </tr>
           <tr>
-            <td background="${asset(item.hero)}" style="background-image:url('${asset(item.hero)}');background-size:cover;background-position:center;padding:86px 42px;">
+            <td background="${asset(item.hero)}" style="background-image:url('${asset(item.hero)}');background-size:cover;background-position:center;padding:86px 42px;" class="hero">
               <h1 style="font-family:Georgia,serif;font-size:42px;line-height:1.08;color:#fff;margin:0;max-width:430px;">${topic[0]}</h1>
               <div style="width:70px;height:2px;background:#5FD3E3;margin-top:24px;"></div>
             </td>
           </tr>
           <tr>
-            <td style="padding:38px 42px;background:#0D1B3E;">
+            <td class="content" style="padding:38px 42px;background:#0D1B3E;">
               <p style="font-family:Georgia,serif;font-size:20px;color:#5FD3E3;margin:0 0 18px;">${firstName ? `Olá, ${firstName}.` : 'Olá.'}</p>
               <h2 style="font-family:Georgia,serif;font-size:28px;color:#fff;margin:0 0 16px;">${topic[1]}</h2>
               <p style="font-family:Arial,sans-serif;font-size:17px;line-height:1.8;color:#B8C8E0;margin:0 0 26px;">${topic[2]}</p>
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#050B15;border-radius:14px;">
                 <tr>
-                  <td width="42%" style="padding:28px;">
+                  <td width="42%" class="stack" style="padding:28px;">
                     <img src="${asset(item.book)}" width="210" style="width:100%;max-width:210px;border-radius:8px;display:block;">
                   </td>
-                  <td width="58%" style="padding:28px 28px 28px 0;">
+                  <td width="58%" class="stack" style="padding:28px 28px 28px 0;">
                     <h3 style="font-family:Georgia,serif;font-size:26px;color:#fff;margin:0 0 14px;">Continue construindo maturidade emocional.</h3>
                     <p style="font-family:Arial,sans-serif;font-size:15px;line-height:1.7;color:#B8C8E0;margin:0 0 20px;">O livro aprofunda a reconstrução interior que sustenta relacionamentos mais fortes.</p>
                     <a href="${instagram}" style="display:inline-block;background:#5FD3E3;color:#06101F;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;font-weight:900;padding:14px 20px;border-radius:10px;">SEGUIR NO INSTAGRAM →</a>
@@ -736,7 +806,7 @@ export function getManualEmailHtml({ language = 'pt', name = '', emailNumber = 1
             </td>
           </tr>
           <tr>
-            <td style="padding:24px 34px;text-align:center;background:#060C18;">
+            <td class="content" style="padding:24px 34px;text-align:center;background:#060C18;">
               <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0 0 8px;">${root.footer}</p>
               <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0;"><a href="${unsubscribeUrl(email, lang)}" style="color:#5FD3E3;text-decoration:none;">${unsubscribeText(lang)}</a></p>
             </td>
