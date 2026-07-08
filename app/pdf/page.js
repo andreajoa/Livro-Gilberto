@@ -179,13 +179,19 @@ export default function PdfPage() {
             }}>
               <video
                 ref={videoRef}
-                controls
+                autoPlay
+                muted
+                loop
                 playsInline
+                controls
+                preload="metadata"
+                poster="/images/before-after/antes2.jpeg"
                 onLoadedData={() => setVideoLoaded(true)}
                 style={{
                   width: '100%',
                   height: '100%',
-                  objectFit: 'cover'
+                  objectFit: 'cover',
+                  display: 'block'
                 }}
               >
                 <source src="/videos/video1.mp4" type="video/mp4" />
@@ -530,8 +536,8 @@ export default function PdfPage() {
               }}>
                 When She Left
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <img src="/images/before-after/antes2.jpeg" alt="Before" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', borderRadius: '8px', border: '4px solid #48C7EE', boxShadow: '0 8px 24px rgba(0,0,0,0.4)' }} />
+              <div style={{ aspectRatio: '3 / 4', borderRadius: '8px', overflow: 'hidden', border: '4px solid #48C7EE', boxShadow: '0 8px 24px rgba(0,0,0,0.4)' }}>
+                <img src="/images/before-after/antes2.jpeg" alt="Before" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }} />
               </div>
               <p style={{ marginTop: '20px', fontSize: '14px', color: '#B8C8E0', fontStyle: 'italic' }}>
                 Lost 23kg in 6 months • Depression • Lost hope
@@ -554,8 +560,8 @@ export default function PdfPage() {
               }}>
                 Restored Man
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <img src="/images/before-after/depois.jpg" alt="After" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', borderRadius: '8px', border: '4px solid #C9A84C', boxShadow: '0 8px 24px rgba(0,0,0,0.4)' }} />
+              <div style={{ aspectRatio: '3 / 4', borderRadius: '8px', overflow: 'hidden', border: '4px solid #C9A84C', boxShadow: '0 8px 24px rgba(0,0,0,0.4)' }}>
+                <img src="/images/before-after/depois.jpg" alt="After" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }} />
               </div>
               <p style={{ marginTop: '20px', fontSize: '14px', color: '#B8C8E0', fontStyle: 'italic' }}>
                 Business recovered • Healthy body • New purpose • Strong faith
