@@ -185,7 +185,7 @@ export default function PdfPage() {
                 playsInline
                 controls
                 preload="metadata"
-                poster="/images/before-after/antes2.jpeg"
+                poster="/images/video-thumbnail.png"
                 onLoadedData={() => setVideoLoaded(true)}
                 style={{
                   width: '100%',
