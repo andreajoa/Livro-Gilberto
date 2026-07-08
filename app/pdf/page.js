@@ -179,9 +179,6 @@ export default function PdfPage() {
             }}>
               <video
                 ref={videoRef}
-                autoPlay
-                muted
-                loop
                 playsInline
                 controls
                 preload="metadata"
