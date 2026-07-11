@@ -191,7 +191,7 @@ export default function PdfPage() {
                   display: 'block'
                 }}
               >
-                <source src="/videos/video1.mp4" type="video/mp4" />
+                <source src="/videos/landing-video.mp4" type="video/mp4" />
                 Seu navegador não suporta vídeo.
               </video>
               <div style={{
