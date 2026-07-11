@@ -9,3 +9,8 @@ server.log
 build/
 .next/
 .next/
+
+# Videos e imagens pesadas ficam no R2, nao no git
+public/videos/*.mp4
+public/videos/*.mov
+public/images/video-thumbnail.png

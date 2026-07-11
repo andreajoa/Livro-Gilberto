@@ -182,7 +182,7 @@ export default function PdfPage() {
                 playsInline
                 controls
                 preload="metadata"
-                poster="/images/video-thumbnail.png"
+                poster="https://pub-759249f9c01040749acb04ae6efb3a00.r2.dev/image/video-thumbnail.png"
                 onLoadedData={() => setVideoLoaded(true)}
                 style={{
                   width: '100%',
@@ -191,7 +191,7 @@ export default function PdfPage() {
                   display: 'block'
                 }}
               >
-                <source src="/videos/landing-video.mp4" type="video/mp4" />
+                <source src="https://pub-759249f9c01040749acb04ae6efb3a00.r2.dev/Videos/landing-video.mp4" type="video/mp4" />
                 Seu navegador não suporta vídeo.
               </video>
               <div style={{
