@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
-import { getLeadEmailHtml, getLeadEmailSubject } from '@/src/lib/email/leadEmailTemplates'
+import {
+  getLeadEmailHtml,
+  getLeadEmailSubject
+} from '@/src/lib/email/leadEmailTemplates'
 
 export const dynamic = 'force-dynamic'
 
@@ -14,22 +17,63 @@ export async function GET(request) {
     const language = url.searchParams.get('language') || 'pt'
     const emailNumber = Number(url.searchParams.get('email') || '1')
 
-    if (!process.env.EMAIL_CRON_TOKEN || token !== process.env.EMAIL_CRON_TOKEN) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    if (
+      !process.env.EMAIL_CRON_TOKEN ||
+      token !== process.env.EMAIL_CRON_TOKEN
+    ) {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized' },
+        { status: 401 }
+      )
     }
 
-    const subject = getLeadEmailSubject({ language, emailNumber })
-    const html = getLeadEmailHtml({ language, name: 'André', emailNumber })
+    const subject = getLeadEmailSubject({
+      language,
+      emailNumber
+    })
 
-    const response = await resend.emails.send({
-      from: process.env.EMAIL_FROM || 'Gilberto de Souza <contato@gilberto-souza.com>',
+    const html = getLeadEmailHtml({
+      language,
+      name: 'André',
+      emailNumber
+    })
+
+    const { data, error } = await resend.emails.send({
+      from:
+        process.env.EMAIL_FROM ||
+        'Gilberto de Souza <contato@gilberto-souza.com>',
       to,
       subject,
       html
     })
 
-    return NextResponse.json({ success: true, to, subject, resend_id: response?.data?.id || null })
+    if (error) {
+      console.error('Resend test send error:', error)
+
+      return NextResponse.json(
+        {
+          success: false,
+          error
+        },
+        { status: 400 }
+      )
+    }
+
+    return NextResponse.json({
+      success: true,
+      to,
+      subject,
+      resend_id: data?.id || null
+    })
   } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    console.error('Test lead email error:', error)
+
+    return NextResponse.json(
+      {
+        success: false,
+        error: error.message
+      },
+      { status: 500 }
+    )
   }
 }
