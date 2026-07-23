@@ -144,7 +144,8 @@ export async function GET(request) {
           html = getCustomerEmailHtml({
             language: item.language,
             name: item.name,
-            emailNumber: item.email_number
+            emailNumber: item.email_number,
+            email: item.email
           })
         } else if (
           sequence.includes('checkout')
@@ -152,7 +153,8 @@ export async function GET(request) {
           html = getCheckoutEmailHtml({
             language: item.language,
             name: item.name,
-            emailNumber: item.email_number
+            emailNumber: item.email_number,
+            email: item.email
           })
         } else if (
           sequence.includes('manual') ||
@@ -162,13 +164,15 @@ export async function GET(request) {
           html = getManualEmailHtml({
             language: item.language,
             name: item.name,
-            emailNumber: item.email_number
+            emailNumber: item.email_number,
+            email: item.email
           })
         } else {
           html = getLeadEmailHtml({
             language: item.language,
             name: item.name,
-            emailNumber: item.email_number
+            emailNumber: item.email_number,
+            email: item.email
           })
         }
 

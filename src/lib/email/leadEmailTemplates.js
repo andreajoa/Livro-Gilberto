@@ -234,7 +234,30 @@ export function getLeadEmailHtml({ language = 'pt', name = '', emailNumber = 1, 
 <style>
   @media only screen and (max-width: 600px) {
     .wrapper { width: 100% !important; border-radius: 0 !important; }
-    .hero { padding: 40px 20px !important; }
+    .hero {
+      padding: 210px 20px 34px !important;
+      background-position: center top !important;
+      background-size: cover !important;
+    }
+    .hero-spacer {
+      display: none !important;
+      width: 0 !important;
+      max-width: 0 !important;
+      overflow: hidden !important;
+    }
+    .hero-copy {
+      display: block !important;
+      width: 100% !important;
+      text-align: center !important;
+    }
+    .hero-copy h1 {
+      font-size: 28px !important;
+      line-height: 1.15 !important;
+    }
+    .hero-line {
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
     .content { padding: 24px 20px !important; }
     .stack { display: block !important; width: 100% !important; text-align: center !important; padding-left: 0 !important; padding-right: 0 !important; padding-top: 10px !important; padding-bottom: 10px !important; }
     .stack img { display: inline-block !important; margin: 0 auto 16px auto !important; max-width: 180px !important; }
@@ -251,7 +274,30 @@ export function getLeadEmailHtml({ language = 'pt', name = '', emailNumber = 1, 
 <style>
   @media only screen and (max-width: 600px) {
     .wrapper { width: 100% !important; border-radius: 0 !important; }
-    .hero { padding: 40px 20px !important; }
+    .hero {
+      padding: 210px 20px 34px !important;
+      background-position: center top !important;
+      background-size: cover !important;
+    }
+    .hero-spacer {
+      display: none !important;
+      width: 0 !important;
+      max-width: 0 !important;
+      overflow: hidden !important;
+    }
+    .hero-copy {
+      display: block !important;
+      width: 100% !important;
+      text-align: center !important;
+    }
+    .hero-copy h1 {
+      font-size: 28px !important;
+      line-height: 1.15 !important;
+    }
+    .hero-line {
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
     .content { padding: 24px 20px !important; }
     .stack { display: block !important; width: 100% !important; text-align: center !important; padding-left: 0 !important; padding-right: 0 !important; padding-top: 10px !important; padding-bottom: 10px !important; }
     .stack img { display: inline-block !important; margin: 0 auto 16px auto !important; max-width: 180px !important; }
@@ -290,12 +336,12 @@ export function getLeadEmailHtml({ language = 'pt', name = '', emailNumber = 1, 
             <td background="${asset(item.hero)}" style="background-image:url('${asset(item.hero)}');background-size:cover;background-position:center;padding:92px 40px 86px;" class="hero">
               <table role="presentation" width="100%">
                 <tr>
-                  <td width="42%"></td>
-                  <td width="58%" style="text-align:left;">
+                  <td width="42%" class="hero-spacer"></td>
+                  <td width="58%" class="hero-copy" style="text-align:left;">
                     <h1 style="font-family:Georgia,serif;font-size:42px;line-height:1.08;color:${COLORS.text};margin:0;font-weight:800;">
                       ${topic[0]}
                     </h1>
-                    <div style="width:70px;height:2px;background:${COLORS.cyan};margin-top:26px;"></div>
+                    <div class="hero-line" style="width:70px;height:2px;background:${COLORS.cyan};margin-top:26px;"></div>
                   </td>
                 </tr>
               </table>
