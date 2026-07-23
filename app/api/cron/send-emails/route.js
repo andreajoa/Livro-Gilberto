@@ -99,8 +99,17 @@ export async function GET(request) {
   try {
     const url = new URL(request.url)
     const token = url.searchParams.get('token')
+    const authHeader = request.headers.get('authorization')
 
-    if (!process.env.EMAIL_CRON_TOKEN || token !== process.env.EMAIL_CRON_TOKEN) {
+    const authorizedByCron =
+      process.env.CRON_SECRET &&
+      authHeader === `Bearer ${process.env.CRON_SECRET}`
+
+    const authorizedByToken =
+      process.env.EMAIL_CRON_TOKEN &&
+      token === process.env.EMAIL_CRON_TOKEN
+
+    if (!authorizedByCron && !authorizedByToken) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
@@ -163,12 +172,19 @@ export async function GET(request) {
           })
         }
 
-        const response = await resend.emails.send({
+        const { data, error: resendError } = await resend.emails.send({
           from: process.env.EMAIL_FROM || 'Gilberto de Souza <contato@gilberto-souza.com>',
           to: item.email,
           subject: item.subject,
           html
         })
+
+        if (resendError) {
+          throw new Error(
+            resendError.message ||
+            JSON.stringify(resendError)
+          )
+        }
 
         await d1Query(
           `UPDATE email_queue SET status='sent', sent_at=? WHERE id=?`,
@@ -186,7 +202,7 @@ export async function GET(request) {
             item.sequence_code,
             item.email_number,
             item.subject,
-            response?.data?.id || '',
+            data?.id || '',
             new Date().toISOString()
           ]
         )
