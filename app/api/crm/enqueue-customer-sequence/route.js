@@ -37,6 +37,77 @@ export async function POST(request) {
     const language = normalizeLanguage(body.language || body.lang)
     const now = nowIso()
 
+    const product = cleanText(
+      body.product || "",
+      180
+    )
+
+    const project = cleanText(
+      body.project || "",
+      80
+    ).toLowerCase()
+
+    const productType = cleanText(
+      body.productType ||
+        body.product_type ||
+        "digital",
+      30
+    ).toLowerCase()
+
+    const normalizedProduct = product
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+
+    const isSuperacao =
+      project === "superacao" ||
+      normalizedProduct.includes("superacao")
+
+    if (isSuperacao) {
+      const baseUrl = (
+        process.env.NEXT_PUBLIC_BASE_URL ||
+        "https://www.gilberto-souza.com"
+      ).replace(/\/$/, "")
+
+      const response = await fetch(
+        `${baseUrl}/api/crm/enqueue-superacao-sequence`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            visitorId,
+            name,
+            email,
+            type: "customer",
+            productType:
+              productType === "physical"
+                ? "physical"
+                : "digital",
+            project: "superacao",
+          }),
+        }
+      )
+
+      const data = await response
+        .json()
+        .catch(() => ({}))
+
+      if (!response.ok) {
+        throw new Error(
+          data.error ||
+            "Unable to enqueue Superacao customer sequence"
+        )
+      }
+
+      return NextResponse.json({
+        success: true,
+        project: "superacao",
+        ...data,
+      })
+    }
+
     if (!email) {
       return NextResponse.json({ error: 'email is required' }, { status: 400 })
     }

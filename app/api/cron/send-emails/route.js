@@ -3,6 +3,50 @@ import { Resend } from 'resend'
 import { d1Query } from '@/src/lib/d1'
 import { getLeadEmailHtml, getCustomerEmailHtml, getCheckoutEmailHtml, getManualEmailHtml } from '@/src/lib/email/leadEmailTemplates'
 import { buildEmailTags } from '@/src/lib/email/emailTracking'
+import {
+  getSuperacaoEmailHtml
+} from '@/src/lib/email/superacaoMarketingTemplates'
+
+
+
+function buildProjectEmailTags({
+  language,
+  sequenceCode,
+  emailNumber,
+  queueId,
+}) {
+  const project =
+    String(sequenceCode || "").startsWith(
+      "superacao_"
+    )
+      ? "superacao"
+      : "livro_gilberto"
+
+  const originalTags =
+    buildEmailTags({
+      language,
+      sequenceCode,
+      emailNumber,
+      queueId,
+    }) || []
+
+  const tagsWithoutProject =
+    Array.isArray(originalTags)
+      ? originalTags.filter(
+          (tag) =>
+            String(tag?.name || "").toLowerCase() !==
+            "project"
+        )
+      : []
+
+  return [
+    ...tagsWithoutProject,
+    {
+      name: "project",
+      value: project,
+    },
+  ]
+}
 
 export const dynamic = 'force-dynamic'
 
@@ -141,7 +185,20 @@ export async function GET(request) {
 
         let html
 
-        if (sequence.includes('customer')) {
+        if (sequence.startsWith('superacao_')) {
+          html = getSuperacaoEmailHtml({
+            sequenceCode: item.sequence_code,
+            name: item.name,
+            emailNumber: item.email_number,
+            email: item.email,
+            productType:
+              sequence.includes('_physical_')
+                ? 'physical'
+                : sequence.includes('_digital_')
+                  ? 'digital'
+                  : 'general'
+          })
+        } else if (sequence.includes('customer')) {
           html = getCustomerEmailHtml({
             language: item.language,
             name: item.name,
@@ -182,7 +239,7 @@ export async function GET(request) {
           to: item.email,
           subject: item.subject,
           html,
-          tags: buildEmailTags({
+          tags: buildProjectEmailTags({
             language: item.language,
             sequenceCode: item.sequence_code,
             emailNumber: item.email_number,

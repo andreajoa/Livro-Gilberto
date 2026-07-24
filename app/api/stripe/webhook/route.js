@@ -267,7 +267,10 @@ export async function POST(request) {
             lang,
 
           product:
-            'eBook + Audiobook',
+            metadata.product ===
+              'Superacao Digital eBook'
+              ? 'Superação — eBook'
+              : 'eBook + Audiobook',
 
           productType:
             'digital',

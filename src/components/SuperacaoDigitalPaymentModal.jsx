@@ -200,6 +200,28 @@ export default function SuperacaoDigitalPaymentModal({
       setClientSecret(data.clientSecret)
       setPaymentIntentId(data.paymentIntentId)
       setAccessToken(data.accessToken)
+
+      fetch(
+        "/api/crm/enqueue-superacao-sequence",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            visitorId:
+              window.localStorage.getItem(
+                "visitor_id"
+              ) || "",
+            name: name.trim(),
+            email: email.trim().toLowerCase(),
+            type: "checkout",
+            productType: "digital",
+            project: "superacao",
+          }),
+        }
+      ).catch(() => null)
+
       setStep("payment")
     } catch (requestError) {
       setError(

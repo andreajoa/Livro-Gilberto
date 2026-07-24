@@ -293,6 +293,29 @@ export default function SuperacaoPhysicalPaymentModal({
               shippingPrice
         )
       )
+
+      fetch(
+        "/api/crm/enqueue-superacao-sequence",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            visitorId:
+              window.localStorage.getItem(
+                "visitor_id"
+              ) || "",
+            name: cleanText(form.name),
+            email:
+              cleanText(form.email).toLowerCase(),
+            type: "checkout",
+            productType: "physical",
+            project: "superacao",
+          }),
+        }
+      ).catch(() => null)
+
       setStep("payment")
     } catch (requestError) {
       setError(

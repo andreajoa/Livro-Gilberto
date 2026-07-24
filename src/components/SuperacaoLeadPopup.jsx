@@ -125,28 +125,66 @@ export default function SuperacaoLeadPopup() {
     setMessage("")
 
     try {
-      const response = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: cleanName,
-          email: cleanEmail,
-          source: "superacao_popup",
-          language: "pt",
-          interest: "livro_superacao",
-          consent: true,
-        }),
-      })
+      const visitorId =
+        window.localStorage.getItem("visitor_id") || ""
 
-      const data = await response.json().catch(() => ({}))
+      const leadResponse = await fetch(
+        "/api/crm/lead",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            visitorId,
+            name: cleanName,
+            email: cleanEmail,
+            language: "pt",
+            source: "superacao_popup",
+            project: "superacao",
+            interest: "livro_superacao",
+            consent: true,
+          }),
+        }
+      )
 
-      if (!response.ok) {
+      const leadData = await leadResponse
+        .json()
+        .catch(() => ({}))
+
+      if (!leadResponse.ok) {
         throw new Error(
-          data?.error ||
-          data?.message ||
-          "Não foi possível concluir o cadastro."
+          leadData?.error ||
+            "Não foi possível registrar seu cadastro."
+        )
+      }
+
+      const sequenceResponse = await fetch(
+        "/api/crm/enqueue-superacao-sequence",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            visitorId,
+            name: cleanName,
+            email: cleanEmail,
+            type: "lead",
+            productType: "general",
+            project: "superacao",
+          }),
+        }
+      )
+
+      const sequenceData = await sequenceResponse
+        .json()
+        .catch(() => ({}))
+
+      if (!sequenceResponse.ok) {
+        throw new Error(
+          sequenceData?.error ||
+            "Não foi possível iniciar a sequência de e-mails."
         )
       }
 

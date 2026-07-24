@@ -74,6 +74,16 @@ export async function POST(request) {
           name,
           email,
           language,
+          product,
+          productType,
+          project:
+            product
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '')
+              .toLowerCase()
+              .includes('superacao')
+              ? 'superacao'
+              : 'livro_gilberto',
           page: cleanText(body.page || '', 300)
         })
       })
