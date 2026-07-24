@@ -350,6 +350,15 @@ function getCheckoutTopic(language, emailNumber) {
 }
 
 
+export function getCheckoutEmailSubject({
+  language = 'pt',
+  emailNumber = 1
+}) {
+  const lang = CHECKOUT_TOPICS[language] ? language : 'pt'
+  return getCheckoutTopic(lang, emailNumber)[0]
+}
+
+
 export function getCheckoutEmailHtml({ language = 'pt', name = '', emailNumber = 1, email = '' }) {
   const lang = CHECKOUT_TOPICS[language] ? language : 'pt'
   const topic = getCheckoutTopic(lang, emailNumber)
