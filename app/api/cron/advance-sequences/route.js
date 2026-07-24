@@ -10,7 +10,7 @@ function getBaseUrl() {
 function nextSequenceFor(code) {
   const c = String(code || '')
 
-  if (c.includes('lead_ebook')) return 'checkout'
+  if (c.includes('lead_ebook')) return 'manual'
   if (c.includes('checkout_abandoned')) return 'manual'
   if (c.includes('manual') || c.includes('relationship') || c.includes('reconstruccion')) return 'completed'
 
@@ -26,11 +26,25 @@ async function isUnsubscribed(email) {
 }
 
 async function hasCustomer(email) {
-  const result = await d1Query(
+  const customerResult = await d1Query(
     `SELECT id FROM customers WHERE email=? LIMIT 1`,
     [email]
   )
-  return Boolean(result?.[0]?.results?.length)
+
+  if (customerResult?.[0]?.results?.length) {
+    return true
+  }
+
+  const statusResult = await d1Query(
+    `SELECT email
+     FROM contact_status
+     WHERE email=?
+       AND customer=1
+     LIMIT 1`,
+    [email]
+  )
+
+  return Boolean(statusResult?.[0]?.results?.length)
 }
 
 async function hasPendingInSequence(email, sequenceCode) {
@@ -162,9 +176,21 @@ export async function GET(request) {
   try {
     const url = new URL(request.url)
     const token = url.searchParams.get('token')
+    const authorization = request.headers.get('authorization')
 
-    if (!process.env.EMAIL_CRON_TOKEN || token !== process.env.EMAIL_CRON_TOKEN) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    const authorizedByCron =
+      process.env.CRON_SECRET &&
+      authorization === `Bearer ${process.env.CRON_SECRET}`
+
+    const authorizedByToken =
+      process.env.EMAIL_CRON_TOKEN &&
+      token === process.env.EMAIL_CRON_TOKEN
+
+    if (!authorizedByCron && !authorizedByToken) {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized' },
+        { status: 401 }
+      )
     }
 
     const completed = await d1Query(
@@ -200,29 +226,34 @@ export async function GET(request) {
 
       const now = nowIso()
 
-      if (next === 'checkout') {
-        await d1Query(
-          `INSERT INTO contact_status (email, language, lead_completed, updated_at)
-           VALUES (?, ?, 1, ?)
-           ON CONFLICT(email) DO UPDATE SET
-             language=excluded.language,
-             lead_completed=1,
-             updated_at=excluded.updated_at`,
-          [email, language, now]
-        )
-        actions.push({ email, completed: sequenceCode, next: 'checkout_waiting' })
-      }
-
       if (next === 'manual') {
-        await d1Query(
-          `INSERT INTO contact_status (email, language, checkout_completed, updated_at)
-           VALUES (?, ?, 1, ?)
-           ON CONFLICT(email) DO UPDATE SET
-             language=excluded.language,
-             checkout_completed=1,
-             updated_at=excluded.updated_at`,
-          [email, language, now]
-        )
+        const normalizedSequence = String(sequenceCode).toLowerCase()
+
+        if (normalizedSequence.includes('lead_ebook')) {
+          await d1Query(
+            `INSERT INTO contact_status
+             (email, language, lead_completed, updated_at)
+             VALUES (?, ?, 1, ?)
+             ON CONFLICT(email) DO UPDATE SET
+               language=excluded.language,
+               lead_completed=1,
+               updated_at=excluded.updated_at`,
+            [email, language, now]
+          )
+        }
+
+        if (normalizedSequence.includes('checkout_abandoned')) {
+          await d1Query(
+            `INSERT INTO contact_status
+             (email, language, checkout_completed, updated_at)
+             VALUES (?, ?, 1, ?)
+             ON CONFLICT(email) DO UPDATE SET
+               language=excluded.language,
+               checkout_completed=1,
+               updated_at=excluded.updated_at`,
+            [email, language, now]
+          )
+        }
 
         const result = await enqueueManual({
           visitorId: row.visitor_id || '',
@@ -231,7 +262,12 @@ export async function GET(request) {
           language
         })
 
-        actions.push({ email, completed: sequenceCode, next: 'manual', result })
+        actions.push({
+          email,
+          completed: sequenceCode,
+          next: 'manual',
+          result
+        })
       }
 
       if (next === 'completed') {

@@ -4,6 +4,10 @@
     {
       "path": "/api/cron/send-emails",
       "schedule": "0 12 * * *"
+    },
+    {
+      "path": "/api/cron/advance-sequences",
+      "schedule": "10 12 * * *"
     }
   ]
 }
