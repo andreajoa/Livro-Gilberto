@@ -4,6 +4,10 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { X, ChevronLeft, Mail, Phone, MapPin, CreditCard } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import { useRouter } from 'next/navigation'
+import {
+  getWebsiteContext,
+  trackWebsiteEvent
+} from '@/src/lib/website/websiteTracker'
 
 export default function CheckoutForm({ isOpen, onClose }) {
   const { BOOK, quantity, shipping, total } = useCart()
@@ -32,15 +36,109 @@ export default function CheckoutForm({ isOpen, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
     if (!validate()) return
+
     setIsSubmitting(true)
-    const order = {
-      ...formData,
-      quantity,
-      shipping,
-      total: total.toFixed(2),
+
+    try {
+      const context = getWebsiteContext()
+
+      const analytics = {
+        visitorId:
+          context.visitorId || '',
+
+        sessionId:
+          context.sessionId || '',
+
+        attributionId:
+          context.attributionId || '',
+
+        source:
+          context.lastTouch?.source || '',
+
+        utmSource:
+          context.lastTouch?.utmSource || '',
+
+        utmMedium:
+          context.lastTouch?.utmMedium || '',
+
+        utmCampaign:
+          context.lastTouch?.utmCampaign || '',
+
+        utmContent:
+          context.lastTouch?.utmContent || '',
+
+        utmTerm:
+          context.lastTouch?.utmTerm || '',
+
+        creativeId:
+          context.lastTouch?.creativeId || '',
+
+        campaignId:
+          context.lastTouch?.campaignId || '',
+
+        landingPage:
+          context.lastTouch?.landingPage || '',
+
+        bookId:
+          'gilberto_book_01',
+
+        productId:
+          'gilberto_physical_pt'
+      }
+
+      await trackWebsiteEvent(
+        'checkout_started',
+        {
+          language: 'pt',
+          bookId:
+            analytics.bookId,
+          productId:
+            analytics.productId,
+          elementId:
+            'physical_checkout_form_submit',
+          elementType:
+            'form_submit',
+          channel:
+            'site_checkout',
+          creativeId:
+            analytics.creativeId,
+          metadata: {
+            quantity,
+            total:
+              Number(total.toFixed(2)),
+            currency:
+              'BRL',
+            shipping_type:
+              shipping?.type || '',
+            shipping_name:
+              shipping?.name || ''
+          }
+        }
+      )
+
+      const order = {
+        ...formData,
+        quantity,
+        shipping,
+        total: total.toFixed(2),
+        analytics
+      }
+
+      router.push(
+        `/checkout?order=${encodeURIComponent(
+          JSON.stringify(order)
+        )}`
+      )
+    } catch (error) {
+      console.error(
+        'Erro ao iniciar checkout:',
+        error
+      )
+
+      setIsSubmitting(false)
     }
-    router.push(`/checkout?order=${encodeURIComponent(JSON.stringify(order))}`)
   }
 
   if (!isOpen) return null

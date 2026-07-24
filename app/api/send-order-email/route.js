@@ -16,6 +16,62 @@ function esc(value) {
     .replaceAll("'", '&#039;')
 }
 
+function idempotencyKey(
+  kind,
+  paymentIntentId
+) {
+  const intent =
+    String(
+      paymentIntentId || ''
+    )
+      .trim()
+      .replace(
+        /[^a-zA-Z0-9_-]/g,
+        '_'
+      )
+      .slice(0, 180)
+
+  if (!intent) {
+    return ''
+  }
+
+  return [
+    'order',
+    kind,
+    intent
+  ].join('_').slice(0, 256)
+}
+
+async function sendEmailOnce(
+  payload,
+  key
+) {
+  const result =
+    key
+      ? await resend.emails.send(
+          payload,
+          {
+            idempotencyKey:
+              key
+          }
+        )
+      : await resend.emails.send(
+          payload
+        )
+
+  /*
+   * O SDK pode devolver erro no objeto sem lançar exceção.
+   */
+  if (result?.error) {
+    throw new Error(
+      result.error.message ||
+      'Unable to send order email'
+    )
+  }
+
+  return result
+}
+
 function firstName(name) {
   return esc(String(name || 'Cliente').trim().split(/\s+/)[0] || 'Cliente')
 }
@@ -257,37 +313,97 @@ export async function POST(request) {
     const { order, type } = await request.json()
 
     if (type === 'physical') {
-      await resend.emails.send({
-        from: EMAIL_FROM,
-        to: OWNER_EMAIL,
-        subject: `📦 NOVA VENDA FÍSICA — ${order.name} — R$ ${order.total}`,
-        html: physicalAdminEmail(order)
-      })
+      await sendEmailOnce(
+        {
+          from:
+            EMAIL_FROM,
+
+          to:
+            OWNER_EMAIL,
+
+          subject:
+            `📦 NOVA VENDA FÍSICA — ${order.name} — R$ ${order.total}`,
+
+          html:
+            physicalAdminEmail(
+              order
+            )
+        },
+
+        idempotencyKey(
+          'physical_admin',
+          order.paymentIntentId
+        )
+      )
 
       const buyer = physicalBuyerEmail(order)
-      await resend.emails.send({
-        from: EMAIL_FROM,
-        to: order.email,
-        subject: buyer.subject,
-        html: buyer.html
-      })
+      await sendEmailOnce(
+        {
+          from:
+            EMAIL_FROM,
+
+          to:
+            order.email,
+
+          subject:
+            buyer.subject,
+
+          html:
+            buyer.html
+        },
+
+        idempotencyKey(
+          'physical_buyer',
+          order.paymentIntentId
+        )
+      )
     }
 
     if (type === 'digital') {
-      await resend.emails.send({
-        from: EMAIL_FROM,
-        to: OWNER_EMAIL,
-        subject: `💻 NOVA VENDA DIGITAL — ${order.name} — ${String(order.lang || 'pt').toUpperCase()}`,
-        html: digitalAdminEmail(order)
-      })
+      await sendEmailOnce(
+        {
+          from:
+            EMAIL_FROM,
+
+          to:
+            OWNER_EMAIL,
+
+          subject:
+            `💻 NOVA VENDA DIGITAL — ${order.name} — ${String(order.lang || 'pt').toUpperCase()}`,
+
+          html:
+            digitalAdminEmail(
+              order
+            )
+        },
+
+        idempotencyKey(
+          'digital_admin',
+          order.paymentIntentId
+        )
+      )
 
       const buyer = digitalBuyerEmail(order)
-      await resend.emails.send({
-        from: EMAIL_FROM,
-        to: order.email,
-        subject: buyer.subject,
-        html: buyer.html
-      })
+      await sendEmailOnce(
+        {
+          from:
+            EMAIL_FROM,
+
+          to:
+            order.email,
+
+          subject:
+            buyer.subject,
+
+          html:
+            buyer.html
+        },
+
+        idempotencyKey(
+          'digital_buyer',
+          order.paymentIntentId
+        )
+      )
     }
 
     return NextResponse.json({ success: true })

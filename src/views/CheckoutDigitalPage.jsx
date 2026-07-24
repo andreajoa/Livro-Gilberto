@@ -5,20 +5,15 @@ import { useSearchParams } from 'next/navigation'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { Lock, Download, Headphones } from 'lucide-react'
+import {
+  getWebsiteContext,
+  trackWebsiteEvent
+} from '@/src/lib/website/websiteTracker'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 
 function getVisitorId() {
-  if (typeof window === 'undefined') return ''
-
-  let id = localStorage.getItem('visitor_id')
-
-  if (!id) {
-    id = `v_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`
-    localStorage.setItem('visitor_id', id)
-  }
-
-  return id
+  return getWebsiteContext().visitorId || ''
 }
 
 
@@ -208,11 +203,100 @@ export default function CheckoutDigitalPage() {
         })
       })
 
-      const response = await fetch('/api/stripe/payment-intent-digital', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ total, email: order.email, name: order.name, lang, visitorId: getVisitorId() })
-      })
+      const context =
+        getWebsiteContext()
+
+      const analytics = {
+        visitorId:
+          order.analytics?.visitorId ||
+          context.visitorId ||
+          '',
+
+        sessionId:
+          order.analytics?.sessionId ||
+          context.sessionId ||
+          '',
+
+        attributionId:
+          order.analytics?.attributionId ||
+          context.attributionId ||
+          '',
+
+        source:
+          order.analytics?.source ||
+          context.lastTouch?.source ||
+          '',
+
+        utmSource:
+          order.analytics?.utmSource ||
+          context.lastTouch?.utmSource ||
+          '',
+
+        utmMedium:
+          order.analytics?.utmMedium ||
+          context.lastTouch?.utmMedium ||
+          '',
+
+        utmCampaign:
+          order.analytics?.utmCampaign ||
+          context.lastTouch?.utmCampaign ||
+          '',
+
+        utmContent:
+          order.analytics?.utmContent ||
+          context.lastTouch?.utmContent ||
+          '',
+
+        utmTerm:
+          order.analytics?.utmTerm ||
+          context.lastTouch?.utmTerm ||
+          '',
+
+        campaignId:
+          order.analytics?.campaignId ||
+          context.lastTouch?.campaignId ||
+          '',
+
+        creativeId:
+          order.analytics?.creativeId ||
+          context.lastTouch?.creativeId ||
+          '',
+
+        landingPage:
+          order.analytics?.landingPage ||
+          context.lastTouch?.landingPage ||
+          '',
+
+        bookId:
+          order.analytics?.bookId ||
+          'gilberto_book_01',
+
+        productId:
+          order.analytics?.productId ||
+          `gilberto_digital_${lang}`
+      }
+
+      const response = await fetch(
+        '/api/stripe/payment-intent-digital',
+        {
+          method: 'POST',
+
+          headers: {
+            'Content-Type':
+              'application/json'
+          },
+
+          body: JSON.stringify({
+            total,
+            email:
+              order.email,
+            name:
+              order.name,
+            lang,
+            ...analytics
+          })
+        }
+      )
 
       const data = await response.json()
 
@@ -220,9 +304,51 @@ export default function CheckoutDigitalPage() {
         throw new Error(data.error || 'Unable to prepare payment.')
       }
 
-      setClientSecret(data.clientSecret)
-      setAccessToken(data.accessToken)
-      setOrderData(order)
+      await trackWebsiteEvent(
+        'checkout_payment_ready',
+        {
+          language:
+            lang,
+
+          bookId:
+            analytics.bookId,
+
+          productId:
+            analytics.productId,
+
+          channel:
+            'stripe',
+
+          creativeId:
+            analytics.creativeId,
+
+          metadata: {
+            amount:
+              total,
+
+            currency:
+              lang === 'pt'
+                ? 'BRL'
+                : 'USD',
+
+            payment_intent_created:
+              true
+          }
+        }
+      )
+
+      setClientSecret(
+        data.clientSecret
+      )
+
+      setAccessToken(
+        data.accessToken
+      )
+
+      setOrderData({
+        ...order,
+        analytics
+      })
     } catch (error) {
       setErrors({ general: error.message })
     } finally {

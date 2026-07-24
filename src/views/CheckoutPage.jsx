@@ -5,6 +5,10 @@ import { loadStripe } from '@stripe/stripe-js'
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { Shield, Lock, Package, ChevronLeft } from 'lucide-react'
 import Link from 'next/link'
+import {
+  getWebsiteContext,
+  trackWebsiteEvent
+} from '@/src/lib/website/websiteTracker'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 
@@ -56,26 +60,214 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    try {
-      const raw = params.get('order')
-      if (!raw) return
-      const order = JSON.parse(decodeURIComponent(raw))
-      setOrderData(order)
-      fetch('/api/stripe/payment-intent', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          total: order.total,
-          name: order.name,
-          email: order.email,
-          quantity: order.quantity,
-          shipping: order.shipping,
-          address: order,
-        })
-      })
-      .then(r => r.json())
-      .then(d => { setClientSecret(d.clientSecret); setLoading(false) })
-    } catch { setLoading(false) }
+    let active = true
+
+    async function initializeCheckout() {
+      try {
+        const raw =
+          params.get('order')
+
+        if (!raw) {
+          if (active) {
+            setLoading(false)
+          }
+
+          return
+        }
+
+        const order =
+          JSON.parse(
+            decodeURIComponent(raw)
+          )
+
+        const context =
+          getWebsiteContext()
+
+        const analytics = {
+          visitorId:
+            order.analytics?.visitorId ||
+            context.visitorId ||
+            '',
+
+          sessionId:
+            order.analytics?.sessionId ||
+            context.sessionId ||
+            '',
+
+          attributionId:
+            order.analytics?.attributionId ||
+            context.attributionId ||
+            '',
+
+          source:
+            order.analytics?.source ||
+            context.lastTouch?.source ||
+            '',
+
+          utmSource:
+            order.analytics?.utmSource ||
+            context.lastTouch?.utmSource ||
+            '',
+
+          utmMedium:
+            order.analytics?.utmMedium ||
+            context.lastTouch?.utmMedium ||
+            '',
+
+          utmCampaign:
+            order.analytics?.utmCampaign ||
+            context.lastTouch?.utmCampaign ||
+            '',
+
+          utmContent:
+            order.analytics?.utmContent ||
+            context.lastTouch?.utmContent ||
+            '',
+
+          utmTerm:
+            order.analytics?.utmTerm ||
+            context.lastTouch?.utmTerm ||
+            '',
+
+          creativeId:
+            order.analytics?.creativeId ||
+            context.lastTouch?.creativeId ||
+            '',
+
+          campaignId:
+            order.analytics?.campaignId ||
+            context.lastTouch?.campaignId ||
+            '',
+
+          landingPage:
+            order.analytics?.landingPage ||
+            context.lastTouch?.landingPage ||
+            '',
+
+          bookId:
+            order.analytics?.bookId ||
+            'gilberto_book_01',
+
+          productId:
+            order.analytics?.productId ||
+            'gilberto_physical_pt'
+        }
+
+        const enrichedOrder = {
+          ...order,
+          analytics
+        }
+
+        if (active) {
+          setOrderData(
+            enrichedOrder
+          )
+        }
+
+        const response = await fetch(
+          '/api/stripe/payment-intent',
+          {
+            method: 'POST',
+
+            headers: {
+              'Content-Type':
+                'application/json'
+            },
+
+            body: JSON.stringify({
+              total:
+                order.total,
+
+              name:
+                order.name,
+
+              email:
+                order.email,
+
+              quantity:
+                order.quantity,
+
+              shipping:
+                order.shipping,
+
+              address:
+                order,
+
+              ...analytics
+            })
+          }
+        )
+
+        const result =
+          await response.json()
+
+        if (
+          !response.ok ||
+          !result.clientSecret
+        ) {
+          throw new Error(
+            result.error ||
+            'Não foi possível preparar o pagamento.'
+          )
+        }
+
+        await trackWebsiteEvent(
+          'checkout_payment_ready',
+          {
+            language:
+              'pt',
+
+            bookId:
+              analytics.bookId,
+
+            productId:
+              analytics.productId,
+
+            channel:
+              'stripe',
+
+            creativeId:
+              analytics.creativeId,
+
+            metadata: {
+              currency:
+                'BRL',
+
+              quantity:
+                Number(
+                  order.quantity || 1
+                ),
+
+              payment_intent_created:
+                true
+            }
+          }
+        )
+
+        if (active) {
+          setClientSecret(
+            result.clientSecret
+          )
+
+          setLoading(false)
+        }
+      } catch (error) {
+        console.error(
+          'Erro ao preparar checkout:',
+          error
+        )
+
+        if (active) {
+          setLoading(false)
+        }
+      }
+    }
+
+    initializeCheckout()
+
+    return () => {
+      active = false
+    }
   }, [params])
 
   if (loading) return (
