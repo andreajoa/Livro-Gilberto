@@ -215,7 +215,7 @@ function retailerBlock(language, siteUrl) {
 
 
 export function getLeadEmailSubject({ language = 'pt', emailNumber = 1 }) {
-  const lang = COPY[language] ? language : 'pt'
+  const lang = LEAD_TOPICS[language] ? language : 'pt'
   return getLeadTopic(lang, emailNumber)[0]
 }
 
