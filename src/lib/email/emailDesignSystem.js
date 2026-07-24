@@ -1,3 +1,9 @@
+import {
+  EMAIL_VISUAL_CONFIG,
+  pickEmailBanner,
+  getStageVisual
+} from './emailVisualConfig'
+
 const DESIGNS = [
   { hero: '/email-assets/sequence/hero-01.jpeg', accent: '#45C7D5', layout: 'hero' },
   { hero: '/email-assets/sequence/hero-02.png', accent: '#61D6C7', layout: 'split' },
@@ -184,11 +190,76 @@ function internationalParagraphs(value) {
     .split(/\n{2,}/)
     .filter(Boolean)
     .map((paragraph) => `
-      <p style="font-family:Arial,Helvetica,sans-serif;font-size:17px;line-height:1.7;color:#202124;margin:0 0 20px;">
+      <p class="email-body-copy" style="
+        font-family:Arial,Helvetica,sans-serif;
+        font-size:16px;
+        line-height:1.72;
+        color:#43464B;
+        margin:0 0 19px;
+      ">
         ${escapeHtml(paragraph).replaceAll('\n', '<br>')}
       </p>
     `)
     .join('')
+}
+
+function internationalLabels(lang) {
+  if (lang === 'es') {
+    return {
+      ps: 'P. D.',
+      author: 'Autor',
+      website: 'Sitio oficial',
+      privacy: 'Política de Privacidad',
+      terms: 'Términos de Uso',
+      contact: 'Contacto',
+      unsubscribe: 'Cancelar suscripción',
+      official: 'Sitio oficial del autor'
+    }
+  }
+
+  return {
+    ps: 'P.S.',
+    author: 'Author',
+    website: 'Official website',
+    privacy: 'Privacy Policy',
+    terms: 'Terms of Use',
+    contact: 'Contact',
+    unsubscribe: 'Unsubscribe',
+    official: 'Official author website'
+  }
+}
+
+function localizedSiteUrl(baseUrl, lang) {
+  const clean = String(baseUrl || '').replace(/\/$/, '')
+
+  if (lang === 'en') return `${clean}/en`
+  if (lang === 'es') return `${clean}/es`
+
+  return clean
+}
+
+function resolveInternationalCta({
+  kind,
+  lang,
+  emailNumber,
+  stage
+}) {
+  if (kind === 'customer') {
+    if (Number(emailNumber) === 3) {
+      return stage.ctas?.[lang]?.follow ||
+        (lang === 'es' ? 'Seguir en Instagram' : 'Follow on Instagram')
+    }
+
+    return lang === 'es'
+      ? 'Visitar el sitio oficial'
+      : 'Visit official website'
+  }
+
+  const strong = [5, 10, 15].includes(Number(emailNumber))
+
+  return strong
+    ? stage.ctas?.[lang]?.strong || stage.ctas?.[lang]?.default
+    : stage.ctas?.[lang]?.default
 }
 
 function renderInternationalEmail({
@@ -201,17 +272,75 @@ function renderInternationalEmail({
   body,
   ps,
   destination,
-  button,
   unsubscribeHref,
   bookUrl,
-  authorUrl
+  authorUrl,
+  baseUrl,
+  emailNumber
 }) {
+  const visual = EMAIL_VISUAL_CONFIG
+  const stage = getStageVisual(kind)
+  const labels = internationalLabels(lang)
+  const colors = visual.tokens.colors
+
+  const bannerPath = pickEmailBanner(kind, Number(emailNumber))
+  const bannerUrl = bannerPath
+    ? absolute(baseUrl, bannerPath)
+    : ''
+
+  const benefits =
+    stage.benefits?.[lang] ||
+    stage.benefits?.en ||
+    []
+
+  const productTitle =
+    stage.productTitle?.[lang] ||
+    stage.productTitle?.en ||
+    copy.bookTitle
+
+  const productSubtitle =
+    stage.productSubtitle?.[lang] ||
+    stage.productSubtitle?.en ||
+    copy.bookText
+
+  const websiteUrl = localizedSiteUrl(baseUrl, lang)
+
+  const finalDestination =
+    kind === 'customer'
+      ? (
+          Number(emailNumber) === 3
+            ? visual.footer.instagram
+            : websiteUrl
+        )
+      : destination
+
+  const ctaText = resolveInternationalCta({
+    kind,
+    lang,
+    emailNumber,
+    stage
+  })
+
+  const footerCopy =
+    visual.footer.copy?.[lang] ||
+    visual.footer.copy.en
+
+  const privacyUrl =
+    visual.footer.links.privacy?.[lang] ||
+    visual.footer.links.privacy.en
+
+  const termsUrl =
+    visual.footer.links.terms?.[lang] ||
+    visual.footer.links.terms.en
+
+  const contactUrl =
+    visual.footer.links.contact?.[lang] ||
+    visual.footer.links.contact.en
+
   const greeting =
     lang === 'es'
       ? `Hola${firstName ? `, ${firstName}` : ''}:`
       : `Hi${firstName ? `, ${firstName}` : ''},`
-
-  const psLabel = lang === 'es' ? 'P. D.' : 'P.S.'
 
   return `
 <!doctype html>
@@ -221,98 +350,665 @@ function renderInternationalEmail({
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="x-apple-disable-message-reformatting">
   <title>${headline}</title>
+
+  <style>
+    body,
+    table,
+    td,
+    p,
+    a {
+      -webkit-text-size-adjust:100%;
+      -ms-text-size-adjust:100%;
+    }
+
+    table,
+    td {
+      border-collapse:collapse !important;
+    }
+
+    img {
+      border:0;
+      outline:none;
+      text-decoration:none;
+    }
+
+    .email-wrapper {
+      width:100% !important;
+      max-width:600px !important;
+    }
+
+    @media only screen and (max-width:620px) {
+      .email-outer {
+        padding:0 !important;
+      }
+
+      .email-wrapper {
+        width:100% !important;
+        max-width:100% !important;
+      }
+
+      .email-pad {
+        padding-left:22px !important;
+        padding-right:22px !important;
+      }
+
+      .email-stack {
+        display:block !important;
+        width:100% !important;
+        max-width:100% !important;
+        box-sizing:border-box !important;
+      }
+
+      .email-headline {
+        font-size:28px !important;
+        line-height:1.17 !important;
+      }
+
+      .email-subheadline {
+        font-size:17px !important;
+      }
+
+      .email-body-copy {
+        font-size:16px !important;
+        line-height:1.68 !important;
+      }
+
+      .email-hero {
+        width:100% !important;
+        max-width:100% !important;
+        height:auto !important;
+      }
+
+      .email-book {
+        width:145px !important;
+        max-width:145px !important;
+        margin:0 auto 20px !important;
+      }
+
+      .email-product-copy {
+        text-align:center !important;
+      }
+
+      .email-cta {
+        display:block !important;
+        width:100% !important;
+        box-sizing:border-box !important;
+        text-align:center !important;
+      }
+
+      .email-benefit {
+        display:block !important;
+        width:100% !important;
+        padding:7px 0 !important;
+        text-align:left !important;
+      }
+
+      .email-author-cell {
+        text-align:center !important;
+      }
+
+      .email-author-photo {
+        margin:0 auto 12px !important;
+      }
+
+      .email-footer-link {
+        display:inline-block !important;
+        margin:5px 7px !important;
+      }
+    }
+  </style>
 </head>
 
-<body style="margin:0;padding:0;background:#F4F4F4;">
-  <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">
+<body style="
+  margin:0;
+  padding:0;
+  background:${colors.pageBg};
+">
+
+  <div style="
+    display:none;
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    color:transparent;
+  ">
     ${sectionTitle}
   </div>
 
-  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="width:100%;background:#F4F4F4;">
+  <table
+    role="presentation"
+    width="100%"
+    cellspacing="0"
+    cellpadding="0"
+    style="
+      width:100%;
+      background:${colors.pageBg};
+    ">
     <tr>
-      <td align="center" style="padding:24px 10px;">
+      <td
+        align="center"
+        class="email-outer"
+        style="padding:26px 12px;"
+      >
 
-        <table role="presentation" width="620" cellspacing="0" cellpadding="0"
-          style="width:100%;max-width:620px;background:#FFFFFF;">
+        <table
+          role="presentation"
+          width="600"
+          cellspacing="0"
+          cellpadding="0"
+          class="email-wrapper"
+          style="
+            width:100%;
+            max-width:600px;
+            background:${colors.cardBg};
+          "
+        >
 
+          <!-- CABEÇALHO -->
           <tr>
-            <td style="padding:26px 34px 10px;">
-              <div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:700;color:#202124;">
-                Gilberto de Souza
-              </div>
+            <td
+              class="email-pad"
+              style="
+                padding:25px 34px 21px;
+                border-bottom:1px solid ${colors.border};
+                background:#FFFFFF;
+              "
+            >
+              <table
+                role="presentation"
+                width="100%"
+                cellspacing="0"
+                cellpadding="0"
+              >
+                <tr>
+                  <td style="vertical-align:middle;">
+                    <div style="
+                      font-family:Georgia,'Times New Roman',serif;
+                      font-size:17px;
+                      font-weight:700;
+                      letter-spacing:1.3px;
+                      color:${colors.navy};
+                    ">
+                      GILBERTO DE SOUZA
+                    </div>
+
+                    <div style="
+                      font-family:Arial,Helvetica,sans-serif;
+                      font-size:11px;
+                      color:${colors.muted};
+                      margin-top:5px;
+                    ">
+                      ${labels.official}
+                    </div>
+                  </td>
+
+                  <td
+                    align="right"
+                    style="vertical-align:middle;"
+                  >
+                    <div style="
+                      width:38px;
+                      height:2px;
+                      background:${colors.gold};
+                    "></div>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
 
+          <!-- MANCHETE -->
           <tr>
-            <td style="padding:20px 34px 12px;">
-              <p style="font-family:Arial,Helvetica,sans-serif;font-size:17px;line-height:1.7;color:#202124;margin:0 0 22px;">
+            <td
+              class="email-pad"
+              style="padding:37px 42px 22px;"
+            >
+              <div style="
+                font-family:Arial,Helvetica,sans-serif;
+                font-size:11px;
+                font-weight:700;
+                letter-spacing:1.7px;
+                text-transform:uppercase;
+                color:${colors.gold};
+                margin-bottom:12px;
+              ">
+                ${stage.kicker?.[lang] || stage.kicker?.en || ''}
+              </div>
+
+              <h1
+                class="email-headline"
+                style="
+                  font-family:Georgia,'Times New Roman',serif;
+                  font-size:35px;
+                  line-height:1.17;
+                  color:${colors.navy};
+                  font-weight:700;
+                  margin:0 0 13px;
+                "
+              >
+                ${headline}
+              </h1>
+
+              <p
+                class="email-subheadline"
+                style="
+                  font-family:Arial,Helvetica,sans-serif;
+                  font-size:18px;
+                  line-height:1.5;
+                  color:${colors.muted};
+                  margin:0;
+                "
+              >
+                ${sectionTitle}
+              </p>
+            </td>
+          </tr>
+
+          <!-- BANNER OPCIONAL -->
+          ${
+            bannerUrl
+              ? `
+                <tr>
+                  <td style="padding:10px 0 27px;">
+                    <img
+                      src="${bannerUrl}"
+                      alt=""
+                      width="600"
+                      class="email-hero"
+                      style="
+                        display:block;
+                        width:100%;
+                        max-width:600px;
+                        height:auto;
+                      "
+                    >
+                  </td>
+                </tr>
+              `
+              : ''
+          }
+
+          <!-- TEXTO -->
+          <tr>
+            <td
+              class="email-pad"
+              style="padding:11px 42px 21px;"
+            >
+              <p style="
+                font-family:Arial,Helvetica,sans-serif;
+                font-size:16px;
+                line-height:1.7;
+                color:${colors.text};
+                margin:0 0 21px;
+              ">
                 ${greeting}
               </p>
 
               ${internationalParagraphs(body)}
+            </td>
+          </tr>
 
-              <table role="presentation" cellspacing="0" cellpadding="0" style="margin:10px 0 24px;">
+          <!-- DESTAQUE EDITORIAL -->
+          <tr>
+            <td
+              class="email-pad"
+              style="padding:5px 42px 28px;"
+            >
+              <div style="
+                border-left:3px solid ${colors.gold};
+                background:${colors.lightPanel};
+                padding:20px 22px;
+              ">
+                <div style="
+                  font-family:Georgia,'Times New Roman',serif;
+                  font-size:20px;
+                  line-height:1.45;
+                  color:${colors.navy};
+                ">
+                  ${sectionTitle}
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <!-- PRODUTO -->
+          <tr>
+            <td style="
+              background:${colors.lightPanel};
+              border-top:1px solid ${colors.border};
+              border-bottom:1px solid ${colors.border};
+            ">
+              <table
+                role="presentation"
+                width="100%"
+                cellspacing="0"
+                cellpadding="0"
+              >
                 <tr>
-                  <td style="background:#1769E0;border-radius:4px;">
-                    <a href="${destination}"
-                      style="display:inline-block;padding:14px 22px;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:700;color:#FFFFFF;text-decoration:none;">
-                      ${button}
+                  <td
+                    width="37%"
+                    class="email-stack email-pad"
+                    style="
+                      padding:31px 18px 31px 36px;
+                      text-align:center;
+                      vertical-align:middle;
+                    "
+                  >
+                    <img
+                      src="${bookUrl}"
+                      alt="${copy.bookTitle}"
+                      width="165"
+                      class="email-book"
+                      style="
+                        display:inline-block;
+                        width:100%;
+                        max-width:165px;
+                        height:auto;
+                        box-shadow:0 8px 22px rgba(20,35,50,.14);
+                      "
+                    >
+                  </td>
+
+                  <td
+                    width="63%"
+                    class="email-stack email-pad email-product-copy"
+                    style="
+                      padding:32px 36px 32px 12px;
+                      vertical-align:middle;
+                    "
+                  >
+                    <h2 style="
+                      font-family:Georgia,'Times New Roman',serif;
+                      font-size:26px;
+                      line-height:1.23;
+                      color:${colors.navy};
+                      margin:0 0 11px;
+                    ">
+                      ${productTitle}
+                    </h2>
+
+                    <p style="
+                      font-family:Arial,Helvetica,sans-serif;
+                      font-size:15px;
+                      line-height:1.65;
+                      color:${colors.muted};
+                      margin:0 0 21px;
+                    ">
+                      ${productSubtitle}
+                    </p>
+
+                    <a
+                      href="${finalDestination}"
+                      class="email-cta"
+                      style="
+                        display:inline-block;
+                        background:${colors.blue};
+                        color:#FFFFFF;
+                        text-decoration:none;
+                        font-family:Arial,Helvetica,sans-serif;
+                        font-size:15px;
+                        font-weight:700;
+                        padding:15px 22px;
+                        border-radius:4px;
+                      "
+                    >
+                      ${ctaText}
                     </a>
                   </td>
                 </tr>
               </table>
+            </td>
+          </tr>
 
-              <p style="font-family:Arial,Helvetica,sans-serif;font-size:17px;line-height:1.7;color:#202124;margin:0 0 4px;">
-                Gilberto
-              </p>
+          <!-- BENEFÍCIOS -->
+          <tr>
+            <td
+              class="email-pad"
+              style="
+                padding:20px 34px;
+                background:#FFFFFF;
+              "
+            >
+              <table
+                role="presentation"
+                width="100%"
+                cellspacing="0"
+                cellpadding="0"
+              >
+                <tr>
+                  ${benefits.map((item) => `
+                    <td
+                      width="33.33%"
+                      class="email-benefit"
+                      style="
+                        padding:7px 9px;
+                        text-align:center;
+                        font-family:Arial,Helvetica,sans-serif;
+                        font-size:12px;
+                        line-height:1.45;
+                        color:${colors.muted};
+                      "
+                    >
+                      <span style="
+                        color:${colors.gold};
+                        font-weight:700;
+                        margin-right:4px;
+                      ">✓</span>
+                      ${escapeHtml(item)}
+                    </td>
+                  `).join('')}
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- AUTOR + PS -->
+          <tr>
+            <td
+              class="email-pad"
+              style="
+                padding:29px 42px;
+                border-top:1px solid ${colors.border};
+              "
+            >
+              <table
+                role="presentation"
+                width="100%"
+                cellspacing="0"
+                cellpadding="0"
+              >
+                <tr>
+                  <td
+                    width="68"
+                    class="email-stack email-author-cell"
+                    style="vertical-align:middle;"
+                  >
+                    <img
+                      src="${authorUrl}"
+                      alt="Gilberto de Souza"
+                      width="52"
+                      height="52"
+                      class="email-author-photo"
+                      style="
+                        display:block;
+                        width:52px;
+                        height:52px;
+                        border-radius:50%;
+                        object-fit:cover;
+                      "
+                    >
+                  </td>
+
+                  <td
+                    class="email-stack email-author-cell"
+                    style="vertical-align:middle;"
+                  >
+                    <div style="
+                      font-family:Georgia,'Times New Roman',serif;
+                      font-size:19px;
+                      color:${colors.navy};
+                      margin-bottom:4px;
+                    ">
+                      Gilberto de Souza
+                    </div>
+
+                    <div style="
+                      font-family:Arial,Helvetica,sans-serif;
+                      font-size:12px;
+                      color:${colors.muted};
+                    ">
+                      ${labels.author}
+                    </div>
+                  </td>
+                </tr>
+              </table>
 
               ${
                 ps
                   ? `
-                  <p style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.65;color:#3C4043;margin:22px 0 0;">
-                    <strong>${psLabel}</strong> ${ps}
-                  </p>
+                    <div style="
+                      margin-top:23px;
+                      padding-top:19px;
+                      border-top:1px solid ${colors.border};
+                      font-family:Arial,Helvetica,sans-serif;
+                      font-size:14px;
+                      line-height:1.65;
+                      color:${colors.text};
+                    ">
+                      <strong style="color:${colors.navy};">
+                        ${labels.ps}
+                      </strong>
+                      ${ps}
+                    </div>
                   `
                   : ''
               }
             </td>
           </tr>
 
+          <!-- RODAPÉ -->
           <tr>
-            <td style="padding:20px 34px 25px;border-top:1px solid #E5E7EB;">
-              <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
-                <tr>
-                  <td width="58" style="vertical-align:middle;">
-                    <img src="${authorUrl}" alt="Gilberto de Souza" width="46" height="46"
-                      style="display:block;width:46px;height:46px;border-radius:50%;object-fit:cover;">
-                  </td>
-                  <td style="vertical-align:middle;">
-                    <div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:700;color:#202124;">
-                      Gilberto de Souza
-                    </div>
-                    <div style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#6B7280;margin-top:3px;">
-                      ${copy.author}
-                    </div>
-                  </td>
-                  <td width="70" align="right" style="vertical-align:middle;">
-                    <img src="${bookUrl}" alt="${copy.bookTitle}" width="48"
-                      style="display:block;width:48px;max-width:48px;height:auto;">
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
+            <td
+              class="email-pad"
+              style="
+                padding:26px 30px;
+                text-align:center;
+                background:#EFEFED;
+                border-top:1px solid ${colors.border};
+              "
+            >
+              <div style="
+                font-family:Georgia,'Times New Roman',serif;
+                font-size:15px;
+                letter-spacing:1px;
+                color:${colors.navy};
+                margin-bottom:14px;
+              ">
+                GILBERTO DE SOUZA
+              </div>
 
-          <tr>
-            <td style="padding:18px 34px;text-align:center;background:#F8F9FA;">
-              <p style="font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.6;color:#747474;margin:0 0 6px;">
-                ${copy.footer}
-              </p>
-              <p style="font-family:Arial,Helvetica,sans-serif;font-size:11px;margin:0;">
-                <a href="${unsubscribeHref}" style="color:#5F6368;text-decoration:underline;">
-                  ${copy.unsubscribe}
+              <div style="
+                font-family:Arial,Helvetica,sans-serif;
+                font-size:11px;
+                line-height:1.8;
+                color:${colors.muted};
+                margin-bottom:13px;
+              ">
+                <a
+                  class="email-footer-link"
+                  href="${websiteUrl}"
+                  style="
+                    color:${colors.navy};
+                    text-decoration:none;
+                  "
+                >
+                  ${labels.website}
                 </a>
+
+                &nbsp;·&nbsp;
+
+                <a
+                  class="email-footer-link"
+                  href="${privacyUrl}"
+                  style="
+                    color:${colors.navy};
+                    text-decoration:none;
+                  "
+                >
+                  ${labels.privacy}
+                </a>
+
+                &nbsp;·&nbsp;
+
+                <a
+                  class="email-footer-link"
+                  href="${termsUrl}"
+                  style="
+                    color:${colors.navy};
+                    text-decoration:none;
+                  "
+                >
+                  ${labels.terms}
+                </a>
+
+                &nbsp;·&nbsp;
+
+                <a
+                  class="email-footer-link"
+                  href="${contactUrl}"
+                  style="
+                    color:${colors.navy};
+                    text-decoration:none;
+                  "
+                >
+                  ${labels.contact}
+                </a>
+
+                &nbsp;·&nbsp;
+
+                <a
+                  class="email-footer-link"
+                  href="${visual.footer.instagram}"
+                  style="
+                    color:${colors.navy};
+                    text-decoration:none;
+                  "
+                >
+                  Instagram
+                </a>
+              </div>
+
+              <p style="
+                font-family:Arial,Helvetica,sans-serif;
+                font-size:10.5px;
+                line-height:1.65;
+                color:${colors.soft};
+                margin:0 0 8px;
+              ">
+                ${footerCopy.why}
               </p>
+
+              <p style="
+                font-family:Arial,Helvetica,sans-serif;
+                font-size:10.5px;
+                line-height:1.65;
+                color:${colors.soft};
+                margin:0 0 8px;
+              ">
+                ${visual.footer.contactEmail}
+              </p>
+
+              <a
+                href="${unsubscribeHref}"
+                style="
+                  font-family:Arial,Helvetica,sans-serif;
+                  font-size:10.5px;
+                  color:${colors.muted};
+                  text-decoration:underline;
+                "
+              >
+                ${labels.unsubscribe}
+              </a>
             </td>
           </tr>
 
@@ -369,7 +1065,9 @@ export function renderSequenceEmail({
       button,
       unsubscribeHref,
       bookUrl,
-      authorUrl
+      authorUrl,
+      baseUrl,
+      emailNumber
     })
   }
 
