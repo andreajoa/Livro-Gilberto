@@ -18,25 +18,34 @@ const ROTATION_TIME = 6500
 const slides = [
   {
     id: "superacao_banner_01",
-    creativeId: "superacao_launch_new_book",
+    creativeId:
+      "superacao_launch_new_book",
+
     image:
       "/images/superacao-promo/superacao-banner-1.webp",
+
     alt:
       "Conheça o novo livro Superação de Gilberto de Souza"
   },
   {
     id: "superacao_banner_02",
-    creativeId: "superacao_real_story",
+    creativeId:
+      "superacao_real_story",
+
     image:
       "/images/superacao-promo/superacao-banner-2.webp",
+
     alt:
       "Superação, uma história real de dor, fé, luta e vitória"
   },
   {
     id: "superacao_banner_03",
-    creativeId: "superacao_new_beginning",
+    creativeId:
+      "superacao_new_beginning",
+
     image:
       "/images/superacao-promo/superacao-banner-3.webp",
+
     alt:
       "Livro Superação para quem acredita em recomeços"
   }
@@ -44,36 +53,51 @@ const slides = [
 
 function createTrackingData(slide) {
   return {
-    eventCategory: "promotion",
+    eventCategory:
+      "promotion",
 
-    bookId: "superacao_book_01",
+    bookId:
+      "superacao_book_01",
 
-    productId: "superacao_amazon_us",
+    productId:
+      "superacao_amazon_us",
 
-    elementId: "superacao_top_carousel",
+    elementId:
+      "superacao_top_carousel",
 
-    elementType: "promotional_banner",
+    elementType:
+      "promotional_banner",
 
-    elementText: slide.alt,
+    elementText:
+      slide.alt,
 
-    destinationUrl: AMAZON_URL,
+    destinationUrl:
+      AMAZON_URL,
 
-    channel: "amazon",
+    channel:
+      "amazon",
 
-    slideId: slide.id,
+    slideId:
+      slide.id,
 
-    creativeId: slide.creativeId,
+    creativeId:
+      slide.creativeId,
 
     metadata: {
-      placement: "home_top_pt",
+      placement:
+        "home_top_pt",
 
-      carousel: "superacao_launch_fade",
+      carousel:
+        "superacao_launch_fade",
 
-      transition: "fade",
+      transition:
+        "fade",
 
-      amazon_asin: "B0H9R8ZK7T",
+      amazon_asin:
+        "B0H9R8ZK7T",
 
-      external_retailer: "amazon"
+      external_retailer:
+        "amazon"
     }
   }
 }
@@ -182,199 +206,250 @@ export default function SuperacaoPromoCarousel() {
         setPaused(false)
       }
       style={{
-        width: "100%",
-        background: "#060C18",
+        width:
+          "100%",
+
+        background:
+          "#060C18",
+
         padding:
-          "clamp(12px, 1.8vw, 24px) 5vw"
+          "14px clamp(12px, 4vw, 48px) 18px"
       }}
     >
       <div
         style={{
-          position: "relative",
+          width:
+            "100%",
 
-          width: "100%",
+          maxWidth:
+            1180,
 
-          maxWidth: 1180,
-
-          height:
-            "clamp(150px, 18vw, 255px)",
-
-          margin: "0 auto",
-
-          overflow: "hidden",
-
-          borderRadius: 12,
-
-          background: "#F4EBDD",
-
-          border:
-            "1px solid rgba(212,165,116,0.45)",
-
-          boxShadow:
-            "0 12px 32px rgba(0,0,0,0.28)"
+          margin:
+            "0 auto"
         }}
       >
-        {slides.map(
-          (slide, index) => (
-            <a
-              key={slide.id}
-              href={AMAZON_URL}
-              target="_blank"
-              rel="noopener noreferrer sponsored"
-              aria-label={
-                `${slide.alt}. Comprar na Amazon.`
-              }
-              onClick={
-                index === activeIndex
-                  ? handleAmazonClick
-                  : undefined
-              }
-              tabIndex={
-                index === activeIndex
-                  ? 0
-                  : -1
-              }
-              style={{
-                position: "absolute",
-
-                inset: 0,
-
-                display: "block",
-
-                opacity:
-                  index === activeIndex
-                    ? 1
-                    : 0,
-
-                visibility:
-                  index === activeIndex
-                    ? "visible"
-                    : "hidden",
-
-                pointerEvents:
-                  index === activeIndex
-                    ? "auto"
-                    : "none",
-
-                transition:
-                  "opacity 1100ms ease-in-out",
-
-                cursor: "pointer"
-              }}
-            >
-              <img
-                src={slide.image}
-                alt={slide.alt}
-                loading={
-                  index === 0
-                    ? "eager"
-                    : "lazy"
-                }
-                fetchPriority={
-                  index === 0
-                    ? "high"
-                    : "auto"
-                }
-                draggable="false"
-                style={{
-                  width: "100%",
-
-                  height: "100%",
-
-                  display: "block",
-
-                  objectFit: "cover",
-
-                  objectPosition:
-                    "center center",
-
-                  borderRadius: 12,
-
-                  userSelect: "none"
-                }}
-              />
-            </a>
-          )
-        )}
-
         <div
-          role="tablist"
-          aria-label="Banners do livro Superação"
           style={{
-            position: "absolute",
+            position:
+              "relative",
 
-            left: "50%",
+            width:
+              "100%",
 
-            bottom:
-              "clamp(6px, 0.8vw, 11px)",
+            aspectRatio:
+              "2172 / 724",
 
-            transform:
-              "translateX(-50%)",
+            overflow:
+              "hidden",
 
-            zIndex: 5,
-
-            display: "flex",
-
-            alignItems: "center",
-
-            gap: 7,
-
-            padding: "5px 8px",
-
-            borderRadius: 999,
+            borderRadius:
+              12,
 
             background:
-              "rgba(6,12,24,0.55)",
+              "#F4EBDD",
 
             border:
-              "1px solid rgba(255,255,255,0.18)",
+              "1px solid rgba(212,165,116,0.48)",
 
-            backdropFilter:
-              "blur(7px)"
+            boxShadow:
+              "0 12px 30px rgba(0,0,0,0.28)"
           }}
         >
           {slides.map(
-            (slide, index) => (
-              <button
-                key={slide.id}
-                type="button"
-                role="tab"
-                aria-label={
-                  `Exibir banner ${index + 1}`
-                }
-                aria-selected={
-                  index === activeIndex
-                }
-                onClick={() =>
-                  setActiveIndex(index)
-                }
-                style={{
-                  width:
-                    index === activeIndex
-                      ? 22
-                      : 7,
+            (slide, index) => {
+              const isActive =
+                index === activeIndex
 
-                  height: 7,
+              return (
+                <a
+                  key={slide.id}
+                  href={AMAZON_URL}
+                  target="_blank"
+                  rel="noopener noreferrer sponsored"
+                  aria-label={
+                    `${slide.alt}. Comprar na Amazon.`
+                  }
+                  onClick={
+                    isActive
+                      ? handleAmazonClick
+                      : undefined
+                  }
+                  tabIndex={
+                    isActive
+                      ? 0
+                      : -1
+                  }
+                  style={{
+                    position:
+                      "absolute",
 
-                  padding: 0,
+                    inset:
+                      0,
 
-                  border: 0,
+                    display:
+                      "block",
 
-                  borderRadius: 999,
+                    opacity:
+                      isActive
+                        ? 1
+                        : 0,
 
-                  background:
-                    index === activeIndex
-                      ? "#D5A660"
-                      : "rgba(255,255,255,0.65)",
+                    visibility:
+                      isActive
+                        ? "visible"
+                        : "hidden",
 
-                  cursor: "pointer",
+                    pointerEvents:
+                      isActive
+                        ? "auto"
+                        : "none",
 
-                  transition:
-                    "width 300ms ease, background 300ms ease"
-                }}
-              />
-            )
+                    transition:
+                      "opacity 900ms ease-in-out",
+
+                    cursor:
+                      "pointer"
+                  }}
+                >
+                  <img
+                    src={slide.image}
+                    alt={slide.alt}
+                    loading={
+                      index === 0
+                        ? "eager"
+                        : "lazy"
+                    }
+                    fetchPriority={
+                      index === 0
+                        ? "high"
+                        : "auto"
+                    }
+                    draggable="false"
+                    style={{
+                      width:
+                        "100%",
+
+                      height:
+                        "100%",
+
+                      display:
+                        "block",
+
+                      objectFit:
+                        "contain",
+
+                      objectPosition:
+                        "center center",
+
+                      background:
+                        "#F4EBDD",
+
+                      userSelect:
+                        "none"
+                    }}
+                  />
+                </a>
+              )
+            }
           )}
+
+          <div
+            role="tablist"
+            aria-label="Banners do livro Superação"
+            style={{
+              position:
+                "absolute",
+
+              left:
+                "50%",
+
+              bottom:
+                8,
+
+              transform:
+                "translateX(-50%)",
+
+              zIndex:
+                5,
+
+              display:
+                "flex",
+
+              alignItems:
+                "center",
+
+              gap:
+                7,
+
+              padding:
+                "5px 8px",
+
+              borderRadius:
+                999,
+
+              background:
+                "rgba(6,12,24,0.58)",
+
+              border:
+                "1px solid rgba(255,255,255,0.18)",
+
+              backdropFilter:
+                "blur(7px)"
+            }}
+          >
+            {slides.map(
+              (slide, index) => {
+                const isActive =
+                  index === activeIndex
+
+                return (
+                  <button
+                    key={slide.id}
+                    type="button"
+                    role="tab"
+                    aria-label={
+                      `Exibir banner ${index + 1}`
+                    }
+                    aria-selected={
+                      isActive
+                    }
+                    onClick={() =>
+                      setActiveIndex(index)
+                    }
+                    style={{
+                      width:
+                        isActive
+                          ? 22
+                          : 7,
+
+                      height:
+                        7,
+
+                      padding:
+                        0,
+
+                      border:
+                        0,
+
+                      borderRadius:
+                        999,
+
+                      background:
+                        isActive
+                          ? "#D5A660"
+                          : "rgba(255,255,255,0.68)",
+
+                      cursor:
+                        "pointer",
+
+                      transition:
+                        "width 300ms ease, background 300ms ease"
+                    }}
+                  />
+                )
+              }
+            )}
+          </div>
         </div>
       </div>
 
@@ -382,31 +457,11 @@ export default function SuperacaoPromoCarousel() {
         @media (max-width: 720px) {
           section {
             padding:
-              10px 12px !important;
-          }
-
-          section > div {
-            height:
-              clamp(
-                118px,
-                34vw,
-                155px
-              ) !important;
-
-            border-radius:
-              12px !important;
-          }
-
-          section img {
-            border-radius:
-              12px !important;
+              10px 10px 12px !important;
           }
         }
 
-        @media (
-          prefers-reduced-motion:
-          reduce
-        ) {
+        @media (prefers-reduced-motion: reduce) {
           section a {
             transition:
               none !important;
