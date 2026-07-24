@@ -9,6 +9,7 @@ import { ArrowRight, Package, RotateCcw, Shield } from 'lucide-react';
 import AddToCartButton from '../components/AddToCartButton';
 import DigitalLangPopup from '../components/DigitalLangPopup';
 import ShippingCalculator from '../components/ShippingCalculator';
+import SuperacaoPromoCarousel from '../components/SuperacaoPromoCarousel';
 
 import bannerAutor     from '../assets/banners/banner-autor-wide.png';
 import bannerCTA       from '../assets/banners/banner-autor-cta.png';
@@ -38,6 +39,8 @@ export default function Home() {
   return (
     <div>
       <CRMTracker language="pt" />
+
+      <SuperacaoPromoCarousel />
 
       {/* ════════════════════════════════════════
           HERO — Gilberto em tela cheia
