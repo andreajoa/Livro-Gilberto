@@ -1,3 +1,5 @@
+import { renderSequenceEmail } from './emailDesignSystem'
+
 function baseUrl() {
   return (process.env.NEXT_PUBLIC_BASE_URL || 'https://www.gilberto-souza.com').replace(/\/$/, '')
 }
@@ -217,263 +219,25 @@ export function getLeadEmailSubject({ language = 'pt', emailNumber = 1 }) {
   return getLeadTopic(lang, emailNumber)[0]
 }
 
+
 export function getLeadEmailHtml({ language = 'pt', name = '', emailNumber = 1, email = '' }) {
-  const lang = COPY[language] ? language : 'pt'
-  const root = COPY[lang]
-  const item = root.emails[emailNumber] || root.emails[((emailNumber - 1) % 3) + 1] || root.emails[1]
+  const lang = LEAD_TOPICS[language] ? language : 'pt'
   const topic = getLeadTopic(lang, emailNumber)
-  const firstName = String(name || '').trim().split(' ')[0] || ''
-  const buyUrl = `${baseUrl()}${lang === 'pt' ? '' : `/${lang}`}#buy`
+  const rootUrl = baseUrl()
+  const buyUrl = `${rootUrl}${lang === 'pt' ? '' : `/${lang}`}#buy`
 
-  return `
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-<style>
-  @media only screen and (max-width: 600px) {
-    .wrapper { width: 100% !important; border-radius: 0 !important; }
-    .hero {
-      padding: 210px 20px 34px !important;
-      background-position: center top !important;
-      background-size: cover !important;
-    }
-    .hero-spacer {
-      display: none !important;
-      width: 0 !important;
-      max-width: 0 !important;
-      overflow: hidden !important;
-    }
-    .hero-copy {
-      display: block !important;
-      width: 100% !important;
-      text-align: center !important;
-    }
-    .hero-copy h1 {
-      font-size: 28px !important;
-      line-height: 1.15 !important;
-    }
-    .hero-line {
-      margin-left: auto !important;
-      margin-right: auto !important;
-    }
-    .content { padding: 24px 20px !important; }
-    .stack { display: block !important; width: 100% !important; text-align: center !important; padding-left: 0 !important; padding-right: 0 !important; padding-top: 10px !important; padding-bottom: 10px !important; }
-    .stack img { display: inline-block !important; margin: 0 auto 16px auto !important; max-width: 180px !important; }
-    h1 { font-size: 28px !important; }
-    h2 { font-size: 22px !important; }
-    h3 { font-size: 20px !important; }
-    .quote { font-size: 24px !important; }
-  }
-</style>
-
-  <title>${topic[0]}</title>
-</head>
-<body style="margin:0;padding:0;background:#f3f5f8;">
-<style>
-  @media only screen and (max-width: 600px) {
-    .wrapper { width: 100% !important; border-radius: 0 !important; }
-    .hero {
-      padding: 210px 20px 34px !important;
-      background-position: center top !important;
-      background-size: cover !important;
-    }
-    .hero-spacer {
-      display: none !important;
-      width: 0 !important;
-      max-width: 0 !important;
-      overflow: hidden !important;
-    }
-    .hero-copy {
-      display: block !important;
-      width: 100% !important;
-      text-align: center !important;
-    }
-    .hero-copy h1 {
-      font-size: 28px !important;
-      line-height: 1.15 !important;
-    }
-    .hero-line {
-      margin-left: auto !important;
-      margin-right: auto !important;
-    }
-    .content { padding: 24px 20px !important; }
-    .stack { display: block !important; width: 100% !important; text-align: center !important; padding-left: 0 !important; padding-right: 0 !important; padding-top: 10px !important; padding-bottom: 10px !important; }
-    .stack img { display: inline-block !important; margin: 0 auto 16px auto !important; max-width: 180px !important; }
-    h1 { font-size: 28px !important; }
-    h2 { font-size: 22px !important; }
-    h3 { font-size: 20px !important; }
-    .quote { font-size: 24px !important; }
-  }
-</style>
-
-  <div style="display:none;max-height:0;overflow:hidden;color:transparent;">
-    ${topic[0]}
-  </div>
-
-  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f3f5f8;margin:0;padding:0;">
-    <tr>
-      <td align="center" style="padding:24px 12px;">
-        <table role="presentation" width="680" cellspacing="0" cellpadding="0" class="wrapper" style="width:100%;max-width:680px;background:${COLORS.bg};border-radius:18px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.24);">
-
-          <tr>
-            <td style="padding:18px 24px;text-align:center;background:${COLORS.bg};">
-              <div style="font-family:Arial,sans-serif;font-size:11px;color:${COLORS.soft};margin-bottom:18px;">
-                Se este email não aparecer corretamente, acesse o site oficial.
-              </div>
-              <div style="font-family:Georgia,serif;font-size:22px;letter-spacing:8px;color:${COLORS.text};font-weight:700;">
-                ${root.brand}
-              </div>
-              <div style="font-family:Arial,sans-serif;font-size:13px;letter-spacing:3px;color:${COLORS.cyan};font-weight:700;margin-top:8px;">
-                ${root.official}
-              </div>
-              <div style="width:120px;height:2px;background:${COLORS.cyan};margin:14px auto 0;"></div>
-            </td>
-          </tr>
-
-          <tr>
-            <td background="${asset(item.hero)}" style="background-image:url('${asset(item.hero)}');background-size:cover;background-position:center;padding:92px 40px 86px;" class="hero">
-              <table role="presentation" width="100%">
-                <tr>
-                  <td width="42%" class="hero-spacer"></td>
-                  <td width="58%" class="hero-copy" style="text-align:left;">
-                    <h1 style="font-family:Georgia,serif;font-size:42px;line-height:1.08;color:${COLORS.text};margin:0;font-weight:800;">
-                      ${topic[0]}
-                    </h1>
-                    <div class="hero-line" style="width:70px;height:2px;background:${COLORS.cyan};margin-top:26px;"></div>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="content" style="padding:34px 40px 10px;background:linear-gradient(180deg,#0D1B3E 0%,#071224 100%);">
-              <p style="font-family:Georgia,serif;font-size:20px;line-height:1.7;color:${COLORS.cyan};margin:0 0 18px;">
-                ${item.greeting(firstName)}
-              </p>
-
-              ${item.body.slice(0,4).map(p => `
-                <p style="font-family:Arial,sans-serif;font-size:17px;line-height:1.8;color:${COLORS.text};margin:0 0 14px;">
-                  ${p}
-                </p>
-              `).join('')}
-
-              <div style="margin:24px auto 24px;max-width:430px;border:1px solid rgba(95,211,227,.55);border-radius:8px;padding:20px;text-align:center;">
-                <div style="font-family:Georgia,serif;font-size:30px;line-height:1.2;color:${COLORS.text};font-weight:800;">
-                  ${item.quote}
-                </div>
-              </div>
-
-              <p style="font-family:Arial,sans-serif;font-size:17px;line-height:1.8;color:${COLORS.text};margin:0 0 20px;">
-                ${item.body[item.body.length - 1]}
-              </p>
-            </td>
-          </tr>
-
-          <tr>
-            <td style="padding:0 40px;background:#071224;">
-              <div style="height:1px;background:${COLORS.cyan};opacity:.7;"></div>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="content" style="padding:30px 40px;background:#071224;">
-              <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
-                <tr>
-                  <td width="28%" valign="top" style="padding-right:24px;">
-                    <div style="font-size:58px;line-height:1;color:${COLORS.cyan};text-align:center;">⌁</div>
-                  </td>
-                  <td width="72%" valign="top">
-                    <h2 style="font-family:Georgia,serif;font-size:24px;line-height:1.2;color:${COLORS.cyan};margin:0 0 14px;">
-                      ${topic[1]}
-                    </h2>
-                    <p style="font-family:Arial,sans-serif;font-size:17px;line-height:1.8;color:${COLORS.text};margin:0;">
-                      ${topic[2]}
-                    </p>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <tr>
-            <td style="padding:0;background:#050B15;">
-              <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
-                <tr>
-                  <td width="45%" valign="middle" class="stack" style="padding:28px 20px 28px 34px;">
-                    <img src="${asset(item.book)}" alt="${item.bookTitle}" width="250" style="width:100%;max-width:250px;display:block;border:0;border-radius:8px;">
-                  </td>
-                  <td width="55%" valign="middle" class="stack" style="padding:34px 34px 34px 10px;">
-                    <h2 style="font-family:Georgia,serif;font-size:32px;line-height:1.12;color:${COLORS.text};margin:0 0 16px;">
-                      ${item.bookTitle}
-                    </h2>
-                    <div style="width:70px;height:2px;background:${COLORS.cyan};margin:0 0 18px;"></div>
-                    <p style="font-family:Arial,sans-serif;font-size:17px;line-height:1.7;color:${COLORS.text};margin:0 0 24px;">
-                      ${item.bookSub}
-                    </p>
-                    <a href="${buyUrl}" style="display:inline-block;background:${COLORS.cyan};color:#06101F;text-decoration:none;font-family:Arial,sans-serif;font-size:15px;font-weight:800;letter-spacing:.4px;padding:16px 26px;border-radius:10px;">
-                      ${root.cta} →
-                    </a>
-                    ${retailerBlock(lang, buyUrl)}
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <tr>
-            <td style="padding:30px 40px;background:${COLORS.card};">
-              <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
-                <tr>
-                  <td width="96" valign="middle" class="stack">
-                    <img src="${asset(item.author)}" alt="Gilberto de Souza" width="82" height="82" style="width:82px;height:82px;border-radius:50%;border:2px solid ${COLORS.cyan};object-fit:cover;display:block;">
-                  </td>
-                  <td valign="middle" class="stack" style="padding-left:18px;">
-                    <div style="font-family:Georgia,serif;font-size:22px;color:${COLORS.cyan};margin-bottom:4px;">Gilberto de Souza</div>
-                    <div style="font-family:Arial,sans-serif;font-size:14px;color:${COLORS.muted};">Autor</div>
-                  </td>
-                  <td valign="middle" class="stack" style="padding-left:24px;text-align:left;">
-                    <div style="font-family:Georgia,serif;font-size:24px;line-height:1.35;color:${COLORS.text};">
-                      “${item.signature}”
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="content" style="padding:22px 30px;background:#071224;border-top:1px solid rgba(95,211,227,.18);border-bottom:1px solid rgba(95,211,227,.18);">
-              <table role="presentation" width="100%">
-                <tr>
-                  <td align="center" class="stack" style="font-family:Arial,sans-serif;color:${COLORS.muted};font-size:13px;">🔒 ${root.secure1}</td>
-                  <td align="center" class="stack" style="font-family:Arial,sans-serif;color:${COLORS.muted};font-size:13px;">📖 ${root.secure2}</td>
-                  <td align="center" class="stack" style="font-family:Arial,sans-serif;color:${COLORS.muted};font-size:13px;">🛡️ ${root.secure3}</td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="content" style="padding:24px 34px;text-align:center;background:${COLORS.bg};">
-              <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:${COLORS.soft};margin:0 0 6px;">
-                ${root.footer}
-              </p>
-              <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:${COLORS.soft};margin:0;">
-                ${root.unsubscribe} <a href="${unsubscribeUrl(email, lang)}" style="color:#5FD3E3;text-decoration:none;">${unsubscribeText(lang)}</a>
-              </p>
-            </td>
-          </tr>
-
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>
-`
+  return renderSequenceEmail({
+    kind: 'lead',
+    language: lang,
+    name,
+    emailNumber,
+    email,
+    topic,
+    baseUrl: rootUrl,
+    buyUrl,
+    unsubscribeHref: unsubscribeUrl(email, lang),
+    retailerHtml: retailerBlock(lang, buyUrl)
+  })
 }
 
 
@@ -504,87 +268,25 @@ export function getCustomerEmailSubject({ language = 'pt', emailNumber = 1 }) {
   return getCustomerTopic(language, emailNumber)[0]
 }
 
+
 export function getCustomerEmailHtml({ language = 'pt', name = '', emailNumber = 1, email = '' }) {
-  const lang = COPY[language] ? language : 'pt'
-  const root = COPY[lang]
+  const lang = CUSTOMER_TOPICS[language] ? language : 'pt'
   const topic = getCustomerTopic(lang, emailNumber)
-  const firstName = String(name || '').trim().split(' ')[0] || ''
-  const buyUrl = `${baseUrl()}${lang === 'pt' ? '' : `/${lang}`}#buy`
-  const instagram = 'https://www.instagram.com/gilberto.rebuild/'
+  const rootUrl = baseUrl()
+  const buyUrl = `${rootUrl}${lang === 'pt' ? '' : `/${lang}`}#buy`
 
-  return `
-<!doctype html>
-<html>
-<body style="margin:0;padding:0;background:#f3f5f8;">
-<style>
-  @media only screen and (max-width: 600px) {
-    .wrapper { width: 100% !important; border-radius: 0 !important; }
-    .hero { padding: 40px 20px !important; }
-    .content { padding: 24px 20px !important; }
-    .stack { display: block !important; width: 100% !important; text-align: center !important; padding-left: 0 !important; padding-right: 0 !important; padding-top: 10px !important; padding-bottom: 10px !important; }
-    .stack img { display: inline-block !important; margin: 0 auto 16px auto !important; max-width: 180px !important; }
-    h1 { font-size: 28px !important; }
-    h2 { font-size: 22px !important; }
-    h3 { font-size: 20px !important; }
-    .quote { font-size: 24px !important; }
-  }
-</style>
-
-  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f3f5f8;">
-    <tr>
-      <td align="center" style="padding:24px 12px;">
-        <table role="presentation" width="680" cellspacing="0" cellpadding="0" class="wrapper" style="width:100%;max-width:680px;background:#060C18;border-radius:18px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.24);">
-          <tr>
-            <td style="padding:28px 24px;text-align:center;background:#060C18;">
-              <div style="font-family:Georgia,serif;font-size:22px;letter-spacing:8px;color:#fff;font-weight:700;">${root.brand}</div>
-              <div style="font-family:Arial,sans-serif;font-size:13px;letter-spacing:3px;color:#5FD3E3;font-weight:700;margin-top:8px;">CLIENTE OFICIAL</div>
-              <div style="width:120px;height:2px;background:#5FD3E3;margin:14px auto 0;"></div>
-            </td>
-          </tr>
-
-          <tr>
-            <td background="${asset('/email-assets/email3-hero.png')}" style="background-image:url('${asset('/email-assets/email3-hero.png')}');background-size:cover;background-position:center;padding:86px 42px;" class="hero">
-              <h1 style="font-family:Georgia,serif;font-size:42px;line-height:1.08;color:#fff;margin:0;max-width:430px;">${topic[0]}</h1>
-              <div style="width:70px;height:2px;background:#5FD3E3;margin-top:24px;"></div>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="content" style="padding:38px 42px;background:#0D1B3E;">
-              <p style="font-family:Georgia,serif;font-size:20px;color:#5FD3E3;margin:0 0 18px;">${firstName ? `Olá, ${firstName}.` : 'Olá.'}</p>
-              <h2 style="font-family:Georgia,serif;font-size:28px;color:#fff;margin:0 0 16px;">${topic[1]}</h2>
-              <p style="font-family:Arial,sans-serif;font-size:17px;line-height:1.8;color:#B8C8E0;margin:0 0 26px;">${topic[2]}</p>
-
-              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#050B15;border-radius:14px;">
-                <tr>
-                  <td width="42%" class="stack" style="padding:28px;">
-                    <img src="${asset('/email-assets/book-pt.png')}" width="210" style="width:100%;max-width:210px;border-radius:8px;display:block;">
-                  </td>
-                  <td width="58%" class="stack" style="padding:28px 28px 28px 0;">
-                    <h3 style="font-family:Georgia,serif;font-size:26px;color:#fff;margin:0 0 14px;">Você já deu o primeiro passo.</h3>
-                    <p style="font-family:Arial,sans-serif;font-size:15px;line-height:1.7;color:#B8C8E0;margin:0 0 20px;">Agora continue caminhando com clareza.</p>
-                    <a href="${instagram}" style="display:inline-block;background:#5FD3E3;color:#06101F;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;font-weight:900;padding:14px 20px;border-radius:10px;">SEGUIR NO INSTAGRAM →</a>
-                  </td>
-                </tr>
-              </table>
-
-              ${retailerBlock(lang, buyUrl)}
-            </td>
-          </tr>
-
-          <tr>
-            <td class="content" style="padding:24px 34px;text-align:center;background:#060C18;">
-              <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0 0 8px;">${root.footer}</p>
-              <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0;"><a href="${unsubscribeUrl(email, lang)}" style="color:#5FD3E3;text-decoration:none;">${unsubscribeText(lang)}</a></p>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>
-`
+  return renderSequenceEmail({
+    kind: 'customer',
+    language: lang,
+    name,
+    emailNumber,
+    email,
+    topic,
+    baseUrl: rootUrl,
+    buyUrl,
+    unsubscribeHref: unsubscribeUrl(email, lang),
+    instagramUrl: 'https://www.instagram.com/gilberto.rebuild/'
+  })
 }
 
 
@@ -647,84 +349,25 @@ function getCheckoutTopic(language, emailNumber) {
   return CHECKOUT_TOPICS[lang][emailNumber - 1] || CHECKOUT_TOPICS[lang][0]
 }
 
+
 export function getCheckoutEmailHtml({ language = 'pt', name = '', emailNumber = 1, email = '' }) {
-  const lang = COPY[language] ? language : 'pt'
-  const root = COPY[lang]
+  const lang = CHECKOUT_TOPICS[language] ? language : 'pt'
   const topic = getCheckoutTopic(lang, emailNumber)
-  const item = root.emails[((emailNumber - 1) % 3) + 1] || root.emails[1]
-  const firstName = String(name || '').trim().split(' ')[0] || ''
-  const buyUrl = `${baseUrl()}${lang === 'pt' ? '' : `/${lang}`}#buy`
-  const instagram = 'https://www.instagram.com/gilberto.rebuild/'
+  const rootUrl = baseUrl()
+  const buyUrl = `${rootUrl}${lang === 'pt' ? '' : `/${lang}`}#buy`
 
-  return `
-<!doctype html>
-<html>
-<body style="margin:0;padding:0;background:#f3f5f8;">
-<style>
-  @media only screen and (max-width: 600px) {
-    .wrapper { width: 100% !important; border-radius: 0 !important; }
-    .hero { padding: 40px 20px !important; }
-    .content { padding: 24px 20px !important; }
-    .stack { display: block !important; width: 100% !important; text-align: center !important; padding-left: 0 !important; padding-right: 0 !important; padding-top: 10px !important; padding-bottom: 10px !important; }
-    .stack img { display: inline-block !important; margin: 0 auto 16px auto !important; max-width: 180px !important; }
-    h1 { font-size: 28px !important; }
-    h2 { font-size: 22px !important; }
-    h3 { font-size: 20px !important; }
-    .quote { font-size: 24px !important; }
-  }
-</style>
-
-  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f3f5f8;">
-    <tr>
-      <td align="center" style="padding:24px 12px;">
-        <table role="presentation" width="680" cellspacing="0" cellpadding="0" class="wrapper" style="width:100%;max-width:680px;background:#060C18;border-radius:18px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.24);">
-          <tr>
-            <td style="padding:28px 24px;text-align:center;background:#060C18;">
-              <div style="font-family:Georgia,serif;font-size:22px;letter-spacing:8px;color:#fff;font-weight:700;">${root.brand}</div>
-              <div style="font-family:Arial,sans-serif;font-size:13px;letter-spacing:3px;color:#5FD3E3;font-weight:700;margin-top:8px;">ACESSO PENDENTE</div>
-              <div style="width:120px;height:2px;background:#5FD3E3;margin:14px auto 0;"></div>
-            </td>
-          </tr>
-          <tr>
-            <td background="${asset(item.hero)}" style="background-image:url('${asset(item.hero)}');background-size:cover;background-position:center;padding:86px 42px;" class="hero">
-              <h1 style="font-family:Georgia,serif;font-size:42px;line-height:1.08;color:#fff;margin:0;max-width:430px;">${topic[0]}</h1>
-              <div style="width:70px;height:2px;background:#5FD3E3;margin-top:24px;"></div>
-            </td>
-          </tr>
-          <tr>
-            <td class="content" style="padding:38px 42px;background:#0D1B3E;">
-              <p style="font-family:Georgia,serif;font-size:20px;color:#5FD3E3;margin:0 0 18px;">${firstName ? `Olá, ${firstName}.` : 'Olá.'}</p>
-              <h2 style="font-family:Georgia,serif;font-size:28px;color:#fff;margin:0 0 16px;">${topic[1]}</h2>
-              <p style="font-family:Arial,sans-serif;font-size:17px;line-height:1.8;color:#B8C8E0;margin:0 0 26px;">${topic[2]}</p>
-              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#050B15;border-radius:14px;">
-                <tr>
-                  <td width="42%" class="stack" style="padding:28px;">
-                    <img src="${asset(item.book)}" width="210" style="width:100%;max-width:210px;border-radius:8px;display:block;">
-                  </td>
-                  <td width="58%" class="stack" style="padding:28px 28px 28px 0;">
-                    <h3 style="font-family:Georgia,serif;font-size:26px;color:#fff;margin:0 0 14px;">Sua reconstrução pode começar agora.</h3>
-                    <p style="font-family:Arial,sans-serif;font-size:15px;line-height:1.7;color:#B8C8E0;margin:0 0 20px;">Escolha o formato que mais combina com você e continue de onde parou.</p>
-                    <a href="${buyUrl}" style="display:inline-block;background:#5FD3E3;color:#06101F;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;font-weight:900;padding:14px 20px;border-radius:10px;">CONCLUIR AGORA →</a>
-                  </td>
-                </tr>
-              </table>
-              ${retailerBlock(lang, buyUrl)}
-              <p style="font-family:Arial,sans-serif;font-size:13px;line-height:1.7;color:#7182A6;margin:24px 0 0;text-align:center;">Instagram: <a href="${instagram}" style="color:#5FD3E3;text-decoration:none;">@gilberto.rebuild</a></p>
-            </td>
-          </tr>
-          <tr>
-            <td class="content" style="padding:24px 34px;text-align:center;background:#060C18;">
-              <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0 0 8px;">${root.footer}</p>
-              <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0;"><a href="${unsubscribeUrl(email, lang)}" style="color:#5FD3E3;text-decoration:none;">${unsubscribeText(lang)}</a></p>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>
-`
+  return renderSequenceEmail({
+    kind: 'checkout',
+    language: lang,
+    name,
+    emailNumber,
+    email,
+    topic,
+    baseUrl: rootUrl,
+    buyUrl,
+    unsubscribeHref: unsubscribeUrl(email, lang),
+    retailerHtml: retailerBlock(lang, buyUrl)
+  })
 }
 
 
@@ -788,80 +431,21 @@ function getManualTopic(language, emailNumber) {
 }
 
 export function getManualEmailHtml({ language = 'pt', name = '', emailNumber = 1, email = '' }) {
-  const lang = COPY[language] ? language : 'pt'
-  const root = COPY[lang]
+  const lang = MANUAL_TOPICS[language] ? language : 'pt'
   const topic = getManualTopic(lang, emailNumber)
-  const item = root.emails[((emailNumber - 1) % 3) + 1] || root.emails[1]
-  const firstName = String(name || '').trim().split(' ')[0] || ''
-  const buyUrl = `${baseUrl()}${lang === 'pt' ? '' : `/${lang}`}#buy`
-  const instagram = 'https://www.instagram.com/gilberto.rebuild/'
+  const rootUrl = baseUrl()
+  const buyUrl = `${rootUrl}${lang === 'pt' ? '' : `/${lang}`}#buy`
 
-  return `
-<!doctype html>
-<html>
-<body style="margin:0;padding:0;background:#f3f5f8;">
-<style>
-  @media only screen and (max-width: 600px) {
-    .wrapper { width: 100% !important; border-radius: 0 !important; }
-    .hero { padding: 40px 20px !important; }
-    .content { padding: 24px 20px !important; }
-    .stack { display: block !important; width: 100% !important; text-align: center !important; padding-left: 0 !important; padding-right: 0 !important; padding-top: 10px !important; padding-bottom: 10px !important; }
-    .stack img { display: inline-block !important; margin: 0 auto 16px auto !important; max-width: 180px !important; }
-    h1 { font-size: 28px !important; }
-    h2 { font-size: 22px !important; }
-    h3 { font-size: 20px !important; }
-    .quote { font-size: 24px !important; }
-  }
-</style>
-
-  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f3f5f8;">
-    <tr>
-      <td align="center" style="padding:24px 12px;">
-        <table role="presentation" width="680" cellspacing="0" cellpadding="0" class="wrapper" style="width:100%;max-width:680px;background:#060C18;border-radius:18px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.24);">
-          <tr>
-            <td style="padding:28px 24px;text-align:center;background:#060C18;">
-              <div style="font-family:Georgia,serif;font-size:22px;letter-spacing:8px;color:#fff;font-weight:700;">${root.brand}</div>
-              <div style="font-family:Arial,sans-serif;font-size:13px;letter-spacing:3px;color:#5FD3E3;font-weight:700;margin-top:8px;">MANUAL DO HOMEM</div>
-              <div style="width:120px;height:2px;background:#5FD3E3;margin:14px auto 0;"></div>
-            </td>
-          </tr>
-          <tr>
-            <td background="${asset(item.hero)}" style="background-image:url('${asset(item.hero)}');background-size:cover;background-position:center;padding:86px 42px;" class="hero">
-              <h1 style="font-family:Georgia,serif;font-size:42px;line-height:1.08;color:#fff;margin:0;max-width:430px;">${topic[0]}</h1>
-              <div style="width:70px;height:2px;background:#5FD3E3;margin-top:24px;"></div>
-            </td>
-          </tr>
-          <tr>
-            <td class="content" style="padding:38px 42px;background:#0D1B3E;">
-              <p style="font-family:Georgia,serif;font-size:20px;color:#5FD3E3;margin:0 0 18px;">${firstName ? `Olá, ${firstName}.` : 'Olá.'}</p>
-              <h2 style="font-family:Georgia,serif;font-size:28px;color:#fff;margin:0 0 16px;">${topic[1]}</h2>
-              <p style="font-family:Arial,sans-serif;font-size:17px;line-height:1.8;color:#B8C8E0;margin:0 0 26px;">${topic[2]}</p>
-              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#050B15;border-radius:14px;">
-                <tr>
-                  <td width="42%" class="stack" style="padding:28px;">
-                    <img src="${asset(item.book)}" width="210" style="width:100%;max-width:210px;border-radius:8px;display:block;">
-                  </td>
-                  <td width="58%" class="stack" style="padding:28px 28px 28px 0;">
-                    <h3 style="font-family:Georgia,serif;font-size:26px;color:#fff;margin:0 0 14px;">Continue construindo maturidade emocional.</h3>
-                    <p style="font-family:Arial,sans-serif;font-size:15px;line-height:1.7;color:#B8C8E0;margin:0 0 20px;">O livro aprofunda a reconstrução interior que sustenta relacionamentos mais fortes.</p>
-                    <a href="${instagram}" style="display:inline-block;background:#5FD3E3;color:#06101F;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;font-weight:900;padding:14px 20px;border-radius:10px;">SEGUIR NO INSTAGRAM →</a>
-                  </td>
-                </tr>
-              </table>
-              ${retailerBlock(lang, buyUrl)}
-            </td>
-          </tr>
-          <tr>
-            <td class="content" style="padding:24px 34px;text-align:center;background:#060C18;">
-              <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0 0 8px;">${root.footer}</p>
-              <p style="font-family:Arial,sans-serif;font-size:12px;line-height:1.7;color:#7182A6;margin:0;"><a href="${unsubscribeUrl(email, lang)}" style="color:#5FD3E3;text-decoration:none;">${unsubscribeText(lang)}</a></p>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>
-`
+  return renderSequenceEmail({
+    kind: 'manual',
+    language: lang,
+    name,
+    emailNumber,
+    email,
+    topic,
+    baseUrl: rootUrl,
+    buyUrl,
+    unsubscribeHref: unsubscribeUrl(email, lang),
+    retailerHtml: retailerBlock(lang, buyUrl)
+  })
 }
