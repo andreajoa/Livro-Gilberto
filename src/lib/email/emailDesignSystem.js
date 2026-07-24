@@ -178,6 +178,153 @@ function heroBlock({ design, heroUrl, headline, accent }) {
   `
 }
 
+
+function internationalParagraphs(value) {
+  return String(value || '')
+    .split(/\n{2,}/)
+    .filter(Boolean)
+    .map((paragraph) => `
+      <p style="font-family:Arial,Helvetica,sans-serif;font-size:17px;line-height:1.7;color:#202124;margin:0 0 20px;">
+        ${escapeHtml(paragraph).replaceAll('\n', '<br>')}
+      </p>
+    `)
+    .join('')
+}
+
+function renderInternationalEmail({
+  kind,
+  lang,
+  copy,
+  firstName,
+  headline,
+  sectionTitle,
+  body,
+  ps,
+  destination,
+  button,
+  unsubscribeHref,
+  bookUrl,
+  authorUrl
+}) {
+  const greeting =
+    lang === 'es'
+      ? `Hola${firstName ? `, ${firstName}` : ''}:`
+      : `Hi${firstName ? `, ${firstName}` : ''},`
+
+  const psLabel = lang === 'es' ? 'P. D.' : 'P.S.'
+
+  return `
+<!doctype html>
+<html lang="${lang}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="x-apple-disable-message-reformatting">
+  <title>${headline}</title>
+</head>
+
+<body style="margin:0;padding:0;background:#F4F4F4;">
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">
+    ${sectionTitle}
+  </div>
+
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="width:100%;background:#F4F4F4;">
+    <tr>
+      <td align="center" style="padding:24px 10px;">
+
+        <table role="presentation" width="620" cellspacing="0" cellpadding="0"
+          style="width:100%;max-width:620px;background:#FFFFFF;">
+
+          <tr>
+            <td style="padding:26px 34px 10px;">
+              <div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:700;color:#202124;">
+                Gilberto de Souza
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:20px 34px 12px;">
+              <p style="font-family:Arial,Helvetica,sans-serif;font-size:17px;line-height:1.7;color:#202124;margin:0 0 22px;">
+                ${greeting}
+              </p>
+
+              ${internationalParagraphs(body)}
+
+              <table role="presentation" cellspacing="0" cellpadding="0" style="margin:10px 0 24px;">
+                <tr>
+                  <td style="background:#1769E0;border-radius:4px;">
+                    <a href="${destination}"
+                      style="display:inline-block;padding:14px 22px;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:700;color:#FFFFFF;text-decoration:none;">
+                      ${button}
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="font-family:Arial,Helvetica,sans-serif;font-size:17px;line-height:1.7;color:#202124;margin:0 0 4px;">
+                Gilberto
+              </p>
+
+              ${
+                ps
+                  ? `
+                  <p style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.65;color:#3C4043;margin:22px 0 0;">
+                    <strong>${psLabel}</strong> ${ps}
+                  </p>
+                  `
+                  : ''
+              }
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:20px 34px 25px;border-top:1px solid #E5E7EB;">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td width="58" style="vertical-align:middle;">
+                    <img src="${authorUrl}" alt="Gilberto de Souza" width="46" height="46"
+                      style="display:block;width:46px;height:46px;border-radius:50%;object-fit:cover;">
+                  </td>
+                  <td style="vertical-align:middle;">
+                    <div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:700;color:#202124;">
+                      Gilberto de Souza
+                    </div>
+                    <div style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#6B7280;margin-top:3px;">
+                      ${copy.author}
+                    </div>
+                  </td>
+                  <td width="70" align="right" style="vertical-align:middle;">
+                    <img src="${bookUrl}" alt="${copy.bookTitle}" width="48"
+                      style="display:block;width:48px;max-width:48px;height:auto;">
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:18px 34px;text-align:center;background:#F8F9FA;">
+              <p style="font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.6;color:#747474;margin:0 0 6px;">
+                ${copy.footer}
+              </p>
+              <p style="font-family:Arial,Helvetica,sans-serif;font-size:11px;margin:0;">
+                <a href="${unsubscribeHref}" style="color:#5F6368;text-decoration:underline;">
+                  ${copy.unsubscribe}
+                </a>
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+  `
+}
+
 export function renderSequenceEmail({
   kind = 'lead',
   language = 'pt',
@@ -199,6 +346,7 @@ export function renderSequenceEmail({
   const headline = escapeHtml(topic[0] || '')
   const sectionTitle = escapeHtml(topic[1] || '')
   const body = escapeHtml(topic[2] || '')
+  const ps = escapeHtml(topic[3] || '')
   const firstName = escapeHtml(String(name || '').trim().split(' ')[0] || '')
   const heroUrl = absolute(baseUrl, design.hero)
   const bookUrl = absolute(baseUrl, bookFor(lang))
@@ -206,6 +354,24 @@ export function renderSequenceEmail({
 
   const destination = kind === 'customer' ? instagramUrl : buyUrl
   const button = buttonFor(kind, copy)
+
+  if (lang !== 'pt') {
+    return renderInternationalEmail({
+      kind,
+      lang,
+      copy,
+      firstName,
+      headline,
+      sectionTitle,
+      body: topic[2] || '',
+      ps,
+      destination,
+      button,
+      unsubscribeHref,
+      bookUrl,
+      authorUrl
+    })
+  }
 
   return `
 <!doctype html>

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { d1Query, nowIso } from '@/src/lib/d1'
+import { getManualEmailSubject } from '@/src/lib/email/leadEmailTemplates'
 
 export const dynamic = 'force-dynamic'
 
@@ -85,59 +86,14 @@ async function enqueueManual({ visitorId, email, name, language }) {
     return { skipped: true, reason: 'manual_exists' }
   }
 
-  const subjects = {
-    pt: [
-      'Como ouvir sua esposa de verdade',
-      'O erro mais comum dos maridos',
-      'O que faz uma mulher se sentir amada',
-      'Como evitar discussões desnecessárias',
-      'A importância da presença',
-      'O poder das pequenas atitudes',
-      'Quando o orgulho atrapalha',
-      'Como reconstruir confiança',
-      'Comunicação masculina',
-      'Liderança dentro do casamento',
-      'O que sua esposa realmente precisa',
-      'Como criar conexão novamente',
-      'O marido que ela merece',
-      'Amor é decisão',
-      'Construindo um casamento forte'
-    ],
-    en: [
-      'How to truly listen to your wife',
-      'The most common mistake husbands make',
-      'What makes a woman feel loved',
-      'How to avoid unnecessary arguments',
-      'The importance of presence',
-      'The power of small actions',
-      'When pride gets in the way',
-      'How to rebuild trust',
-      'Masculine communication',
-      'Leadership inside marriage',
-      'What your wife really needs',
-      'How to create connection again',
-      'The husband she deserves',
-      'Love is a decision',
-      'Building a stronger marriage'
-    ],
-    es: [
-      'Cómo escuchar de verdad a tu esposa',
-      'El error más común de los esposos',
-      'Lo que hace que una mujer se sienta amada',
-      'Cómo evitar discusiones innecesarias',
-      'La importancia de estar presente',
-      'El poder de las pequeñas acciones',
-      'Cuando el orgullo estorba',
-      'Cómo reconstruir la confianza',
-      'Comunicación masculina',
-      'Liderazgo dentro del matrimonio',
-      'Lo que tu esposa realmente necesita',
-      'Cómo crear conexión otra vez',
-      'El esposo que ella merece',
-      'El amor es una decisión',
-      'Construyendo un matrimonio fuerte'
-    ]
-  }[language] || []
+  const subjects = Array.from(
+    { length: 15 },
+    (_, index) =>
+      getManualEmailSubject({
+        language,
+        emailNumber: index + 1
+      })
+  )
 
   const now = nowIso()
 
