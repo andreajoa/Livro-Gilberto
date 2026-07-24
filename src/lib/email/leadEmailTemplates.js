@@ -193,7 +193,140 @@ function getLeadTopic(language, emailNumber) {
   return LEAD_TOPICS[lang][emailNumber - 1] || LEAD_TOPICS[lang][0]
 }
 
-function retailerBlock(language, siteUrl) {
+
+function retailerImageBlock(language, emailNumber = 1) {
+  const root = 'https://www.gilberto-souza.com'
+  const retailers = RETAILERS[language] || RETAILERS.en
+  const number = Math.max(1, Number(emailNumber || 1))
+  const spanish = language === 'es'
+
+  const amazonBanner = spanish
+    ? 'amazon-banner-es.png'
+    : number % 2 === 0
+      ? 'amazon-banner-paperback.png'
+      : 'amazon-banner-en.png'
+
+  const barnesBanner = spanish
+    ? 'barnes-banner-es.png'
+    : number % 2 === 0
+      ? 'order-copy-banner-barnes.png'
+      : 'barnes-banner-en.png'
+
+  const amazonAlt = spanish
+    ? 'Comprar el libro impreso en Amazon'
+    : 'Buy the paperback on Amazon'
+
+  const barnesAlt = spanish
+    ? 'Comprar el libro impreso en Barnes & Noble'
+    : 'Buy the paperback at Barnes & Noble'
+
+  const barnesHeader = `
+    <img
+      src="${root}/email-assets/retailers/barnes-header.png"
+      alt="Barnes & Noble — Now available"
+      width="600"
+      style="
+        display:block;
+        width:100%;
+        max-width:600px;
+        height:auto;
+        margin:0 0 8px;
+        padding:0;
+        border:0;
+        outline:none;
+        text-decoration:none;
+      "
+    >
+  `
+
+  return `
+    <table
+      role="presentation"
+      width="100%"
+      cellspacing="0"
+      cellpadding="0"
+      style="
+        width:100%;
+        max-width:600px;
+        margin:0 auto;
+        border-collapse:collapse;
+      "
+    >
+      <tr>
+        <td style="padding:0 0 13px;">
+          <a
+            href="${retailers.amazon}"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="
+              display:block;
+              width:100%;
+              margin:0;
+              padding:0;
+              text-decoration:none;
+            "
+          >
+            <img
+              src="${root}/email-assets/retailers/${amazonBanner}"
+              alt="${amazonAlt}"
+              width="600"
+              style="
+                display:block;
+                width:100%;
+                max-width:600px;
+                height:auto;
+                margin:0;
+                padding:0;
+                border:0;
+                outline:none;
+                text-decoration:none;
+              "
+            >
+          </a>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:0;">
+          ${barnesHeader}
+
+          <a
+            href="${retailers.barnes}"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="
+              display:block;
+              width:100%;
+              margin:0;
+              padding:0;
+              text-decoration:none;
+            "
+          >
+            <img
+              src="${root}/email-assets/retailers/${barnesBanner}"
+              alt="${barnesAlt}"
+              width="600"
+              style="
+                display:block;
+                width:100%;
+                max-width:600px;
+                height:auto;
+                margin:0;
+                padding:0;
+                border:0;
+                outline:none;
+                text-decoration:none;
+              "
+            >
+          </a>
+        </td>
+      </tr>
+    </table>
+  `
+}
+
+
+function retailerLegacyBlock(language, siteUrl) {
   const r = RETAILERS[language] || RETAILERS.pt
 
   const root = 'https://www.gilberto-souza.com'
@@ -503,6 +636,15 @@ function retailerBlock(language, siteUrl) {
 }
 
 
+function retailerBlock(language, siteUrl, emailNumber = 1) {
+  if (language === 'en' || language === 'es') {
+    return retailerImageBlock(language, emailNumber)
+  }
+
+  return retailerLegacyBlock(language, siteUrl)
+}
+
+
 export function getLeadEmailSubject({ language = 'pt', emailNumber = 1 }) {
   const lang = LEAD_TOPICS[language] ? language : 'pt'
   return getLeadTopic(lang, emailNumber)[0]
@@ -525,7 +667,7 @@ export function getLeadEmailHtml({ language = 'pt', name = '', emailNumber = 1, 
     baseUrl: rootUrl,
     buyUrl,
     unsubscribeHref: unsubscribeUrl(email, lang),
-    retailerHtml: retailerBlock(lang, buyUrl)
+    retailerHtml: retailerBlock(lang, buyUrl, emailNumber)
   })
 }
 
@@ -664,7 +806,7 @@ export function getCheckoutEmailHtml({ language = 'pt', name = '', emailNumber =
     baseUrl: rootUrl,
     buyUrl,
     unsubscribeHref: unsubscribeUrl(email, lang),
-    retailerHtml: retailerBlock(lang, buyUrl)
+    retailerHtml: retailerBlock(lang, buyUrl, emailNumber)
   })
 }
 
@@ -751,6 +893,6 @@ export function getManualEmailHtml({ language = 'pt', name = '', emailNumber = 1
     baseUrl: rootUrl,
     buyUrl,
     unsubscribeHref: unsubscribeUrl(email, lang),
-    retailerHtml: retailerBlock(lang, buyUrl)
+    retailerHtml: retailerBlock(lang, buyUrl, emailNumber)
   })
 }
