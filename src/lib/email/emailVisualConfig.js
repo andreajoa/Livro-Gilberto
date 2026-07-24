@@ -48,28 +48,64 @@ export const EMAIL_VISUAL_CONFIG = {
     banners: {
       lead: {
         1: '/email-assets/sequence/hero-01.jpeg',
+        2: '/email-assets/sequence/hero-02.png',
         3: '/email-assets/sequence/hero-03.png',
+        4: '/email-assets/sequence/hero-04.png',
+        5: '/email-assets/sequence/hero-05.png',
         6: '/email-assets/sequence/hero-06.png',
+        7: '/email-assets/sequence/hero-07.png',
+        8: '/email-assets/sequence/hero-08.png',
+        9: '/email-assets/sequence/hero-09.png',
         10: '/email-assets/sequence/hero-10.png',
+        11: '/email-assets/sequence/hero-11.png',
+        12: '/email-assets/sequence/hero-12.png',
+        13: '/email-assets/sequence/hero-13.png',
+        14: '/email-assets/sequence/hero-14.png',
         15: '/email-assets/sequence/hero-15.png'
       },
+
       manual: {
-        1: '/email-assets/sequence/hero-02.png',
+        1: '/email-assets/sequence/hero-12.png',
+        2: '/email-assets/sequence/hero-07.png',
+        3: '/email-assets/sequence/hero-03.png',
+        4: '/email-assets/sequence/hero-14.png',
         5: '/email-assets/sequence/hero-05.png',
-        9: '/email-assets/sequence/hero-09.png',
-        12: '/email-assets/sequence/hero-12.png',
-        15: '/email-assets/sequence/hero-14.png'
+        6: '/email-assets/sequence/hero-09.png',
+        7: '/email-assets/sequence/hero-02.png',
+        8: '/email-assets/sequence/hero-13.png',
+        9: '/email-assets/sequence/hero-08.png',
+        10: '/email-assets/sequence/hero-15.png',
+        11: '/email-assets/sequence/hero-04.png',
+        12: '/email-assets/sequence/hero-10.png',
+        13: '/email-assets/sequence/hero-06.png',
+        14: '/email-assets/sequence/hero-11.png',
+        15: '/email-assets/sequence/hero-01.jpeg'
       },
+
       checkout: {
         1: '/email-assets/email1-hero.jpeg',
+        2: '/email-assets/sequence/hero-05.png',
+        3: '/email-assets/sequence/hero-10.png',
+        4: '/email-assets/sequence/hero-03.png',
+        5: '/email-assets/sequence/hero-12.png',
+        6: '/email-assets/sequence/hero-07.png',
+        7: '/email-assets/sequence/hero-14.png',
         8: '/email-assets/email2-hero.png',
+        9: '/email-assets/sequence/hero-09.png',
+        10: '/email-assets/sequence/hero-13.png',
+        11: '/email-assets/sequence/hero-04.png',
+        12: '/email-assets/sequence/hero-06.png',
+        13: '/email-assets/sequence/hero-11.png',
+        14: '/email-assets/sequence/hero-15.png',
         15: '/email-assets/email3-hero.png'
       },
+
       customer: {
-        1: '/email-assets/sequence/hero-11.png',
-        2: '/email-assets/sequence/hero-13.png',
+        1: '/email-assets/email3-hero.png',
+        2: '/email-assets/email2-hero.png',
         3: '/email-assets/sequence/hero-04.png'
       }
+
     }
   },
 

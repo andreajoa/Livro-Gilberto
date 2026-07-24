@@ -195,20 +195,291 @@ function getLeadTopic(language, emailNumber) {
 
 function retailerBlock(language, siteUrl) {
   const r = RETAILERS[language] || RETAILERS.pt
+
+  const root = 'https://www.gilberto-souza.com'
+
+  const cover =
+    language === 'en'
+      ? `${root}/books/en/book-front.png`
+      : language === 'es'
+        ? `${root}/books/es/book-front.jpg`
+        : `${root}/books/pt/book-front.jpg`
+
+  const copy = {
+    pt: {
+      title: 'Prefere o livro físico?',
+      amazonEyebrow: 'COMPRA SEGURA NA AMAZON',
+      amazonTitle: 'Compre a edição impressa na Amazon',
+      amazonCta: 'VER NA AMAZON →',
+      barnesEyebrow: 'LIVRARIA INTERNACIONAL',
+      barnesTitle: 'Disponível também na Barnes & Noble',
+      barnesCta: 'VER NA BARNES & NOBLE →'
+    },
+
+    en: {
+      title: 'Prefer the printed edition?',
+      amazonEyebrow: 'SHOP SECURELY ON AMAZON',
+      amazonTitle: 'Buy the paperback directly from Amazon',
+      amazonCta: 'VIEW ON AMAZON →',
+      barnesEyebrow: 'TRUSTED BOOK RETAILER',
+      barnesTitle: 'Also available at Barnes & Noble',
+      barnesCta: 'VIEW AT BARNES & NOBLE →'
+    },
+
+    es: {
+      title: '¿Prefieres la edición impresa?',
+      amazonEyebrow: 'COMPRA SEGURA EN AMAZON',
+      amazonTitle: 'Compra el libro impreso directamente en Amazon',
+      amazonCta: 'VER EN AMAZON →',
+      barnesEyebrow: 'LIBRERÍA INTERNACIONAL',
+      barnesTitle: 'También disponible en Barnes & Noble',
+      barnesCta: 'VER EN BARNES & NOBLE →'
+    }
+  }[language] || null
+
+  const t = copy || {
+    title: 'Prefer the printed edition?',
+    amazonEyebrow: 'SHOP SECURELY ON AMAZON',
+    amazonTitle: 'Buy the paperback directly from Amazon',
+    amazonCta: 'VIEW ON AMAZON →',
+    barnesEyebrow: 'TRUSTED BOOK RETAILER',
+    barnesTitle: 'Also available at Barnes & Noble',
+    barnesCta: 'VIEW AT BARNES & NOBLE →'
+  }
+
   return `
-    <div style="margin-top:26px;padding:22px;border:1px solid rgba(95,211,227,.25);border-radius:14px;background:#071224;">
-      <div style="font-family:Arial,sans-serif;font-size:14px;color:#5FD3E3;font-weight:800;letter-spacing:.5px;margin-bottom:14px;text-align:center;">${r.label}</div>
-      <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
-        <tr>
-          <td style="padding:6px;"><a href="${r.amazon}" style="display:block;text-align:center;background:#FFB800;color:#06101F;text-decoration:none;font-family:Arial,sans-serif;font-size:13px;font-weight:800;padding:13px 10px;border-radius:9px;">${r.amazonText}</a></td>
-        </tr>
-        <tr>
-          <td style="padding:6px;"><a href="${r.barnes}" style="display:block;text-align:center;background:#12315A;color:#FFFFFF;text-decoration:none;font-family:Arial,sans-serif;font-size:13px;font-weight:800;padding:13px 10px;border-radius:9px;border:1px solid rgba(95,211,227,.25);">${r.barnesText}</a></td>
-        </tr>
-        <tr>
-          <td style="padding:6px;"><a href="${siteUrl}" style="display:block;text-align:center;background:#5FD3E3;color:#06101F;text-decoration:none;font-family:Arial,sans-serif;font-size:13px;font-weight:900;padding:13px 10px;border-radius:9px;">${r.siteText}</a></td>
-        </tr>
-      </table>
+    <div style="
+      width:100%;
+      margin:0;
+      padding:0;
+    ">
+
+      <div style="
+        font-family:Georgia,'Times New Roman',serif;
+        font-size:19px;
+        line-height:1.4;
+        color:#17324D;
+        text-align:center;
+        margin:0 0 15px;
+      ">
+        ${t.title}
+      </div>
+
+      <!-- AMAZON -->
+      <a
+        href="${r.amazon}"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="
+          display:block;
+          width:100%;
+          box-sizing:border-box;
+          text-decoration:none;
+          background:#232F3E;
+          border:1px solid #192536;
+          margin:0 0 12px;
+        "
+      >
+        <table
+          role="presentation"
+          width="100%"
+          cellspacing="0"
+          cellpadding="0"
+        >
+          <tr>
+            <td
+              width="86"
+              style="
+                width:86px;
+                padding:11px 12px;
+                vertical-align:middle;
+                text-align:center;
+              "
+            >
+              <img
+                src="${cover}"
+                alt=""
+                width="48"
+                style="
+                  display:inline-block;
+                  width:48px;
+                  max-width:48px;
+                  height:auto;
+                  box-shadow:0 4px 10px rgba(0,0,0,.28);
+                "
+              >
+            </td>
+
+            <td style="
+              padding:12px 7px;
+              vertical-align:middle;
+            ">
+              <img
+                src="${root}/retailer-logos/amazon.png"
+                alt="Amazon"
+                height="24"
+                style="
+                  display:block;
+                  height:24px;
+                  width:auto;
+                  max-width:110px;
+                  margin:0 0 6px;
+                "
+              >
+
+              <div style="
+                font-family:Arial,Helvetica,sans-serif;
+                font-size:9px;
+                font-weight:700;
+                letter-spacing:1.2px;
+                color:#F7C65C;
+                margin-bottom:4px;
+              ">
+                ${t.amazonEyebrow}
+              </div>
+
+              <div style="
+                font-family:Georgia,'Times New Roman',serif;
+                font-size:15px;
+                line-height:1.35;
+                color:#FFFFFF;
+              ">
+                ${t.amazonTitle}
+              </div>
+            </td>
+
+            <td
+              width="132"
+              align="right"
+              style="
+                width:132px;
+                padding:12px 16px 12px 8px;
+                vertical-align:middle;
+              "
+            >
+              <span style="
+                display:inline-block;
+                font-family:Arial,Helvetica,sans-serif;
+                font-size:10px;
+                font-weight:800;
+                letter-spacing:.4px;
+                color:#F7C65C;
+                white-space:nowrap;
+              ">
+                ${t.amazonCta}
+              </span>
+            </td>
+          </tr>
+        </table>
+      </a>
+
+      <!-- BARNES & NOBLE -->
+      <a
+        href="${r.barnes}"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="
+          display:block;
+          width:100%;
+          box-sizing:border-box;
+          text-decoration:none;
+          background:#F4F0E8;
+          border:1px solid #DED5C5;
+          margin:0;
+        "
+      >
+        <table
+          role="presentation"
+          width="100%"
+          cellspacing="0"
+          cellpadding="0"
+        >
+          <tr>
+            <td
+              width="86"
+              style="
+                width:86px;
+                padding:11px 12px;
+                vertical-align:middle;
+                text-align:center;
+              "
+            >
+              <img
+                src="${cover}"
+                alt=""
+                width="48"
+                style="
+                  display:inline-block;
+                  width:48px;
+                  max-width:48px;
+                  height:auto;
+                  box-shadow:0 4px 10px rgba(20,35,50,.18);
+                "
+              >
+            </td>
+
+            <td style="
+              padding:12px 7px;
+              vertical-align:middle;
+            ">
+              <img
+                src="${root}/retailer-logos/barnes.png"
+                alt="Barnes & Noble"
+                height="28"
+                style="
+                  display:block;
+                  height:28px;
+                  width:auto;
+                  max-width:145px;
+                  margin:0 0 5px;
+                "
+              >
+
+              <div style="
+                font-family:Arial,Helvetica,sans-serif;
+                font-size:9px;
+                font-weight:700;
+                letter-spacing:1.2px;
+                color:#967230;
+                margin-bottom:4px;
+              ">
+                ${t.barnesEyebrow}
+              </div>
+
+              <div style="
+                font-family:Georgia,'Times New Roman',serif;
+                font-size:15px;
+                line-height:1.35;
+                color:#17324D;
+              ">
+                ${t.barnesTitle}
+              </div>
+            </td>
+
+            <td
+              width="158"
+              align="right"
+              style="
+                width:158px;
+                padding:12px 16px 12px 8px;
+                vertical-align:middle;
+              "
+            >
+              <span style="
+                display:inline-block;
+                font-family:Arial,Helvetica,sans-serif;
+                font-size:10px;
+                font-weight:800;
+                letter-spacing:.35px;
+                color:#17324D;
+                white-space:nowrap;
+              ">
+                ${t.barnesCta}
+              </span>
+            </td>
+          </tr>
+        </table>
+      </a>
     </div>
   `
 }
