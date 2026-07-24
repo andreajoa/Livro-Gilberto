@@ -716,7 +716,10 @@ export function getCustomerEmailHtml({ language = 'pt', name = '', emailNumber =
     baseUrl: rootUrl,
     buyUrl,
     unsubscribeHref: unsubscribeUrl(email, lang),
-    instagramUrl: 'https://www.instagram.com/gilberto.rebuild/'
+    instagramUrl:
+      lang === 'pt'
+        ? 'https://www.instagram.com/gilberto_souza_autor/'
+        : 'https://www.instagram.com/gilberto.rebuild/'
   })
 }
 

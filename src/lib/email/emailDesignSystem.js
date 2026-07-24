@@ -1,4 +1,9 @@
 import {
+  emailInstagramUrl,
+  renderEmailFooter
+} from './emailFooter'
+
+import {
   EMAIL_VISUAL_CONFIG,
   pickEmailBanner,
   getStageVisual
@@ -312,7 +317,7 @@ function renderInternationalEmail({
     kind === 'customer'
       ? (
           Number(emailNumber) === 3
-            ? visual.footer.instagram
+            ? emailInstagramUrl(lang)
             : websiteUrl
         )
       : destination
@@ -1111,133 +1116,14 @@ function renderInternationalEmail({
             </td>
           </tr>
 
-          <!-- RODAPÉ -->
-          <tr>
-            <td
-              class="email-pad"
-              style="
-                padding:26px 30px;
-                text-align:center;
-                background:#EFEFED;
-                border-top:1px solid ${colors.border};
-              "
-            >
-              <div style="
-                font-family:Georgia,'Times New Roman',serif;
-                font-size:15px;
-                letter-spacing:1px;
-                color:${colors.navy};
-                margin-bottom:14px;
-              ">
-                GILBERTO DE SOUZA
-              </div>
 
-              <div style="
-                font-family:Arial,Helvetica,sans-serif;
-                font-size:11px;
-                line-height:1.8;
-                color:${colors.muted};
-                margin-bottom:13px;
-              ">
-                <a
-                  class="email-footer-link"
-                  href="${websiteUrl}"
-                  style="
-                    color:${colors.navy};
-                    text-decoration:none;
-                  "
-                >
-                  ${labels.website}
-                </a>
+          ${renderEmailFooter({
+            language: lang,
+            unsubscribeHref,
+            showRetailers: kind !== 'customer'
+          })}
 
-                &nbsp;·&nbsp;
-
-                <a
-                  class="email-footer-link"
-                  href="${privacyUrl}"
-                  style="
-                    color:${colors.navy};
-                    text-decoration:none;
-                  "
-                >
-                  ${labels.privacy}
-                </a>
-
-                &nbsp;·&nbsp;
-
-                <a
-                  class="email-footer-link"
-                  href="${termsUrl}"
-                  style="
-                    color:${colors.navy};
-                    text-decoration:none;
-                  "
-                >
-                  ${labels.terms}
-                </a>
-
-                &nbsp;·&nbsp;
-
-                <a
-                  class="email-footer-link"
-                  href="${contactUrl}"
-                  style="
-                    color:${colors.navy};
-                    text-decoration:none;
-                  "
-                >
-                  ${labels.contact}
-                </a>
-
-                &nbsp;·&nbsp;
-
-                <a
-                  class="email-footer-link"
-                  href="${visual.footer.instagram}"
-                  style="
-                    color:${colors.navy};
-                    text-decoration:none;
-                  "
-                >
-                  Instagram
-                </a>
-              </div>
-
-              <p style="
-                font-family:Arial,Helvetica,sans-serif;
-                font-size:10.5px;
-                line-height:1.65;
-                color:${colors.soft};
-                margin:0 0 8px;
-              ">
-                ${footerCopy.why}
-              </p>
-
-              <p style="
-                font-family:Arial,Helvetica,sans-serif;
-                font-size:10.5px;
-                line-height:1.65;
-                color:${colors.soft};
-                margin:0 0 8px;
-              ">
-                ${visual.footer.contactEmail}
-              </p>
-
-              <a
-                href="${unsubscribeHref}"
-                style="
-                  font-family:Arial,Helvetica,sans-serif;
-                  font-size:10.5px;
-                  color:${colors.muted};
-                  text-decoration:underline;
-                "
-              >
-                ${labels.unsubscribe}
-              </a>
-            </td>
-          </tr>
-
-        </table>
+</table>
       </td>
     </tr>
   </table>
@@ -1525,22 +1411,13 @@ export function renderSequenceEmail({
             </td>
           </tr>
 
-          <tr>
-            <td class="mobile-pad" style="padding:22px 30px;text-align:center;background:#0A1728;">
-              <p style="font-family:Arial,sans-serif;font-size:11px;line-height:1.7;color:#8493A7;margin:0 0 7px;">
-                ${copy.footer}
-              </p>
 
-              <p style="font-family:Arial,sans-serif;font-size:11px;line-height:1.7;margin:0;">
-                <a
-                  href="${unsubscribeHref}"
-                  style="color:${accent};text-decoration:none;"
-                >
-                  ${copy.unsubscribe}
-                </a>
-              </p>
-            </td>
-          </tr>
+          ${renderEmailFooter({
+            language: lang,
+            unsubscribeHref,
+            showRetailers: kind !== 'customer'
+          })}
+
 
         </table>
       </td>
