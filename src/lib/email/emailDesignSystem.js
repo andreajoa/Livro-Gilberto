@@ -213,7 +213,8 @@ function internationalLabels(lang) {
       terms: 'Términos de Uso',
       contact: 'Contacto',
       unsubscribe: 'Cancelar suscripción',
-      official: 'Sitio oficial del autor'
+      official: 'Sitio oficial del autor',
+      retailers: 'También disponible en tiendas reconocidas'
     }
   }
 
@@ -225,7 +226,8 @@ function internationalLabels(lang) {
     terms: 'Terms of Use',
     contact: 'Contact',
     unsubscribe: 'Unsubscribe',
-    official: 'Official author website'
+    official: 'Official author website',
+    retailers: 'Also available from trusted retailers'
   }
 }
 
@@ -276,7 +278,8 @@ function renderInternationalEmail({
   bookUrl,
   authorUrl,
   baseUrl,
-  emailNumber
+  emailNumber,
+  retailerHtml
 }) {
   const visual = EMAIL_VISUAL_CONFIG
   const stage = getStageVisual(kind)
@@ -802,6 +805,45 @@ function renderInternationalEmail({
             </td>
           </tr>
 
+          ${
+            retailerHtml
+              ? `
+                <!-- AMAZON / BARNES & NOBLE -->
+                <tr>
+                  <td
+                    class="email-pad"
+                    style="
+                      padding:27px 34px;
+                      background:#F8F8F7;
+                      border-top:1px solid ${colors.border};
+                    "
+                  >
+                    <div style="
+                      font-family:Georgia,'Times New Roman',serif;
+                      font-size:19px;
+                      line-height:1.4;
+                      color:${colors.navy};
+                      text-align:center;
+                      margin-bottom:16px;
+                    ">
+                      ${labels.retailers}
+                    </div>
+
+                    <div style="
+                      font-family:Arial,Helvetica,sans-serif;
+                      font-size:13px;
+                      line-height:1.6;
+                      color:${colors.muted};
+                      text-align:center;
+                    ">
+                      ${retailerHtml}
+                    </div>
+                  </td>
+                </tr>
+              `
+              : ''
+          }
+
           <!-- AUTOR + PS -->
           <tr>
             <td
@@ -1067,7 +1109,8 @@ export function renderSequenceEmail({
       bookUrl,
       authorUrl,
       baseUrl,
-      emailNumber
+      emailNumber,
+      retailerHtml
     })
   }
 
