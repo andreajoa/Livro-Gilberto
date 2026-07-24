@@ -35,7 +35,8 @@ export async function GET(request) {
     const html = getLeadEmailHtml({
       language,
       name: 'André',
-      emailNumber
+      emailNumber,
+      email: to
     })
 
     const { data, error } = await resend.emails.send({
