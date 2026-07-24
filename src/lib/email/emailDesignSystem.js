@@ -400,13 +400,6 @@ function renderInternationalEmail({
       box-sizing:border-box !important;
     }
 
-    .email-wrapper table {
-      width:100% !important;
-      max-width:100% !important;
-      min-width:0 !important;
-      table-layout:fixed !important;
-    }
-
     .email-wrapper td {
       min-width:0 !important;
     }
@@ -433,19 +426,24 @@ function renderInternationalEmail({
         max-width:100% !important;
       }
 
-      .email-wrapper,
-      .email-wrapper tbody,
-      .email-wrapper tr,
-      .email-wrapper td,
-      .email-wrapper table {
+      .email-wrapper {
+        width:100% !important;
+        min-width:0 !important;
+        max-width:100% !important;
+        margin:0 !important;
+        table-layout:fixed !important;
+      }
+
+      .email-wrapper > tbody,
+      .email-wrapper > tbody > tr,
+      .email-wrapper > tbody > tr > td {
         width:100% !important;
         min-width:0 !important;
         max-width:100% !important;
       }
 
-      .email-wrapper {
-        margin:0 !important;
-        table-layout:fixed !important;
+      .email-wrapper table {
+        max-width:100% !important;
       }
 
       .email-wrapper h1,
@@ -462,6 +460,7 @@ function renderInternationalEmail({
       }
 
       .email-outer {
+        width:100% !important;
         padding:0 !important;
       }
 
