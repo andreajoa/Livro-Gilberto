@@ -7,11 +7,6 @@ import {
 } from "react"
 
 import {
-  ChevronLeft,
-  ChevronRight
-} from "lucide-react"
-
-import {
   trackWebsiteEvent
 } from "@/src/lib/website/websiteTracker"
 
@@ -23,83 +18,62 @@ const ROTATION_TIME = 6500
 const slides = [
   {
     id: "superacao_banner_01",
-    creativeId:
-      "superacao_launch_available",
-
+    creativeId: "superacao_launch_new_book",
     image:
       "/images/superacao-promo/superacao-banner-1.webp",
-
     alt:
-      "Superação, novo lançamento de Gilberto de Souza, já disponível na Amazon"
+      "Conheça o novo livro Superação de Gilberto de Souza"
   },
   {
     id: "superacao_banner_02",
-    creativeId:
-      "superacao_journey_story",
-
+    creativeId: "superacao_real_story",
     image:
       "/images/superacao-promo/superacao-banner-2.webp",
-
     alt:
-      "Livro Superação, uma jornada de dor, fé, luta e vitória"
+      "Superação, uma história real de dor, fé, luta e vitória"
   },
   {
     id: "superacao_banner_03",
-    creativeId:
-      "superacao_amazon_available",
-
+    creativeId: "superacao_new_beginning",
     image:
       "/images/superacao-promo/superacao-banner-3.webp",
-
     alt:
-      "Livro Superação de Gilberto de Souza disponível para compra na Amazon"
+      "Livro Superação para quem acredita em recomeços"
   }
 ]
 
-function trackingData(slide) {
+function createTrackingData(slide) {
   return {
-    eventCategory:
-      "promotion",
+    eventCategory: "promotion",
 
-    bookId:
-      "superacao_book_01",
+    bookId: "superacao_book_01",
 
-    productId:
-      "superacao_amazon_us",
+    productId: "superacao_amazon_us",
 
-    elementId:
-      "superacao_top_carousel",
+    elementId: "superacao_top_carousel",
 
-    elementType:
-      "promotional_banner",
+    elementType: "promotional_banner",
 
-    elementText:
-      slide.alt,
+    elementText: slide.alt,
 
-    destinationUrl:
-      AMAZON_URL,
+    destinationUrl: AMAZON_URL,
 
-    channel:
-      "amazon",
+    channel: "amazon",
 
-    slideId:
-      slide.id,
+    slideId: slide.id,
 
-    creativeId:
-      slide.creativeId,
+    creativeId: slide.creativeId,
 
     metadata: {
-      placement:
-        "home_top_pt",
+      placement: "home_top_pt",
 
-      carousel:
-        "superacao_launch",
+      carousel: "superacao_launch_fade",
 
-      amazon_asin:
-        "B0H9R8ZK7T",
+      transition: "fade",
 
-      external_retailer:
-        "amazon"
+      amazon_asin: "B0H9R8ZK7T",
+
+      external_retailer: "amazon"
     }
   }
 }
@@ -111,30 +85,32 @@ export default function SuperacaoPromoCarousel() {
   const [paused, setPaused] =
     useState(false)
 
-  const viewedRef =
+  const viewedSlides =
     useRef(new Set())
 
   const activeSlide =
     slides[activeIndex]
 
   useEffect(() => {
-    const viewKey =
-      `${activeSlide.id}_${activeIndex}`
-
     if (
-      viewedRef.current.has(viewKey)
+      viewedSlides.current.has(
+        activeSlide.id
+      )
     ) {
       return
     }
 
-    viewedRef.current.add(viewKey)
+    viewedSlides.current.add(
+      activeSlide.id
+    )
 
     trackWebsiteEvent(
       "banner_viewed",
-      trackingData(activeSlide)
+      createTrackingData(
+        activeSlide
+      )
     )
   }, [
-    activeIndex,
     activeSlide
   ])
 
@@ -143,16 +119,17 @@ export default function SuperacaoPromoCarousel() {
       return undefined
     }
 
-    const timer = window.setTimeout(
-      () => {
-        setActiveIndex(
-          current =>
-            (current + 1) %
-            slides.length
-        )
-      },
-      ROTATION_TIME
-    )
+    const timer =
+      window.setTimeout(
+        () => {
+          setActiveIndex(
+            current =>
+              (current + 1) %
+              slides.length
+          )
+        },
+        ROTATION_TIME
+      )
 
     return () =>
       window.clearTimeout(timer)
@@ -161,47 +138,25 @@ export default function SuperacaoPromoCarousel() {
     paused
   ])
 
-  function selectSlide(index) {
-    setActiveIndex(index)
-  }
-
-  function previousSlide() {
-    setActiveIndex(
-      current =>
-        (
-          current -
-          1 +
-          slides.length
-        ) %
-        slides.length
-    )
-  }
-
-  function nextSlide() {
-    setActiveIndex(
-      current =>
-        (current + 1) %
-        slides.length
-    )
-  }
-
   async function handleAmazonClick() {
-    const data =
-      trackingData(activeSlide)
+    const trackingData =
+      createTrackingData(
+        activeSlide
+      )
 
     await Promise.allSettled([
       trackWebsiteEvent(
         "banner_clicked",
-        data
+        trackingData
       ),
 
       trackWebsiteEvent(
         "amazon_clicked",
         {
-          ...data,
+          ...trackingData,
 
           metadata: {
-            ...data.metadata,
+            ...trackingData.metadata,
 
             click_target:
               "full_banner"
@@ -227,44 +182,36 @@ export default function SuperacaoPromoCarousel() {
         setPaused(false)
       }
       style={{
-        position:
-          "relative",
-
-        width:
-          "100%",
-
-        overflow:
-          "hidden",
-
-        background:
-          "#050403",
-
-        borderBottom:
-          "1px solid rgba(212,165,116,0.35)",
-
-        boxShadow:
-          "0 12px 35px rgba(0,0,0,0.32)"
+        width: "100%",
+        background: "#060C18",
+        padding:
+          "clamp(12px, 1.8vw, 24px) 5vw"
       }}
     >
       <div
         style={{
-          position:
-            "relative",
+          position: "relative",
 
-          width:
-            "100%",
+          width: "100%",
 
-          aspectRatio:
-            "3 / 1",
+          maxWidth: 1180,
 
-          minHeight:
-            145,
+          height:
+            "clamp(150px, 18vw, 255px)",
 
-          maxHeight:
-            430,
+          margin: "0 auto",
 
-          background:
-            "#050403"
+          overflow: "hidden",
+
+          borderRadius: 12,
+
+          background: "#F4EBDD",
+
+          border:
+            "1px solid rgba(212,165,116,0.45)",
+
+          boxShadow:
+            "0 12px 32px rgba(0,0,0,0.28)"
         }}
       >
         {slides.map(
@@ -275,7 +222,7 @@ export default function SuperacaoPromoCarousel() {
               target="_blank"
               rel="noopener noreferrer sponsored"
               aria-label={
-                `${slide.alt}. Abrir na Amazon.`
+                `${slide.alt}. Comprar na Amazon.`
               }
               onClick={
                 index === activeIndex
@@ -288,14 +235,11 @@ export default function SuperacaoPromoCarousel() {
                   : -1
               }
               style={{
-                position:
-                  "absolute",
+                position: "absolute",
 
-                inset:
-                  0,
+                inset: 0,
 
-                display:
-                  "block",
+                display: "block",
 
                 opacity:
                   index === activeIndex
@@ -307,21 +251,15 @@ export default function SuperacaoPromoCarousel() {
                     ? "visible"
                     : "hidden",
 
-                transform:
-                  index === activeIndex
-                    ? "scale(1)"
-                    : "scale(1.015)",
-
-                transition:
-                  "opacity 900ms ease, transform 6.5s ease",
-
                 pointerEvents:
                   index === activeIndex
                     ? "auto"
                     : "none",
 
-                background:
-                  "#050403"
+                transition:
+                  "opacity 1100ms ease-in-out",
+
+                cursor: "pointer"
               }}
             >
               <img
@@ -339,199 +277,60 @@ export default function SuperacaoPromoCarousel() {
                 }
                 draggable="false"
                 style={{
-                  width:
-                    "100%",
+                  width: "100%",
 
-                  height:
-                    "100%",
+                  height: "100%",
 
-                  display:
-                    "block",
+                  display: "block",
 
-                  objectFit:
-                    "cover",
+                  objectFit: "cover",
 
                   objectPosition:
                     "center center",
 
-                  userSelect:
-                    "none"
-                }}
-              />
+                  borderRadius: 12,
 
-              <span
-                aria-hidden="true"
-                style={{
-                  position:
-                    "absolute",
-
-                  inset:
-                    0,
-
-                  background:
-                    "linear-gradient(to bottom, transparent 72%, rgba(0,0,0,0.2))",
-
-                  pointerEvents:
-                    "none"
+                  userSelect: "none"
                 }}
               />
             </a>
           )
         )}
 
-        <button
-          type="button"
-          onClick={previousSlide}
-          aria-label="Banner anterior"
-          style={{
-            position:
-              "absolute",
-
-            left:
-              "clamp(8px, 1.5vw, 24px)",
-
-            top:
-              "50%",
-
-            transform:
-              "translateY(-50%)",
-
-            zIndex:
-              4,
-
-            width:
-              42,
-
-            height:
-              42,
-
-            borderRadius:
-              "50%",
-
-            border:
-              "1px solid rgba(255,190,77,0.48)",
-
-            background:
-              "rgba(0,0,0,0.52)",
-
-            color:
-              "#f5c267",
-
-            display:
-              "grid",
-
-            placeItems:
-              "center",
-
-            cursor:
-              "pointer",
-
-            backdropFilter:
-              "blur(8px)",
-
-            boxShadow:
-              "0 8px 25px rgba(0,0,0,0.3)"
-          }}
-        >
-          <ChevronLeft size={21} />
-        </button>
-
-        <button
-          type="button"
-          onClick={nextSlide}
-          aria-label="Próximo banner"
-          style={{
-            position:
-              "absolute",
-
-            right:
-              "clamp(8px, 1.5vw, 24px)",
-
-            top:
-              "50%",
-
-            transform:
-              "translateY(-50%)",
-
-            zIndex:
-              4,
-
-            width:
-              42,
-
-            height:
-              42,
-
-            borderRadius:
-              "50%",
-
-            border:
-              "1px solid rgba(255,190,77,0.48)",
-
-            background:
-              "rgba(0,0,0,0.52)",
-
-            color:
-              "#f5c267",
-
-            display:
-              "grid",
-
-            placeItems:
-              "center",
-
-            cursor:
-              "pointer",
-
-            backdropFilter:
-              "blur(8px)",
-
-            boxShadow:
-              "0 8px 25px rgba(0,0,0,0.3)"
-          }}
-        >
-          <ChevronRight size={21} />
-        </button>
-
         <div
           role="tablist"
           aria-label="Banners do livro Superação"
           style={{
-            position:
-              "absolute",
+            position: "absolute",
 
-            left:
-              "50%",
+            left: "50%",
 
             bottom:
-              "clamp(7px, 1.3vw, 17px)",
+              "clamp(6px, 0.8vw, 11px)",
 
             transform:
               "translateX(-50%)",
 
-            zIndex:
-              5,
+            zIndex: 5,
 
-            display:
-              "flex",
+            display: "flex",
 
-            gap:
-              8,
+            alignItems: "center",
 
-            padding:
-              "7px 10px",
+            gap: 7,
 
-            borderRadius:
-              999,
+            padding: "5px 8px",
+
+            borderRadius: 999,
 
             background:
-              "rgba(0,0,0,0.48)",
+              "rgba(6,12,24,0.55)",
 
             border:
-              "1px solid rgba(255,190,77,0.25)",
+              "1px solid rgba(255,255,255,0.18)",
 
             backdropFilter:
-              "blur(8px)"
+              "blur(7px)"
           }}
         >
           {slides.map(
@@ -541,39 +340,34 @@ export default function SuperacaoPromoCarousel() {
                 type="button"
                 role="tab"
                 aria-label={
-                  `Mostrar banner ${index + 1}`
+                  `Exibir banner ${index + 1}`
                 }
                 aria-selected={
                   index === activeIndex
                 }
                 onClick={() =>
-                  selectSlide(index)
+                  setActiveIndex(index)
                 }
                 style={{
                   width:
                     index === activeIndex
-                      ? 26
-                      : 8,
+                      ? 22
+                      : 7,
 
-                  height:
-                    8,
+                  height: 7,
 
-                  padding:
-                    0,
+                  padding: 0,
 
-                  border:
-                    0,
+                  border: 0,
 
-                  borderRadius:
-                    999,
+                  borderRadius: 999,
 
                   background:
                     index === activeIndex
-                      ? "#e9aa3e"
-                      : "rgba(255,255,255,0.55)",
+                      ? "#D5A660"
+                      : "rgba(255,255,255,0.65)",
 
-                  cursor:
-                    "pointer",
+                  cursor: "pointer",
 
                   transition:
                     "width 300ms ease, background 300ms ease"
@@ -586,21 +380,36 @@ export default function SuperacaoPromoCarousel() {
 
       <style jsx>{`
         @media (max-width: 720px) {
-          section > div {
-            min-height: 125px !important;
+          section {
+            padding:
+              10px 12px !important;
           }
 
-          section button[aria-label="Banner anterior"],
-          section button[aria-label="Próximo banner"] {
-            width: 32px !important;
-            height: 32px !important;
+          section > div {
+            height:
+              clamp(
+                118px,
+                34vw,
+                155px
+              ) !important;
+
+            border-radius:
+              12px !important;
+          }
+
+          section img {
+            border-radius:
+              12px !important;
           }
         }
 
-        @media (prefers-reduced-motion: reduce) {
+        @media (
+          prefers-reduced-motion:
+          reduce
+        ) {
           section a {
-            transition: none !important;
-            transform: none !important;
+            transition:
+              none !important;
           }
         }
       `}</style>
