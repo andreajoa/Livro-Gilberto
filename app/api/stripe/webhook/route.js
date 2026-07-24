@@ -304,8 +304,12 @@ export async function POST(request) {
     }
 
     if (
-      metadata.product ===
-      'Livro Fisico PT'
+      (
+        metadata.product ===
+          'Livro Fisico PT' ||
+        metadata.product ===
+          'Superacao Livro Fisico PT'
+      )
     ) {
       const physicalEmailCompleted =
         await hasStripeWebhookStep({
@@ -416,7 +420,10 @@ export async function POST(request) {
             'pt',
 
           product:
-            'Livro físico PT',
+            metadata.product ===
+              'Superacao Livro Fisico PT'
+              ? 'Superação — Livro físico'
+              : 'Livro físico PT',
 
           productType:
             'physical',

@@ -82,7 +82,7 @@ function getAudioFileName(index) {
   return `download (${index}).wav`
 }
 
-function getFilesForLang(lang) {
+function getFilesForLang(lang, productId = '') {
   const upper = lang.toUpperCase()
 
   const baseUrl = (
@@ -94,10 +94,21 @@ function getFilesForLang(lang) {
   const folder = process.env[`AUDIO_${upper}_FOLDER`] || upper
   const count = Number(process.env[`AUDIO_${upper}_COUNT`] || 0)
 
+  const isSuperacao =
+    productId === 'superacao_digital_pt'
+
   const ebookUrl =
-    process.env[`EBOOK_${upper}_URL`] ||
-    process.env[`NEXT_PUBLIC_EBOOK_${upper}_URL`] ||
-    ''
+    isSuperacao
+      ? (
+          process.env.EBOOK_SUPERACAO_PT_URL ||
+          process.env.NEXT_PUBLIC_EBOOK_SUPERACAO_PT_URL ||
+          ''
+        )
+      : (
+          process.env[`EBOOK_${upper}_URL`] ||
+          process.env[`NEXT_PUBLIC_EBOOK_${upper}_URL`] ||
+          ''
+        )
 
   const audiobook = baseUrl && count > 0
     ? Array.from({ length: count }, (_, index) => {
@@ -141,7 +152,7 @@ function buildOrderFromPaymentIntent(paymentIntent, token) {
     name: meta.customer_name || 'Cliente',
     email: paymentIntent.receipt_email || '',
     lang,
-    files: getFilesForLang(lang),
+    files: getFilesForLang(lang, meta.product_id),
     createdAt: new Date((paymentIntent.created || Date.now() / 1000) * 1000).toISOString()
   }
 }

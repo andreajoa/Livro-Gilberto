@@ -1,0 +1,354 @@
+"use client"
+
+import { useEffect, useState } from "react"
+import {
+  ArrowRight,
+  BookOpen,
+  Check,
+  LoaderCircle,
+  Mail,
+  ShieldCheck,
+  X,
+} from "lucide-react"
+
+const STORAGE_KEY = "superacao_lead_popup_closed_at"
+const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000
+
+function shouldDisplayPopup() {
+  try {
+    const storedValue = window.localStorage.getItem(STORAGE_KEY)
+
+    if (!storedValue) {
+      return true
+    }
+
+    const closedAt = Number(storedValue)
+
+    if (!Number.isFinite(closedAt)) {
+      return true
+    }
+
+    return Date.now() - closedAt > SEVEN_DAYS
+  } catch {
+    return true
+  }
+}
+
+export default function SuperacaoLeadPopup() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [status, setStatus] = useState("idle")
+  const [message, setMessage] = useState("")
+
+  useEffect(() => {
+    const params = new URLSearchParams(
+      window.location.search
+    )
+
+    const forcePopup =
+      params.get("popup") === "1" ||
+      params.get("popupTeste") === "1"
+
+    if (forcePopup) {
+      setIsOpen(true)
+      return
+    }
+
+    if (!shouldDisplayPopup()) {
+      return
+    }
+
+    const timer = window.setTimeout(() => {
+      setIsOpen(true)
+    }, 6000)
+
+    return () => window.clearTimeout(timer)
+  }, [])
+
+  useEffect(() => {
+    if (!isOpen) {
+      return
+    }
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        closePopup()
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown)
+    document.body.style.overflow = "hidden"
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown)
+      document.body.style.overflow = ""
+    }
+  }, [isOpen])
+
+  const closePopup = () => {
+    try {
+      window.localStorage.setItem(
+        STORAGE_KEY,
+        String(Date.now())
+      )
+    } catch {}
+
+    setIsOpen(false)
+  }
+
+  const handleOverlayClick = (event) => {
+    if (event.target === event.currentTarget) {
+      closePopup()
+    }
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+
+    const cleanName = name.trim()
+    const cleanEmail = email.trim().toLowerCase()
+
+    if (cleanName.length < 2) {
+      setStatus("error")
+      setMessage("Digite seu nome.")
+      return
+    }
+
+    if (!cleanEmail || !cleanEmail.includes("@")) {
+      setStatus("error")
+      setMessage("Digite um e-mail válido.")
+      return
+    }
+
+    setStatus("loading")
+    setMessage("")
+
+    try {
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: cleanName,
+          email: cleanEmail,
+          source: "superacao_popup",
+          language: "pt",
+          interest: "livro_superacao",
+          consent: true,
+        }),
+      })
+
+      const data = await response.json().catch(() => ({}))
+
+      if (!response.ok) {
+        throw new Error(
+          data?.error ||
+          data?.message ||
+          "Não foi possível concluir o cadastro."
+        )
+      }
+
+      setStatus("success")
+      setMessage(
+        "Cadastro realizado. Você receberá as novidades de Superação por e-mail."
+      )
+
+      try {
+        window.localStorage.setItem(
+          STORAGE_KEY,
+          String(Date.now())
+        )
+      } catch {}
+    } catch (error) {
+      setStatus("error")
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "Erro de conexão. Tente novamente."
+      )
+    }
+  }
+
+  if (!isOpen) {
+    return null
+  }
+
+  return (
+    <div
+      className="sup-lead-overlay"
+      onMouseDown={handleOverlayClick}
+      role="presentation"
+    >
+      <section
+        className="sup-lead-popup"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="sup-lead-title"
+      >
+        <button
+          type="button"
+          className="sup-lead-close"
+          onClick={closePopup}
+          aria-label="Fechar"
+        >
+          <X size={20} />
+        </button>
+
+        <div className="sup-lead-visual">
+          <picture>
+            <source
+              srcSet="/images/superacao/popup-superacao.webp"
+              type="image/webp"
+            />
+
+            <img
+              className="sup-lead-main-image"
+              src="/images/superacao/popup-superacao.png"
+              alt="Conheça o livro Superação, de Gilberto de Souza"
+            />
+          </picture>
+        </div>
+
+        <div className="sup-lead-content">
+          {status === "success" ? (
+            <div className="sup-lead-success">
+              <div className="sup-lead-success-icon">
+                <Check size={30} />
+              </div>
+
+              <span className="sup-lead-eyebrow">
+                Cadastro concluído
+              </span>
+
+              <h2 id="sup-lead-title">
+                Você agora faz parte desta jornada.
+              </h2>
+
+              <p>{message}</p>
+
+              <button
+                className="sup-button sup-button-primary sup-button-block"
+                type="button"
+                onClick={closePopup}
+              >
+                Continuar no website
+                <ArrowRight size={17} />
+              </button>
+            </div>
+          ) : (
+            <>
+              <span className="sup-lead-eyebrow">
+                Faça parte da comunidade
+              </span>
+
+              <h2 id="sup-lead-title">
+                Receba mensagens que ajudem você a continuar.
+              </h2>
+
+              <p className="sup-lead-intro">
+                Cadastre-se para receber conteúdos sobre fé,
+                escolhas, recomeços e as novidades do livro
+                Superação.
+              </p>
+
+              <div className="sup-lead-benefits">
+                <div>
+                  <BookOpen size={17} />
+                  Reflexões e trechos do livro
+                </div>
+
+                <div>
+                  <Mail size={17} />
+                  Novidades e conteúdos exclusivos
+                </div>
+
+                <div>
+                  <ShieldCheck size={17} />
+                  Cadastro seguro e cancelamento simples
+                </div>
+              </div>
+
+              <form
+                className="sup-lead-form"
+                onSubmit={handleSubmit}
+              >
+                <label>
+                  <span>Seu nome</span>
+                  <input
+                    type="text"
+                    name="name"
+                    autoComplete="name"
+                    value={name}
+                    onChange={(event) =>
+                      setName(event.target.value)
+                    }
+                    placeholder="Como podemos chamar você?"
+                    disabled={status === "loading"}
+                    required
+                  />
+                </label>
+
+                <label>
+                  <span>Seu melhor e-mail</span>
+                  <input
+                    type="email"
+                    name="email"
+                    autoComplete="email"
+                    value={email}
+                    onChange={(event) =>
+                      setEmail(event.target.value)
+                    }
+                    placeholder="voce@exemplo.com"
+                    disabled={status === "loading"}
+                    required
+                  />
+                </label>
+
+                {message ? (
+                  <p
+                    className={`sup-lead-message ${
+                      status === "error" ? "is-error" : ""
+                    }`}
+                    role="alert"
+                  >
+                    {message}
+                  </p>
+                ) : null}
+
+                <button
+                  className="sup-button sup-button-primary sup-button-block"
+                  type="submit"
+                  disabled={status === "loading"}
+                >
+                  {status === "loading" ? (
+                    <>
+                      <LoaderCircle
+                        className="sup-lead-spinner"
+                        size={18}
+                      />
+                      Cadastrando...
+                    </>
+                  ) : (
+                    <>
+                      Quero fazer parte
+                      <ArrowRight size={17} />
+                    </>
+                  )}
+                </button>
+              </form>
+
+              <small className="sup-lead-privacy">
+                Ao cadastrar-se, você autoriza o envio de
+                comunicações relacionadas ao livro. Seus dados não
+                serão vendidos ou compartilhados para publicidade
+                de terceiros.
+              </small>
+            </>
+          )}
+        </div>
+      </section>
+    </div>
+  )
+}

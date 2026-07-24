@@ -34,12 +34,26 @@ export async function POST(request) {
     const lang =
       normalizeLang(body.lang)
 
+    const requestedProductId =
+      text(
+        body.productId ||
+          `gilberto_digital_${lang}`,
+        120
+      )
+
+    const isSuperacao =
+      requestedProductId ===
+        'superacao_digital_pt'
+
     /*
-     * Preserva exatamente o valor enviado pelo checkout atual.
-     * Esta fase não altera a política comercial nem os preços.
+     * Superação possui preço definido exclusivamente
+     * no servidor. Os demais produtos mantêm o fluxo
+     * atual para não alterar o website principal.
      */
     const total =
-      Number(body.total)
+      isSuperacao
+        ? 65.99
+        : Number(body.total)
 
     if (
       !Number.isFinite(total) ||
@@ -88,11 +102,7 @@ export async function POST(request) {
         .toString('hex')
 
     const productId =
-      text(
-        body.productId ||
-        `gilberto_digital_${lang}`,
-        120
-      )
+      requestedProductId
 
     const paymentIntent =
       await stripe.paymentIntents.create({
@@ -119,7 +129,9 @@ export async function POST(request) {
             accessToken,
 
           product:
-            'Digital eBook Audiobook',
+            isSuperacao
+              ? 'Superacao Digital eBook'
+              : 'Digital eBook Audiobook',
 
           book_id:
             text(

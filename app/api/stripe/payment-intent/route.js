@@ -5,7 +5,14 @@ const stripe = new Stripe(
   process.env.STRIPE_SECRET_KEY
 )
 
-const BOOK_UNIT_PRICE_BRL = 119
+const DEFAULT_BOOK_UNIT_PRICE_BRL = 119
+const SUPERACAO_UNIT_PRICE_BRL = 141.74
+
+function getBookUnitPrice(productId) {
+  return productId === 'superacao_physical_pt'
+    ? SUPERACAO_UNIT_PRICE_BRL
+    : DEFAULT_BOOK_UNIT_PRICE_BRL
+}
 const MAX_QUANTITY = 20
 const MAX_TOTAL_BRL = 50000
 
@@ -64,6 +71,16 @@ export async function POST(request) {
         body.quantity
       )
 
+    const productId =
+      text(
+        body.productId ||
+          'gilberto_physical_pt',
+        120
+      )
+
+    const bookUnitPrice =
+      getBookUnitPrice(productId)
+
     const shippingPrice =
       positiveNumber(
         body.shipping?.price
@@ -71,7 +88,7 @@ export async function POST(request) {
 
     const calculatedTotal =
       (
-        BOOK_UNIT_PRICE_BRL *
+        bookUnitPrice *
         quantity
       ) +
       shippingPrice
@@ -145,7 +162,10 @@ export async function POST(request) {
             String(quantity),
 
           product:
-            'Livro Fisico PT',
+            productId ===
+              'superacao_physical_pt'
+              ? 'Superacao Livro Fisico PT'
+              : 'Livro Fisico PT',
 
           book_id:
             text(
@@ -156,8 +176,7 @@ export async function POST(request) {
 
           product_id:
             text(
-              body.productId ||
-              'gilberto_physical_pt',
+              productId,
               120
             ),
 
@@ -291,7 +310,7 @@ export async function POST(request) {
             shippingPrice.toFixed(2),
 
           unit_price:
-            BOOK_UNIT_PRICE_BRL
+            bookUnitPrice
               .toFixed(2),
 
           calculated_total:
@@ -310,7 +329,16 @@ export async function POST(request) {
         paymentIntent.client_secret,
 
       paymentIntentId:
-        paymentIntent.id
+        paymentIntent.id,
+
+      unitPrice:
+        bookUnitPrice,
+
+      shippingPrice:
+        shippingPrice,
+
+      total:
+        calculatedTotal
     })
   } catch (error) {
     console.error(
