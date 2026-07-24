@@ -294,18 +294,16 @@ export default function SuperacaoPromoCarousel() {
                         ? 1
                         : 0,
 
-                    visibility:
-                      isActive
-                        ? "visible"
-                        : "hidden",
-
                     pointerEvents:
                       isActive
                         ? "auto"
                         : "none",
 
                     transition:
-                      "opacity 900ms ease-in-out",
+                      "opacity 1600ms cubic-bezier(0.4, 0, 0.2, 1)",
+
+                    willChange:
+                      "opacity",
 
                     cursor:
                       "pointer"
