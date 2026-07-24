@@ -285,10 +285,13 @@ function retailerBlock(language, siteUrl) {
           width="100%"
           cellspacing="0"
           cellpadding="0"
+          class="retailer-table"
+          style="width:100%;table-layout:fixed;"
         >
           <tr>
             <td
               width="86"
+              class="retailer-cover-cell"
               style="
                 width:86px;
                 padding:11px 12px;
@@ -310,7 +313,9 @@ function retailerBlock(language, siteUrl) {
               >
             </td>
 
-            <td style="
+            <td
+              class="retailer-copy-cell"
+              style="
               padding:12px 7px;
               vertical-align:middle;
             ">
@@ -318,6 +323,7 @@ function retailerBlock(language, siteUrl) {
                 src="${root}/retailer-logos/amazon.png"
                 alt="Amazon"
                 height="24"
+                class="retailer-logo"
                 style="
                   display:block;
                   height:24px;
@@ -351,13 +357,16 @@ function retailerBlock(language, siteUrl) {
             <td
               width="132"
               align="right"
+              class="retailer-cta-cell"
               style="
                 width:132px;
                 padding:12px 16px 12px 8px;
                 vertical-align:middle;
               "
             >
-              <span style="
+              <span
+                class="retailer-cta"
+                style="
                 display:inline-block;
                 font-family:Arial,Helvetica,sans-serif;
                 font-size:10px;
@@ -393,10 +402,13 @@ function retailerBlock(language, siteUrl) {
           width="100%"
           cellspacing="0"
           cellpadding="0"
+          class="retailer-table"
+          style="width:100%;table-layout:fixed;"
         >
           <tr>
             <td
               width="86"
+              class="retailer-cover-cell"
               style="
                 width:86px;
                 padding:11px 12px;
@@ -418,7 +430,9 @@ function retailerBlock(language, siteUrl) {
               >
             </td>
 
-            <td style="
+            <td
+              class="retailer-copy-cell"
+              style="
               padding:12px 7px;
               vertical-align:middle;
             ">
@@ -426,6 +440,7 @@ function retailerBlock(language, siteUrl) {
                 src="${root}/retailer-logos/barnes.png"
                 alt="Barnes & Noble"
                 height="28"
+                class="retailer-logo"
                 style="
                   display:block;
                   height:28px;
@@ -459,13 +474,16 @@ function retailerBlock(language, siteUrl) {
             <td
               width="158"
               align="right"
+              class="retailer-cta-cell"
               style="
                 width:158px;
                 padding:12px 16px 12px 8px;
                 vertical-align:middle;
               "
             >
-              <span style="
+              <span
+                class="retailer-cta"
+                style="
                 display:inline-block;
                 font-family:Arial,Helvetica,sans-serif;
                 font-size:10px;

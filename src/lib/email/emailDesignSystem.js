@@ -375,9 +375,31 @@ function renderInternationalEmail({
       text-decoration:none;
     }
 
+    html,
+    body {
+      width:100% !important;
+      min-width:100% !important;
+      margin:0 !important;
+      padding:0 !important;
+      overflow-x:hidden !important;
+    }
+
     .email-wrapper {
       width:100% !important;
       max-width:600px !important;
+      table-layout:fixed !important;
+    }
+
+    .email-wrapper td,
+    .email-wrapper p,
+    .email-wrapper h1,
+    .email-wrapper h2,
+    .email-wrapper div,
+    .email-wrapper a {
+      max-width:100% !important;
+      box-sizing:border-box !important;
+      overflow-wrap:anywhere !important;
+      word-break:normal !important;
     }
 
     @media only screen and (max-width:620px) {
@@ -457,6 +479,52 @@ function renderInternationalEmail({
       .email-footer-link {
         display:inline-block !important;
         margin:5px 7px !important;
+      }
+
+      .retailer-table {
+        width:100% !important;
+        table-layout:fixed !important;
+      }
+
+      .retailer-cover-cell {
+        display:block !important;
+        width:100% !important;
+        padding:14px 14px 7px !important;
+        text-align:center !important;
+      }
+
+      .retailer-copy-cell {
+        display:block !important;
+        width:100% !important;
+        padding:5px 18px 7px !important;
+        text-align:center !important;
+      }
+
+      .retailer-cta-cell {
+        display:block !important;
+        width:100% !important;
+        padding:5px 18px 15px !important;
+        text-align:center !important;
+      }
+
+      .retailer-logo {
+        margin-left:auto !important;
+        margin-right:auto !important;
+      }
+
+      .retailer-cta {
+        display:inline-block !important;
+        white-space:normal !important;
+        line-height:1.4 !important;
+      }
+
+      .email-headline,
+      .email-subheadline,
+      .email-product-copy h2,
+      .email-product-copy p {
+        width:100% !important;
+        max-width:100% !important;
+        overflow-wrap:anywhere !important;
       }
     }
   </style>
