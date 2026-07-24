@@ -120,20 +120,6 @@ export async function GET(request) {
       email: to
     })
 
-    const preview =
-      url.searchParams.get('preview') === '1'
-
-    if (preview) {
-      return new NextResponse(html, {
-        status: 200,
-        headers: {
-          'Content-Type': 'text/html; charset=utf-8',
-          'Cache-Control': 'no-store, max-age=0',
-          'X-Robots-Tag': 'noindex, nofollow'
-        }
-      })
-    }
-
     const { data, error } = await resend.emails.send({
       from:
         process.env.EMAIL_FROM ||
