@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { d1Query } from '@/src/lib/d1'
 import { getLeadEmailHtml, getCustomerEmailHtml, getCheckoutEmailHtml, getManualEmailHtml } from '@/src/lib/email/leadEmailTemplates'
+import { buildEmailTags } from '@/src/lib/email/emailTracking'
 
 export const dynamic = 'force-dynamic'
 
@@ -180,7 +181,13 @@ export async function GET(request) {
           from: process.env.EMAIL_FROM || 'Gilberto de Souza <contato@gilberto-souza.com>',
           to: item.email,
           subject: item.subject,
-          html
+          html,
+          tags: buildEmailTags({
+            language: item.language,
+            sequenceCode: item.sequence_code,
+            emailNumber: item.email_number,
+            queueId: item.id
+          })
         })
 
         if (resendError) {

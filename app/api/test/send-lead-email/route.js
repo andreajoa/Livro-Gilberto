@@ -10,6 +10,7 @@ import {
   getCustomerEmailHtml,
   getCustomerEmailSubject
 } from '@/src/lib/email/leadEmailTemplates'
+import { buildEmailTags } from '@/src/lib/email/emailTracking'
 
 export const dynamic = 'force-dynamic'
 
@@ -126,7 +127,13 @@ export async function GET(request) {
         'Gilberto de Souza <contato@gilberto-souza.com>',
       to,
       subject,
-      html
+      html,
+      tags: buildEmailTags({
+        language,
+        sequenceCode: `test_${type}`,
+        emailNumber,
+        queueId: 'test'
+      })
     })
 
     if (error) {
