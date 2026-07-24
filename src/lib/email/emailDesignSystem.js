@@ -387,32 +387,80 @@ function renderInternationalEmail({
     .email-wrapper {
       width:100% !important;
       max-width:600px !important;
-      table-layout:fixed !important;
+      min-width:0 !important;
       margin:0 auto !important;
+      table-layout:fixed !important;
+    }
+
+    .email-wrapper,
+    .email-wrapper tbody,
+    .email-wrapper tr,
+    .email-wrapper td,
+    .email-wrapper table {
+      box-sizing:border-box !important;
     }
 
     .email-wrapper table {
+      width:100% !important;
       max-width:100% !important;
+      min-width:0 !important;
+      table-layout:fixed !important;
+    }
+
+    .email-wrapper td {
+      min-width:0 !important;
     }
 
     .email-wrapper img {
       max-width:100% !important;
-      height:auto;
-    }
-
-    .email-wrapper td,
-    .email-wrapper p,
-    .email-wrapper h1,
-    .email-wrapper h2,
-    .email-wrapper div,
-    .email-wrapper a {
-      max-width:100% !important;
-      box-sizing:border-box !important;
-      overflow-wrap:anywhere !important;
-      word-break:normal !important;
+      height:auto !important;
     }
 
     @media only screen and (max-width:620px) {
+      html,
+      body {
+        width:100% !important;
+        min-width:0 !important;
+        max-width:100% !important;
+        margin:0 !important;
+        padding:0 !important;
+        overflow-x:hidden !important;
+      }
+
+      body > table {
+        width:100% !important;
+        min-width:0 !important;
+        max-width:100% !important;
+      }
+
+      .email-wrapper,
+      .email-wrapper tbody,
+      .email-wrapper tr,
+      .email-wrapper td,
+      .email-wrapper table {
+        width:100% !important;
+        min-width:0 !important;
+        max-width:100% !important;
+      }
+
+      .email-wrapper {
+        margin:0 !important;
+        table-layout:fixed !important;
+      }
+
+      .email-wrapper h1,
+      .email-wrapper h2,
+      .email-wrapper p,
+      .email-wrapper div,
+      .email-wrapper a,
+      .email-wrapper span {
+        min-width:0 !important;
+        max-width:100% !important;
+        white-space:normal !important;
+        overflow-wrap:anywhere !important;
+        word-break:normal !important;
+      }
+
       .email-outer {
         padding:0 !important;
       }
@@ -442,8 +490,8 @@ function renderInternationalEmail({
       .email-pad {
         width:auto !important;
         max-width:100% !important;
-        padding-left:18px !important;
-        padding-right:18px !important;
+        padding-left:14px !important;
+        padding-right:14px !important;
         box-sizing:border-box !important;
       }
 
@@ -500,8 +548,8 @@ function renderInternationalEmail({
       .email-product-copy {
         width:100% !important;
         max-width:100% !important;
-        padding-left:18px !important;
-        padding-right:18px !important;
+        padding-left:14px !important;
+        padding-right:14px !important;
         text-align:center !important;
       }
 
