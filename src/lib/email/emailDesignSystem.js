@@ -388,6 +388,16 @@ function renderInternationalEmail({
       width:100% !important;
       max-width:600px !important;
       table-layout:fixed !important;
+      margin:0 auto !important;
+    }
+
+    .email-wrapper table {
+      max-width:100% !important;
+    }
+
+    .email-wrapper img {
+      max-width:100% !important;
+      height:auto;
     }
 
     .email-wrapper td,
@@ -407,14 +417,47 @@ function renderInternationalEmail({
         padding:0 !important;
       }
 
+      html,
+      body {
+        width:100% !important;
+        min-width:0 !important;
+        max-width:100% !important;
+        overflow-x:hidden !important;
+      }
+
       .email-wrapper {
+        width:100% !important;
+        min-width:0 !important;
+        max-width:100% !important;
+        table-layout:fixed !important;
+      }
+
+      .email-wrapper > tbody,
+      .email-wrapper > tbody > tr,
+      .email-wrapper > tbody > tr > td {
         width:100% !important;
         max-width:100% !important;
       }
 
       .email-pad {
-        padding-left:22px !important;
-        padding-right:22px !important;
+        width:auto !important;
+        max-width:100% !important;
+        padding-left:18px !important;
+        padding-right:18px !important;
+        box-sizing:border-box !important;
+      }
+
+      .email-pad p,
+      .email-pad h1,
+      .email-pad h2,
+      .email-pad div,
+      .email-pad a {
+        width:auto !important;
+        min-width:0 !important;
+        max-width:100% !important;
+        white-space:normal !important;
+        overflow-wrap:break-word !important;
+        word-break:normal !important;
       }
 
       .email-stack {
@@ -425,12 +468,16 @@ function renderInternationalEmail({
       }
 
       .email-headline {
-        font-size:28px !important;
-        line-height:1.17 !important;
+        width:100% !important;
+        font-size:25px !important;
+        line-height:1.16 !important;
+        letter-spacing:-0.2px !important;
       }
 
       .email-subheadline {
-        font-size:17px !important;
+        width:100% !important;
+        font-size:15px !important;
+        line-height:1.5 !important;
       }
 
       .email-body-copy {
@@ -451,7 +498,25 @@ function renderInternationalEmail({
       }
 
       .email-product-copy {
+        width:100% !important;
+        max-width:100% !important;
+        padding-left:18px !important;
+        padding-right:18px !important;
         text-align:center !important;
+      }
+
+      .email-product-copy h2 {
+        font-size:24px !important;
+        line-height:1.2 !important;
+        margin-left:auto !important;
+        margin-right:auto !important;
+      }
+
+      .email-product-copy p {
+        font-size:14px !important;
+        line-height:1.55 !important;
+        margin-left:auto !important;
+        margin-right:auto !important;
       }
 
       .email-cta {
@@ -478,7 +543,9 @@ function renderInternationalEmail({
 
       .email-footer-link {
         display:inline-block !important;
-        margin:5px 7px !important;
+        max-width:100% !important;
+        margin:5px 6px !important;
+        white-space:normal !important;
       }
 
       .retailer-table {
@@ -564,7 +631,7 @@ function renderInternationalEmail({
 
         <table
           role="presentation"
-          width="600"
+          width="100%"
           cellspacing="0"
           cellpadding="0"
           class="email-wrapper"
@@ -572,6 +639,7 @@ function renderInternationalEmail({
             width:100%;
             max-width:600px;
             background:${colors.cardBg};
+            table-layout:fixed;
           "
         >
 
