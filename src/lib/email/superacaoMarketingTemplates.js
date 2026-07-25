@@ -1,296 +1,426 @@
-function baseUrl() {
-  return (
-    process.env.NEXT_PUBLIC_BASE_URL ||
-    "https://www.gilberto-souza.com"
-  ).replace(/\/$/, "")
+const SITE_URL =
+  "https://www.gilberto-souza.com"
+
+const BOOK_URL =
+  `${SITE_URL}/superacao`
+
+const CHECKOUT_URL =
+  `${BOOK_URL}#comprar`
+
+const AMAZON_PHYSICAL_URL =
+  "https://www.amazon.com/dp/B0H9R8ZK7T"
+
+const AMAZON_EBOOK_URL =
+  "https://www.amazon.com.br/Supera%C3%A7%C3%A3o-futuro-hist%C3%B3ria-vit%C3%B3ria-Portuguese-ebook/dp/B0H9N93T5J"
+
+
+const INSTAGRAM_URL =
+  "https://www.instagram.com/gilberto_souza_autor/"
+
+const INSTAGRAM_ICON_URL =
+  `${SITE_URL}/images/superacao/email/instagram.png`
+
+const EMAIL_BANNERS = {
+  presentation:
+    `${SITE_URL}/images/superacao/email/banner-apresentacao.jpg`,
+  story:
+    `${SITE_URL}/images/superacao/email/banner-historia.jpg`,
+  amazonPhysical:
+    `${SITE_URL}/images/superacao/email/banner-amazon-fisico.jpg`,
+  amazonEbook:
+    `${SITE_URL}/images/superacao/email/banner-amazon-ebook.jpg`,
+  websitePhysical:
+    `${SITE_URL}/images/superacao/email/banner-website-fisico.jpg`,
+  restart:
+    `${SITE_URL}/images/superacao/email/banner-recomeco.jpg`,
 }
 
-function esc(value) {
-  return String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;")
-}
-
-function firstName(value) {
-  return esc(
-    String(value || "")
-      .trim()
-      .split(/\s+/)[0] || ""
-  )
-}
-
-function unsubscribeUrl(email) {
-  return (
-    `${baseUrl()}/api/unsubscribe` +
-    `?email=${encodeURIComponent(String(email || ""))}` +
-    `&lang=pt`
-  )
+const IMAGES = {
+  cover:
+    `${SITE_URL}/books/superacao/book-front.png`,
+  lifestyle1:
+    `${SITE_URL}/images/superacao/lifestyle-1.jpeg`,
+  lifestyle2:
+    `${SITE_URL}/images/superacao/lifestyle-2.jpeg`,
+  lifestyle3:
+    `${SITE_URL}/images/superacao/lifestyle-3.jpeg`,
 }
 
 const COLORS = {
-  page: "#090806",
-  outer: "#100d09",
-  card: "#18130e",
-  cardSoft: "#211910",
+  black: "#090806",
+  dark: "#18130E",
+  brown: "#463420",
   gold: "#D4A574",
-  goldStrong: "#E8BE73",
-  bronze: "#9B6942",
-  cream: "#FFF6E7",
-  text: "#F5E9D8",
+  lightGold: "#E8BE73",
+  cream: "#F5E9D8",
+  softCream: "#FFF6E7",
   muted: "#B9AA98",
-  soft: "#817465",
-  border: "#463420",
+  gray: "#817465",
+  white: "#FFFFFF",
 }
-
-const HEROES = [
-  "/images/superacao/lifestyle-1.jpeg",
-  "/images/superacao/lifestyle-2.jpeg",
-  "/images/superacao/lifestyle-3.jpeg",
-]
 
 const LEAD_EMAILS = [
   {
     subject:
       "A sua história não precisa terminar onde a dor começou",
-    eyebrow: "UMA NOVA HISTÓRIA É POSSÍVEL",
+    eyebrow:
+      "UMA NOVA HISTÓRIA PODE COMEÇAR",
     title:
-      "A sua história pode ter começado na dor. Mas não precisa terminar nela.",
-    quote:
-      "Nem sempre escolhemos o que nos acontece. Mas ainda podemos escolher o que faremos depois.",
+      "A dor pode fazer parte da história. Ela não precisa escrever o final.",
+    preheader:
+      "Uma história real sobre escolhas, quedas, fé e reconstrução.",
     paragraphs: [
-      "Existem momentos em que tudo parece ter sido decidido contra nós.",
-      "Gilberto conheceu a fome, a escassez, escolhas perigosas, o deserto, a prisão, a deportação, perdas e o fundo do poço.",
-      "A história de Superação começa exatamente aí: no ponto em que continuar caído parecia mais fácil do que reconstruir tudo.",
+      "Existem momentos em que a vida parece determinada por tudo o que já aconteceu.",
+      "As perdas, as escolhas erradas e os períodos mais difíceis podem criar a sensação de que não existe outro caminho.",
+      "Mas uma história não termina no capítulo mais doloroso. Ela pode ganhar um novo significado quando existe coragem para continuar.",
+      "Superação nasceu de uma trajetória real. Não é uma promessa de vida perfeita. É um convite para acreditar que reconstruir ainda é possível.",
     ],
-    insight:
-      "O passado explica parte da sua história. Ele não precisa determinar o seu destino.",
+    quote:
+      "O passado explica parte da caminhada, mas não precisa determinar o destino.",
+    image:
+      "lifestyle1",
+    primaryLabel:
+      "Conhecer a história de Superação",
+    primaryUrl:
+      BOOK_URL,
   },
   {
     subject:
       "Quando sobreviver é a primeira forma de coragem",
-    eyebrow: "AS ORIGENS",
+    eyebrow:
+      "CORAGEM TAMBÉM É CONTINUAR",
     title:
-      "Antes de conquistar, foi preciso aprender a sobreviver.",
-    quote:
-      "Quem cresce enfrentando a falta aprende cedo que desistir também tem um preço.",
+      "Nem toda coragem parece grandiosa quando está acontecendo.",
+    preheader:
+      "Às vezes, levantar e continuar já é uma vitória.",
     paragraphs: [
-      "Na infância, faltaram recursos, conforto e segurança.",
-      "Uma bicicleta construída com materiais recicláveis representava mais do que um brinquedo. Era criatividade diante da escassez.",
-      "A força não nasceu depois do sucesso. Ela começou quando quase nada estava disponível.",
+      "Há períodos em que vencer não significa conquistar algo extraordinário.",
+      "Significa apenas acordar, enfrentar mais um dia e não abandonar completamente a esperança.",
+      "Sobreviver a uma fase difícil não é pouco. É o primeiro movimento de quem ainda pode reconstruir.",
+      "Em Superação, Gilberto conta como momentos de escassez, responsabilidade precoce e escolhas difíceis ajudaram a formar sua visão sobre trabalho, fé e futuro.",
     ],
-    insight:
-      "Muitas das capacidades que você usa hoje nasceram em períodos que pareciam apenas difíceis.",
+    quote:
+      "Continuar também é uma forma de vencer.",
+    image:
+      "lifestyle2",
+    primaryLabel:
+      "Descobrir essa trajetória",
+    primaryUrl:
+      BOOK_URL,
   },
   {
     subject:
       "A decisão que pode mudar muitos anos da sua vida",
-    eyebrow: "CARÁTER SOB PRESSÃO",
+    eyebrow:
+      "ESCOLHAS CRIAM CAMINHOS",
     title:
-      "Existem atalhos que cobram um preço alto demais.",
-    quote:
-      "Uma escolha feita em poucos minutos pode comprometer anos inteiros.",
+      "Algumas decisões parecem pequenas até mudarem toda a direção da vida.",
+    preheader:
+      "Nem sempre controlamos as circunstâncias, mas podemos escolher o próximo passo.",
     paragraphs: [
-      "Quando oportunidades corretas parecem distantes, o caminho errado pode parecer mais rápido.",
-      "Gilberto esteve diante de ambientes em que o crime era apresentado como alternativa.",
-      "Recusar aquele caminho não eliminou as dificuldades. Mas preservou a possibilidade de construir um futuro.",
+      "Muitas mudanças não começam com certeza. Começam com uma decisão.",
+      "A decisão de não aceitar um atalho perigoso. De trabalhar quando desistir parece mais fácil. De pedir ajuda quando o orgulho manda esconder a dor.",
+      "Cada escolha fortalece ou enfraquece o futuro que estamos construindo.",
+      "Superação mostra que destino não é apenas aquilo que acontece conosco. Também é resultado daquilo que decidimos fazer com o que aconteceu.",
     ],
-    insight:
-      "Caráter não é apenas o que fazemos quando tudo está bem. É o que protegemos quando estamos pressionados.",
+    quote:
+      "Uma escolha consciente pode interromper anos de repetição.",
+    image:
+      "lifestyle3",
+    primaryLabel:
+      "Ler mais sobre Superação",
+    primaryUrl:
+      BOOK_URL,
   },
   {
     subject:
       "O deserto não pergunta se você está preparado",
-    eyebrow: "A TRAVESSIA",
+    eyebrow:
+      "QUANDO A VIDA MUDA SEM AVISAR",
     title:
-      "Há travessias que revelam limites que você nem sabia possuir.",
-    quote:
-      "O deserto não oferece garantias. Ele exige movimento, resistência e fé.",
+      "Existem travessias para as quais ninguém se sente preparado.",
+    preheader:
+      "A força é construída enquanto atravessamos.",
     paragraphs: [
-      "A caminhada pelo deserto carregava medo, exaustão e incerteza.",
-      "Não havia promessa de que o esforço terminaria em vitória.",
-      "Mas parar também significava aceitar que a história terminaria ali.",
+      "A vida nem sempre oferece tempo para organizar pensamentos, recursos e emoções.",
+      "Às vezes, a crise simplesmente chega.",
+      "É nesse território desconhecido que descobrimos limites, prioridades e forças que ainda não sabíamos possuir.",
+      "O livro Superação não romantiza o sofrimento. Ele mostra como a consciência, a fé e a responsabilidade podem transformar uma travessia difícil em amadurecimento.",
     ],
-    insight:
-      "Coragem não é ausência de medo. É continuar mesmo quando o medo está presente.",
+    quote:
+      "A travessia não exige perfeição. Exige presença.",
+    image:
+      "lifestyle1",
+    primaryLabel:
+      "Conhecer o livro",
+    primaryUrl:
+      BOOK_URL,
   },
   {
     subject:
       "Quando a liberdade deixa de parecer garantida",
-    eyebrow: "PRISÃO E DEPORTAÇÃO",
+    eyebrow:
+      "O VALOR DAS ESCOLHAS",
     title:
-      "Algumas quedas retiram tudo o que parecia estar sob controle.",
-    quote:
-      "Perder a liberdade muda a forma como enxergamos escolhas, tempo e futuro.",
+      "Algumas experiências mudam para sempre a forma como enxergamos a liberdade.",
+    preheader:
+      "A liberdade também exige responsabilidade.",
     paragraphs: [
-      "A prisão e a deportação poderiam ter sido o capítulo final.",
-      "Vergonha, frustração e sensação de fracasso estavam presentes.",
-      "Mas retornar derrotado não significava permanecer derrotado.",
+      "Há coisas que só compreendemos plenamente quando sentimos que podemos perdê-las.",
+      "Tempo, família, dignidade, confiança e liberdade não devem ser tratados como garantias permanentes.",
+      "Quando a vida impõe limites, também pode revelar o que realmente importa.",
+      "Em Superação, Gilberto compartilha acontecimentos que o obrigaram a rever prioridades, comportamentos e caminhos.",
     ],
-    insight:
-      "Um fracasso pode encerrar uma tentativa. Ele não precisa encerrar a sua capacidade de recomeçar.",
+    quote:
+      "Valorizar a liberdade também significa aprender a cuidar das próprias escolhas.",
+    image:
+      "lifestyle2",
+    primaryLabel:
+      "Descobrir essa história",
+    primaryUrl:
+      BOOK_URL,
   },
   {
     subject:
       "Nenhum trabalho honesto é pequeno quando existe propósito",
-    eyebrow: "RECOMEÇO",
+    eyebrow:
+      "DIGNIDADE E CONSTRUÇÃO",
     title:
-      "Pizza, limpeza, construção: o futuro foi reconstruído em etapas.",
-    quote:
-      "O trabalho que hoje parece pequeno pode estar sustentando uma história muito maior.",
+      "O trabalho pode ser mais do que sobrevivência.",
+    preheader:
+      "Toda construção sólida começa por algum lugar.",
     paragraphs: [
-      "O recomeço não veio acompanhado de aplausos.",
-      "Vieram madrugadas, cansaço, serviços difíceis e a necessidade de provar valor todos os dias.",
-      "Cada trabalho representava uma nova peça na reconstrução.",
+      "Quando existe propósito, nenhum começo honesto deve ser desprezado.",
+      "A trajetória de Gilberto passa pelo trabalho precoce, pela escassez e pela necessidade de criar oportunidades onde quase não havia recursos.",
+      "O valor não estava apenas no resultado financeiro. Estava na disciplina, na dignidade e na consciência de que um futuro diferente precisava ser construído.",
+      "Superação é também uma homenagem a todos que continuam trabalhando mesmo quando ninguém está vendo.",
     ],
-    insight:
-      "Dignidade não depende do tamanho da tarefa. Ela aparece na forma como você decide realizá-la.",
+    quote:
+      "O tamanho do começo não determina o tamanho do futuro.",
+    image:
+      "lifestyle3",
+    primaryLabel:
+      "Conhecer Superação",
+    primaryUrl:
+      BOOK_URL,
   },
   {
     subject:
       "Conquistar não é suficiente quando você se perde no caminho",
-    eyebrow: "ASCENSÃO",
+    eyebrow:
+      "SUCESSO SEM CONSCIÊNCIA",
     title:
-      "O sucesso também pode testar aquilo que a dificuldade não conseguiu destruir.",
-    quote:
-      "Nem toda vitória externa representa uma vitória interior.",
+      "Nem toda conquista representa uma vitória completa.",
+    preheader:
+      "Crescer por fora não resolve tudo o que está quebrado por dentro.",
     paragraphs: [
-      "O trabalho começou a gerar resultados, oportunidades e reconhecimento.",
-      "Mas crescer sem maturidade pode afastar uma pessoa dos valores que a sustentaram.",
-      "A ascensão trouxe conquistas, mas também escolhas que cobrariam consequências.",
+      "É possível alcançar resultados e ainda se sentir distante de si mesmo.",
+      "Dinheiro, reconhecimento e oportunidades podem ampliar aquilo que já existe dentro de uma pessoa.",
+      "Sem consciência, conquistas podem se transformar em excessos, isolamento e decisões perigosas.",
+      "Superação mostra que reconstruir não significa apenas recuperar bens ou posição. Significa recuperar valores, vínculos e direção.",
     ],
-    insight:
-      "O verdadeiro sucesso precisa incluir caráter, consciência e responsabilidade.",
+    quote:
+      "A verdadeira conquista não deveria exigir que você perdesse a si mesmo.",
+    image:
+      "lifestyle1",
+    primaryLabel:
+      "Ler sobre essa reconstrução",
+    primaryUrl:
+      BOOK_URL,
   },
   {
     subject:
       "O fundo do poço não avisa quando está próximo",
-    eyebrow: "A QUEDA",
+    eyebrow:
+      "RECONHECER ANTES DE PERDER TUDO",
     title:
-      "Há momentos em que as perdas chegam antes que consigamos entender os sinais.",
-    quote:
-      "Quando tudo desmorona, a pessoa precisa decidir se vai esconder a dor ou enfrentá-la.",
+      "A queda raramente começa no momento em que todos conseguem enxergá-la.",
+    preheader:
+      "Os sinais aparecem antes do colapso.",
     paragraphs: [
-      "Vieram perdas, culpa, conflitos e depressão.",
-      "O homem que havia sobrevivido a tantos desafios já não reconhecia a própria força.",
-      "Permanecer caído começou a custar mais do que pedir ajuda.",
+      "Grandes quedas costumam ser precedidas por pequenas concessões.",
+      "Uma escolha ignorada, um limite ultrapassado, uma conversa evitada e uma ajuda recusada.",
+      "Quando o problema finalmente se torna visível, ele pode ter crescido durante muito tempo.",
+      "Superação fala sobre reconhecer responsabilidades sem transformar culpa em condenação eterna.",
     ],
-    insight:
-      "Reconhecer que você precisa de ajuda não diminui sua força. Pode ser a primeira prova real dela.",
+    quote:
+      "Reconhecer o problema é o primeiro passo para interromper a queda.",
+    image:
+      "lifestyle2",
+    primaryLabel:
+      "Conhecer a história completa",
+    primaryUrl:
+      BOOK_URL,
   },
   {
     subject:
       "Fé não elimina responsabilidade",
-    eyebrow: "FÉ E ATITUDE",
+    eyebrow:
+      "FÉ, AÇÃO E CONSCIÊNCIA",
     title:
-      "A reconstrução começou quando fé e responsabilidade caminharam juntas.",
-    quote:
-      "A fé aponta uma direção. A atitude transforma essa direção em caminho.",
+      "A fé pode sustentar a caminhada, mas não substitui as escolhas.",
+    preheader:
+      "Esperança e responsabilidade precisam caminhar juntas.",
     paragraphs: [
-      "Não houve uma mudança instantânea ou uma solução mágica.",
-      "Foi necessário reconhecer erros, enfrentar consequências e assumir novas escolhas.",
-      "A espiritualidade tornou-se uma base, mas o trabalho diário continuou indispensável.",
+      "A fé não é uma maneira de fugir das consequências.",
+      "Ela pode oferecer força, sentido e direção, mas a reconstrução exige atitudes concretas.",
+      "Pedir perdão, procurar ajuda, reconhecer limites e mudar comportamentos são movimentos que ninguém pode fazer por nós.",
+      "Em Superação, espiritualidade e responsabilidade aparecem como partes da mesma transformação.",
     ],
-    insight:
-      "Esperança sem movimento pode virar espera. Esperança com atitude pode virar reconstrução.",
+    quote:
+      "A fé aponta o caminho. A responsabilidade coloca os pés em movimento.",
+    image:
+      "lifestyle3",
+    primaryLabel:
+      "Conhecer essa mensagem",
+    primaryUrl:
+      BOOK_URL,
   },
   {
     subject:
       "Terapia não foi sinal de fraqueza",
-    eyebrow: "PEDIR AJUDA",
+    eyebrow:
+      "PEDIR AJUDA TAMBÉM É CORAGEM",
     title:
-      "Algumas batalhas não precisam ser enfrentadas em silêncio.",
-    quote:
-      "A coragem também aparece quando aceitamos que não sabemos resolver tudo sozinhos.",
+      "Existem batalhas que não precisam ser enfrentadas em silêncio.",
+    preheader:
+      "Procurar ajuda pode mudar a direção de uma vida.",
     paragraphs: [
-      "A terapia ajudou a organizar dores, culpas e comportamentos.",
-      "Enfrentar a própria história foi mais difícil do que fingir que ela já estava superada.",
-      "Mas nenhuma reconstrução sólida acontece sem verdade.",
+      "Muitas pessoas aprendem a esconder sofrimento para parecerem fortes.",
+      "Mas ignorar a dor não a torna menor. Apenas permite que ela continue agindo sem ser compreendida.",
+      "A terapia pode criar um espaço seguro para organizar pensamentos, reconhecer padrões e construir novas respostas.",
+      "Na trajetória narrada em Superação, pedir ajuda foi parte fundamental do processo de reconstrução.",
     ],
-    insight:
-      "Você não precisa esperar chegar ao limite para começar a cuidar daquilo que está ferido.",
+    quote:
+      "Força não é suportar tudo sozinho. É reconhecer quando chegou a hora de receber ajuda.",
+    image:
+      "lifestyle1",
+    primaryLabel:
+      "Descobrir essa trajetória",
+    primaryUrl:
+      BOOK_URL,
   },
   {
     subject:
       "Recomeçar exige uma versão mais consciente de você",
-    eyebrow: "MATURIDADE",
+    eyebrow:
+      "RECOMEÇAR NÃO É REPETIR",
     title:
-      "Voltar ao mesmo ponto com a mesma mentalidade não é recomeçar.",
-    quote:
-      "O verdadeiro recomeço muda decisões, prioridades e comportamentos.",
+      "Um novo começo precisa de novas escolhas.",
+    preheader:
+      "Recomeçar sem consciência pode apenas repetir o passado.",
     paragraphs: [
-      "Reconstruir não significava recuperar apenas patrimônio ou trabalho.",
-      "Era necessário recuperar confiança, disciplina, caráter e direção.",
-      "A nova fase exigiu abandonar padrões que já haviam causado perdas.",
+      "Trocar de ambiente, trabalho ou relacionamento não garante uma transformação.",
+      "Quando os mesmos padrões continuam ativos, eles encontram novas formas de aparecer.",
+      "O recomeço verdadeiro acontece quando existe disposição para compreender o que precisa mudar internamente.",
+      "Superação mostra que reconstruir é um processo. Exige honestidade, disciplina e paciência.",
     ],
-    insight:
-      "Você não controla todas as circunstâncias, mas pode desenvolver a pessoa que enfrentará as próximas.",
+    quote:
+      "Um novo capítulo precisa ser escrito por uma versão mais consciente de nós mesmos.",
+    image:
+      "lifestyle2",
+    primaryLabel:
+      "Conhecer o livro",
+    primaryUrl:
+      BOOK_URL,
   },
   {
     subject:
       "Transformar dor em propósito muda o significado da história",
-    eyebrow: "PROPÓSITO",
+    eyebrow:
+      "QUANDO A HISTÓRIA SERVE A ALGUÉM",
     title:
-      "A dor deixou de ser apenas uma ferida quando começou a levantar outras pessoas.",
-    quote:
-      "Uma experiência difícil ganha outro significado quando se transforma em direção.",
+      "A dor não precisa ser desperdiçada.",
+    preheader:
+      "Compartilhar uma história pode ajudar outra pessoa a continuar.",
     paragraphs: [
-      "A história não foi escrita para apresentar perfeição.",
-      "Ela foi escrita para mostrar as escolhas, erros, perdas e decisões que tornaram possível continuar.",
-      "Aquilo que antes causava vergonha começou a servir como ponte para outras pessoas.",
+      "Nenhuma experiência difícil precisa ser celebrada para que possa gerar aprendizado.",
+      "Quando uma pessoa consegue olhar para o passado com consciência, aquilo que antes representava apenas sofrimento pode se transformar em orientação.",
+      "Gilberto escreveu Superação para compartilhar uma trajetória real, com erros, quedas, fé, trabalho e reconstrução.",
+      "O livro não entrega respostas prontas. Ele oferece companhia para quem também está tentando continuar.",
     ],
-    insight:
-      "O que você viveu pode não ter sido justo. Ainda assim, pode se tornar útil.",
+    quote:
+      "Quando a dor encontra propósito, ela deixa de ser apenas uma ferida.",
+    image:
+      "lifestyle3",
+    primaryLabel:
+      "Conhecer Superação",
+    primaryUrl:
+      BOOK_URL,
   },
   {
     subject:
       "O futuro não é construído em um único grande gesto",
-    eyebrow: "DISCIPLINA",
+    eyebrow:
+      "CONSISTÊNCIA MUDA DESTINOS",
     title:
-      "Grandes mudanças são sustentadas por pequenas decisões repetidas.",
-    quote:
-      "A vida muda quando a decisão correta deixa de ser exceção e vira prática.",
+      "A transformação acontece nas escolhas repetidas.",
+    preheader:
+      "Pequenos movimentos consistentes podem reconstruir uma vida.",
     paragraphs: [
-      "Empresas, patrimônio, relações e credibilidade não foram reconstruídos em um dia.",
-      "Cada etapa exigiu repetição, paciência e compromisso.",
-      "O resultado visível nasceu de muitas escolhas que ninguém viu.",
+      "Esperar por uma grande oportunidade pode nos impedir de reconhecer os pequenos passos possíveis agora.",
+      "O futuro é construído por decisões cotidianas: cumprir uma responsabilidade, manter uma palavra, cuidar de uma relação e interromper um comportamento destrutivo.",
+      "Nenhum desses movimentos parece extraordinário isoladamente.",
+      "Mas, juntos, eles podem mudar completamente a direção de uma história.",
     ],
-    insight:
-      "Não subestime a decisão correta que você consegue tomar hoje.",
+    quote:
+      "A consistência transforma aquilo que a pressa não consegue sustentar.",
+    image:
+      "lifestyle1",
+    primaryLabel:
+      "Ler essa história",
+    primaryUrl:
+      BOOK_URL,
   },
   {
     subject:
       "Você não precisa apagar o passado para seguir em frente",
-    eyebrow: "RESSIGNIFICAR",
+    eyebrow:
+      "ACEITAR NÃO É APROVAR",
     title:
-      "Superar não é fingir que nada aconteceu.",
-    quote:
-      "Superação não apaga a história. Ela muda o lugar que a história ocupa.",
+      "Seguir em frente não exige fingir que nada aconteceu.",
+    preheader:
+      "O passado pode ser reconhecido sem continuar controlando o presente.",
     paragraphs: [
-      "Algumas memórias continuam existindo.",
-      "A diferença é que elas deixam de controlar as decisões atuais.",
-      "O passado pode ser lembrado sem continuar governando o futuro.",
+      "Algumas pessoas tentam recomeçar apagando memórias, evitando conversas e escondendo feridas.",
+      "Mas aquilo que não é compreendido costuma continuar influenciando escolhas.",
+      "Aceitar o passado não significa concordar com tudo o que aconteceu.",
+      "Significa reconhecer a realidade, aprender com ela e decidir que ela não terá mais o mesmo poder.",
     ],
-    insight:
-      "Curar não é esquecer. É recuperar a liberdade de escolher o próximo passo.",
+    quote:
+      "O passado pode ocupar uma página da história sem controlar todos os capítulos seguintes.",
+    image:
+      "lifestyle2",
+    primaryLabel:
+      "Conhecer Superação",
+    primaryUrl:
+      BOOK_URL,
   },
   {
     subject:
       "O seu futuro ainda está sendo escrito",
-    eyebrow: "UM CONVITE",
+    eyebrow:
+      "A HISTÓRIA CONTINUA",
     title:
-      "Talvez este seja o momento de escrever um capítulo diferente.",
-    quote:
-      "O futuro não começa quando tudo está resolvido. Ele começa quando você decide não permanecer no mesmo lugar.",
+      "Enquanto existe vida, ainda existe possibilidade de escolha.",
+    preheader:
+      "Nenhuma fase precisa receber o poder de definir todo o futuro.",
     paragraphs: [
-      "Superação é uma história real, com erros reais e consequências reais.",
-      "Por isso ela não oferece promessas fáceis.",
-      "Ela oferece algo mais importante: a prova de que uma história pode mudar quando uma pessoa aceita reconstruí-la.",
+      "Talvez você esteja vivendo um período de incerteza.",
+      "Talvez esteja tentando recuperar algo que perdeu ou simplesmente encontrar uma direção.",
+      "Superação foi escrito para lembrar que uma vida pode atravessar muitos capítulos antes de encontrar um novo sentido.",
+      "O futuro não está pronto. Ele continua sendo construído pelas escolhas que começam hoje.",
     ],
-    insight:
-      "A sua história pode ter começado na dor, mas não precisa terminar nela.",
+    quote:
+      "Você não é apenas aquilo que viveu. Também é aquilo que decide construir daqui em diante.",
+    image:
+      "lifestyle3",
+    primaryLabel:
+      "Escolher como ler Superação",
+    primaryUrl:
+      CHECKOUT_URL,
+    showPurchaseOptions:
+      true,
   },
 ]
 
@@ -298,82 +428,210 @@ const CHECKOUT_EMAILS = [
   {
     subject:
       "Seu exemplar de Superação ainda está esperando",
+    eyebrow:
+      "VOCÊ ESTAVA QUASE LÁ",
     title:
-      "Você chegou muito perto de começar esta leitura.",
+      "Sua leitura de Superação ainda pode começar hoje.",
+    preheader:
+      "Retome sua compra com segurança.",
     paragraphs: [
-      "Se algo interrompeu sua compra, seu pedido ainda pode ser retomado.",
-      "Você pode escolher o livro físico com entrega ou o eBook com acesso digital.",
+      "Você iniciou o processo para adquirir Superação, mas a compra não foi concluída.",
+      "Pode ter sido apenas uma interrupção, uma dúvida ou falta de tempo.",
+      "O livro continua disponível em formato físico e digital.",
+      "Escolha a opção que combina melhor com a forma como você prefere ler.",
     ],
+    quote:
+      "Às vezes, a diferença entre intenção e transformação é apenas concluir o próximo passo.",
+    image:
+      "cover",
+    primaryLabel:
+      "Retomar compra no website",
+    primaryUrl:
+      CHECKOUT_URL,
+    showPurchaseOptions:
+      true,
   },
   {
     subject:
       "Qual formato de Superação combina melhor com você?",
+    eyebrow:
+      "LIVRO FÍSICO OU EBOOK",
     title:
-      "Livro físico ou eBook: a história é a mesma, a experiência é sua.",
+      "A história é a mesma. A experiência de leitura pode ser diferente.",
+    preheader:
+      "Compare as opções disponíveis.",
     paragraphs: [
-      "O livro físico permite uma leitura pausada, com marcações e presença.",
-      "O eBook oferece acesso rápido e pode acompanhar você onde estiver.",
+      "O livro físico é ideal para quem gosta de marcar páginas, fazer anotações e manter a obra por perto.",
+      "O eBook oferece praticidade, acesso digital e leitura em diferentes dispositivos.",
+      "Pelo website, o livro físico custa R$ 141,74, além do frete selecionado.",
+      "O eBook custa R$ 65,99 e é enviado após a confirmação do pagamento.",
     ],
+    quote:
+      "O melhor formato é aquele que permite que a mensagem chegue até você.",
+    image:
+      "cover",
+    primaryLabel:
+      "Escolher meu formato",
+    primaryUrl:
+      CHECKOUT_URL,
+    showPurchaseOptions:
+      true,
   },
   {
     subject:
       "Nem sempre precisamos estar prontos para começar",
+    eyebrow:
+      "COMEÇAR ANTES DA CERTEZA",
     title:
-      "A clareza muitas vezes aparece depois do primeiro passo.",
+      "Esperar pelo momento perfeito também pode se tornar uma forma de adiamento.",
+    preheader:
+      "A leitura pode ser o primeiro movimento.",
     paragraphs: [
-      "É comum adiar uma decisão esperando sentir certeza absoluta.",
-      "Mas algumas mudanças começam justamente quando decidimos avançar mesmo sem ter todas as respostas.",
+      "Não é necessário ter todas as respostas para iniciar uma mudança.",
+      "Muitas vezes, a clareza aparece durante a caminhada.",
+      "Superação reúne uma história verdadeira sobre escolhas, fé, perdas, responsabilidade e reconstrução.",
+      "Talvez a leitura não resolva tudo. Mas pode oferecer uma nova forma de enxergar aquilo que você está vivendo.",
     ],
+    quote:
+      "Você não precisa estar completamente pronto. Precisa apenas estar disposto a começar.",
+    image:
+      "lifestyle1",
+    primaryLabel:
+      "Retomar minha compra",
+    primaryUrl:
+      CHECKOUT_URL,
+    showPurchaseOptions:
+      true,
   },
   {
     subject:
       "O custo invisível de continuar no mesmo lugar",
+    eyebrow:
+      "ADIAR TAMBÉM É UMA ESCOLHA",
     title:
-      "Adiar também é uma decisão.",
+      "Permanecer igual também tem um preço.",
+    preheader:
+      "Algumas mudanças começam com uma nova perspectiva.",
     paragraphs: [
-      "Quando uma história continua nos prendendo, o tempo sozinho nem sempre resolve.",
-      "Informação, reflexão e atitude podem abrir um caminho diferente.",
+      "É natural avaliar o valor de um livro antes de comprá-lo.",
+      "Mas também vale considerar o custo de continuar repetindo pensamentos, decisões e comportamentos que já não funcionam.",
+      "Superação não promete transformação instantânea.",
+      "Ele oferece reflexão, identificação e a experiência de alguém que precisou reconstruir a própria trajetória.",
     ],
+    quote:
+      "Nem todo custo aparece no extrato. Alguns aparecem no tempo perdido.",
+    image:
+      "lifestyle2",
+    primaryLabel:
+      "Conhecer as opções de compra",
+    primaryUrl:
+      CHECKOUT_URL,
+    showPurchaseOptions:
+      true,
   },
   {
     subject:
       "Uma história real para quem precisa recomeçar",
+    eyebrow:
+      "SEM FÓRMULAS PRONTAS",
     title:
-      "Superação não foi escrito por alguém que observou a dor de longe.",
+      "Superação não foi escrito de um lugar distante da dor.",
+    preheader:
+      "Uma narrativa real, humana e consciente.",
     paragraphs: [
-      "Gilberto viveu escassez, risco, prisão, perdas e depressão.",
-      "O livro mostra como fé, terapia, trabalho e responsabilidade participaram da reconstrução.",
+      "Gilberto compartilha acontecimentos que marcaram sua infância, juventude, escolhas, conquistas e quedas.",
+      "A narrativa não tenta transformar erros em heroísmo.",
+      "Ela mostra como responsabilidade, terapia, fé e trabalho participaram de uma reconstrução possível.",
+      "Essa honestidade é o que faz Superação dialogar com pessoas que também estão tentando encontrar um novo caminho.",
     ],
+    quote:
+      "Uma história verdadeira pode oferecer a companhia que uma fórmula pronta nunca oferece.",
+    image:
+      "lifestyle3",
+    primaryLabel:
+      "Garantir meu exemplar",
+    primaryUrl:
+      CHECKOUT_URL,
+    showPurchaseOptions:
+      true,
   },
   {
     subject:
       "O pagamento é seguro e o processo é simples",
+    eyebrow:
+      "COMPRA SEGURA",
     title:
-      "Você conclui a compra sem sair do website.",
+      "Você pode concluir a compra pelo website com checkout protegido.",
+    preheader:
+      "Veja como funciona cada formato.",
     paragraphs: [
-      "O pagamento é processado pela Stripe em ambiente protegido.",
-      "No livro físico, o total é formado pelo livro e pelo frete selecionado. No eBook, não há frete.",
+      "No livro físico, você informa o CEP, escolhe o frete e preenche os dados de entrega.",
+      "O total é formado pelo valor do livro, R$ 141,74, e pelo frete selecionado.",
+      "No eBook, não existe frete. O valor é R$ 65,99.",
+      "O pagamento é processado em ambiente protegido, e o acesso digital é encaminhado após a confirmação.",
     ],
+    quote:
+      "Segurança e clareza também fazem parte de uma boa experiência de compra.",
+    image:
+      "cover",
+    primaryLabel:
+      "Concluir pelo website",
+    primaryUrl:
+      CHECKOUT_URL,
+    showPurchaseOptions:
+      true,
   },
   {
     subject:
       "Talvez esta mensagem tenha chegado no momento certo",
+    eyebrow:
+      "ALGUMAS HISTÓRIAS NOS ENCONTRAM",
     title:
-      "Algumas leituras encontram a gente quando estamos prontos para ouvi-las.",
+      "Existem leituras que chegam quando finalmente estamos preparados para escutá-las.",
+    preheader:
+      "Superação continua disponível.",
     paragraphs: [
-      "Você não precisa transformar toda a sua vida hoje.",
-      "Talvez precise apenas de uma nova perspectiva para decidir o próximo passo.",
+      "Talvez você tenha conhecido o livro por curiosidade.",
+      "Talvez esteja atravessando uma fase em que recomeçar deixou de ser uma ideia distante.",
+      "Superação foi escrito para pessoas reais, vivendo conflitos reais e tentando construir escolhas mais conscientes.",
+      "O livro permanece disponível no website e na Amazon.",
     ],
+    quote:
+      "Nem toda mensagem muda a vida. Mas algumas chegam exatamente quando precisamos delas.",
+    image:
+      "lifestyle1",
+    primaryLabel:
+      "Escolher onde comprar",
+    primaryUrl:
+      CHECKOUT_URL,
+    showPurchaseOptions:
+      true,
   },
   {
     subject:
       "Superação continua disponível para você",
+    eyebrow:
+      "ÚLTIMO LEMBRETE",
     title:
-      "Quando decidir começar, a história estará esperando.",
+      "Esta é a última mensagem desta sequência de compra.",
+    preheader:
+      "Você continuará podendo acessar o livro quando decidir.",
     paragraphs: [
-      "Este é o último lembrete desta sequência.",
-      "Você poderá retornar ao website e escolher o formato que preferir.",
+      "Não queremos transformar sua decisão em pressão.",
+      "Por isso, esta é a última mensagem relacionada à compra que você iniciou.",
+      "Superação continuará disponível no website, em formato físico e eBook, e também na Amazon.",
+      "Quando sentir que chegou o momento, a história estará esperando por você.",
     ],
+    quote:
+      "Uma escolha consciente não precisa nascer da pressão.",
+    image:
+      "cover",
+    primaryLabel:
+      "Ver opções de compra",
+    primaryUrl:
+      CHECKOUT_URL,
+    showPurchaseOptions:
+      true,
   },
 ]
 
@@ -381,89 +639,1843 @@ const CUSTOMER_EMAILS = [
   {
     subject:
       "Obrigado por escolher Superação",
+    eyebrow:
+      "SUA LEITURA COMEÇA AGORA",
     title:
-      "A sua leitura começa agora.",
+      "Obrigado por permitir que esta história faça parte da sua caminhada.",
+    preheader:
+      "Uma mensagem pessoal de agradecimento.",
     paragraphs: [
-      "Sua compra foi confirmada.",
-      "Mais do que uma sequência de acontecimentos, este livro é um convite para olhar para escolhas, consequências, fé e reconstrução.",
+      "Sua compra de Superação foi confirmada.",
+      "Mais do que adquirir um livro, você escolheu conhecer uma história construída com verdade, responsabilidade e esperança.",
+      "Gilberto escreveu esta obra para compartilhar aprendizados que nasceram de experiências reais.",
+      "Esperamos que a leitura encontre espaço na sua vida e ofereça reflexões importantes para o momento que você está vivendo.",
     ],
+    quote:
+      "Obrigado por receber esta história.",
+    image:
+      "cover",
+    primaryLabel:
+      "Visitar a página de Superação",
+    primaryUrl:
+      BOOK_URL,
+    customer:
+      true,
   },
   {
     subject:
       "Como aproveitar melhor a leitura de Superação",
+    eyebrow:
+      "UMA LEITURA COM PRESENÇA",
     title:
-      "Não tenha pressa para atravessar cada capítulo.",
+      "Não tenha pressa para terminar.",
+    preheader:
+      "Algumas sugestões para tornar a leitura mais significativa.",
     paragraphs: [
-      "Leia observando não apenas o que aconteceu com Gilberto, mas também as decisões tomadas em cada etapa.",
-      "Marque os trechos que despertarem identificação e registre quais atitudes podem ser aplicadas à sua própria história.",
+      "Superação pode ser lido de forma contínua, mas também pode ser vivido em pausas.",
+      "Marque os trechos que despertarem identificação.",
+      "Anote perguntas, memórias e decisões que surgirem durante a leitura.",
+      "Alguns capítulos podem conversar com você imediatamente. Outros talvez ganhem sentido apenas depois.",
     ],
+    quote:
+      "Um livro termina na última página. Uma reflexão pode continuar por muito tempo.",
+    image:
+      "lifestyle2",
+    primaryLabel:
+      "Revisitar a página do livro",
+    primaryUrl:
+      BOOK_URL,
+    customer:
+      true,
   },
   {
     subject:
       "Qual capítulo de Superação mais falou com você?",
+    eyebrow:
+      "SUA EXPERIÊNCIA IMPORTA",
     title:
-      "A sua experiência com esta história importa.",
+      "Toda leitura encontra uma história diferente dentro de quem lê.",
+    preheader:
+      "Conte qual parte mais marcou você.",
     paragraphs: [
-      "Alguns leitores se identificam com as origens. Outros, com a queda ou com a reconstrução.",
+      "Esperamos que Superação tenha encontrado espaço na sua caminhada.",
+      "Talvez um capítulo tenha despertado identificação. Talvez uma escolha narrada tenha provocado reflexão.",
       "Responder esta mensagem contando o trecho que mais marcou você ajuda Gilberto a compreender o impacto real do livro.",
+      "Sua experiência pode contribuir para que essa mensagem continue alcançando outras pessoas.",
     ],
+    quote:
+      "Quando uma história encontra outra história, ambas podem ganhar um novo significado.",
+    image:
+      "lifestyle3",
+    primaryLabel:
+      "Conhecer mais sobre Superação",
+    primaryUrl:
+      BOOK_URL,
+    customer:
+      true,
   },
 ]
 
-function getCollection(sequenceCode) {
-  const code = String(sequenceCode || "").toLowerCase()
+function escapeHtml(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;")
+}
 
-  if (code.includes("checkout")) {
+function firstName(name) {
+  const cleaned =
+    String(name || "")
+      .trim()
+      .split(/\s+/)[0]
+
+  return cleaned || "leitor"
+}
+
+function normalizeProductType({
+  productType,
+  sequenceCode,
+}) {
+  const code =
+    String(sequenceCode || "")
+      .toLowerCase()
+
+  if (
+    productType === "physical" ||
+    code.includes("_physical_")
+  ) {
+    return "physical"
+  }
+
+  if (
+    productType === "digital" ||
+    code.includes("_digital_")
+  ) {
+    return "digital"
+  }
+
+  return "general"
+}
+
+function getSequenceEmails(sequenceCode) {
+  const code =
+    String(sequenceCode || "")
+      .toLowerCase()
+
+  if (
+    code.includes("checkout")
+  ) {
     return CHECKOUT_EMAILS
   }
 
-  if (code.includes("customer")) {
+  if (
+    code.includes("customer")
+  ) {
     return CUSTOMER_EMAILS
   }
 
   return LEAD_EMAILS
 }
 
-export function getSuperacaoEmailSubject({
-  sequenceCode,
-  emailNumber,
-}) {
-  const collection = getCollection(sequenceCode)
-  const index = Math.max(0, Number(emailNumber || 1) - 1)
-
-  return (
-    collection[index]?.subject ||
-    collection[0].subject
-  )
-}
-
-function button(text, href) {
+function purchaseOptions() {
   return `
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin:30px 0 12px;">
+    <table
+      role="presentation"
+      width="100%"
+      cellspacing="0"
+      cellpadding="0"
+      border="0"
+      style="
+        margin:32px 0 0;
+        border-collapse:separate;
+        border-spacing:0 12px;
+      "
+    >
       <tr>
-        <td align="center">
+        <td
+          style="
+            padding:20px;
+            background:${COLORS.dark};
+            border:1px solid ${COLORS.brown};
+            border-radius:14px;
+          "
+        >
+          <div
+            style="
+              color:${COLORS.gold};
+              font-family:Arial,sans-serif;
+              font-size:11px;
+              font-weight:700;
+              letter-spacing:1.8px;
+              text-transform:uppercase;
+            "
+          >
+            Website oficial
+          </div>
+
+          <div
+            style="
+              margin-top:7px;
+              color:${COLORS.softCream};
+              font-family:Georgia,'Times New Roman',serif;
+              font-size:21px;
+              line-height:1.3;
+            "
+          >
+            Livro físico ou eBook
+          </div>
+
+          <div
+            style="
+              margin-top:7px;
+              color:${COLORS.muted};
+              font-family:Arial,sans-serif;
+              font-size:14px;
+              line-height:1.6;
+            "
+          >
+            Livro físico por R$ 141,74 mais frete
+            ou eBook por R$ 65,99.
+          </div>
+
           <a
-            href="${href}"
+            href="${CHECKOUT_URL}"
             style="
               display:inline-block;
-              min-width:220px;
-              padding:16px 25px;
-              border-radius:10px;
-              background:linear-gradient(135deg,${COLORS.goldStrong},${COLORS.gold});
-              color:#201306;
-              font-family:Arial,Helvetica,sans-serif;
+              margin-top:15px;
+              padding:12px 18px;
+              color:${COLORS.black};
+              background:${COLORS.lightGold};
+              border-radius:999px;
+              font-family:Arial,sans-serif;
               font-size:13px;
-              font-weight:800;
-              letter-spacing:.3px;
+              font-weight:700;
               text-decoration:none;
             "
           >
-            ${text}
+            Comprar no website
+          </a>
+        </td>
+      </tr>
+
+      <tr>
+        <td
+          style="
+            padding:20px;
+            background:${COLORS.softCream};
+            border:1px solid #E3CDAE;
+            border-radius:14px;
+          "
+        >
+          <div
+            style="
+              color:${COLORS.brown};
+              font-family:Arial,sans-serif;
+              font-size:11px;
+              font-weight:700;
+              letter-spacing:1.8px;
+              text-transform:uppercase;
+            "
+          >
+            Amazon
+          </div>
+
+          <div
+            style="
+              margin-top:7px;
+              color:${COLORS.black};
+              font-family:Georgia,'Times New Roman',serif;
+              font-size:21px;
+              line-height:1.3;
+            "
+          >
+            Compre pela plataforma de sua preferência
+          </div>
+
+          <table
+            role="presentation"
+            cellspacing="0"
+            cellpadding="0"
+            border="0"
+            style="margin-top:15px;"
+          >
+            <tr>
+              <td
+                style="
+                  padding:0 8px 8px 0;
+                "
+              >
+                <a
+                  href="${AMAZON_PHYSICAL_URL}"
+                  style="
+                    display:inline-block;
+                    padding:11px 16px;
+                    color:${COLORS.softCream};
+                    background:${COLORS.brown};
+                    border-radius:999px;
+                    font-family:Arial,sans-serif;
+                    font-size:13px;
+                    font-weight:700;
+                    text-decoration:none;
+                  "
+                >
+                  Livro físico na Amazon
+                </a>
+              </td>
+
+              <td
+                style="
+                  padding:0 0 8px 0;
+                "
+              >
+                <a
+                  href="${AMAZON_EBOOK_URL}"
+                  style="
+                    display:inline-block;
+                    padding:11px 16px;
+                    color:${COLORS.softCream};
+                    background:${COLORS.brown};
+                    border-radius:999px;
+                    font-family:Arial,sans-serif;
+                    font-size:13px;
+                    font-weight:700;
+                    text-decoration:none;
+                  "
+                >
+                  eBook na Amazon
+                </a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  `
+}
+
+function primaryButton({
+  label,
+  url,
+}) {
+  return `
+    <table
+      role="presentation"
+      cellspacing="0"
+      cellpadding="0"
+      border="0"
+      style="margin:30px 0 0;"
+    >
+      <tr>
+        <td
+          bgcolor="${COLORS.lightGold}"
+          style="
+            border-radius:999px;
+          "
+        >
+          <a
+            href="${url}"
+            style="
+              display:inline-block;
+              padding:15px 25px;
+              color:${COLORS.black};
+              font-family:Arial,sans-serif;
+              font-size:14px;
+              font-weight:700;
+              line-height:1;
+              text-decoration:none;
+            "
+          >
+            ${escapeHtml(label)}
           </a>
         </td>
       </tr>
     </table>
   `
+}
+
+function renderParagraphs(paragraphs) {
+  return paragraphs
+    .map(
+      (paragraph) => `
+        <p
+          style="
+            margin:0 0 18px;
+            color:${COLORS.brown};
+            font-family:Arial,sans-serif;
+            font-size:16px;
+            line-height:1.75;
+          "
+        >
+          ${escapeHtml(paragraph)}
+        </p>
+      `
+    )
+    .join("")
+}
+
+
+function selectEmailDesign({
+  sequenceCode,
+  emailNumber,
+  productType,
+}) {
+  const code =
+    String(sequenceCode || "")
+      .toLowerCase()
+
+  const number =
+    Math.max(
+      1,
+      Number(emailNumber || 1)
+    )
+
+  const normalizedProduct =
+    normalizeProductType({
+      productType,
+      sequenceCode,
+    })
+
+  if (code.includes("checkout")) {
+    const designs = [
+      {
+        layout: 1,
+        banner:
+          normalizedProduct === "digital"
+            ? "amazonEbook"
+            : "websitePhysical",
+        url:
+          normalizedProduct === "digital"
+            ? AMAZON_EBOOK_URL
+            : CHECKOUT_URL,
+      },
+      {
+        layout: 2,
+        banner:
+          normalizedProduct === "digital"
+            ? "amazonEbook"
+            : "amazonPhysical",
+        url:
+          normalizedProduct === "digital"
+            ? AMAZON_EBOOK_URL
+            : AMAZON_PHYSICAL_URL,
+      },
+      {
+        layout: 3,
+        banner: "restart",
+        url: CHECKOUT_URL,
+      },
+      {
+        layout: 4,
+        banner: "story",
+        url: CHECKOUT_URL,
+      },
+      {
+        layout: 5,
+        banner: "presentation",
+        url: CHECKOUT_URL,
+      },
+      {
+        layout: 6,
+        banner: "websitePhysical",
+        url: CHECKOUT_URL,
+      },
+      {
+        layout: 7,
+        banner: "amazonPhysical",
+        url: AMAZON_PHYSICAL_URL,
+      },
+      {
+        layout: 8,
+        banner: "restart",
+        url: CHECKOUT_URL,
+      },
+    ]
+
+    return designs[
+      (number - 1) %
+      designs.length
+    ]
+  }
+
+  if (code.includes("customer")) {
+    const designs = [
+      {
+        layout: 4,
+        banner: "presentation",
+        url: BOOK_URL,
+      },
+      {
+        layout: 2,
+        banner: "restart",
+        url: BOOK_URL,
+      },
+      {
+        layout: 5,
+        banner: "story",
+        url: BOOK_URL,
+      },
+    ]
+
+    return designs[
+      (number - 1) %
+      designs.length
+    ]
+  }
+
+  const designs = [
+    {
+      layout: 1,
+      banner: "presentation",
+      url: BOOK_URL,
+    },
+    {
+      layout: 2,
+      banner: "story",
+      url: BOOK_URL,
+    },
+    {
+      layout: 3,
+      banner: "restart",
+      url: BOOK_URL,
+    },
+    {
+      layout: 4,
+      banner: "presentation",
+      url: BOOK_URL,
+    },
+    {
+      layout: 5,
+      banner: "story",
+      url: BOOK_URL,
+    },
+    {
+      layout: 6,
+      banner: "restart",
+      url: BOOK_URL,
+    },
+    {
+      layout: 7,
+      banner: "presentation",
+      url: BOOK_URL,
+    },
+    {
+      layout: 8,
+      banner: "story",
+      url: BOOK_URL,
+    },
+  ]
+
+  return designs[
+    (number - 1) %
+    designs.length
+  ]
+}
+
+function renderEmailBanner({
+  design,
+  subject,
+}) {
+  const source =
+    EMAIL_BANNERS[
+      design.banner
+    ] ||
+    EMAIL_BANNERS.presentation
+
+  return `
+    <a
+      href="${design.url}"
+      target="_blank"
+      rel="noopener noreferrer"
+      style="
+        display:block;
+        text-decoration:none;
+      "
+    >
+      <img
+        src="${source}"
+        width="660"
+        alt="${escapeHtml(subject)}"
+        style="
+          display:block;
+          width:100%;
+          max-width:660px;
+          height:auto;
+          border:0;
+        "
+      >
+    </a>
+  `
+}
+
+function renderBodyParagraphs(
+  paragraphs,
+  align = "left"
+) {
+  return paragraphs
+    .map(
+      (paragraph) => `
+        <p
+          style="
+            margin:0 0 18px;
+            color:${COLORS.brown};
+            font-family:
+              Arial,
+              Helvetica,
+              sans-serif;
+            font-size:16px;
+            line-height:1.72;
+            text-align:${align};
+          "
+        >
+          ${escapeHtml(paragraph)}
+        </p>
+      `
+    )
+    .join("")
+}
+
+function renderQuote(
+  quote,
+  variant = "light"
+) {
+  if (variant === "dark") {
+    return `
+      <div
+        style="
+          margin:28px 0 0;
+          padding:24px 26px;
+          background:${COLORS.dark};
+          color:${COLORS.gold};
+          font-family:
+            Georgia,
+            'Times New Roman',
+            serif;
+          font-size:22px;
+          font-style:italic;
+          line-height:1.5;
+          text-align:center;
+        "
+      >
+        “${escapeHtml(quote)}”
+      </div>
+    `
+  }
+
+  return `
+    <div
+      style="
+        margin:28px 0 0;
+        padding:5px 0 5px 22px;
+        border-left:
+          3px solid
+          ${COLORS.gold};
+        color:${COLORS.black};
+        font-family:
+          Georgia,
+          'Times New Roman',
+          serif;
+        font-size:21px;
+        font-style:italic;
+        line-height:1.5;
+      "
+    >
+      “${escapeHtml(quote)}”
+    </div>
+  `
+}
+
+function renderEmailButton({
+  label,
+  url,
+  dark = false,
+  centered = false,
+}) {
+  return `
+    <table
+      role="presentation"
+      cellspacing="0"
+      cellpadding="0"
+      border="0"
+      style="
+        margin:
+          30px
+          ${centered ? "auto" : "0"}
+          0;
+      "
+    >
+      <tr>
+        <td
+          bgcolor="${
+            dark
+              ? COLORS.dark
+              : COLORS.lightGold
+          }"
+        >
+          <a
+            href="${url}"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="
+              display:inline-block;
+              padding:15px 24px;
+              color:${
+                dark
+                  ? COLORS.softCream
+                  : COLORS.black
+              };
+              font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+              font-size:13px;
+              font-weight:700;
+              letter-spacing:0.5px;
+              text-decoration:none;
+              text-transform:uppercase;
+            "
+          >
+            ${escapeHtml(label)}
+          </a>
+        </td>
+      </tr>
+    </table>
+  `
+}
+
+function renderPurchaseChoices() {
+  return `
+    <table
+      role="presentation"
+      width="100%"
+      cellspacing="0"
+      cellpadding="0"
+      border="0"
+      style="
+        margin-top:34px;
+        border-collapse:collapse;
+      "
+    >
+      <tr>
+        <td
+          style="
+            padding:24px;
+            background:#F0E2CE;
+            border-top:
+              1px solid #D5BB94;
+            border-bottom:
+              1px solid #D5BB94;
+          "
+        >
+          <div
+            style="
+              color:${COLORS.brown};
+              font-family:Arial,sans-serif;
+              font-size:11px;
+              font-weight:700;
+              letter-spacing:2px;
+              text-transform:uppercase;
+            "
+          >
+            Escolha onde comprar
+          </div>
+
+          <table
+            role="presentation"
+            width="100%"
+            cellspacing="0"
+            cellpadding="0"
+            border="0"
+            style="
+              margin-top:18px;
+              border-collapse:collapse;
+            "
+          >
+            <tr>
+              <td
+                width="33%"
+                style="
+                  padding-right:10px;
+                  vertical-align:top;
+                "
+              >
+                <a
+                  href="${CHECKOUT_URL}"
+                  style="
+                    color:${COLORS.black};
+                    font-family:Arial,sans-serif;
+                    font-size:13px;
+                    font-weight:700;
+                    text-decoration:underline;
+                  "
+                >
+                  Website oficial
+                </a>
+
+                <div
+                  style="
+                    margin-top:6px;
+                    color:${COLORS.gray};
+                    font-family:Arial,sans-serif;
+                    font-size:11px;
+                    line-height:1.4;
+                  "
+                >
+                  Livro físico e eBook
+                </div>
+              </td>
+
+              <td
+                width="33%"
+                style="
+                  padding:0 10px;
+                  border-left:
+                    1px solid #D5BB94;
+                  vertical-align:top;
+                "
+              >
+                <a
+                  href="${AMAZON_PHYSICAL_URL}"
+                  style="
+                    color:${COLORS.black};
+                    font-family:Arial,sans-serif;
+                    font-size:13px;
+                    font-weight:700;
+                    text-decoration:underline;
+                  "
+                >
+                  Livro na Amazon
+                </a>
+
+                <div
+                  style="
+                    margin-top:6px;
+                    color:${COLORS.gray};
+                    font-family:Arial,sans-serif;
+                    font-size:11px;
+                    line-height:1.4;
+                  "
+                >
+                  Exemplar físico
+                </div>
+              </td>
+
+              <td
+                width="33%"
+                style="
+                  padding-left:10px;
+                  border-left:
+                    1px solid #D5BB94;
+                  vertical-align:top;
+                "
+              >
+                <a
+                  href="${AMAZON_EBOOK_URL}"
+                  style="
+                    color:${COLORS.black};
+                    font-family:Arial,sans-serif;
+                    font-size:13px;
+                    font-weight:700;
+                    text-decoration:underline;
+                  "
+                >
+                  eBook na Amazon
+                </a>
+
+                <div
+                  style="
+                    margin-top:6px;
+                    color:${COLORS.gray};
+                    font-family:Arial,sans-serif;
+                    font-size:11px;
+                    line-height:1.4;
+                  "
+                >
+                  Leitura no Kindle
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  `
+}
+
+function renderSuperacaoFooter({
+  unsubscribeUrl,
+}) {
+  return `
+    <table
+      role="presentation"
+      width="100%"
+      cellspacing="0"
+      cellpadding="0"
+      border="0"
+      style="
+        width:100%;
+        border-collapse:collapse;
+      "
+    >
+      <tr>
+        <td
+          align="center"
+          style="
+            padding:30px 28px 24px;
+            background:#ECE8E2;
+          "
+        >
+          <div
+            style="
+              color:${COLORS.black};
+              font-family:
+                Georgia,
+                'Times New Roman',
+                serif;
+              font-size:19px;
+              font-weight:700;
+            "
+          >
+            Acompanhe Gilberto de Souza
+          </div>
+
+          <div
+            style="
+              margin-top:8px;
+              color:${COLORS.gray};
+              font-family:Arial,sans-serif;
+              font-size:12px;
+              line-height:1.5;
+            "
+          >
+            Reflexões, novidades e conteúdos
+            sobre o livro Superação.
+          </div>
+
+          <div
+            style="
+              margin-top:18px;
+            "
+          >
+            <a
+              href="${INSTAGRAM_URL}"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="
+                display:inline-block;
+                width:44px;
+                height:44px;
+                text-decoration:none;
+              "
+            >
+              <img
+                src="${INSTAGRAM_ICON_URL}"
+                width="44"
+                height="44"
+                alt="Instagram de Gilberto de Souza"
+                style="
+                  display:block;
+                  width:44px;
+                  height:44px;
+                  border:0;
+                  border-radius:12px;
+                "
+              >
+            </a>
+          </div>
+
+          <div
+            style="
+              margin-top:9px;
+              color:${COLORS.brown};
+              font-family:Arial,sans-serif;
+              font-size:12px;
+              font-weight:700;
+            "
+          >
+            @gilberto_souza_autor
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td
+          align="center"
+          style="
+            padding:28px 30px 32px;
+            background:#F7F5F2;
+            border-top:
+              1px solid #D9D2C9;
+          "
+        >
+          <div
+            style="
+              color:#555555;
+              font-family:Arial,sans-serif;
+              font-size:10px;
+              line-height:1.7;
+              text-align:center;
+            "
+          >
+            <a
+              href="${BOOK_URL}"
+              style="
+                color:#444444;
+                text-decoration:underline;
+              "
+            >
+              Ver no navegador
+            </a>
+
+            <br><br>
+
+            Você recebeu esta mensagem porque
+            se cadastrou, iniciou uma compra
+            ou adquiriu o livro Superação.
+
+            <br><br>
+
+            <a
+              href="${INSTAGRAM_URL}"
+              style="
+                color:#444444;
+                text-decoration:underline;
+              "
+            >
+              Instagram
+            </a>
+
+            &nbsp;|&nbsp;
+
+            <a
+              href="${unsubscribeUrl}"
+              style="
+                color:#444444;
+                text-decoration:underline;
+              "
+            >
+              Cancelar inscrição
+            </a>
+
+            <br><br>
+
+            © ${new Date().getFullYear()}
+            Gilberto de Souza.
+            Todos os direitos reservados.
+
+            <br>
+
+            Comunicação oficial do livro Superação.
+          </div>
+        </td>
+      </tr>
+    </table>
+  `
+}
+
+function renderContentLayout({
+  design,
+  content,
+  recipientName,
+}) {
+  const banner =
+    renderEmailBanner({
+      design,
+      subject:
+        content.subject,
+    })
+
+  const paragraphs =
+    renderBodyParagraphs(
+      content.paragraphs,
+      design.layout === 4
+        ? "center"
+        : "left"
+    )
+
+  const centered =
+    design.layout === 2 ||
+    design.layout === 4
+
+  const dark =
+    design.layout === 3 ||
+    design.layout === 6
+
+  const button =
+    renderEmailButton({
+      label:
+        content.primaryLabel,
+      url:
+        content.primaryUrl,
+      dark,
+      centered,
+    })
+
+  const purchase =
+    content.showPurchaseOptions
+      ? renderPurchaseChoices()
+      : ""
+
+  if (design.layout === 2) {
+    return `
+      <tr>
+        <td
+          style="
+            padding:42px 58px 28px;
+            background:${COLORS.softCream};
+            text-align:center;
+          "
+        >
+          <div
+            style="
+              color:${COLORS.gold};
+              font-family:Arial,sans-serif;
+              font-size:10px;
+              font-weight:700;
+              letter-spacing:2.5px;
+              text-transform:uppercase;
+            "
+          >
+            ${escapeHtml(content.eyebrow)}
+          </div>
+
+          <h1
+            style="
+              margin:16px 0 20px;
+              color:${COLORS.black};
+              font-family:
+                Georgia,
+                'Times New Roman',
+                serif;
+              font-size:35px;
+              font-weight:400;
+              line-height:1.2;
+            "
+          >
+            ${escapeHtml(content.title)}
+          </h1>
+
+          <p
+            style="
+              margin:0;
+              color:${COLORS.brown};
+              font-family:Arial,sans-serif;
+              font-size:15px;
+              line-height:1.6;
+            "
+          >
+            Olá, ${recipientName}.
+          </p>
+        </td>
+      </tr>
+
+      <tr>
+        <td>${banner}</td>
+      </tr>
+
+      <tr>
+        <td
+          style="
+            padding:38px 58px 46px;
+            background:${COLORS.softCream};
+          "
+        >
+          ${paragraphs}
+          ${renderQuote(content.quote)}
+          ${button}
+          ${purchase}
+        </td>
+      </tr>
+    `
+  }
+
+  if (design.layout === 3) {
+    return `
+      <tr>
+        <td
+          style="
+            padding:38px 44px;
+            background:${COLORS.dark};
+          "
+        >
+          <div
+            style="
+              color:${COLORS.gold};
+              font-family:Arial,sans-serif;
+              font-size:10px;
+              font-weight:700;
+              letter-spacing:2.5px;
+              text-transform:uppercase;
+            "
+          >
+            ${escapeHtml(content.eyebrow)}
+          </div>
+
+          <h1
+            style="
+              margin:15px 0 20px;
+              color:${COLORS.softCream};
+              font-family:
+                Georgia,
+                'Times New Roman',
+                serif;
+              font-size:37px;
+              font-weight:400;
+              line-height:1.18;
+            "
+          >
+            ${escapeHtml(content.title)}
+          </h1>
+
+          <p
+            style="
+              margin:0;
+              color:${COLORS.muted};
+              font-family:Arial,sans-serif;
+              font-size:15px;
+              line-height:1.6;
+            "
+          >
+            Olá, ${recipientName}.
+          </p>
+        </td>
+      </tr>
+
+      <tr>
+        <td>${banner}</td>
+      </tr>
+
+      <tr>
+        <td
+          style="
+            padding:40px 46px 46px;
+            background:${COLORS.softCream};
+          "
+        >
+          ${paragraphs}
+          ${renderQuote(
+            content.quote,
+            "dark"
+          )}
+          ${button}
+          ${purchase}
+        </td>
+      </tr>
+    `
+  }
+
+  if (design.layout === 4) {
+    return `
+      <tr>
+        <td>${banner}</td>
+      </tr>
+
+      <tr>
+        <td
+          align="center"
+          style="
+            padding:42px 62px 18px;
+            background:${COLORS.softCream};
+          "
+        >
+          <div
+            style="
+              color:${COLORS.gold};
+              font-family:Arial,sans-serif;
+              font-size:10px;
+              font-weight:700;
+              letter-spacing:2.5px;
+              text-transform:uppercase;
+            "
+          >
+            ${escapeHtml(content.eyebrow)}
+          </div>
+
+          <h1
+            style="
+              margin:16px 0 0;
+              color:${COLORS.black};
+              font-family:
+                Georgia,
+                'Times New Roman',
+                serif;
+              font-size:34px;
+              font-weight:400;
+              line-height:1.22;
+            "
+          >
+            ${escapeHtml(content.title)}
+          </h1>
+        </td>
+      </tr>
+
+      <tr>
+        <td
+          style="
+            padding:24px 62px 46px;
+            background:${COLORS.softCream};
+          "
+        >
+          <p
+            style="
+              margin:0 0 22px;
+              color:${COLORS.brown};
+              font-family:Arial,sans-serif;
+              font-size:15px;
+              line-height:1.6;
+              text-align:center;
+            "
+          >
+            Olá, ${recipientName}.
+          </p>
+
+          ${paragraphs}
+          ${renderQuote(content.quote)}
+          ${button}
+          ${purchase}
+        </td>
+      </tr>
+    `
+  }
+
+  if (design.layout === 5) {
+    return `
+      <tr>
+        <td
+          style="
+            padding:44px 46px 32px;
+            background:${COLORS.softCream};
+          "
+        >
+          <table
+            role="presentation"
+            width="100%"
+            cellspacing="0"
+            cellpadding="0"
+            border="0"
+          >
+            <tr>
+              <td
+                width="16"
+                style="
+                  width:16px;
+                  border-left:
+                    4px solid
+                    ${COLORS.gold};
+                "
+              >
+                &nbsp;
+              </td>
+
+              <td
+                style="
+                  padding-left:18px;
+                "
+              >
+                <div
+                  style="
+                    color:${COLORS.brown};
+                    font-family:Arial,sans-serif;
+                    font-size:10px;
+                    font-weight:700;
+                    letter-spacing:2px;
+                    text-transform:uppercase;
+                  "
+                >
+                  ${escapeHtml(content.eyebrow)}
+                </div>
+
+                <h1
+                  style="
+                    margin:13px 0 0;
+                    color:${COLORS.black};
+                    font-family:
+                      Georgia,
+                      'Times New Roman',
+                      serif;
+                    font-size:35px;
+                    font-weight:400;
+                    line-height:1.2;
+                  "
+                >
+                  ${escapeHtml(content.title)}
+                </h1>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr>
+        <td>${banner}</td>
+      </tr>
+
+      <tr>
+        <td
+          style="
+            padding:38px 46px 48px;
+            background:${COLORS.softCream};
+          "
+        >
+          <p
+            style="
+              margin:0 0 22px;
+              color:${COLORS.brown};
+              font-family:Arial,sans-serif;
+              font-size:15px;
+              line-height:1.6;
+            "
+          >
+            Olá, ${recipientName}.
+          </p>
+
+          ${paragraphs}
+          ${renderQuote(content.quote)}
+          ${button}
+          ${purchase}
+        </td>
+      </tr>
+    `
+  }
+
+  if (design.layout === 6) {
+    return `
+      <tr>
+        <td>${banner}</td>
+      </tr>
+
+      <tr>
+        <td
+          style="
+            padding:40px 42px 22px;
+            background:${COLORS.dark};
+          "
+        >
+          <div
+            style="
+              color:${COLORS.gold};
+              font-family:Arial,sans-serif;
+              font-size:10px;
+              font-weight:700;
+              letter-spacing:2.4px;
+              text-transform:uppercase;
+            "
+          >
+            ${escapeHtml(content.eyebrow)}
+          </div>
+
+          <h1
+            style="
+              margin:15px 0 0;
+              color:${COLORS.softCream};
+              font-family:
+                Georgia,
+                'Times New Roman',
+                serif;
+              font-size:35px;
+              font-weight:400;
+              line-height:1.2;
+            "
+          >
+            ${escapeHtml(content.title)}
+          </h1>
+        </td>
+      </tr>
+
+      <tr>
+        <td
+          style="
+            padding:36px 42px 46px;
+            background:${COLORS.softCream};
+          "
+        >
+          <p
+            style="
+              margin:0 0 22px;
+              color:${COLORS.brown};
+              font-family:Arial,sans-serif;
+              font-size:15px;
+              line-height:1.6;
+            "
+          >
+            Olá, ${recipientName}.
+          </p>
+
+          ${paragraphs}
+          ${renderQuote(
+            content.quote,
+            "dark"
+          )}
+          ${button}
+          ${purchase}
+        </td>
+      </tr>
+    `
+  }
+
+  if (design.layout === 7) {
+    return `
+      <tr>
+        <td
+          style="
+            padding:36px 44px 28px;
+            background:#F1E3CF;
+          "
+        >
+          <div
+            style="
+              color:${COLORS.brown};
+              font-family:Arial,sans-serif;
+              font-size:10px;
+              font-weight:700;
+              letter-spacing:2.2px;
+              text-transform:uppercase;
+            "
+          >
+            ${escapeHtml(content.eyebrow)}
+          </div>
+
+          <h1
+            style="
+              margin:14px 0 0;
+              color:${COLORS.black};
+              font-family:
+                Georgia,
+                'Times New Roman',
+                serif;
+              font-size:36px;
+              font-weight:400;
+              line-height:1.2;
+            "
+          >
+            ${escapeHtml(content.title)}
+          </h1>
+        </td>
+      </tr>
+
+      <tr>
+        <td
+          style="
+            padding:34px 44px;
+            background:${COLORS.softCream};
+          "
+        >
+          <p
+            style="
+              margin:0 0 22px;
+              color:${COLORS.brown};
+              font-family:Arial,sans-serif;
+              font-size:15px;
+              line-height:1.6;
+            "
+          >
+            Olá, ${recipientName}.
+          </p>
+
+          ${paragraphs}
+        </td>
+      </tr>
+
+      <tr>
+        <td>${banner}</td>
+      </tr>
+
+      <tr>
+        <td
+          style="
+            padding:18px 44px 46px;
+            background:${COLORS.softCream};
+          "
+        >
+          ${renderQuote(content.quote)}
+          ${button}
+          ${purchase}
+        </td>
+      </tr>
+    `
+  }
+
+  if (design.layout === 8) {
+    return `
+      <tr>
+        <td
+          style="
+            padding:40px 46px 30px;
+            background:${COLORS.softCream};
+          "
+        >
+          <div
+            style="
+              color:${COLORS.gold};
+              font-family:Arial,sans-serif;
+              font-size:10px;
+              font-weight:700;
+              letter-spacing:2.5px;
+              text-transform:uppercase;
+            "
+          >
+            ${escapeHtml(content.eyebrow)}
+          </div>
+
+          <h1
+            style="
+              margin:16px 0 22px;
+              color:${COLORS.black};
+              font-family:
+                Georgia,
+                'Times New Roman',
+                serif;
+              font-size:36px;
+              font-weight:400;
+              line-height:1.2;
+            "
+          >
+            ${escapeHtml(content.title)}
+          </h1>
+
+          <p
+            style="
+              margin:0 0 22px;
+              color:${COLORS.brown};
+              font-family:Arial,sans-serif;
+              font-size:15px;
+              line-height:1.6;
+            "
+          >
+            Olá, ${recipientName}.
+          </p>
+
+          ${paragraphs}
+        </td>
+      </tr>
+
+      <tr>
+        <td>${banner}</td>
+      </tr>
+
+      <tr>
+        <td
+          style="
+            padding:30px 46px 46px;
+            background:${COLORS.softCream};
+          "
+        >
+          ${renderQuote(content.quote)}
+          ${button}
+          ${purchase}
+        </td>
+      </tr>
+    `
+  }
+
+  return `
+    <tr>
+      <td>${banner}</td>
+    </tr>
+
+    <tr>
+      <td
+        style="
+          padding:42px 46px 48px;
+          background:${COLORS.softCream};
+        "
+      >
+        <div
+          style="
+            color:${COLORS.gold};
+            font-family:Arial,sans-serif;
+            font-size:10px;
+            font-weight:700;
+            letter-spacing:2.5px;
+            text-transform:uppercase;
+          "
+        >
+          ${escapeHtml(content.eyebrow)}
+        </div>
+
+        <h1
+          style="
+            margin:16px 0 23px;
+            color:${COLORS.black};
+            font-family:
+              Georgia,
+              'Times New Roman',
+              serif;
+            font-size:36px;
+            font-weight:400;
+            line-height:1.2;
+          "
+        >
+          ${escapeHtml(content.title)}
+        </h1>
+
+        <p
+          style="
+            margin:0 0 22px;
+            color:${COLORS.brown};
+            font-family:Arial,sans-serif;
+            font-size:15px;
+            line-height:1.6;
+          "
+        >
+          Olá, ${recipientName}.
+        </p>
+
+        ${paragraphs}
+        ${renderQuote(content.quote)}
+        ${button}
+        ${purchase}
+      </td>
+    </tr>
+  `
+}
+
+function emailLayout({
+  email,
+  name,
+  sequenceCode,
+  emailNumber,
+  productType,
+  content,
+}) {
+  const recipientName =
+    escapeHtml(
+      firstName(name)
+    )
+
+  const safeEmail =
+    String(email || "")
+      .trim()
+      .toLowerCase()
+
+  const unsubscribeUrl =
+    `${SITE_URL}/api/unsubscribe?email=` +
+    encodeURIComponent(
+      safeEmail
+    )
+
+  const design =
+    selectEmailDesign({
+      sequenceCode,
+      emailNumber,
+      productType,
+    })
+
+  return `<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+    >
+
+    <meta
+      name="x-apple-disable-message-reformatting"
+    >
+
+    <title>
+      ${escapeHtml(content.subject)}
+    </title>
+  </head>
+
+  <body
+    style="
+      margin:0;
+      padding:0;
+      background:#E9E5DF;
+      -webkit-text-size-adjust:100%;
+    "
+  >
+    <div
+      style="
+        display:none;
+        max-height:0;
+        overflow:hidden;
+        opacity:0;
+        color:transparent;
+      "
+    >
+      ${escapeHtml(content.preheader)}
+    </div>
+
+    <table
+      role="presentation"
+      width="100%"
+      cellspacing="0"
+      cellpadding="0"
+      border="0"
+      bgcolor="#E9E5DF"
+      style="
+        width:100%;
+        background:#E9E5DF;
+        border-collapse:collapse;
+      "
+    >
+      <tr>
+        <td
+          align="center"
+          style="
+            padding:26px 10px 44px;
+          "
+        >
+          <table
+            role="presentation"
+            width="100%"
+            cellspacing="0"
+            cellpadding="0"
+            border="0"
+            style="
+              width:100%;
+              max-width:660px;
+              background:${COLORS.softCream};
+              border-collapse:collapse;
+              box-shadow:
+                0 10px 28px
+                rgba(0,0,0,0.08);
+            "
+          >
+            ${renderContentLayout({
+              design,
+              content,
+              recipientName,
+            })}
+
+            <tr>
+              <td>
+                ${renderSuperacaoFooter({
+                  unsubscribeUrl,
+                })}
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`
+}
+
+export function getSuperacaoEmailSubject({
+  sequenceCode,
+  emailNumber,
+}) {
+  const emails =
+    getSequenceEmails(sequenceCode)
+
+  const index =
+    Math.max(
+      0,
+      Number(emailNumber || 1) - 1
+    )
+
+  return (
+    emails[index]?.subject ||
+    emails[0]?.subject ||
+    "Superação"
+  )
 }
 
 export function getSuperacaoEmailHtml({
@@ -473,396 +2485,25 @@ export function getSuperacaoEmailHtml({
   email,
   productType,
 }) {
-  const collection = getCollection(sequenceCode)
-  const index = Math.max(0, Number(emailNumber || 1) - 1)
-  const item = collection[index] || collection[0]
+  const emails =
+    getSequenceEmails(sequenceCode)
 
-  const isCustomer =
-    String(sequenceCode || "").includes("customer")
-
-  const isCheckout =
-    String(sequenceCode || "").includes("checkout")
-
-  const hero =
-    HEROES[index % HEROES.length]
-
-  const greeting = firstName(name)
-    ? `Olá, ${firstName(name)}.`
-    : "Olá."
-
-  const paragraphs = (item.paragraphs || [])
-    .map(
-      (paragraph) => `
-        <p style="
-          margin:0 0 18px;
-          color:${COLORS.muted};
-          font-family:Arial,Helvetica,sans-serif;
-          font-size:16px;
-          line-height:1.75;
-        ">
-          ${esc(paragraph)}
-        </p>
-      `
+  const index =
+    Math.max(
+      0,
+      Number(emailNumber || 1) - 1
     )
-    .join("")
 
-  const insight = item.insight
-    ? `
-      <div style="
-        margin:26px 0;
-        padding:20px 21px;
-        border-left:4px solid ${COLORS.gold};
-        border-radius:8px;
-        background:${COLORS.cardSoft};
-      ">
-        <p style="
-          margin:0;
-          color:${COLORS.cream};
-          font-family:Georgia,'Times New Roman',serif;
-          font-size:17px;
-          line-height:1.55;
-        ">
-          ${esc(item.insight)}
-        </p>
-      </div>
-    `
-    : ""
+  const content =
+    emails[index] ||
+    emails[0]
 
-  const quote = item.quote
-    ? `
-      <p style="
-        margin:0 0 26px;
-        color:${COLORS.goldStrong};
-        font-family:Georgia,'Times New Roman',serif;
-        font-size:21px;
-        font-style:italic;
-        line-height:1.5;
-      ">
-        ${esc(item.quote)}
-      </p>
-    `
-    : ""
-
-  const ctaText = isCustomer
-    ? "VISITAR O WEBSITE DE SUPERAÇÃO"
-    : isCheckout
-      ? "RETOMAR MINHA COMPRA"
-      : "CONHECER O LIVRO SUPERAÇÃO"
-
-  const formatLabel =
-    productType === "physical"
-      ? "Livro físico"
-      : productType === "digital"
-        ? "eBook"
-        : ""
-
-  const website =
-    `${baseUrl()}/superacao` +
-    `${isCustomer ? "" : "#comprar"}`
-
-  return `
-<!doctype html>
-<html lang="pt-BR">
-<head>
-  <meta charset="utf-8">
-  <meta
-    name="viewport"
-    content="width=device-width,initial-scale=1"
-  >
-  <title>${esc(item.subject)}</title>
-</head>
-
-<body style="
-  margin:0;
-  padding:0;
-  background:${COLORS.page};
-">
-  <div style="
-    display:none;
-    max-height:0;
-    overflow:hidden;
-    opacity:0;
-    color:transparent;
-  ">
-    ${esc(item.title)}
-  </div>
-
-  <table
-    role="presentation"
-    width="100%"
-    cellspacing="0"
-    cellpadding="0"
-    style="
-      width:100%;
-      background:${COLORS.page};
-      border-collapse:collapse;
-    "
-  >
-    <tr>
-      <td
-        align="center"
-        style="padding:28px 10px;"
-      >
-        <table
-          role="presentation"
-          width="100%"
-          cellspacing="0"
-          cellpadding="0"
-          style="
-            width:100%;
-            max-width:660px;
-            overflow:hidden;
-            border:1px solid ${COLORS.border};
-            border-radius:22px;
-            background:${COLORS.card};
-            border-collapse:separate;
-          "
-        >
-          <tr>
-            <td style="
-              padding:20px 28px;
-              background:linear-gradient(
-                135deg,
-                ${COLORS.goldStrong},
-                ${COLORS.gold},
-                ${COLORS.bronze}
-              );
-            ">
-              <table
-                role="presentation"
-                width="100%"
-                cellspacing="0"
-                cellpadding="0"
-              >
-                <tr>
-                  <td style="
-                    color:#21150a;
-                    font-family:Arial,Helvetica,sans-serif;
-                    font-size:10px;
-                    font-weight:900;
-                    letter-spacing:2.4px;
-                    text-transform:uppercase;
-                  ">
-                    SUPERAÇÃO
-                  </td>
-
-                  <td
-                    align="right"
-                    style="
-                      color:rgba(33,21,10,.75);
-                      font-family:Arial,Helvetica,sans-serif;
-                      font-size:10px;
-                      font-weight:800;
-                    "
-                  >
-                    Gilberto de Souza
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <tr>
-            <td style="padding:0;">
-              <img
-                src="${baseUrl()}${hero}"
-                width="660"
-                alt="Livro Superação, de Gilberto de Souza"
-                style="
-                  width:100%;
-                  max-width:660px;
-                  height:auto;
-                  display:block;
-                  border:0;
-                "
-              >
-            </td>
-          </tr>
-
-          <tr>
-            <td style="padding:38px 34px 32px;">
-              <p style="
-                margin:0 0 13px;
-                color:${COLORS.gold};
-                font-family:Arial,Helvetica,sans-serif;
-                font-size:10px;
-                font-weight:900;
-                letter-spacing:2.5px;
-                text-transform:uppercase;
-              ">
-                ${esc(
-                  item.eyebrow ||
-                    (isCustomer
-                      ? "DEPOIS DA COMPRA"
-                      : isCheckout
-                        ? "SUA COMPRA"
-                        : "UMA HISTÓRIA REAL")
-                )}
-              </p>
-
-              <h1 style="
-                margin:0 0 22px;
-                color:${COLORS.cream};
-                font-family:Georgia,'Times New Roman',serif;
-                font-size:34px;
-                line-height:1.12;
-                font-weight:700;
-              ">
-                ${esc(item.title)}
-              </h1>
-
-              <p style="
-                margin:0 0 18px;
-                color:${COLORS.text};
-                font-family:Arial,Helvetica,sans-serif;
-                font-size:16px;
-                line-height:1.7;
-              ">
-                ${greeting}
-              </p>
-
-              ${quote}
-              ${paragraphs}
-              ${insight}
-
-              ${
-                formatLabel
-                  ? `
-                    <p style="
-                      margin:22px 0 0;
-                      color:${COLORS.soft};
-                      font-family:Arial,Helvetica,sans-serif;
-                      font-size:12px;
-                    ">
-                      Formato relacionado à sua compra:
-                      <strong style="color:${COLORS.gold};">
-                        ${esc(formatLabel)}
-                      </strong>
-                    </p>
-                  `
-                  : ""
-              }
-
-              ${button(ctaText, website)}
-
-              <table
-                role="presentation"
-                width="100%"
-                cellspacing="0"
-                cellpadding="0"
-                style="
-                  margin-top:32px;
-                  border-top:1px solid ${COLORS.border};
-                "
-              >
-                <tr>
-                  <td
-                    width="92"
-                    valign="middle"
-                    style="padding-top:25px;"
-                  >
-                    <img
-                      src="${baseUrl()}/books/superacao/book-front.png"
-                      width="72"
-                      alt="Capa do livro Superação"
-                      style="
-                        width:72px;
-                        height:auto;
-                        display:block;
-                        border-radius:4px;
-                        box-shadow:0 12px 28px rgba(0,0,0,.35);
-                      "
-                    >
-                  </td>
-
-                  <td
-                    valign="middle"
-                    style="padding-top:25px;"
-                  >
-                    <p style="
-                      margin:0 0 5px;
-                      color:${COLORS.gold};
-                      font-family:Arial,Helvetica,sans-serif;
-                      font-size:10px;
-                      font-weight:900;
-                      letter-spacing:1.7px;
-                      text-transform:uppercase;
-                    ">
-                      Livro oficial
-                    </p>
-
-                    <p style="
-                      margin:0;
-                      color:${COLORS.cream};
-                      font-family:Georgia,'Times New Roman',serif;
-                      font-size:20px;
-                      font-weight:700;
-                    ">
-                      Superação
-                    </p>
-
-                    <p style="
-                      margin:6px 0 0;
-                      color:${COLORS.soft};
-                      font-family:Arial,Helvetica,sans-serif;
-                      font-size:12px;
-                      line-height:1.5;
-                    ">
-                      O seu futuro é você quem faz.
-                    </p>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <tr>
-            <td style="
-              padding:24px 28px;
-              border-top:1px solid ${COLORS.border};
-              background:${COLORS.outer};
-              text-align:center;
-            ">
-              <p style="
-                margin:0 0 8px;
-                color:${COLORS.muted};
-                font-family:Arial,Helvetica,sans-serif;
-                font-size:11px;
-                line-height:1.6;
-              ">
-                Você recebeu esta mensagem porque se cadastrou
-                ou realizou uma compra no website oficial de
-                Gilberto de Souza.
-              </p>
-
-              <p style="
-                margin:0 0 9px;
-                color:${COLORS.soft};
-                font-family:Arial,Helvetica,sans-serif;
-                font-size:10px;
-                line-height:1.6;
-              ">
-                Editora Suprema · Hortolândia – SP – Brasil
-              </p>
-
-              <a
-                href="${unsubscribeUrl(email)}"
-                style="
-                  color:${COLORS.gold};
-                  font-family:Arial,Helvetica,sans-serif;
-                  font-size:10px;
-                  text-decoration:underline;
-                "
-              >
-                Cancelar inscrição
-              </a>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>
-  `
+  return emailLayout({
+    email,
+    name,
+    sequenceCode,
+    emailNumber,
+    productType,
+    content,
+  })
 }
