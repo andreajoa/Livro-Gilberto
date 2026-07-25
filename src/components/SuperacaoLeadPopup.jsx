@@ -11,28 +11,173 @@ import {
   X,
 } from "lucide-react"
 
-const STORAGE_KEY = "superacao_lead_popup_closed_at"
-const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000
+const STORAGE_KEY =
+  "superacao_lead_popup_state"
 
-function shouldDisplayPopup() {
-  try {
-    const storedValue = window.localStorage.getItem(STORAGE_KEY)
+const LEGACY_STORAGE_KEY =
+  "superacao_lead_popup_closed_at"
 
-    if (!storedValue) {
-      return true
-    }
+const SEVEN_DAYS =
+  7 * 24 * 60 * 60 * 1000
 
-    const closedAt = Number(storedValue)
+const MAX_DAILY_APPEARANCES = 3
 
-    if (!Number.isFinite(closedAt)) {
-      return true
-    }
+function getLocalDateKey() {
+  const now = new Date()
 
-    return Date.now() - closedAt > SEVEN_DAYS
-  } catch {
-    return true
+  const year =
+    now.getFullYear()
+
+  const month =
+    String(
+      now.getMonth() + 1
+    ).padStart(2, "0")
+
+  const day =
+    String(
+      now.getDate()
+    ).padStart(2, "0")
+
+  return `${year}-${month}-${day}`
+}
+
+function createDefaultPopupState() {
+  return {
+    date: getLocalDateKey(),
+    appearances: 0,
+    registeredAt: null,
   }
 }
+
+function readPopupState() {
+  try {
+    const storedValue =
+      window.localStorage.getItem(
+        STORAGE_KEY
+      )
+
+    if (!storedValue) {
+      return createDefaultPopupState()
+    }
+
+    const parsed =
+      JSON.parse(storedValue)
+
+    const appearances =
+      Number(
+        parsed?.appearances
+      )
+
+    const registeredAt =
+      Number(
+        parsed?.registeredAt
+      )
+
+    return {
+      date:
+        typeof parsed?.date === "string"
+          ? parsed.date
+          : getLocalDateKey(),
+
+      appearances:
+        Number.isFinite(appearances)
+          ? Math.max(
+              0,
+              appearances
+            )
+          : 0,
+
+      registeredAt:
+        Number.isFinite(registeredAt)
+          ? registeredAt
+          : null,
+    }
+  } catch {
+    return createDefaultPopupState()
+  }
+}
+
+function writePopupState(state) {
+  try {
+    window.localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(state)
+    )
+
+    window.localStorage.removeItem(
+      LEGACY_STORAGE_KEY
+    )
+  } catch {}
+}
+
+function normalizePopupState() {
+  const today =
+    getLocalDateKey()
+
+  const storedState =
+    readPopupState()
+
+  const registrationIsActive =
+    storedState.registeredAt !== null &&
+    Date.now() - storedState.registeredAt <
+      SEVEN_DAYS
+
+  return {
+    date: today,
+
+    appearances:
+      storedState.date === today
+        ? storedState.appearances
+        : 0,
+
+    registeredAt:
+      registrationIsActive
+        ? storedState.registeredAt
+        : null,
+  }
+}
+
+function shouldDisplayPopup() {
+  const state =
+    normalizePopupState()
+
+  writePopupState(state)
+
+  if (state.registeredAt !== null) {
+    return false
+  }
+
+  return (
+    state.appearances <
+    MAX_DAILY_APPEARANCES
+  )
+}
+
+function registerPopupAppearance() {
+  const state =
+    normalizePopupState()
+
+  writePopupState({
+    ...state,
+
+    appearances:
+      Math.min(
+        MAX_DAILY_APPEARANCES,
+        state.appearances + 1
+      ),
+  })
+}
+
+function registerSuccessfulSignup() {
+  const state =
+    normalizePopupState()
+
+  writePopupState({
+    ...state,
+    registeredAt: Date.now(),
+  })
+}
+
 
 export default function SuperacaoLeadPopup() {
   const [isOpen, setIsOpen] = useState(false)
@@ -60,6 +205,7 @@ export default function SuperacaoLeadPopup() {
     }
 
     const timer = window.setTimeout(() => {
+      registerPopupAppearance()
       setIsOpen(true)
     }, 6000)
 
@@ -87,13 +233,6 @@ export default function SuperacaoLeadPopup() {
   }, [isOpen])
 
   const closePopup = () => {
-    try {
-      window.localStorage.setItem(
-        STORAGE_KEY,
-        String(Date.now())
-      )
-    } catch {}
-
     setIsOpen(false)
   }
 
@@ -193,12 +332,7 @@ export default function SuperacaoLeadPopup() {
         "Cadastro realizado. Você receberá as novidades de Superação por e-mail."
       )
 
-      try {
-        window.localStorage.setItem(
-          STORAGE_KEY,
-          String(Date.now())
-        )
-      } catch {}
+      registerSuccessfulSignup()
     } catch (error) {
       setStatus("error")
       setMessage(
