@@ -194,142 +194,17 @@ function getLeadTopic(language, emailNumber) {
 }
 
 
-function retailerImageBlock(language, emailNumber = 1) {
-  const root = 'https://www.gilberto-souza.com'
-  const retailers = RETAILERS[language] || RETAILERS.en
-  const number = Math.max(1, Number(emailNumber || 1))
-  const spanish = language === 'es'
+function retailerBlock(
+  language,
+  siteUrl,
+  emailNumber = 1
+) {
+  const retailers =
+    RETAILERS[language] ||
+    RETAILERS.pt
 
-  const amazonBanner = spanish
-    ? 'amazon-banner-es.png'
-    : number % 2 === 0
-      ? 'amazon-banner-paperback.png'
-      : 'amazon-banner-en.png'
-
-  const barnesBanner = spanish
-    ? 'barnes-banner-es.png'
-    : number % 2 === 0
-      ? 'order-copy-banner-barnes.png'
-      : 'barnes-banner-en.png'
-
-  const amazonAlt = spanish
-    ? 'Comprar el libro impreso en Amazon'
-    : 'Buy the paperback on Amazon'
-
-  const barnesAlt = spanish
-    ? 'Comprar el libro impreso en Barnes & Noble'
-    : 'Buy the paperback at Barnes & Noble'
-
-  const barnesHeader = `
-    <img
-      src="${root}/email-assets/retailers/barnes-header.png"
-      alt="Barnes & Noble — Now available"
-      width="600"
-      style="
-        display:block;
-        width:100%;
-        max-width:600px;
-        height:auto;
-        margin:0 0 8px;
-        padding:0;
-        border:0;
-        outline:none;
-        text-decoration:none;
-      "
-    >
-  `
-
-  return `
-    <table
-      role="presentation"
-      width="100%"
-      cellspacing="0"
-      cellpadding="0"
-      style="
-        width:100%;
-        max-width:600px;
-        margin:0 auto;
-        border-collapse:collapse;
-      "
-    >
-      <tr>
-        <td style="padding:0 0 13px;">
-          <a
-            href="${retailers.amazon}"
-            target="_blank"
-            rel="noopener noreferrer"
-            style="
-              display:block;
-              width:100%;
-              margin:0;
-              padding:0;
-              text-decoration:none;
-            "
-          >
-            <img
-              src="${root}/email-assets/retailers/${amazonBanner}"
-              alt="${amazonAlt}"
-              width="600"
-              style="
-                display:block;
-                width:100%;
-                max-width:600px;
-                height:auto;
-                margin:0;
-                padding:0;
-                border:0;
-                outline:none;
-                text-decoration:none;
-              "
-            >
-          </a>
-        </td>
-      </tr>
-
-      <tr>
-        <td style="padding:0;">
-          ${barnesHeader}
-
-          <a
-            href="${retailers.barnes}"
-            target="_blank"
-            rel="noopener noreferrer"
-            style="
-              display:block;
-              width:100%;
-              margin:0;
-              padding:0;
-              text-decoration:none;
-            "
-          >
-            <img
-              src="${root}/email-assets/retailers/${barnesBanner}"
-              alt="${barnesAlt}"
-              width="600"
-              style="
-                display:block;
-                width:100%;
-                max-width:600px;
-                height:auto;
-                margin:0;
-                padding:0;
-                border:0;
-                outline:none;
-                text-decoration:none;
-              "
-            >
-          </a>
-        </td>
-      </tr>
-    </table>
-  `
-}
-
-
-function retailerLegacyBlock(language, siteUrl) {
-  const r = RETAILERS[language] || RETAILERS.pt
-
-  const root = 'https://www.gilberto-souza.com'
+  const root =
+    'https://www.gilberto-souza.com'
 
   const cover =
     language === 'en'
@@ -340,310 +215,309 @@ function retailerLegacyBlock(language, siteUrl) {
 
   const copy = {
     pt: {
-      title: 'Prefere o livro físico?',
+      heading: 'Prefere o livro físico?',
+      amazonBrand: 'amazon',
       amazonEyebrow: 'COMPRA SEGURA NA AMAZON',
-      amazonTitle: 'Compre a edição impressa na Amazon',
+      amazonTitle:
+        'Compre a edição impressa na Amazon',
       amazonCta: 'VER NA AMAZON →',
+      barnesBrand: 'BARNES & NOBLE',
       barnesEyebrow: 'LIVRARIA INTERNACIONAL',
-      barnesTitle: 'Disponível também na Barnes & Noble',
-      barnesCta: 'VER NA BARNES & NOBLE →'
+      barnesTitle:
+        'Disponível também na Barnes & Noble',
+      barnesCta:
+        'VER NA BARNES & NOBLE →'
     },
 
     en: {
-      title: 'Prefer the printed edition?',
-      amazonEyebrow: 'SHOP SECURELY ON AMAZON',
-      amazonTitle: 'Buy the paperback directly from Amazon',
+      heading: 'Prefer the printed edition?',
+      amazonBrand: 'amazon',
+      amazonEyebrow:
+        'SHOP SECURELY ON AMAZON',
+      amazonTitle:
+        'Buy the paperback directly from Amazon',
       amazonCta: 'VIEW ON AMAZON →',
-      barnesEyebrow: 'TRUSTED BOOK RETAILER',
-      barnesTitle: 'Also available at Barnes & Noble',
-      barnesCta: 'VIEW AT BARNES & NOBLE →'
+      barnesBrand: 'BARNES & NOBLE',
+      barnesEyebrow:
+        'TRUSTED BOOK RETAILER',
+      barnesTitle:
+        'Also available at Barnes & Noble',
+      barnesCta:
+        'VIEW AT BARNES & NOBLE →'
     },
 
     es: {
-      title: '¿Prefieres la edición impresa?',
-      amazonEyebrow: 'COMPRA SEGURA EN AMAZON',
-      amazonTitle: 'Compra el libro impreso directamente en Amazon',
+      heading:
+        '¿Prefieres la edición impresa?',
+      amazonBrand: 'amazon',
+      amazonEyebrow:
+        'COMPRA SEGURA EN AMAZON',
+      amazonTitle:
+        'Compra el libro impreso en Amazon',
       amazonCta: 'VER EN AMAZON →',
-      barnesEyebrow: 'LIBRERÍA INTERNACIONAL',
-      barnesTitle: 'También disponible en Barnes & Noble',
-      barnesCta: 'VER EN BARNES & NOBLE →'
+      barnesBrand: 'BARNES & NOBLE',
+      barnesEyebrow:
+        'LIBRERÍA INTERNACIONAL',
+      barnesTitle:
+        'También disponible en Barnes & Noble',
+      barnesCta:
+        'VER EN BARNES & NOBLE →'
     }
-  }[language] || null
+  }
 
-  const t = copy || {
-    title: 'Prefer the printed edition?',
-    amazonEyebrow: 'SHOP SECURELY ON AMAZON',
-    amazonTitle: 'Buy the paperback directly from Amazon',
-    amazonCta: 'VIEW ON AMAZON →',
-    barnesEyebrow: 'TRUSTED BOOK RETAILER',
-    barnesTitle: 'Also available at Barnes & Noble',
-    barnesCta: 'VIEW AT BARNES & NOBLE →'
+  const t =
+    copy[language] ||
+    copy.pt
+
+  function card({
+    href,
+    background,
+    border,
+    brand,
+    eyebrow,
+    title,
+    cta,
+    text,
+    accent
+  }) {
+    return `
+      <table
+        role="presentation"
+        width="100%"
+        cellspacing="0"
+        cellpadding="0"
+        style="
+          width:100%;
+          max-width:100%;
+          margin:0 0 14px;
+          background:${background};
+          border:1px solid ${border};
+          border-collapse:collapse;
+        "
+      >
+        <tr>
+          <td
+            align="center"
+            style="
+              padding:24px 22px 8px;
+              text-align:center;
+            "
+          >
+            <div
+              style="
+                margin:0;
+                color:${text};
+                font-family:Arial,Helvetica,sans-serif;
+                font-size:21px;
+                line-height:1.1;
+                font-weight:800;
+                text-align:center;
+              "
+            >
+              ${brand}
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td
+            align="center"
+            style="
+              padding:5px 24px 9px;
+              text-align:center;
+            "
+          >
+            <div
+              style="
+                color:${accent};
+                font-family:Arial,Helvetica,sans-serif;
+                font-size:10px;
+                line-height:1.5;
+                font-weight:800;
+                letter-spacing:1.3px;
+                text-align:center;
+                white-space:normal;
+                word-break:normal;
+              "
+            >
+              ${eyebrow}
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td
+            align="center"
+            style="
+              padding:0 28px 17px;
+              text-align:center;
+            "
+          >
+            <div
+              style="
+                width:100%;
+                max-width:330px;
+                margin:0 auto;
+                color:${text};
+                font-family:Georgia,'Times New Roman',serif;
+                font-size:22px;
+                line-height:1.35;
+                text-align:center;
+                white-space:normal;
+                overflow-wrap:break-word;
+                word-break:normal;
+              "
+            >
+              ${title}
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td
+            align="center"
+            style="
+              padding:0 20px 17px;
+              text-align:center;
+            "
+          >
+            <img
+              src="${cover}"
+              alt=""
+              width="74"
+              style="
+                display:block;
+                width:74px;
+                max-width:74px;
+                height:auto;
+                margin:0 auto;
+                border:0;
+                box-shadow:
+                  0 6px 15px rgba(0,0,0,.22);
+              "
+            >
+          </td>
+        </tr>
+
+        <tr>
+          <td
+            align="center"
+            style="
+              padding:0 24px 25px;
+              text-align:center;
+            "
+          >
+            <table
+              role="presentation"
+              cellspacing="0"
+              cellpadding="0"
+              border="0"
+              align="center"
+              style="
+                margin:0 auto;
+                border-collapse:collapse;
+              "
+            >
+              <tr>
+                <td
+                  align="center"
+                  style="
+                    border:1px solid ${accent};
+                    text-align:center;
+                  "
+                >
+                  <a
+                    href="${href}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style="
+                      display:block;
+                      padding:13px 19px;
+                      color:${accent};
+                      font-family:Arial,Helvetica,sans-serif;
+                      font-size:11px;
+                      line-height:1.4;
+                      font-weight:800;
+                      letter-spacing:.3px;
+                      text-align:center;
+                      text-decoration:none;
+                      white-space:normal;
+                    "
+                  >
+                    ${cta}
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    `
   }
 
   return `
-    <div style="
-      width:100%;
-      margin:0;
-      padding:0;
-    ">
-
-      <div style="
-        font-family:Georgia,'Times New Roman',serif;
-        font-size:19px;
-        line-height:1.4;
-        color:#17324D;
-        text-align:center;
-        margin:0 0 15px;
-      ">
-        ${t.title}
-      </div>
-
-      <!-- AMAZON -->
-      <a
-        href="${r.amazon}"
-        target="_blank"
-        rel="noopener noreferrer"
-        style="
-          display:block;
-          width:100%;
-          box-sizing:border-box;
-          text-decoration:none;
-          background:#232F3E;
-          border:1px solid #192536;
-          margin:0 0 12px;
-        "
-      >
-        <table
-          role="presentation"
-          width="100%"
-          cellspacing="0"
-          cellpadding="0"
-          class="retailer-table"
-          style="width:100%;table-layout:fixed;"
+    <table
+      role="presentation"
+      width="100%"
+      cellspacing="0"
+      cellpadding="0"
+      style="
+        width:100%;
+        max-width:100%;
+        margin:0;
+        border-collapse:collapse;
+      "
+    >
+      <tr>
+        <td
+          align="center"
+          style="
+            padding:0 12px 18px;
+            color:#17324D;
+            font-family:Georgia,'Times New Roman',serif;
+            font-size:22px;
+            line-height:1.35;
+            text-align:center;
+          "
         >
-          <tr>
-            <td
-              width="86"
-              class="retailer-cover-cell"
-              style="
-                width:86px;
-                padding:11px 12px;
-                vertical-align:middle;
-                text-align:center;
-              "
-            >
-              <img
-                src="${cover}"
-                alt=""
-                width="48"
-                style="
-                  display:inline-block;
-                  width:48px;
-                  max-width:48px;
-                  height:auto;
-                  box-shadow:0 4px 10px rgba(0,0,0,.28);
-                "
-              >
-            </td>
+          ${t.heading}
+        </td>
+      </tr>
 
-            <td
-              class="retailer-copy-cell"
-              style="
-              padding:12px 7px;
-              vertical-align:middle;
-            ">
-              <img
-                src="${root}/retailer-logos/amazon.png"
-                alt="Amazon"
-                height="24"
-                class="retailer-logo"
-                style="
-                  display:block;
-                  height:24px;
-                  width:auto;
-                  max-width:110px;
-                  margin:0 0 6px;
-                "
-              >
+      <tr>
+        <td style="padding:0;">
+          ${card({
+            href: retailers.amazon,
+            background: '#232F3E',
+            border: '#192536',
+            brand: t.amazonBrand,
+            eyebrow: t.amazonEyebrow,
+            title: t.amazonTitle,
+            cta: t.amazonCta,
+            text: '#FFFFFF',
+            accent: '#F7C65C'
+          })}
+        </td>
+      </tr>
 
-              <div style="
-                font-family:Arial,Helvetica,sans-serif;
-                font-size:9px;
-                font-weight:700;
-                letter-spacing:1.2px;
-                color:#F7C65C;
-                margin-bottom:4px;
-              ">
-                ${t.amazonEyebrow}
-              </div>
-
-              <div style="
-                font-family:Georgia,'Times New Roman',serif;
-                font-size:15px;
-                line-height:1.35;
-                color:#FFFFFF;
-              ">
-                ${t.amazonTitle}
-              </div>
-            </td>
-
-            <td
-              width="132"
-              align="right"
-              class="retailer-cta-cell"
-              style="
-                width:132px;
-                padding:12px 16px 12px 8px;
-                vertical-align:middle;
-              "
-            >
-              <span
-                class="retailer-cta"
-                style="
-                display:inline-block;
-                font-family:Arial,Helvetica,sans-serif;
-                font-size:10px;
-                font-weight:800;
-                letter-spacing:.4px;
-                color:#F7C65C;
-                white-space:nowrap;
-              ">
-                ${t.amazonCta}
-              </span>
-            </td>
-          </tr>
-        </table>
-      </a>
-
-      <!-- BARNES & NOBLE -->
-      <a
-        href="${r.barnes}"
-        target="_blank"
-        rel="noopener noreferrer"
-        style="
-          display:block;
-          width:100%;
-          box-sizing:border-box;
-          text-decoration:none;
-          background:#F4F0E8;
-          border:1px solid #DED5C5;
-          margin:0;
-        "
-      >
-        <table
-          role="presentation"
-          width="100%"
-          cellspacing="0"
-          cellpadding="0"
-          class="retailer-table"
-          style="width:100%;table-layout:fixed;"
-        >
-          <tr>
-            <td
-              width="86"
-              class="retailer-cover-cell"
-              style="
-                width:86px;
-                padding:11px 12px;
-                vertical-align:middle;
-                text-align:center;
-              "
-            >
-              <img
-                src="${cover}"
-                alt=""
-                width="48"
-                style="
-                  display:inline-block;
-                  width:48px;
-                  max-width:48px;
-                  height:auto;
-                  box-shadow:0 4px 10px rgba(20,35,50,.18);
-                "
-              >
-            </td>
-
-            <td
-              class="retailer-copy-cell"
-              style="
-              padding:12px 7px;
-              vertical-align:middle;
-            ">
-              <img
-                src="${root}/retailer-logos/barnes.png"
-                alt="Barnes & Noble"
-                height="28"
-                class="retailer-logo"
-                style="
-                  display:block;
-                  height:28px;
-                  width:auto;
-                  max-width:145px;
-                  margin:0 0 5px;
-                "
-              >
-
-              <div style="
-                font-family:Arial,Helvetica,sans-serif;
-                font-size:9px;
-                font-weight:700;
-                letter-spacing:1.2px;
-                color:#967230;
-                margin-bottom:4px;
-              ">
-                ${t.barnesEyebrow}
-              </div>
-
-              <div style="
-                font-family:Georgia,'Times New Roman',serif;
-                font-size:15px;
-                line-height:1.35;
-                color:#17324D;
-              ">
-                ${t.barnesTitle}
-              </div>
-            </td>
-
-            <td
-              width="158"
-              align="right"
-              class="retailer-cta-cell"
-              style="
-                width:158px;
-                padding:12px 16px 12px 8px;
-                vertical-align:middle;
-              "
-            >
-              <span
-                class="retailer-cta"
-                style="
-                display:inline-block;
-                font-family:Arial,Helvetica,sans-serif;
-                font-size:10px;
-                font-weight:800;
-                letter-spacing:.35px;
-                color:#17324D;
-                white-space:nowrap;
-              ">
-                ${t.barnesCta}
-              </span>
-            </td>
-          </tr>
-        </table>
-      </a>
-    </div>
+      <tr>
+        <td style="padding:0;">
+          ${card({
+            href: retailers.barnes,
+            background: '#F7F3EA',
+            border: '#D8CDBB',
+            brand: t.barnesBrand,
+            eyebrow: t.barnesEyebrow,
+            title: t.barnesTitle,
+            cta: t.barnesCta,
+            text: '#17324D',
+            accent: '#8D6D2E'
+          })}
+        </td>
+      </tr>
+    </table>
   `
 }
-
-
-function retailerBlock(language, siteUrl, emailNumber = 1) {
-  if (language === 'en' || language === 'es') {
-    return retailerImageBlock(language, emailNumber)
-  }
-
-  return retailerLegacyBlock(language, siteUrl)
-}
-
 
 export function getLeadEmailSubject({ language = 'pt', emailNumber = 1 }) {
   const lang = LEAD_TOPICS[language] ? language : 'pt'

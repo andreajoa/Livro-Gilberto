@@ -156,7 +156,7 @@ function heroBlock({ design, heroUrl, headline, accent }) {
                   src="${heroUrl}"
                   alt=""
                   width="326"
-                  style="display:block;width:100%;max-width:326px;height:auto;border:0;"
+                  style="display:block;width:100%;max-width:326px;height:auto;border:0;margin:0 auto;"
                 >
               </td>
             </tr>
@@ -394,7 +394,7 @@ function renderInternationalEmail({
       max-width:600px !important;
       min-width:0 !important;
       margin:0 auto !important;
-      table-layout:fixed !important;
+      table-layout:auto !important;
     }
 
     .email-wrapper,
@@ -425,30 +425,145 @@ function renderInternationalEmail({
         overflow-x:hidden !important;
       }
 
-      body > table {
+      body > table,
+      .email-outer {
         width:100% !important;
         min-width:0 !important;
         max-width:100% !important;
+        margin:0 !important;
+        padding:0 !important;
       }
 
       .email-wrapper {
         width:100% !important;
         min-width:0 !important;
         max-width:100% !important;
-        margin:0 !important;
-        table-layout:fixed !important;
+        margin:0 auto !important;
+        table-layout:auto !important;
       }
 
-      .email-wrapper > tbody,
-      .email-wrapper > tbody > tr,
-      .email-wrapper > tbody > tr > td {
+      .email-wrapper,
+      .email-wrapper table,
+      .email-wrapper tbody,
+      .email-wrapper tr,
+      .email-wrapper td {
+        max-width:100% !important;
+        box-sizing:border-box !important;
+      }
+
+      .email-pad {
+        width:auto !important;
+        max-width:100% !important;
+        padding-left:20px !important;
+        padding-right:20px !important;
+        box-sizing:border-box !important;
+      }
+
+      .email-headline {
+        width:auto !important;
+        max-width:100% !important;
+        margin-left:auto !important;
+        margin-right:auto !important;
+        padding-left:0 !important;
+        padding-right:0 !important;
+        font-size:29px !important;
+        line-height:1.17 !important;
+        text-align:center !important;
+        white-space:normal !important;
+        overflow-wrap:break-word !important;
+        word-break:normal !important;
+      }
+
+      .email-subheadline,
+      .email-body-copy {
+        width:auto !important;
+        max-width:100% !important;
+        white-space:normal !important;
+        overflow-wrap:break-word !important;
+        word-break:normal !important;
+      }
+
+      .email-hero {
+        display:block !important;
+        width:100% !important;
+        max-width:100% !important;
+        height:auto !important;
+        margin:0 auto !important;
+        padding:0 !important;
+      }
+
+      .email-stack,
+      .email-benefit,
+      .email-author-cell,
+      .email-product-copy,
+      .retailer-cover-cell,
+      .retailer-copy-cell,
+      .retailer-cta-cell {
+        display:block !important;
         width:100% !important;
         min-width:0 !important;
         max-width:100% !important;
+        box-sizing:border-box !important;
       }
 
-      .email-wrapper table {
+      .email-product-copy,
+      .retailer-cover-cell,
+      .retailer-copy-cell,
+      .retailer-cta-cell,
+      .email-author-cell {
+        text-align:center !important;
+      }
+
+      .email-book {
+        display:block !important;
+        width:145px !important;
+        max-width:145px !important;
+        height:auto !important;
+        margin:0 auto 18px !important;
+      }
+
+      .retailer-table {
+        width:100% !important;
         max-width:100% !important;
+        table-layout:auto !important;
+      }
+
+      .retailer-cover-cell {
+        padding:18px 18px 8px !important;
+      }
+
+      .retailer-copy-cell {
+        padding:7px 22px 8px !important;
+      }
+
+      .retailer-cta-cell {
+        padding:6px 18px 19px !important;
+      }
+
+      .retailer-logo {
+        display:block !important;
+        margin-left:auto !important;
+        margin-right:auto !important;
+      }
+
+      .retailer-cta,
+      .email-cta {
+        display:block !important;
+        width:100% !important;
+        max-width:100% !important;
+        box-sizing:border-box !important;
+        white-space:normal !important;
+        overflow-wrap:break-word !important;
+        word-break:normal !important;
+        text-align:center !important;
+      }
+
+      .email-footer-link {
+        display:inline-block !important;
+        max-width:100% !important;
+        white-space:normal !important;
+        overflow-wrap:break-word !important;
+        word-break:normal !important;
       }
 
       .email-wrapper h1,
@@ -460,191 +575,11 @@ function renderInternationalEmail({
         min-width:0 !important;
         max-width:100% !important;
         white-space:normal !important;
-        overflow-wrap:anywhere !important;
-        word-break:normal !important;
-      }
-
-      .email-outer {
-        width:100% !important;
-        padding:0 !important;
-      }
-
-      html,
-      body {
-        width:100% !important;
-        min-width:0 !important;
-        max-width:100% !important;
-        overflow-x:hidden !important;
-      }
-
-      .email-wrapper {
-        width:100% !important;
-        min-width:0 !important;
-        max-width:100% !important;
-        table-layout:fixed !important;
-      }
-
-      .email-wrapper > tbody,
-      .email-wrapper > tbody > tr,
-      .email-wrapper > tbody > tr > td {
-        width:100% !important;
-        max-width:100% !important;
-      }
-
-      .email-pad {
-        width:auto !important;
-        max-width:100% !important;
-        padding-left:14px !important;
-        padding-right:14px !important;
-        box-sizing:border-box !important;
-      }
-
-      .email-pad p,
-      .email-pad h1,
-      .email-pad h2,
-      .email-pad div,
-      .email-pad a {
-        width:auto !important;
-        min-width:0 !important;
-        max-width:100% !important;
-        white-space:normal !important;
         overflow-wrap:break-word !important;
         word-break:normal !important;
-      }
-
-      .email-stack {
-        display:block !important;
-        width:100% !important;
-        max-width:100% !important;
         box-sizing:border-box !important;
       }
 
-      .email-headline {
-        width:100% !important;
-        font-size:25px !important;
-        line-height:1.16 !important;
-        letter-spacing:-0.2px !important;
-      }
-
-      .email-subheadline {
-        width:100% !important;
-        font-size:15px !important;
-        line-height:1.5 !important;
-      }
-
-      .email-body-copy {
-        font-size:16px !important;
-        line-height:1.68 !important;
-      }
-
-      .email-hero {
-        width:100% !important;
-        max-width:100% !important;
-        height:auto !important;
-      }
-
-      .email-book {
-        width:145px !important;
-        max-width:145px !important;
-        margin:0 auto 20px !important;
-      }
-
-      .email-product-copy {
-        width:100% !important;
-        max-width:100% !important;
-        padding-left:14px !important;
-        padding-right:14px !important;
-        text-align:center !important;
-      }
-
-      .email-product-copy h2 {
-        font-size:24px !important;
-        line-height:1.2 !important;
-        margin-left:auto !important;
-        margin-right:auto !important;
-      }
-
-      .email-product-copy p {
-        font-size:14px !important;
-        line-height:1.55 !important;
-        margin-left:auto !important;
-        margin-right:auto !important;
-      }
-
-      .email-cta {
-        display:block !important;
-        width:100% !important;
-        box-sizing:border-box !important;
-        text-align:center !important;
-      }
-
-      .email-benefit {
-        display:block !important;
-        width:100% !important;
-        padding:7px 0 !important;
-        text-align:left !important;
-      }
-
-      .email-author-cell {
-        text-align:center !important;
-      }
-
-      .email-author-photo {
-        margin:0 auto 12px !important;
-      }
-
-      .email-footer-link {
-        display:inline-block !important;
-        max-width:100% !important;
-        margin:5px 6px !important;
-        white-space:normal !important;
-      }
-
-      .retailer-table {
-        width:100% !important;
-        table-layout:fixed !important;
-      }
-
-      .retailer-cover-cell {
-        display:block !important;
-        width:100% !important;
-        padding:14px 14px 7px !important;
-        text-align:center !important;
-      }
-
-      .retailer-copy-cell {
-        display:block !important;
-        width:100% !important;
-        padding:5px 18px 7px !important;
-        text-align:center !important;
-      }
-
-      .retailer-cta-cell {
-        display:block !important;
-        width:100% !important;
-        padding:5px 18px 15px !important;
-        text-align:center !important;
-      }
-
-      .retailer-logo {
-        margin-left:auto !important;
-        margin-right:auto !important;
-      }
-
-      .retailer-cta {
-        display:inline-block !important;
-        white-space:normal !important;
-        line-height:1.4 !important;
-      }
-
-      .email-headline,
-      .email-subheadline,
-      .email-product-copy h2,
-      .email-product-copy p {
-        width:100% !important;
-        max-width:100% !important;
-        overflow-wrap:anywhere !important;
-      }
     }
   </style>
 </head>
@@ -691,7 +626,7 @@ function renderInternationalEmail({
             width:100%;
             max-width:600px;
             background:${colors.cardBg};
-            table-layout:fixed;
+            table-layout:auto;
           "
         >
 
@@ -864,25 +799,32 @@ function renderInternationalEmail({
 
           <!-- PRODUTO -->
           <tr>
-            <td style="
-              background:${colors.lightPanel};
-              border-top:1px solid ${colors.border};
-              border-bottom:1px solid ${colors.border};
-            ">
+            <td
+              style="
+                padding:0;
+                background:${colors.lightPanel};
+                border-top:1px solid ${colors.border};
+                border-bottom:1px solid ${colors.border};
+              "
+            >
               <table
                 role="presentation"
                 width="100%"
                 cellspacing="0"
                 cellpadding="0"
+                border="0"
+                style="
+                  width:100%;
+                  max-width:100%;
+                  border-collapse:collapse;
+                "
               >
                 <tr>
                   <td
-                    width="37%"
-                    class="email-stack email-pad"
+                    align="center"
                     style="
-                      padding:31px 18px 31px 36px;
+                      padding:34px 24px 19px;
                       text-align:center;
-                      vertical-align:middle;
                     "
                   >
                     <img
@@ -891,60 +833,134 @@ function renderInternationalEmail({
                       width="165"
                       class="email-book"
                       style="
-                        display:inline-block;
-                        width:100%;
-                        max-width:165px;
+                        display:block;
+                        width:165px;
+                        max-width:52%;
                         height:auto;
-                        box-shadow:0 8px 22px rgba(20,35,50,.14);
+                        margin:0 auto;
+                        border:0;
+                        box-shadow:
+                          0 8px 22px rgba(20,35,50,.14);
                       "
                     >
                   </td>
+                </tr>
 
+                <tr>
                   <td
-                    width="63%"
-                    class="email-stack email-pad email-product-copy"
+                    align="center"
                     style="
-                      padding:32px 36px 32px 12px;
-                      vertical-align:middle;
+                      padding:0 24px 12px;
+                      text-align:center;
                     "
                   >
-                    <h2 style="
-                      font-family:Georgia,'Times New Roman',serif;
-                      font-size:26px;
-                      line-height:1.23;
-                      color:${colors.navy};
-                      margin:0 0 11px;
-                    ">
-                      ${productTitle}
-                    </h2>
-
-                    <p style="
-                      font-family:Arial,Helvetica,sans-serif;
-                      font-size:15px;
-                      line-height:1.65;
-                      color:${colors.muted};
-                      margin:0 0 21px;
-                    ">
-                      ${productSubtitle}
-                    </p>
-
-                    <a
-                      href="${finalDestination}"
-                      class="email-cta"
+                    <h2
                       style="
-                        display:inline-block;
-                        background:${colors.blue};
-                        color:#FFFFFF;
-                        text-decoration:none;
-                        font-family:Arial,Helvetica,sans-serif;
-                        font-size:15px;
+                        width:100%;
+                        max-width:480px;
+                        margin:0 auto;
+                        color:${colors.navy};
+                        font-family:
+                          Georgia,'Times New Roman',serif;
+                        font-size:27px;
+                        line-height:1.24;
                         font-weight:700;
-                        padding:15px 22px;
-                        border-radius:4px;
+                        text-align:center;
+                        white-space:normal;
+                        overflow-wrap:break-word;
+                        word-break:normal;
                       "
                     >
-                      ${ctaText}
-                    </a>
+                      ${productTitle}
+                    </h2>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td
+                    align="center"
+                    style="
+                      padding:0 26px 23px;
+                      text-align:center;
+                    "
+                  >
+                    <p
+                      style="
+                        width:100%;
+                        max-width:470px;
+                        margin:0 auto;
+                        color:${colors.muted};
+                        font-family:
+                          Arial,Helvetica,sans-serif;
+                        font-size:15px;
+                        line-height:1.65;
+                        text-align:center;
+                        white-space:normal;
+                        overflow-wrap:break-word;
+                        word-break:normal;
+                      "
+                    >
+                      ${productSubtitle}
+                    </p>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td
+                    align="center"
+                    style="
+                      padding:0 20px 34px;
+                      text-align:center;
+                    "
+                  >
+                    <table
+                      role="presentation"
+                      cellspacing="0"
+                      cellpadding="0"
+                      border="0"
+                      align="center"
+                      style="
+                        width:100%;
+                        max-width:430px;
+                        margin:0 auto;
+                        border-collapse:collapse;
+                      "
+                    >
+                      <tr>
+                        <td
+                          align="center"
+                          style="
+                            background:${colors.blue};
+                            border-radius:4px;
+                            text-align:center;
+                          "
+                        >
+                          <a
+                            href="${finalDestination}"
+                            class="email-cta"
+                            style="
+                              display:block;
+                              width:100%;
+                              box-sizing:border-box;
+                              padding:16px 20px;
+                              color:#FFFFFF;
+                              font-family:
+                                Arial,Helvetica,sans-serif;
+                              font-size:15px;
+                              line-height:1.4;
+                              font-weight:700;
+                              text-align:center;
+                              text-decoration:none;
+                              white-space:normal;
+                              overflow-wrap:break-word;
+                              word-break:normal;
+                            "
+                          >
+                            ${ctaText} →
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
                   </td>
                 </tr>
               </table>
@@ -1208,6 +1224,29 @@ export function renderSequenceEmail({
       text-decoration: none;
     }
 
+    html,
+    body {
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow-x: hidden !important;
+    }
+
+    .wrapper {
+      width: 100% !important;
+      max-width: 680px !important;
+      min-width: 0 !important;
+      margin: 0 auto !important;
+    }
+
+    .wrapper,
+    .wrapper table,
+    .wrapper tbody,
+    .wrapper tr,
+    .wrapper td {
+      box-sizing: border-box !important;
+    }
+
     @media only screen and (max-width: 620px) {
       .outer-pad {
         padding: 0 !important;
@@ -1216,13 +1255,24 @@ export function renderSequenceEmail({
       .wrapper {
         width: 100% !important;
         max-width: 100% !important;
+        min-width: 0 !important;
         border-radius: 0 !important;
+      }
+
+      .wrapper,
+      .wrapper table,
+      .wrapper tbody,
+      .wrapper tr,
+      .wrapper td {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
       }
 
       .mobile-stack {
         display: block !important;
         width: 100% !important;
         max-width: 100% !important;
+        min-width: 0 !important;
         text-align: center !important;
       }
 
@@ -1233,11 +1283,19 @@ export function renderSequenceEmail({
       .headline {
         font-size: 29px !important;
         line-height: 1.16 !important;
+        max-width: 100% !important;
+        white-space: normal !important;
+        overflow-wrap: break-word !important;
+        word-break: normal !important;
       }
 
       .body-copy {
         font-size: 16px !important;
         line-height: 1.7 !important;
+        max-width: 100% !important;
+        white-space: normal !important;
+        overflow-wrap: break-word !important;
+        word-break: normal !important;
       }
 
       .book-image {
@@ -1252,13 +1310,65 @@ export function renderSequenceEmail({
 
       .cta {
         display: block !important;
-        width: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
         text-align: center !important;
+        white-space: normal !important;
+        overflow-wrap: break-word !important;
+        word-break: normal !important;
       }
 
       .hero-image {
         width: 100% !important;
         height: auto !important;
+      }
+
+      .wrapper h1,
+      .wrapper h2,
+      .wrapper h3,
+      .wrapper p,
+      .wrapper div,
+      .wrapper a,
+      .wrapper span {
+        max-width: 100% !important;
+        white-space: normal !important;
+        overflow-wrap: break-word !important;
+        word-break: normal !important;
+        box-sizing: border-box !important;
+      }
+
+      .retailer-table {
+        width: 100% !important;
+        max-width: 100% !important;
+        table-layout: auto !important;
+      }
+
+      .retailer-cover-cell,
+      .retailer-copy-cell,
+      .retailer-cta-cell {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        text-align: center !important;
+      }
+
+      .retailer-logo {
+        display: block !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+
+      .retailer-cta {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        white-space: normal !important;
+        overflow-wrap: break-word !important;
+        word-break: normal !important;
+        text-align: center !important;
       }
     }
   </style>
@@ -1276,11 +1386,11 @@ export function renderSequenceEmail({
 
         <table
           role="presentation"
-          width="680"
+          width="100%"
           cellspacing="0"
           cellpadding="0"
           class="wrapper"
-          style="width:100%;max-width:680px;background:#FFFFFF;border-radius:16px;overflow:hidden;"
+          style="width:100%;max-width:680px;background:#FFFFFF;border-radius:16px;overflow:visible;"
         >
 
           <tr>
@@ -1336,34 +1446,47 @@ export function renderSequenceEmail({
 
           <tr>
             <td style="background:#F7F9FA;border-top:1px solid #E6EBEF;border-bottom:1px solid #E6EBEF;">
-              <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="width:100%;max-width:100%;border-collapse:collapse;">
                 <tr>
-                  <td width="38%" class="mobile-stack mobile-pad" style="padding:30px 18px 30px 38px;text-align:center;vertical-align:middle;">
+                  <td align="center" style="padding:32px 24px 18px;text-align:center;">
                     <img
                       src="${bookUrl}"
                       alt="${copy.bookTitle}"
                       width="210"
                       class="book-image"
-                      style="display:inline-block;width:100%;max-width:210px;height:auto;border-radius:8px;"
+                      style="display:block;width:100%;max-width:210px;height:auto;margin:0 auto;border-radius:8px;"
                     >
                   </td>
-
-                  <td width="62%" class="mobile-stack mobile-pad" style="padding:32px 38px 32px 14px;vertical-align:middle;">
-                    <h3 style="font-family:Georgia,serif;font-size:27px;line-height:1.25;color:#10233D;margin:0 0 13px;">
+                </tr>
+                <tr>
+                  <td align="center" style="padding:0 26px 12px;text-align:center;">
+                    <h3 style="width:100%;max-width:480px;margin:0 auto;color:#10233D;font-family:Georgia,serif;font-size:27px;line-height:1.25;font-weight:700;text-align:center;white-space:normal;overflow-wrap:break-word;word-break:normal;">
                       ${copy.bookTitle}
                     </h3>
-
-                    <p style="font-family:Arial,sans-serif;font-size:15px;line-height:1.7;color:#5D6C7D;margin:0 0 22px;">
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center" style="padding:0 28px 22px;text-align:center;">
+                    <p style="width:100%;max-width:460px;margin:0 auto;color:#5D6C7D;font-family:Arial,sans-serif;font-size:15px;line-height:1.7;text-align:center;white-space:normal;overflow-wrap:break-word;word-break:normal;">
                       ${copy.bookText}
                     </p>
-
-                    <a
-                      href="${destination}"
-                      class="cta"
-                      style="display:inline-block;background:${accent};color:#071729;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;font-weight:800;padding:15px 22px;border-radius:7px;"
-                    >
-                      ${button} →
-                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center" style="padding:0 20px 32px;text-align:center;">
+                    <table role="presentation" cellspacing="0" cellpadding="0" align="center" style="width:100%;max-width:400px;margin:0 auto;border-collapse:collapse;">
+                      <tr>
+                        <td align="center" style="background:${accent};border-radius:7px;text-align:center;">
+                          <a
+                            href="${destination}"
+                            class="cta"
+                            style="display:block;width:100%;box-sizing:border-box;padding:15px 22px;color:#071729;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;font-weight:800;text-align:center;white-space:normal;overflow-wrap:break-word;word-break:normal;"
+                          >
+                            ${button} →
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
                   </td>
                 </tr>
               </table>
