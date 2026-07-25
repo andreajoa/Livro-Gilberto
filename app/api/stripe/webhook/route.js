@@ -207,7 +207,12 @@ export async function POST(request) {
 
       if (!digitalEmailCompleted) {
         await postInternal(
-          `${baseUrl}/api/send-order-email`,
+          (
+            metadata.product ===
+              'Superacao Digital eBook'
+              ? `${baseUrl}/api/send-superacao-order-email`
+              : `${baseUrl}/api/send-order-email`
+          ),
           {
             type: 'digital',
 
@@ -325,7 +330,12 @@ export async function POST(request) {
 
       if (!physicalEmailCompleted) {
         await postInternal(
-          `${baseUrl}/api/send-order-email`,
+          (
+            metadata.product ===
+              'Superacao Livro Fisico PT'
+              ? `${baseUrl}/api/send-superacao-order-email`
+              : `${baseUrl}/api/send-order-email`
+          ),
           {
             type: 'physical',
 

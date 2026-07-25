@@ -152,7 +152,31 @@ function buildOrderFromPaymentIntent(paymentIntent, token) {
     name: meta.customer_name || 'Cliente',
     email: paymentIntent.receipt_email || '',
     lang,
-    files: getFilesForLang(lang, meta.product_id),
+
+    productId:
+      meta.product_id || '',
+
+    files:
+      meta.product_id ===
+        'superacao_digital_pt'
+        ? {
+            ebook: {
+              url:
+                '/api/superacao/download' +
+                `?token=${encodeURIComponent(token)}` +
+                `&payment_intent=${encodeURIComponent(paymentIntent.id)}`,
+
+              filename:
+                'superacao-gilberto-de-souza.pdf'
+            },
+
+            audiobook: []
+          }
+        : getFilesForLang(
+            lang,
+            meta.product_id
+          ),
+
     createdAt: new Date((paymentIntent.created || Date.now() / 1000) * 1000).toISOString()
   }
 }

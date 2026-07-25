@@ -275,7 +275,29 @@ export default function AcessoDigital() {
   }, [token, paymentIntent])
 
   const lang = normalizeLang(order?.lang || order?.language || initialLang)
-  const t = COPY[lang]
+
+  const isSuperacao =
+    order?.productId ===
+      'superacao_digital_pt'
+
+  const t =
+    isSuperacao
+      ? {
+          ...COPY.pt,
+          tagline:
+            'Uma história real de dor, fé, luta e vitória.',
+          subtitle:
+            'Seu eBook Superação está disponível.',
+          description:
+            'Baixe o eBook completo em PDF.',
+          ebookTitle:
+            'Superação — eBook',
+          ebookDesc:
+            'Baixe o livro para ler no celular, tablet ou computador.',
+          footerScript:
+            'O seu futuro é você quem faz.'
+        }
+      : COPY[lang]
 
   const files = order?.files || {}
   const ebookUrl = files?.ebook?.url || ''
@@ -401,6 +423,7 @@ export default function AcessoDigital() {
           </div>
         </article>
 
+        {!isSuperacao && (
         <article className="access-card access-audio-card">
           <div className="access-audio-heading">
             <div className="access-section-heading">
@@ -442,6 +465,7 @@ export default function AcessoDigital() {
             <div className="access-warning">{t.noAudio}</div>
           )}
         </article>
+        )}
       </section>
 
       <section className="access-info-strip">
