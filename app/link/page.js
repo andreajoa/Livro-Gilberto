@@ -245,7 +245,7 @@ export default function LinkPage() {
               </a>
 
               <a
-                href="https://www.amazon.com/dp/B0H9R8ZK7T"
+                href="https://www.amazon.com.br/dp/B0H9R8ZK7T"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Comprar o livro físico Superação na Amazon"
