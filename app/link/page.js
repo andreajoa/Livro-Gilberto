@@ -118,6 +118,220 @@ export default function LinkPage() {
             </div>
           ))}
         </div>
+
+        {/* SUPERAÇÃO AMAZON START */}
+        <div style={{
+          marginTop: isMobile ? 42 : 54,
+          marginBottom: isMobile ? 44 : 58
+        }}>
+          {divider('CONHEÇA TAMBÉM · SUPERAÇÃO')}
+
+          <div style={{
+            padding: isMobile ? '18px 16px 16px' : '24px 24px 22px',
+            background: 'linear-gradient(145deg,rgba(255,255,255,0.075),rgba(255,255,255,0.035))',
+            border: '1px solid rgba(255,255,255,0.13)',
+            borderRadius: isMobile ? 20 : 24,
+            boxShadow: '0 22px 55px rgba(0,0,0,0.22)',
+            overflow: 'hidden'
+          }}>
+            <div style={{
+              maxWidth: 560,
+              margin: '0 auto 22px',
+              textAlign: 'center'
+            }}>
+              <p style={{
+                margin: '0 0 7px',
+                color: '#6EC7E8',
+                fontSize: 9,
+                fontWeight: 800,
+                letterSpacing: 2.8,
+                textTransform: 'uppercase'
+              }}>
+                O novo livro de Gilberto de Souza
+              </p>
+
+              <h2 style={{
+                margin: '0 0 9px',
+                color: '#FFFFFF',
+                fontFamily: 'Georgia,serif',
+                fontSize: isMobile ? 27 : 33,
+                fontWeight: 500,
+                lineHeight: 1.18
+              }}>
+                Superação
+              </h2>
+
+              <p style={{
+                margin: 0,
+                color: 'rgba(255,255,255,0.62)',
+                fontSize: isMobile ? 13 : 14,
+                lineHeight: 1.65
+              }}>
+                Uma história real de dor, fé, luta e vitória.
+                Escolha a edição e compre diretamente na Amazon.
+              </p>
+            </div>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+              gap: 14
+            }}>
+              <a
+                href="https://www.amazon.com.br/Supera%C3%A7%C3%A3o-futuro-hist%C3%B3ria-vit%C3%B3ria-Portuguese-ebook/dp/B0H9N93T5J"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Comprar o eBook Superação na Amazon"
+                style={{
+                  display: 'block',
+                  position: 'relative',
+                  borderRadius: 16,
+                  overflow: 'hidden',
+                  textDecoration: 'none',
+                  border: '1px solid rgba(255,255,255,0.14)',
+                  background: '#111C29',
+                  boxShadow: '0 12px 30px rgba(0,0,0,0.24)',
+                  transition: 'transform .2s ease, border-color .2s ease'
+                }}
+              >
+                <img
+                  src="/images/superacao/email/banner-amazon-ebook.jpg"
+                  alt="Superação — eBook disponível na Amazon"
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    height: 'auto'
+                  }}
+                />
+
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: 14,
+                  padding: '15px 17px 16px'
+                }}>
+                  <div>
+                    <p style={{
+                      margin: '0 0 3px',
+                      color: '#FFFFFF',
+                      fontSize: isMobile ? 14 : 15,
+                      fontWeight: 800
+                    }}>
+                      eBook Superação
+                    </p>
+
+                    <p style={{
+                      margin: 0,
+                      color: '#63BDE0',
+                      fontSize: 9,
+                      fontWeight: 800,
+                      letterSpacing: 1.5,
+                      textTransform: 'uppercase'
+                    }}>
+                      Comprar na Amazon
+                    </p>
+                  </div>
+
+                  <span style={{
+                    flexShrink: 0,
+                    color: '#6EC7E8',
+                    fontSize: 25,
+                    fontWeight: 300
+                  }}>
+                    &#x203A;
+                  </span>
+                </div>
+              </a>
+
+              <a
+                href="https://www.amazon.com/dp/B0H9R8ZK7T"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Comprar o livro físico Superação na Amazon"
+                style={{
+                  display: 'block',
+                  position: 'relative',
+                  borderRadius: 16,
+                  overflow: 'hidden',
+                  textDecoration: 'none',
+                  border: '1px solid rgba(255,255,255,0.14)',
+                  background: '#111C29',
+                  boxShadow: '0 12px 30px rgba(0,0,0,0.24)',
+                  transition: 'transform .2s ease, border-color .2s ease'
+                }}
+              >
+                <img
+                  src="/images/superacao/email/banner-amazon-fisico.jpg"
+                  alt="Superação — livro físico disponível na Amazon"
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    height: 'auto'
+                  }}
+                />
+
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: 14,
+                  padding: '15px 17px 16px'
+                }}>
+                  <div>
+                    <p style={{
+                      margin: '0 0 3px',
+                      color: '#FFFFFF',
+                      fontSize: isMobile ? 14 : 15,
+                      fontWeight: 800
+                    }}>
+                      Livro físico Superação
+                    </p>
+
+                    <p style={{
+                      margin: 0,
+                      color: '#63BDE0',
+                      fontSize: 9,
+                      fontWeight: 800,
+                      letterSpacing: 1.5,
+                      textTransform: 'uppercase'
+                    }}>
+                      Comprar na Amazon
+                    </p>
+                  </div>
+
+                  <span style={{
+                    flexShrink: 0,
+                    color: '#6EC7E8',
+                    fontSize: 25,
+                    fontWeight: 300
+                  }}>
+                    &#x203A;
+                  </span>
+                </div>
+              </a>
+            </div>
+
+            <a
+              href="/superacao"
+              style={{
+                display: 'block',
+                marginTop: 15,
+                padding: '12px 16px',
+                textAlign: 'center',
+                color: 'rgba(255,255,255,0.62)',
+                fontSize: 10,
+                fontWeight: 800,
+                letterSpacing: 1.5,
+                textTransform: 'uppercase',
+                textDecoration: 'none'
+              }}
+            >
+              Conheça a história do livro →
+            </a>
+          </div>
+        </div>
+        {/* SUPERAÇÃO AMAZON END */}
       </section>
 
       {/* QUOTE */}
