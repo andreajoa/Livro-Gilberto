@@ -21,7 +21,7 @@ export const CartProvider = ({ children }) => {
     author: 'Gilberto de Souza',
     price: 119.00,
     comparePrice: 159.00,
-    image: '/book-front.jpg'
+    image: '/images/capa%20livro.png'
   }
 
   const subtotal = BOOK.price * quantity
