@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { d1Query, nowIso } from '@/src/lib/d1'
 import { getManualEmailSubject } from '@/src/lib/email/leadEmailTemplates'
+import { ensureCrmSchema } from '@/src/lib/crm/crmSchema'
 
 export const dynamic = 'force-dynamic'
 
@@ -148,6 +149,8 @@ export async function GET(request) {
         { status: 401 }
       )
     }
+
+    await ensureCrmSchema(d1Query)
 
     const completed = await d1Query(
       `SELECT

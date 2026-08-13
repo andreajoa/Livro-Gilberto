@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation'
 import { useCart } from '../context/CartContext'
 
 export default function Navbar() {
-  const { setCartOpen, quantity } = useCart()
+  const { openCart, quantity, inCart } = useCart()
   const [mobileOpen, setMobileOpen] = useState(false)
   const pathname = usePathname() || '/'
 
@@ -91,14 +91,14 @@ export default function Navbar() {
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         {!isInternational && (
-          <button onClick={() => setCartOpen(true)} style={{
+          <button onClick={openCart} style={{
             position: 'relative', background: 'rgba(0,196,212,0.1)',
             border: '1px solid rgba(0,196,212,0.3)', borderRadius: 8,
             width: 40, height: 40, display: 'flex', alignItems: 'center',
             justifyContent: 'center', cursor: 'pointer', color: '#00C4D4'
           }}>
             <ShoppingBag size={18} />
-            {quantity > 0 && (
+            {inCart && quantity > 0 && (
               <span style={{
                 position: 'absolute', top: -6, right: -6,
                 background: '#00C4D4', color: '#0D1B3E',

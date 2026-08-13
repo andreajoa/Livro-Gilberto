@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server'
 import { d1Query, nowIso, cleanText, normalizeLanguage } from '@/src/lib/d1'
+import { ensureCrmSchema } from '@/src/lib/crm/crmSchema'
+import { verifyUnsubscribeToken } from '@/src/lib/email/unsubscribeToken'
 
 export const dynamic = 'force-dynamic'
 
@@ -40,13 +42,16 @@ function pageHtml(language) {
 export async function GET(request) {
   try {
     const url = new URL(request.url)
-    const email = cleanText(url.searchParams.get('email') || '', 255).toLowerCase()
-    const language = normalizeLanguage(url.searchParams.get('lang') || 'pt')
+    const verified = verifyUnsubscribeToken(url.searchParams.get('token') || '')
+    const email = cleanText(verified?.email || '', 255).toLowerCase()
+    const language = normalizeLanguage(verified?.language || 'pt')
     const now = nowIso()
 
     if (!email || !email.includes('@')) {
       return new NextResponse('Invalid unsubscribe link.', { status: 400 })
     }
+
+    await ensureCrmSchema(d1Query)
 
     await d1Query(
       `INSERT INTO contact_status (email, language, unsubscribed, updated_at)

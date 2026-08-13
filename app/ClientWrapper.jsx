@@ -11,6 +11,7 @@ const WebsiteBehaviorTracker = dynamic(
   () => import('@/src/components/WebsiteBehaviorTracker'),
   { ssr: false }
 )
+const PrivacyConsent = dynamic(() => import('@/src/components/PrivacyConsent'), { ssr: false })
 
 export default function ClientWrapper({ children }) {
   return (
@@ -18,6 +19,7 @@ export default function ClientWrapper({ children }) {
       <CartProvider>
         <Suspense fallback={null}>
           <WebsiteBehaviorTracker />
+          <PrivacyConsent />
           <Navbar />
           <CartDrawer />
           <div style={{flex:'1', paddingTop:64}}>{children}</div>

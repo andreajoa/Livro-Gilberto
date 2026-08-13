@@ -41,7 +41,7 @@ export default function Devolucao() {
 
           <div style={S.card}>
             <h2 style={S.h2}><Mail size={20} color="#00C4D4"/>Como Solicitar</h2>
-            {['Envie email para contato@gilbertosouza.com','Assunto: "Solicitação de Devolução - [Nº do Pedido]"','Informe seu nome completo e número do pedido','Descreva brevemente o motivo','Aguarde as instruções sobre o frete de retorno'].map((s,i)=>(
+            {['Envie email para contato@gilberto-souza.com','Assunto: "Solicitação de Devolução - [Nº do Pedido]"','Informe seu nome completo e número do pedido','Descreva brevemente o motivo','Aguarde as instruções sobre o frete de retorno'].map((s,i)=>(
               <div key={i} style={S.li}><span style={{color:'#00C4D4',fontWeight:700,flexShrink:0}}>{i+1}.</span><span>{s}</span></div>
             ))}
           </div>

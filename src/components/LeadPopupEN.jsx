@@ -75,8 +75,10 @@ async function saveLeadToCRM({ name, email, whatsapp, lang, source }) {
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Mail, Phone, Gift } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 
 export default function LeadPopupEN({ lang = 'en' }) {
+  const { cartOpen } = useCart();
   const [show, setShow] = useState(false);
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -128,14 +130,18 @@ export default function LeadPopupEN({ lang = 'en' }) {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (shouldShowLeadPopup(lang)) {
+      if (!cartOpen && shouldShowLeadPopup(lang)) {
         registerLeadPopupView(lang)
         setShow(true)
       }
     }, 2000)
 
     return () => clearTimeout(timer);
-  }, [lang]);
+  }, [lang, cartOpen]);
+
+  useEffect(() => {
+    if (cartOpen) setShow(false)
+  }, [cartOpen])
 
   const handleSubmit = async () => {
     if (!email.includes('@')) { setError('Please enter a valid email.'); return; }
@@ -172,7 +178,7 @@ export default function LeadPopupEN({ lang = 'en' }) {
 
   return (
     <AnimatePresence>
-      {show && (
+      {show && !cartOpen && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

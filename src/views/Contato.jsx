@@ -73,7 +73,7 @@ export default function Contato() {
             <h2 style={S.h2}>Informações de Contato</h2>
             <div style={S.infoCard}>
               <div style={{width:44,height:44,background:'rgba(0,196,212,0.15)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}><Mail size={20} color="#00C4D4"/></div>
-              <div><p style={{fontSize:13,color:'#8A9BBF',margin:'0 0 2px'}}>Email</p><p style={{fontSize:14,color:'#fff',margin:0}}>contato@gilbertosouza.com</p></div>
+              <div><p style={{fontSize:13,color:'#8A9BBF',margin:'0 0 2px'}}>Email</p><p style={{fontSize:14,color:'#fff',margin:0}}>contato@gilberto-souza.com</p></div>
             </div>
             <div style={S.infoCard}>
               <div style={{width:44,height:44,background:'rgba(0,196,212,0.15)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}><MapPin size={20} color="#00C4D4"/></div>
@@ -85,7 +85,7 @@ export default function Contato() {
             </div>
             <div style={{background:'rgba(0,196,212,0.07)',border:'1px solid rgba(0,196,212,0.2)',borderRadius:8,padding:'20px 24px'}}>
               <p style={{fontSize:14,fontWeight:600,color:'#fff',marginBottom:6}}>💬 Para Imprensa & Parcerias</p>
-              <p style={{fontSize:13,color:'#8A9BBF',lineHeight:1.8,margin:0}}>imprensa@gilbertosouza.com<br/>parcerias@gilbertosouza.com</p>
+              <p style={{fontSize:13,color:'#8A9BBF',lineHeight:1.8,margin:0}}>imprensa@gilberto-souza.com<br/>parcerias@gilberto-souza.com</p>
             </div>
           </div>
         </div>

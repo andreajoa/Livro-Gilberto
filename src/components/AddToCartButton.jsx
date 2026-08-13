@@ -4,14 +4,11 @@ import { useCart } from '../context/CartContext'
 import { ShoppingBag } from 'lucide-react'
 
 export default function AddToCartButton({ label = 'Adicionar ao Carrinho' }) {
-  const { setCartOpen } = useCart()
+  const { addToCart } = useCart()
   const buttonRef = useRef(null)
 
   const handleClick = () => {
-    // Abre a gaveta nativamente pelo contexto e mais nada!
-    if (typeof setCartOpen === 'function') {
-      setCartOpen(true);
-    }
+    addToCart()
   }
 
   return (

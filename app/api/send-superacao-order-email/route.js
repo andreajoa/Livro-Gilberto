@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { Resend } from "resend"
+import { isInternalRequest } from "@/src/lib/server/internalAuth"
 import Stripe from "stripe"
 import { renderEmailFooter } from "../../../src/lib/email/emailFooter"
 
@@ -16,11 +17,11 @@ const stripe = new Stripe(
 
 const OWNER_EMAIL =
   process.env.OWNER_EMAIL ||
-  "contato@gilbertosouza.com"
+  "contato@gilberto-souza.com"
 
 const EMAIL_FROM =
   process.env.EMAIL_FROM ||
-  "Gilberto de Souza <noreply@gilbertosouza.com>"
+  "Gilberto de Souza <noreply@gilberto-souza.com>"
 
 const SITE_URL =
   "https://www.gilberto-souza.com"
@@ -414,6 +415,10 @@ async function sendEmail(
 
 export async function POST(request) {
   try {
+    if (!isInternalRequest(request)) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+
     const {
       type,
       order

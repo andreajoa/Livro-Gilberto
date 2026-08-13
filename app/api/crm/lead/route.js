@@ -1,10 +1,13 @@
 import { NextResponse } from 'next/server'
 import { d1Query, nowIso, cleanText, normalizeLanguage } from '@/src/lib/d1'
+import { ensureCrmSchema } from '@/src/lib/crm/crmSchema'
+import { isSameOriginOrInternal } from '@/src/lib/server/internalAuth'
 
 export const dynamic = 'force-dynamic'
 
 export async function POST(request) {
   try {
+    if (!isSameOriginOrInternal(request)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     const body = await request.json()
 
     const visitorId = cleanText(body.visitorId || body.visitor_id || '', 120)
@@ -14,6 +17,7 @@ export async function POST(request) {
     const language = normalizeLanguage(body.language || body.lang)
     const source = cleanText(body.source || 'popup', 120)
     const now = nowIso()
+    await ensureCrmSchema(d1Query)
 
     if (!email) {
       return NextResponse.json({ error: 'email is required' }, { status: 400 })

@@ -1,6 +1,5 @@
 "use client"
 import { useState } from 'react'
-import { fetchAddressByCEP, calculateShipping } from '../services/shipping'
 import { useCart } from '../context/CartContext'
 
 export default function ShippingCalculator() {
@@ -24,10 +23,15 @@ export default function ShippingCalculator() {
     setSelected(null)
     setShipping(null)
     try {
-      const addr = await fetchAddressByCEP(clean)
-      setAddress(addr)
-      const opts = calculateShipping(addr.uf, clean)
-      setOptions(opts)
+      const response = await fetch('/api/shipping/quote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cep: clean })
+      })
+      const data = await response.json()
+      if (!response.ok) throw new Error(data.error || 'Não foi possível calcular o frete')
+      setAddress(data.destination)
+      setOptions(data.quotes)
     } catch (e) {
       setError(e.message)
     } finally {
@@ -35,15 +39,22 @@ export default function ShippingCalculator() {
     }
   }
 
-  const handleSelect = (type) => {
-    setSelected(type)
-    setShipping(options[type])
+  const handleSelect = (method) => {
+    setSelected(method)
+    const option = options.find(item => item.method === method)
+    setShipping({
+      type: option.method,
+      name: option.name,
+      price: option.amount,
+      days: option.days,
+      cep: address.cep,
+      destination: address
+    })
   }
 
   return (
     <div className="shipping-calc">
       <p className="shipping-title">📦 Calcular Frete</p>
-      <p className="shipping-origin">Enviado de Santana de Parnaíba — SP</p>
 
       <div className="cep-row">
         <input
@@ -68,23 +79,23 @@ export default function ShippingCalculator() {
 
       {address && (
         <p className="cep-address">
-          📍 {address.localidade} — {address.uf}
+          📍 {address.city} — {address.state}
         </p>
       )}
 
       {options && (
         <div className="shipping-options">
-          {Object.values(options).map(opt => (
+          {options.map(opt => (
             <div
-              key={opt.type}
-              className={`shipping-option ${selected === opt.type ? 'selected' : ''}`}
-              onClick={() => handleSelect(opt.type)}
+              key={opt.method}
+              className={`shipping-option ${selected === opt.method ? 'selected' : ''}`}
+              onClick={() => handleSelect(opt.method)}
             >
               <div>
                 <span className="opt-name">{opt.name}</span>
                 <span className="opt-days">🏱 {opt.days} dias úteis</span>
               </div>
-              <span className="opt-price">R$ {opt.price.toFixed(2)}</span>
+              <span className="opt-price">R$ {opt.amount.toFixed(2)}</span>
             </div>
           ))}
         </div>

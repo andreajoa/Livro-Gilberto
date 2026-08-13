@@ -1,7 +1,7 @@
 "use client"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { X, ChevronLeft, Mail, Phone, MapPin, CreditCard } from 'lucide-react'
+import { X, ChevronLeft, MapPin, CreditCard } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import { useRouter } from 'next/navigation'
 import {
@@ -10,11 +10,25 @@ import {
 } from '@/src/lib/website/websiteTracker'
 
 export default function CheckoutForm({ isOpen, onClose }) {
-  const { BOOK, quantity, shipping, total } = useCart()
+  const { quantity, shipping, total, cartId, createCartId } = useCart()
   const router = useRouter()
-  const [formData, setFormData] = useState({ name:'', email:'', whatsapp:'', cep:'', address:'', neighborhood:'', city:'', state:'', complement:'' })
+  const [formData, setFormData] = useState({ name:'', email:'', whatsapp:'', cep:'', address:'', number:'', neighborhood:'', city:'', state:'', complement:'', marketingConsent:false })
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
+
+  useEffect(() => {
+    if (!isOpen || !shipping?.destination) return
+    const destination = shipping.destination
+    setFormData(current => ({
+      ...current,
+      cep: fmt.cep(destination.cep || ''),
+      address: current.address || destination.street || '',
+      neighborhood: current.neighborhood || destination.neighborhood || '',
+      city: destination.city || current.city,
+      state: destination.state || current.state
+    }))
+  }, [isOpen, shipping])
 
   const fmt = {
     whatsapp: v => { const d=v.replace(/\D/g,'').slice(0,11); if(d.length<=2)return d; if(d.length<=6)return `(${d.slice(0,2)}) ${d.slice(2)}`; if(d.length<=10)return `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`; return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}` },
@@ -28,6 +42,8 @@ export default function CheckoutForm({ isOpen, onClose }) {
     if (formData.whatsapp.replace(/\D/g,'').length < 10) e.whatsapp = 'WhatsApp inválido'
     if (formData.cep.replace(/\D/g,'').length < 8) e.cep = 'CEP inválido'
     if (!formData.address.trim()) e.address = 'Informe o endereço'
+    if (!formData.number.trim()) e.number = 'Informe o número'
+    if (!formData.neighborhood.trim()) e.neighborhood = 'Informe o bairro'
     if (!formData.city.trim()) e.city = 'Informe a cidade'
     if (!formData.state.trim()) e.state = 'Informe o estado'
     setErrors(e)
@@ -40,6 +56,7 @@ export default function CheckoutForm({ isOpen, onClose }) {
     if (!validate()) return
 
     setIsSubmitting(true)
+    setSubmitError('')
 
     try {
       const context = getWebsiteContext()
@@ -118,25 +135,57 @@ export default function CheckoutForm({ isOpen, onClose }) {
         }
       )
 
-      const order = {
-        ...formData,
-        quantity,
-        shipping,
-        total: total.toFixed(2),
-        analytics
+      const checkoutResponse = await fetch('/api/commerce/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          cartId: cartId || createCartId(),
+          quantity,
+          shippingMethod: shipping?.type,
+          marketingConsent: formData.marketingConsent,
+          customer: {
+            name: formData.name,
+            email: formData.email,
+            whatsapp: formData.whatsapp,
+            cep: formData.cep,
+            street: formData.address,
+            number: formData.number,
+            complement: formData.complement,
+            neighborhood: formData.neighborhood,
+            city: formData.city,
+            state: formData.state
+          },
+          analytics
+        })
+      })
+
+      const checkout = await checkoutResponse.json()
+      if (!checkoutResponse.ok || !checkout.checkoutId) {
+        throw new Error(checkout.error || 'Não foi possível iniciar o checkout.')
       }
 
-      router.push(
-        `/checkout?order=${encodeURIComponent(
-          JSON.stringify(order)
-        )}`
-      )
+      await trackWebsiteEvent('checkout_created', {
+        language: 'pt',
+        bookId: analytics.bookId,
+        productId: analytics.productId,
+        channel: 'site_checkout',
+        metadata: {
+          quantity,
+          total: Number(total.toFixed(2)),
+          currency: 'BRL',
+          marketing_consent: formData.marketingConsent
+        }
+      })
+
+      router.push(`/checkout?id=${encodeURIComponent(checkout.checkoutId)}`)
+
     } catch (error) {
       console.error(
         'Erro ao iniciar checkout:',
         error
       )
 
+      setSubmitError(error.message || 'Não foi possível iniciar o checkout.')
       setIsSubmitting(false)
     }
   }
@@ -204,19 +253,25 @@ export default function CheckoutForm({ isOpen, onClose }) {
                 </div>
                 <div>
                   <label style={lbl}>Endereço *</label>
-                  <input value={formData.address} onChange={e=>setFormData({...formData,address:e.target.value})} style={inp('address')} placeholder="Rua, número"/>
+                  <input value={formData.address} onChange={e=>setFormData({...formData,address:e.target.value})} style={inp('address')} placeholder="Rua ou avenida"/>
                   {errors.address && <p style={{color:'#f87171',fontSize:11,marginTop:4}}>{errors.address}</p>}
                 </div>
               </div>
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}}>
+              <div style={{display:'grid',gridTemplateColumns:'120px 1fr',gap:12}}>
+                <div>
+                  <label style={lbl}>Número *</label>
+                  <input value={formData.number} onChange={e=>setFormData({...formData,number:e.target.value})} style={inp('number')} placeholder="123"/>
+                  {errors.number && <p style={{color:'#f87171',fontSize:11,marginTop:4}}>{errors.number}</p>}
+                </div>
                 <div>
                   <label style={lbl}>Bairro</label>
                   <input value={formData.neighborhood} onChange={e=>setFormData({...formData,neighborhood:e.target.value})} style={inp('neighborhood')} placeholder="Bairro"/>
+                  {errors.neighborhood && <p style={{color:'#f87171',fontSize:11,marginTop:4}}>{errors.neighborhood}</p>}
                 </div>
-                <div>
+              </div>
+              <div>
                   <label style={lbl}>Complemento</label>
-                  <input value={formData.complement} onChange={e=>setFormData({...formData,complement:e.target.value})} style={inp('complement')} placeholder="Apto, bloco..."/>
-                </div>
+                  <input value={formData.complement} onChange={e=>setFormData({...formData,complement:e.target.value})} style={inp('complement')} placeholder="Apto, bloco, referência..."/>
               </div>
               <div style={{display:'grid',gridTemplateColumns:'1fr 80px',gap:12}}>
                 <div>
@@ -232,6 +287,11 @@ export default function CheckoutForm({ isOpen, onClose }) {
               </div>
             </div>
             <div style={{padding:'20px 24px',borderTop:'1px solid rgba(255,255,255,0.08)'}}>
+              <label style={{display:'flex',gap:10,alignItems:'flex-start',color:'#B8C8E0',fontSize:12,lineHeight:1.45,marginBottom:16,cursor:'pointer'}}>
+                <input type="checkbox" checked={formData.marketingConsent} onChange={e=>setFormData({...formData,marketingConsent:e.target.checked})} style={{marginTop:3}}/>
+                Aceito receber conteúdos e lembretes sobre este pedido por e-mail e WhatsApp. Posso cancelar quando quiser.
+              </label>
+              {submitError && <p role="alert" style={{color:'#f87171',fontSize:12,margin:'0 0 12px'}}>{submitError}</p>}
               <button type="submit" disabled={isSubmitting} style={{width:'100%',padding:'16px',background:'linear-gradient(135deg,#00C4D4,#0099A8)',border:'none',borderRadius:10,color:'#0D1B3E',fontSize:16,fontWeight:900,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',gap:10}}>
                 <CreditCard size={20}/>Ir para Pagamento — R$ {total.toFixed(2)}
               </button>

@@ -57,7 +57,7 @@ export default function Termos() {
           </div>
           <div style={S.sec}>
             <h2 style={S.h2}><Mail size={18} color="#00C4D4"/>8. Contato</h2>
-            <p style={S.p}>Dúvidas: <strong style={{color:'#fff'}}>contato@gilbertosouza.com</strong></p>
+            <p style={S.p}>Dúvidas: <strong style={{color:'#fff'}}>contato@gilberto-souza.com</strong></p>
           </div>
           <div style={{textAlign:'center', background:'rgba(0,196,212,0.08)', border:'1px solid rgba(0,196,212,0.2)', borderRadius:8, padding:32}}>
             <p style={{...S.p, marginBottom:20}}>Ainda tem dúvidas? Entre em contato conosco.</p>

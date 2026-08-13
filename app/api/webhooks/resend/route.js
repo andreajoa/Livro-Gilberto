@@ -9,6 +9,7 @@ import {
   firstRecipient,
   normalizeWebhookTags
 } from '@/src/lib/email/emailTracking'
+import { ensureCrmSchema } from '@/src/lib/crm/crmSchema'
 
 export const dynamic = 'force-dynamic'
 
@@ -34,6 +35,20 @@ async function stopPendingEmails(email, reason, language) {
      WHERE email=?
        AND status='pending'`,
     [email]
+  )
+
+  const bounced = reason === 'email.bounced' ? 1 : 0
+  const complained = reason === 'email.complained' ? 1 : 0
+  await d1Query(
+    `INSERT INTO contact_status
+     (email, language, unsubscribed, bounced, complained, suppressed_reason, updated_at)
+     VALUES (?, ?, 0, ?, ?, ?, ?)
+     ON CONFLICT(email) DO UPDATE SET
+      bounced=MAX(contact_status.bounced, excluded.bounced),
+      complained=MAX(contact_status.complained, excluded.complained),
+      suppressed_reason=excluded.suppressed_reason,
+      updated_at=excluded.updated_at`,
+    [email, language || 'pt', bounced, complained, reason, nowIso()]
   )
 
   await d1Query(
@@ -110,6 +125,7 @@ export async function POST(request) {
     }
 
     await ensureEmailIntelligenceSchema(d1Query)
+    await ensureCrmSchema(d1Query)
 
     const duplicateResult = await d1Query(
       `SELECT id

@@ -9,6 +9,8 @@ import {
 import {
   getSuperacaoEmailSubject,
 } from "@/src/lib/email/superacaoMarketingTemplates"
+import { ensureCrmSchema } from "@/src/lib/crm/crmSchema"
+import { isSameOriginOrInternal } from "@/src/lib/server/internalAuth"
 
 export const dynamic = "force-dynamic"
 
@@ -92,7 +94,9 @@ function sequenceConfig(
 
 export async function POST(request) {
   try {
+    if (!isSameOriginOrInternal(request)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     const body = await request.json()
+    await ensureCrmSchema(d1Query)
 
     const visitorId = cleanText(
       body.visitorId ||

@@ -3,7 +3,7 @@ import { useCart } from '../context/CartContext'
 import { ShoppingBag } from 'lucide-react'
 
 export default function CartIcon() {
-  const { cartIconRef, setCartOpen, inCart, quantity } = useCart()
+  const { cartIconRef, openCart, inCart, quantity } = useCart()
 
   return (
     <>
@@ -22,7 +22,7 @@ export default function CartIcon() {
 
       <button
         ref={cartIconRef}
-        onClick={() => setCartOpen(true)}
+        onClick={openCart}
         style={{ position: 'relative', background: 'none', border: 'none', cursor: 'pointer', color: 'white' }}
         aria-label="Abrir carrinho"
       >

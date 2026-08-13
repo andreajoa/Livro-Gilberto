@@ -1,11 +1,15 @@
 import { NextResponse } from 'next/server'
 import { d1Query, nowIso, cleanText, normalizeLanguage } from '@/src/lib/d1'
+import { ensureCrmSchema } from '@/src/lib/crm/crmSchema'
+import { isInternalRequest, internalHeaders } from '@/src/lib/server/internalAuth'
 
 export const dynamic = 'force-dynamic'
 
 export async function POST(request) {
   try {
+    if (!isInternalRequest(request)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     const body = await request.json()
+    await ensureCrmSchema(d1Query)
 
     const visitorId = cleanText(body.visitorId || body.visitor_id || '', 120)
     const name = cleanText(body.name || '', 180)
@@ -68,7 +72,7 @@ export async function POST(request) {
       const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || 'https://www.gilberto-souza.com').replace(/\/$/, '')
       await fetch(`${baseUrl}/api/crm/enqueue-customer-sequence`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: internalHeaders(),
         body: JSON.stringify({
           visitorId,
           name,

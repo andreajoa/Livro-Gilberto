@@ -5,11 +5,10 @@ import { X, Package, ShieldCheck, ChevronRight, Minus, Plus, Trash2 } from 'luci
 import { useCart } from '../context/CartContext'
 import ShippingCalculator from './ShippingCalculator'
 import CheckoutForm from './CheckoutForm'
-import bookImg from '../assets/book/capa-livro.png'
 
 export default function CartDrawer() {
 
-  const { cartOpen, setCartOpen, BOOK, shipping, total, quantity, increaseQuantity, decreaseQuantity, removeFromCart, handleCartClose, subtotal } = useCart()
+  const { cartOpen, setCartOpen, inCart, BOOK, shipping, total, quantity, increaseQuantity, decreaseQuantity, removeFromCart, handleCartClose, subtotal } = useCart()
 
   
     useEffect(() => {
@@ -28,7 +27,7 @@ export default function CartDrawer() {
   return (
     <div>
       <AnimatePresence>
-        {cartOpen && (
+        {cartOpen && inCart && (
           <>
             <motion.div
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -49,7 +48,7 @@ export default function CartDrawer() {
 
               <div style={{ flex: 1, padding: '24px 28px', display: 'flex', flexDirection: 'column', gap: 24 }}>
                 <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 8, padding: '16px' }}>
-                  <motion.img src={bookImg} alt={BOOK.title} initial={{ scale: 0.7, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.15, type: 'spring', stiffness: 260, damping: 20 }} style={{ width: 72, borderRadius: 4, boxShadow: '0 8px 24px rgba(0,0,0,0.5)', flexShrink: 0 }} />
+                  <motion.img src={BOOK.image} alt={BOOK.title} initial={{ scale: 0.7, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.15, type: 'spring', stiffness: 260, damping: 20 }} style={{ width: 72, height: 101, objectFit: 'contain', borderRadius: 4, boxShadow: '0 8px 24px rgba(0,0,0,0.5)', flexShrink: 0 }} />
                   <div style={{ flex: 1 }}>
                     <p style={{ fontSize: 15, fontWeight: 700, color: '#fff', margin: '0 0 4px', lineHeight: 1.3 }}>{BOOK.title}</p>
                     <p style={{ fontSize: 12, color: '#8A9BBF', margin: '0 0 10px' }}>{BOOK.author}</p>
