@@ -9,7 +9,7 @@ import bookImg from '../assets/book/capa-livro.png'
 
 export default function CartDrawer() {
 
-  const { cartOpen, setCartOpen, BOOK, shipping, total, quantity, increaseQuantity, decreaseQuantity, removeFromCart, handleCartClose, subtotal } = useCart()
+  const { cartOpen, setCartOpen, inCart, BOOK, shipping, total, quantity, increaseQuantity, decreaseQuantity, removeFromCart, handleCartClose, subtotal } = useCart()
 
   
     useEffect(() => {
@@ -28,7 +28,7 @@ export default function CartDrawer() {
   return (
     <div>
       <AnimatePresence>
-        {cartOpen && (
+        {cartOpen && inCart && (
           <>
             <motion.div
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}

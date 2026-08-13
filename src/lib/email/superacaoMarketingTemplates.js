@@ -1,3 +1,5 @@
+import { createUnsubscribeUrl } from "./unsubscribeToken"
+
 const SITE_URL =
   "https://www.gilberto-souza.com"
 
@@ -2350,9 +2352,10 @@ function emailLayout({
       .toLowerCase()
 
   const unsubscribeUrl =
-    `${SITE_URL}/api/unsubscribe?email=` +
-    encodeURIComponent(
-      safeEmail
+    createUnsubscribeUrl(
+      safeEmail,
+      "pt",
+      SITE_URL
     )
 
   const design =

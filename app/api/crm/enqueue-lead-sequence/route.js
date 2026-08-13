@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { d1Query, nowIso, cleanText, normalizeLanguage } from '@/src/lib/d1'
 import { getLeadEmailSubject } from '@/src/lib/email/leadEmailTemplates'
+import { ensureCrmSchema } from '@/src/lib/crm/crmSchema'
+import { isSameOriginOrInternal } from '@/src/lib/server/internalAuth'
 
 export const dynamic = 'force-dynamic'
 
@@ -34,7 +36,9 @@ function addDays(days) {
 
 export async function POST(request) {
   try {
+    if (!isSameOriginOrInternal(request)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     const body = await request.json()
+    await ensureCrmSchema(d1Query)
 
     const visitorId = cleanText(body.visitorId || body.visitor_id || '', 120)
     const email = cleanText(body.email || '', 255).toLowerCase()

@@ -25,6 +25,7 @@ const ALLOWED_EVENT_TYPES = new Set([
   'cart_updated',
   'checkout_open',
   'checkout_started',
+  'checkout_created',
   'checkout_payment_ready',
   'checkout_abandoned',
   'lead_popup_viewed',
@@ -100,7 +101,7 @@ function sanitizeUrl(
   try {
     const url = new URL(
       raw,
-      'https://gilbertosouza.com'
+      'https://www.gilberto-souza.com'
     )
 
     for (

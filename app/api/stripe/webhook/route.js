@@ -18,6 +18,15 @@ import {
   d1Query
 } from '@/src/lib/d1'
 
+import {
+  fulfillCheckoutPayment,
+  setOrderNotificationState
+} from '@/src/lib/commerce/orderServer'
+
+import {
+  internalHeaders
+} from '@/src/lib/server/internalAuth'
+
 export const dynamic = 'force-dynamic'
 
 const stripe = new Stripe(
@@ -41,8 +50,7 @@ async function postInternal(
       method: 'POST',
 
       headers: {
-        'Content-Type':
-          'application/json'
+        ...internalHeaders()
       },
 
       body: JSON.stringify(payload)
@@ -180,6 +188,102 @@ export async function POST(request) {
 
     const baseUrl =
       getBaseUrl()
+
+    if (metadata.checkout_id) {
+      const order = await fulfillCheckoutPayment(
+        paymentIntent,
+        metadata.checkout_id
+      )
+
+      const physicalEmailCompleted =
+        await hasStripeWebhookStep({
+          stripeEventId: stripeEvent.id,
+          stepCode: 'order_email_sent'
+        })
+
+      if (!physicalEmailCompleted) {
+        try {
+          await postInternal(
+            `${baseUrl}/api/send-order-email`,
+            {
+              type: 'physical',
+              order: {
+                orderId: order.order_id,
+                name: order.customer_name,
+                email: order.customer_email,
+                whatsapp: order.customer_whatsapp,
+                cep: order.destination_cep,
+                address: `${order.address_street}, ${order.address_number}`,
+                complement: order.address_complement,
+                neighborhood: order.address_neighborhood,
+                city: order.address_city,
+                state: order.address_state,
+                shippingName: order.shipping_name,
+                shippingPrice: order.shipping_amount,
+                quantity: order.quantity,
+                total: Number(order.total).toFixed(2),
+                paymentIntentId: order.stripe_payment_intent
+              }
+            }
+          )
+
+          await setOrderNotificationState(order.order_id, {
+            owner_email_status: 'sent',
+            customer_email_status: 'sent',
+            notification_error: ''
+          })
+          await completeStripeWebhookStep({
+            stripeEventId: stripeEvent.id,
+            stepCode: 'order_email_sent'
+          })
+        } catch (emailError) {
+          await setOrderNotificationState(order.order_id, {
+            owner_email_status: 'failed',
+            customer_email_status: 'failed',
+            notification_error: emailError.message
+          })
+          throw emailError
+        }
+      }
+
+      if (Number(order.marketing_consent) === 1) {
+        const crmCompleted = await hasStripeWebhookStep({
+          stripeEventId: stripeEvent.id,
+          stepCode: 'crm_customer_sequence_saved'
+        })
+
+        if (!crmCompleted) {
+          await postInternal(
+            `${baseUrl}/api/crm/enqueue-customer-sequence`,
+            {
+              visitorId: order.visitor_id || '',
+              name: order.customer_name,
+              email: order.customer_email,
+              language: 'pt',
+              product: order.product_name,
+              productType: 'physical',
+              project: 'livro_gilberto',
+              page: '/checkout'
+            }
+          )
+          await completeStripeWebhookStep({
+            stripeEventId: stripeEvent.id,
+            stepCode: 'crm_customer_sequence_saved'
+          })
+        }
+      }
+
+      await completeStripeWebhookEvent(stripeEvent.id)
+
+      return NextResponse.json({
+        received: true,
+        processed: true,
+        stripe_event_id: stripeEvent.id,
+        payment_intent: paymentIntent.id,
+        order_id: order.order_id,
+        conversion
+      })
+    }
 
     if (
       metadata.product?.includes(

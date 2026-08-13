@@ -1,5 +1,6 @@
 "use client"
 import { createContext, useContext, useState, useRef, useEffect } from 'react'
+import { getWebsiteContext } from '@/src/lib/website/websiteTracker'
 
 const CartContext = createContext()
 
@@ -10,6 +11,7 @@ export const CartProvider = ({ children }) => {
   const [flyOrigin, setFlyOrigin] = useState({ x: 0, y: 0 })
   const [quantity, setQuantity] = useState(1)
   const [inCart, setInCart] = useState(false)
+  const [cartId, setCartId] = useState('')
   const cartIconRef = useRef(null)
 
   const API_URL = '/api'
@@ -19,24 +21,58 @@ export const CartProvider = ({ children }) => {
     author: 'Gilberto de Souza',
     price: 119.00,
     comparePrice: 159.00,
-    image: '/images/Whisk_e9acd35e6c0a93d998a4c0dbe160bba5dr.png'
+    image: '/book-front.jpg'
   }
 
   const subtotal = BOOK.price * quantity
   const total = subtotal + (shipping?.price || 0)
 
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('gs_cart_state') || 'null')
+      if (!saved?.inCart || !saved?.cartId) return
+      setCartId(saved.cartId)
+      setInCart(true)
+      setQuantity(Math.min(20, Math.max(1, Number(saved.quantity) || 1)))
+      setShipping(saved.shipping || null)
+    } catch {
+      localStorage.removeItem('gs_cart_state')
+    }
+  }, [])
+
+  const createCartId = () => {
+    const existing = cartId || localStorage.getItem('gs_cart_id')
+    if (existing) {
+      setCartId(existing)
+      return existing
+    }
+    const next = `cart_${crypto.randomUUID()}`
+    localStorage.setItem('gs_cart_id', next)
+    setCartId(next)
+    return next
+  }
+
   const saveCart = async () => {
     try {
-      const visitorId = localStorage.getItem('visitor_id')
-      if (!visitorId) return
+      if (!inCart || !cartId) return
+      const context = getWebsiteContext()
 
-      await fetch(`${API_URL}/cart/save`, {
+      localStorage.setItem('gs_cart_state', JSON.stringify({ cartId, inCart: true, quantity, shipping }))
+
+      await fetch(`${API_URL}/commerce/cart`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          visitorId,
+          cartId,
+          visitorId: context.visitorId || '',
+          sessionId: context.sessionId || '',
           quantity,
-          shipping
+          cep: shipping?.cep || '',
+          shippingMethod: shipping?.type || '',
+          subtotal,
+          shippingAmount: shipping?.price || 0,
+          total,
+          status: 'active'
         })
       })
     } catch (error) {
@@ -46,9 +82,10 @@ export const CartProvider = ({ children }) => {
 
   useEffect(() => {
     saveCart()
-  }, [quantity, shipping])
+  }, [quantity, shipping, inCart, cartId])
 
   const triggerAddToCart = (buttonRef) => {
+    createCartId()
     if (!buttonRef?.current) return
     const rect = buttonRef.current.getBoundingClientRect()
     setFlyOrigin({
@@ -75,6 +112,7 @@ export const CartProvider = ({ children }) => {
     setInCart(false)
     setCartOpen(false)
     setShipping(null)
+    localStorage.removeItem('gs_cart_state')
   }
 
   const handleCartClose = () => {
@@ -82,24 +120,28 @@ export const CartProvider = ({ children }) => {
   }
 
   const openCart = () => {
+    if (inCart) setCartOpen(true)
+  }
+
+  const addToCart = () => {
+    createCartId()
+    setInCart(true)
     setCartOpen(true)
   }
 
   const clearCart = async () => {
     try {
-      const visitorId = localStorage.getItem('visitor_id')
-      if (!visitorId) return
-
-      await fetch(`${API_URL}/cart/clear`, {
+      if (cartId) await fetch(`${API_URL}/commerce/cart`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ visitorId })
+        body: JSON.stringify({ cartId, quantity: 1, status: 'removed' })
       })
 
       setQuantity(1)
       setInCart(false)
       setShipping(null)
       setCartOpen(false)
+      localStorage.removeItem('gs_cart_state')
     } catch (error) {
       console.error('Erro ao limpar carrinho:', error)
     }
@@ -116,10 +158,12 @@ export const CartProvider = ({ children }) => {
       quantity, setQuantity,
       increaseQuantity, decreaseQuantity,
       inCart,
-      inCart,
+      cartId,
+      createCartId,
       removeFromCart,
       handleCartClose,
       openCart,
+      addToCart,
       clearCart,
       subtotal
     }}>

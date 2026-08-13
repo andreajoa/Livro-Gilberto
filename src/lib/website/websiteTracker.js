@@ -4,6 +4,7 @@ const VISITOR_KEY = "gs_wi_visitor_id"
 const SESSION_KEY = "gs_wi_session"
 const FIRST_TOUCH_KEY = "gs_wi_first_touch"
 const LAST_TOUCH_KEY = "gs_wi_last_touch"
+const CONSENT_KEY = "gs_privacy_consent_v1"
 
 const SESSION_TIMEOUT_MS = 30 * 60 * 1000
 const ENDPOINT = "/api/website-intelligence/event"
@@ -95,7 +96,22 @@ const SENSITIVE_QUERY_KEYS = new Set([
   "email",
   "payment_intent",
   "payment_intent_client_secret"
+  ,"order"
 ])
+
+export function getPrivacyConsent() {
+  if (typeof window === 'undefined') return { analytics: false }
+  return safeParse(window.localStorage.getItem(CONSENT_KEY), { analytics: false }) || { analytics: false }
+}
+
+export function setPrivacyConsent(consent) {
+  if (typeof window === 'undefined') return
+  window.localStorage.setItem(CONSENT_KEY, JSON.stringify({ analytics: consent?.analytics === true, updatedAt: new Date().toISOString() }))
+}
+
+export function analyticsConsentGranted() {
+  return getPrivacyConsent().analytics === true
+}
 
 export function isWebsiteTrackingAllowed(
   pathname
@@ -106,9 +122,11 @@ export function isWebsiteTrackingAllowed(
     return false
   }
 
-  return !(
+  return analyticsConsentGranted() && !(
     pathname === "/superacao" ||
-    pathname.startsWith("/superacao/")
+    pathname.startsWith("/superacao/") ||
+    pathname === "/dashboard" ||
+    pathname.startsWith("/dashboard/")
   )
 }
 
@@ -126,7 +144,7 @@ function sanitizeUrl(
     const base =
       typeof window !== "undefined"
         ? window.location.origin
-        : "https://gilbertosouza.com"
+        : "https://www.gilberto-souza.com"
 
     const url =
       new URL(
@@ -337,6 +355,7 @@ function inferSource({
 }
 
 export function getWebsiteVisitorId() {
+  if (!analyticsConsentGranted()) return ''
   const existing =
     getStored(VISITOR_KEY) ||
     getStored("visitor_id")
@@ -860,6 +879,12 @@ export async function startWebsiteSession(
 }
 
 export function getWebsiteContext() {
+  if (
+    typeof window === 'undefined' ||
+    !isWebsiteTrackingAllowed(window.location.pathname)
+  ) {
+    return { visitorId: '', sessionId: '', attributionId: '', firstTouch: null, lastTouch: null }
+  }
   const session = getWebsiteSession()
   const attribution =
     getWebsiteAttribution()

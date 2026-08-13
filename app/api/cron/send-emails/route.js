@@ -6,6 +6,8 @@ import { buildEmailTags } from '@/src/lib/email/emailTracking'
 import {
   getSuperacaoEmailHtml
 } from '@/src/lib/email/superacaoMarketingTemplates'
+import { ensureCrmSchema } from '@/src/lib/crm/crmSchema'
+import { ensureEmailIntelligenceSchema } from '@/src/lib/email/emailIntelligenceSchema'
 
 
 
@@ -158,6 +160,15 @@ export async function GET(request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
+    await ensureCrmSchema(d1Query)
+    await ensureEmailIntelligenceSchema(d1Query)
+
+    await d1Query(
+      `UPDATE email_queue SET status='pending'
+       WHERE status='processing' AND claimed_at < ?`,
+      [new Date(Date.now() - 15 * 60 * 1000).toISOString()]
+    )
+
     const now = new Date().toISOString()
 
     const result = await d1Query(
@@ -168,7 +179,11 @@ export async function GET(request) {
          AND NOT EXISTS (
            SELECT 1 FROM contact_status
            WHERE contact_status.email = email_queue.email
-             AND contact_status.unsubscribed = 1
+             AND (
+               contact_status.unsubscribed = 1 OR
+               contact_status.bounced = 1 OR
+               contact_status.complained = 1
+             )
          )
        ORDER BY scheduled_at ASC
        LIMIT 10`,
@@ -181,6 +196,16 @@ export async function GET(request) {
 
     for (const item of pending) {
       try {
+        const claimedAt = new Date().toISOString()
+        const claim = await d1Query(
+          `UPDATE email_queue
+           SET status='processing', claimed_at=?
+           WHERE id=? AND status='pending'`,
+          [claimedAt, item.id]
+        )
+        const changes = Number(claim?.[0]?.meta?.changes || claim?.[0]?.changes || 0)
+        if (!changes) continue
+
         const sequence = String(item.sequence_code || '').toLowerCase()
 
         let html
@@ -245,7 +270,7 @@ export async function GET(request) {
             emailNumber: item.email_number,
             queueId: item.id
           })
-        })
+        }, { idempotencyKey: `email_queue_${item.id}` })
 
         if (resendError) {
           throw new Error(
@@ -255,7 +280,7 @@ export async function GET(request) {
         }
 
         await d1Query(
-          `UPDATE email_queue SET status='sent', sent_at=? WHERE id=?`,
+          `UPDATE email_queue SET status='sent', sent_at=?, last_error=NULL WHERE id=?`,
           [new Date().toISOString(), item.id]
         )
 
@@ -277,9 +302,12 @@ export async function GET(request) {
 
         sent.push(item.id)
       } catch (error) {
+        const retryCount = Number(item.retry_count || 0) + 1
+        const retryAt = new Date(Date.now() + Math.min(24 * 60, 30 * (2 ** (retryCount - 1))) * 60 * 1000).toISOString()
+        const nextStatus = retryCount >= 5 ? 'failed' : 'pending'
         await d1Query(
-          `UPDATE email_queue SET status='failed' WHERE id=?`,
-          [item.id]
+          `UPDATE email_queue SET status=?, retry_count=?, last_error=?, scheduled_at=? WHERE id=?`,
+          [nextStatus, retryCount, String(error.message || error).slice(0, 1000), retryAt, item.id]
         )
 
         await d1Query(

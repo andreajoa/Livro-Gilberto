@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { isInternalRequest } from '@/src/lib/server/internalAuth'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
-const OWNER_EMAIL = process.env.OWNER_EMAIL || 'contato@gilbertosouza.com'
-const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || 'contato@gilbertosouza.com'
-const EMAIL_FROM = process.env.EMAIL_FROM || 'Gilberto de Souza <noreply@gilbertosouza.com>'
+const OWNER_EMAIL = process.env.OWNER_EMAIL || 'contato@gilberto-souza.com'
+const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || 'contato@gilberto-souza.com'
+const EMAIL_FROM = process.env.EMAIL_FROM || 'Gilberto de Souza <noreply@gilberto-souza.com>'
 
 function esc(value) {
   return String(value ?? '')
@@ -310,6 +311,10 @@ function physicalBuyerEmail(order) {
 
 export async function POST(request) {
   try {
+    if (!isInternalRequest(request)) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
     const { order, type } = await request.json()
 
     if (type === 'physical') {

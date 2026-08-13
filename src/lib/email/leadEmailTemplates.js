@@ -1,4 +1,5 @@
 import { renderSequenceEmail } from './emailDesignSystem'
+import { createUnsubscribeUrl } from './unsubscribeToken'
 
 function baseUrl() {
   return (process.env.NEXT_PUBLIC_BASE_URL || 'https://www.gilberto-souza.com').replace(/\/$/, '')
@@ -9,9 +10,7 @@ function asset(path) {
 }
 
 function unsubscribeUrl(email, language) {
-  const safeEmail = encodeURIComponent(String(email || ''))
-  const safeLang = encodeURIComponent(String(language || 'pt'))
-  return `${baseUrl()}/api/unsubscribe?email=${safeEmail}&lang=${safeLang}`
+  return createUnsubscribeUrl(email, language, baseUrl())
 }
 
 function unsubscribeText(language) {
