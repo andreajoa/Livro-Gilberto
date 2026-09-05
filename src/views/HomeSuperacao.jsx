@@ -31,6 +31,8 @@ import SuperacaoDigitalPaymentModal from "../components/SuperacaoDigitalPaymentM
 const AMAZON_PHYSICAL_URL = "https://www.amazon.com/dp/B0H9R8ZK7T"
 const AMAZON_EBOOK_URL =
   "https://www.amazon.com.br/Supera%C3%A7%C3%A3o-futuro-hist%C3%B3ria-vit%C3%B3ria-Portuguese-ebook/dp/B0H9N93T5J"
+const BARNES_NOBLE_URL =
+  "https://www.barnesandnoble.com/w/superacao-gilberto-de-souza/1150892324?ean=9798182540698"
 
 const PHYSICAL_PRICE = 141.74
 const EBOOK_PRICE = 65.99
@@ -120,7 +122,7 @@ const faqs = [
   {
     question: "A Barnes & Noble já está disponível?",
     answer:
-      "A opção será destinada principalmente aos leitores nos Estados Unidos. O botão permanecerá sinalizado como “em breve” até que o link oficial esteja disponível.",
+      "Sim. O livro Superação já está disponível na Barnes & Noble para compra nos Estados Unidos. Ao escolher essa opção, você será direcionado para a página oficial da Barnes & Noble.",
   },
 ]
 
@@ -156,16 +158,16 @@ function PromoSlider({ type = "amazon" }) {
 
   const barnesItems = [
     {
-      eyebrow: "Para leitores nos Estados Unidos",
-      text: "Superação estará disponível também pela Barnes & Noble.",
+      eyebrow: "Disponível nos Estados Unidos",
+      text: "Compre Superação pela Barnes & Noble.",
     },
     {
       eyebrow: "Barnes & Noble",
-      text: "Nova opção internacional de compra em preparação.",
+      text: "Uma opção oficial de compra para leitores nos Estados Unidos.",
     },
     {
-      eyebrow: "Disponibilidade nos EUA",
-      text: "O link oficial será publicado assim que estiver ativo.",
+      eyebrow: "Compra nos EUA",
+      text: "Acesse a página oficial e conclua sua compra na Barnes & Noble.",
     },
   ]
 
@@ -232,13 +234,15 @@ function PromoSlider({ type = "amazon" }) {
           <ArrowRight size={16} />
         </a>
       ) : (
-        <button
-          className="sup-promo-button sup-promo-disabled"
-          type="button"
-          disabled
+        <a
+          className="sup-promo-button"
+          href={BARNES_NOBLE_URL}
+          target="_blank"
+          rel="noreferrer"
         >
-          Barnes & Noble — em breve
-        </button>
+          Ver na Barnes & Noble
+          <ArrowRight size={16} />
+        </a>
       )}
 
       <div className="sup-promo-dots" aria-hidden="true">
@@ -782,21 +786,23 @@ export default function HomeSuperacao() {
             <h3>Compra nos Estados Unidos</h3>
 
             <p>
-              A futura opção pela Barnes & Noble será destinada
-              principalmente aos leitores nos EUA.
+              Opção externa para quem prefere comprar diretamente pela
+              Barnes & Noble nos Estados Unidos.
             </p>
 
-            <button
-              className="sup-button sup-button-block sup-button-disabled"
-              type="button"
-              disabled
+            <a
+              className="sup-button sup-button-primary sup-button-block"
+              href={BARNES_NOBLE_URL}
+              target="_blank"
+              rel="noreferrer"
             >
-              Link em breve
-            </button>
+              Comprar na Barnes & Noble
+              <ArrowRight size={17} />
+            </a>
 
             <p className="sup-offer-note">
-              O endereço definitivo será incluído quando a página
-              oficial estiver disponível.
+              A compra, a entrega e o atendimento seguem as políticas
+              da Barnes & Noble.
             </p>
           </article>
         </div>
