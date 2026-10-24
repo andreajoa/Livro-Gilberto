@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const base = 'https://gilbertosouza.com'
+  const base = 'https://www.gilberto-souza.com'
   const d = new Date()
   return [
     { url: base, lastModified: d, changeFrequency: 'weekly', priority: 1.0 },

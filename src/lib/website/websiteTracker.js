@@ -126,7 +126,7 @@ function sanitizeUrl(
     const base =
       typeof window !== "undefined"
         ? window.location.origin
-        : "https://gilbertosouza.com"
+        : "https://www.gilberto-souza.com"
 
     const url =
       new URL(
