@@ -3,8 +3,8 @@ import { Resend } from 'resend'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
-const OWNER_EMAIL = process.env.OWNER_EMAIL || 'contato@gilbertosouza.com'
-const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || 'contato@gilbertosouza.com'
+const OWNER_EMAIL = process.env.OWNER_EMAIL || 'info@gilberto-souza.com'
+const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || 'info@gilberto-souza.com'
 const EMAIL_FROM = process.env.EMAIL_FROM || 'Gilberto de Souza <noreply@gilbertosouza.com>'
 
 function esc(value) {

@@ -100,7 +100,7 @@ function sanitizeUrl(
   try {
     const url = new URL(
       raw,
-      'https://gilbertosouza.com'
+      'https://www.gilberto-souza.com'
     )
 
     for (

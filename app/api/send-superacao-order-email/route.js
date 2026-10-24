@@ -16,7 +16,7 @@ const stripe = new Stripe(
 
 const OWNER_EMAIL =
   process.env.OWNER_EMAIL ||
-  "contato@gilbertosouza.com"
+  "info@gilberto-souza.com"
 
 const EMAIL_FROM =
   process.env.EMAIL_FROM ||
