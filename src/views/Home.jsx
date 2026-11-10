@@ -12,17 +12,17 @@ import ShippingCalculator from '../components/ShippingCalculator';
 import SuperacaoPromoCarousel from '../components/SuperacaoPromoCarousel';
 
 import bannerAutor     from '../assets/banners/banner-autor-wide.png';
-import bannerCTA       from '../assets/banners/banner-autor-cta.png';
+import bannerCTA       from '../assets/banners/banner-autor-cta.webp';
 import bannerTransform from '../assets/banners/banner-triste.jpeg';
-import bannerVenci from '../assets/banners/banner-eu-venci.png';
-import bookCover       from '../assets/book/capa-livro.png';
-import livroMao        from '../assets/lifestyle/livro-mao-segurando.png';
+import bannerVenci from '../assets/banners/banner-eu-venci.webp';
+import bookCover       from '../assets/book/capa-livro.webp';
+import livroMao        from '../assets/lifestyle/livro-mao-segurando.webp';
 import livroWhiskey    from '../assets/lifestyle/livro-mesa-whiskey.png';
 import livroJanela     from '../assets/lifestyle/livro-janela-cidade.png';
-import livroPresente   from '../assets/lifestyle/livro-embalagem-kraft.png';
+import livroPresente   from '../assets/lifestyle/livro-embalagem-kraft.webp';
 import livroStack      from '../assets/lifestyle/livro-stack-marble.png';
 import authorPose      from '../assets/author/gilberto-livro-pose.png';
-import imagemReceba from '../assets/lifestyle/imagem.jpeg';
+import imagemReceba from '../assets/lifestyle/imagem.webp';
 
 const faq = [
   { q: 'Como funciona o envio?', a: 'O livro é embalado com cuidado e postado pelos Correios. Você recebe o código de rastreamento por email assim que for postado.' },
@@ -56,6 +56,7 @@ export default function Home() {
           playsInline
           webkit-playsinline="true"
           preload="metadata"
+          poster="/videos/hero-poster.webp"
           style={{
             position:'absolute',
             inset:0,
@@ -271,7 +272,7 @@ export default function Home() {
 
           {/* Livro na mão — direita */}
           <div style={{ display:'flex', justifyContent:'center', alignItems:'center' }}>
-            <img
+            <img loading="lazy" decoding="async"
               src={livroMao.src}
               alt="Livro Como Vencer a Dor de Ser Trocado Por Outro"
              
@@ -296,7 +297,7 @@ export default function Home() {
           loop
           playsInline
           webkit-playsinline="true"
-          preload="metadata"
+          preload="none"
           style={{
             position:'absolute',
             inset:0,
@@ -340,7 +341,7 @@ export default function Home() {
           style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(300px,1fr))', gap:72, alignItems:'center', maxWidth:1100, margin:'0 auto' }}
         >
           <div style={{ position:'relative' }}>
-            <img src={bannerCTA.src} alt="Gilberto de Souza"
+            <img loading="lazy" decoding="async" src={bannerCTA.src} alt="Gilberto de Souza"
               style={{ width:'100%', maxWidth:460, display:'block', borderRadius:4, filter:'drop-shadow(0 20px 50px rgba(0,0,0,0.7))' }} />
             <div style={{ position:'absolute', bottom:-16, right:-16, width:'70%', height:'70%', border:'2px solid rgba(0,196,212,0.2)', borderRadius:4, zIndex:-1 }} />
           </div>
@@ -394,7 +395,7 @@ export default function Home() {
          
           style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(300px,1fr))', gap:72, alignItems:'center', maxWidth:1100, margin:'0 auto' }}
         >
-          <img src={livroPresente.src} alt="Livro embalado com cuidado"
+          <img loading="lazy" decoding="async" src={livroPresente.src} alt="Livro embalado com cuidado"
             style={{ width:'100%', maxWidth:460, borderRadius:6, boxShadow:'0 24px 60px rgba(0,0,0,0.12)', display:'block' }} />
 
           <div>
@@ -434,7 +435,7 @@ export default function Home() {
            
             style={{ display:'flex', flexDirection:'column', alignItems:'flex-start', gap:16 }}
           >
-            <img src={imagemReceba.src} alt="Livro - receba em casa"
+            <img loading="lazy" decoding="async" src={imagemReceba.src} alt="Livro - receba em casa"
               style={{ width:'min(420px,100%)', borderRadius:6, display:'block', filter:'drop-shadow(0 20px 50px rgba(0,0,0,0.7))' }} />
             <span style={{ fontSize:10, color:'#8A9BBF', letterSpacing:2 }}>ISBN 978-658462205-0</span>
             <svg viewBox="0 0 160 28" style={{ width:160, height:24 }} fill="none">
@@ -661,7 +662,7 @@ export default function Home() {
                 justifyContent:'center',
                 width:'fit-content'
               }}>
-                <img src="/retailer-logos/amazon.png" alt="Amazon" style={{ height:34, width:'auto', display:'block' }} />
+                <img loading="lazy" decoding="async" src="/retailer-logos/amazon.png" alt="Amazon" style={{ height:34, width:'auto', display:'block' }} />
               </div>
               <h3 style={{ fontFamily:"'Playfair Display',serif", color:'#fff', fontSize:24, fontWeight:900, margin:'0 0 8px' }}>
                 Comprar na Amazon
@@ -742,7 +743,7 @@ export default function Home() {
           BANNER FINAL — entre FAQ e footer
       ════════════════════════════════════════ */}
       <section style={{ overflow:'hidden' }}>
-        <img src={bannerVenci.src} alt="Eu venci"
+        <img loading="lazy" decoding="async" src={bannerVenci.src} alt="Eu venci"
           style={{ width:'100%', display:'block', objectFit:'cover' }} />
       </section>
 

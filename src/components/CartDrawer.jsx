@@ -5,7 +5,7 @@ import { X, Package, ShieldCheck, ChevronRight, Minus, Plus, Trash2 } from 'luci
 import { useCart } from '../context/CartContext'
 import ShippingCalculator from './ShippingCalculator'
 import CheckoutForm from './CheckoutForm'
-import bookImg from '../assets/book/capa-livro.png'
+import bookImg from '../assets/book/capa-livro.webp'
 
 export default function CartDrawer() {
 

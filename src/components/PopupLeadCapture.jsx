@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Mail, MessageCircle, Sparkles, Gift } from 'lucide-react'
-import bookImg from '../assets/book/capa-livro.png'
+import bookImg from '../assets/book/capa-livro.webp'
 
 const API_URL = '/api'
 
