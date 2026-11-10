@@ -318,3 +318,41 @@ export const jsonLdPt = {
     }
   ]
 }
+
+// /o-livro: o livro em português + trilha de navegação
+export const jsonLdOLivro = {
+  "@context": "https://schema.org",
+  "@graph": [
+    jsonLdPt["@graph"].find((n) => n["@type"] === "Book"),
+    jsonLdPt["@graph"].find((n) => n["@type"] === "Person"),
+    { "@type": "BreadcrumbList", "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Início", "item": SITE },
+      { "@type": "ListItem", "position": 2, "name": "O Livro", "item": SITE + "/o-livro" },
+    ] },
+  ],
+}
+
+// /sobre: página de perfil do autor
+export const jsonLdSobre = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "@id": SITE + "/sobre#page",
+      "url": SITE + "/sobre",
+      "inLanguage": "pt-BR",
+      "name": "Sobre Gilberto de Souza",
+      "mainEntity": { "@id": SITE + "/#gilberto" },
+    },
+    {
+      ...jsonLdPt["@graph"].find((n) => n["@type"] === "Person"),
+      "description": "Gilberto de Souza nasceu no Brasil e vive há 23 anos nos Estados Unidos, onde fundou uma empresa de construção de casas. Escreveu Como Vencer a Dor de Ser Trocado Por Outro depois de passar pela traição.",
+      "knowsLanguage": ["pt-BR", "en", "es"],
+      "subjectOf": [{ "@id": SITE + "/#livro" }, { "@id": SITE + "/en#book" }],
+    },
+    { "@type": "BreadcrumbList", "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Início", "item": SITE },
+      { "@type": "ListItem", "position": 2, "name": "Sobre", "item": SITE + "/sobre" },
+    ] },
+  ],
+}

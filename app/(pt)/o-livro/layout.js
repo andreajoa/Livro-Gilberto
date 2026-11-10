@@ -1,3 +1,5 @@
+import { jsonLdOLivro } from '@/src/lib/seoData'
+
 export const metadata = {
   title: 'O Livro — Como Vencer a Dor de Ser Trocado Por Outro | Gilberto de Souza',
   description: 'Conheça o livro de Gilberto de Souza para homens traídos ou trocados por outro: capítulos, ficha editorial e o que você vai encontrar. Livro físico, eBook e audiobook.',
@@ -6,5 +8,10 @@ export const metadata = {
 }
 
 export default function Layout({ children }) {
-  return children
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOLivro) }} />
+      {children}
+    </>
+  )
 }
