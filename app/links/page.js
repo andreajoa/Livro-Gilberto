@@ -16,8 +16,10 @@ export default function LinksPage() {
     { icon: "🌎", title: "Ler Livro + Audiobook",   sub: "Português · Ebook & Audiobook", href: "https://www.gilberto-souza.com" },
   ]
 
+  const AMAZON_EN = "https://www.amazon.com/dp/B0H2LXHCH4"
+  const BN_EN = "https://www.barnesandnoble.com/w/how-to-overcome-the-pain-of-being-replaced-by-someone-else-gilberto-de-souza/1150279536?ean=9798256373504"
+
   const pb_links = [
-    { icon: "🇺🇸", lang: "English",    hrefa: "https://www.amazon.com/dp/B0H2LXHCH4", hrefb: "https://www.barnesandnoble.com/w/how-to-overcome-the-pain-of-being-replaced-by-someone-else-gilberto-de-souza/1150279536?ean=9798256373504" },
     { icon: "🇪🇸", lang: "Español",   hrefa: "https://www.amazon.com/dp/B0H2LHZT7X", hrefb: "https://www.barnesandnoble.com/w/como-vencer-el-dolor-de-ser-reemplazado-por-otro-gilberto-de-souza/1150279538?ean=9786584622050" },
     { icon: "🇧🇷", lang: "Português", hrefa: "https://www.amazon.com/dp/B0H2LM4TXH", hrefb: "https://www.barnesandnoble.com/w/como-vencer-a-dor-de-ser-trocado-por-outro-gilberto-de-souza/1150279850?ean=9798256373542" },
   ]
@@ -90,7 +92,17 @@ export default function LinksPage() {
       </section>
 
       <section style={{ maxWidth: 700, margin: '0 auto', padding: isMobile ? '32px 16px 0' : '44px 20px 0' }}>
-        {divider('READ THE BOOK + AUDIOBOOK')}
+        {divider('GET THE BOOK')}
+        <p style={{ margin: '0 0 14px', textAlign: 'center', fontSize: isMobile ? 15 : 16, fontWeight: 700, color: '#FFFFFF', lineHeight: 1.4 }}>How to Overcome the Pain of Being Replaced by Someone Else</p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 36 }}>
+          <a href={AMAZON_EN} target='_blank' rel='noopener noreferrer' style={{ ...cardStyle, background: 'linear-gradient(90deg,#1A90C8,#4BBCD8)', border: '1px solid rgba(255,255,255,0.30)', justifyContent: 'center', padding: '20px 22px' }}>
+            <span style={{ fontSize: isMobile ? 17 : 18, fontWeight: 900, color: '#06121E', letterSpacing: 0.2 }}>Get it on Amazon</span>
+          </a>
+          <a href={BN_EN} target='_blank' rel='noopener noreferrer' style={{ ...cardStyle, background: '#FFFFFF', justifyContent: 'center', padding: '20px 22px' }}>
+            <span style={{ fontSize: isMobile ? 17 : 18, fontWeight: 900, color: '#0A1420', letterSpacing: 0.2 }}>Get it at Barnes &amp; Noble</span>
+          </a>
+        </div>
+        {divider('EBOOK + AUDIOBOOK')}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 36 }}>
           {ebook_links.map((item, i) => (
             <a key={i} href={item.href} target='_blank' rel='noopener noreferrer' style={cardStyle}>
@@ -105,7 +117,7 @@ export default function LinksPage() {
             </a>
           ))}
         </div>
-        {divider('PAPERBACK')}
+        {divider('PAPERBACK · OTHER LANGUAGES')}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 44 }}>
           {pb_links.map((row, i) => (
             <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
