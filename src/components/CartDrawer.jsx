@@ -55,8 +55,6 @@ export default function CartDrawer() {
                     <p style={{ fontSize: 12, color: '#8A9BBF', margin: '0 0 10px' }}>{BOOK.author}</p>
                     <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 12 }}>
                       <span style={{ fontSize: 22, fontWeight: 900, color: '#00C4D4' }}>R$ {BOOK.price.toFixed(2)}</span>
-                      <span style={{ fontSize: 14, color: '#8A9BBF', textDecoration: 'line-through' }}>R$ {BOOK.comparePrice?.toFixed(2)}</span>
-                      <span style={{ fontSize: 11, color: '#00C4D4', fontWeight: 700 }}>-25%</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                       <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(255,255,255,0.05)', borderRadius: 6, border: '1px solid rgba(255,255,255,0.1)' }}>
