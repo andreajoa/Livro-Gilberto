@@ -121,7 +121,7 @@ export default function Home() {
               </div>
               <div style={{ width:1, height:36, background:'rgba(255,255,255,0.15)' }} />
               <p style={{ fontSize:12, color:'#8A9BBF', margin:0, maxWidth:220, lineHeight:1.5 }}>
-                Uma história real de traição, reconstrução e liberdade emocional
+                Uma história real de traição, reconstrução e fé — com passagens bíblicas, orações e exercícios de reflexão
               </p>
             </div>
 
