@@ -1,8 +1,7 @@
 'use client'
-import dynamic from 'next/dynamic'
 import ClientWrapper from '@/app/ClientWrapper'
 
-const HomeES = dynamic(() => import('@/src/views/HomeES'), { ssr: false })
+import HomeES from '@/src/views/HomeES'
 
 export default function PageES() {
   return <ClientWrapper><HomeES /></ClientWrapper>

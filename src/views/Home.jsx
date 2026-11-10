@@ -121,7 +121,7 @@ export default function Home() {
               </div>
               <div style={{ width:1, height:36, background:'rgba(255,255,255,0.15)' }} />
               <p style={{ fontSize:12, color:'#8A9BBF', margin:0, maxWidth:220, lineHeight:1.5 }}>
-                Uma história real de traição, reconstrução e liberdade emocional
+                Uma história real de traição, reconstrução e fé — com passagens bíblicas, orações e exercícios de reflexão
               </p>
             </div>
 
@@ -142,6 +142,9 @@ export default function Home() {
                 Ver a história ↓
               </a>
             </div>
+            <p style={{ fontSize:13, color:'#B8C8E0', marginTop:18, lineHeight:1.6 }}>
+              Livro físico R$ 119 + frete · eBook + Audiobook R$ 97 · 7 dias para devolução · <a href="/contato" style={{ color:'#00C4D4' }}>Ficou com dúvida? Fale com a gente</a>
+            </p>
           </div>
         </div>
 
@@ -449,8 +452,6 @@ export default function Home() {
             <div style={{ display:'flex', alignItems:'baseline', gap:12, marginBottom:32 }}>
               <div style={{ display:'flex', alignItems:'baseline', gap:10 }}>
                 <span style={{ fontSize:48, fontWeight:900, color:'#00C4D4', lineHeight:1 }}>R$ 119</span>
-                <span style={{ fontSize:18, color:'#8A9BBF', textDecoration:'line-through' }}>R$ 159</span>
-                <span style={{ fontSize:12, color:'#00C4D4', fontWeight:700, background:'rgba(0,196,212,0.15)', padding:'2px 8px', borderRadius:4 }}>-25%</span>
               </div>
             </div>
             <span style={{ fontSize:13, color:'#8A9BBF', display:'block', marginBottom:28 }}>+ frete calculado pelo CEP</span>
@@ -493,15 +494,13 @@ export default function Home() {
               eBook + Audiobook
             </h2>
             <p style={{ fontSize:15, color:'#8A9BBF', maxWidth:520, margin:'0 auto' }}>
-              Leia e ouça onde quiser — disponível em Português, English e Español. Acesso imediato após o pagamento.
+              Leia no celular e ouça o audiobook completo onde quiser. Sem frete, sem espera: o acesso chega no seu email logo após o pagamento.
             </p>
           </div>
 
           <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))', gap:24, marginBottom:48 }}>
             {[
               { flag:'🇧🇷', lang:'Português', price:'R$ 97', desc:'eBook PDF + Audiobook completo' },
-              { flag:'🇺🇸', lang:'English',   price:'$24.99 USD', desc:'eBook PDF + Full Audiobook' },
-              { flag:'🇪🇸', lang:'Español',   price:'$24.99 USD', desc:'eBook PDF + Audiolibro completo' },
             ].map((item,i) => (
               <div key={i} style={{ background:'rgba(13,27,62,0.6)', border:'1px solid rgba(0,196,212,0.15)', borderRadius:12, padding:'28px 24px', textAlign:'center',
                 transition:'border-color 0.2s, transform 0.2s' }}
@@ -525,7 +524,7 @@ export default function Home() {
             }}>
               📥 Comprar eBook + Audiobook
             </button>
-            <p style={{ fontSize:12, color:'#8A9BBF', marginTop:12 }}>Escolha o idioma na próxima tela • Acesso imediato</p>
+            <p style={{ fontSize:12, color:'#8A9BBF', marginTop:12 }}>Acesso imediato • <a href="/en" style={{ color:'#8A9BBF' }}>English</a> · <a href="/es" style={{ color:'#8A9BBF' }}>Español</a></p>
           </div>
         </div>
       </section>
@@ -624,7 +623,6 @@ export default function Home() {
               </p>
               <div style={{ marginBottom:22 }}>
                 <span style={{ fontSize:46, fontWeight:900, color:'#FFB800' }}>R$97</span>
-                <span style={{ color:'#8A9BBF', fontSize:16, textDecoration:'line-through', marginLeft:10 }}>R$147</span>
               </div>
               {['eBook PDF completo', 'Audiobook completo', 'Acesso imediato por email', 'Leia ou ouça onde quiser', 'Sem frete'].map(item => (
                 <div key={item} style={{ color:'#EAF4FF', fontSize:13, marginBottom:10 }}>✓ {item}</div>

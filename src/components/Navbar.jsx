@@ -48,12 +48,14 @@ export default function Navbar() {
         { href: '/', label: labels.home },
         { href: '/o-livro', label: labels.book },
         { href: '/sobre', label: labels.author },
+        { href: '/artigos', label: 'Artigos' },
         { href: '/contato', label: labels.contact }
       ]
     : [
         { href: homeHref, label: labels.home },
         { href: `${homeHref}#book`, label: labels.book },
         { href: `${homeHref}#author`, label: labels.author },
+        ...(lang === 'en' ? [{ href: '/en/guides', label: 'Guides' }] : []),
         { href: `${homeHref}#contact`, label: labels.contact }
       ]
 

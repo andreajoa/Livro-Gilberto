@@ -26,7 +26,7 @@ export default function Footer() {
           <div>
             <h3 style={{ fontSize:11, fontWeight:700, letterSpacing:3, textTransform:'uppercase', color:'#00C4D4', marginBottom:20 }}>Navegação</h3>
             <div style={{ display:'flex', flexDirection:'column', gap:12 }}>
-              {[['Início','/'],['O Livro','/o-livro'],['Sobre','/sobre'],['Contato','/contato']].map(([name,href]) => (
+              {[['Início','/'],['O Livro','/o-livro'],['Sobre','/sobre'],['Artigos','/artigos'],['Guides for men (English)','/en/guides'],['Contato','/contato']].map(([name,href]) => (
                 <Link key={name} href={href} style={{ color:'#8A9BBF', textDecoration:'none', fontSize:14 }}>{name}</Link>
               ))}
             </div>

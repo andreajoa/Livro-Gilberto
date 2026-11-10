@@ -4,8 +4,8 @@ import dynamic from 'next/dynamic'
 import { CartProvider } from '@/src/context/CartContext'
 import { LeadProvider } from '@/src/context/LeadContext'
 
-const Navbar = dynamic(() => import('@/src/components/Navbar'), { ssr: false })
-const Footer = dynamic(() => import('@/src/components/Footer'), { ssr: false })
+import Navbar from '@/src/components/Navbar'
+import Footer from '@/src/components/Footer'
 const CartDrawer = dynamic(() => import('@/src/components/CartDrawer'), { ssr: false })
 const WebsiteBehaviorTracker = dynamic(
   () => import('@/src/components/WebsiteBehaviorTracker'),
