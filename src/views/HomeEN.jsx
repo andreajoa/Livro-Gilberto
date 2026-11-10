@@ -22,6 +22,7 @@ import bookCoverEN from '../assets/book/capa-livro.png';
 const faq = [
   { q: 'What format is the book in?', a: 'You get an instant download: a PDF eBook you can read on any device, plus an MP3 audiobook you can listen to anywhere — in the car, at the gym, or late at night when your mind won\'t stop.' },
   { q: 'How do I receive my purchase?', a: 'Immediately after payment, you\'ll receive an email with your download links. No waiting, no shipping — it\'s yours in under 60 seconds.' },
+  { q: 'Is this a Christian book?', a: 'Yes. Gilberto writes from his Christian faith. Each chapter opens with Scripture and the book includes prayers and reflection exercises. You do not need to be a churchgoer to read it, but faith is at the center of how he rebuilt.' },
   { q: 'Is this book only for men who were cheated on?', a: 'No. This book is for any man who gave everything to a relationship and was left feeling like it wasn\'t enough — whether through betrayal, breakup, or being replaced.' },
   { q: 'What if it doesn\'t help me?', a: 'You\'re covered by a 30-day money-back guarantee. No questions asked. If you don\'t feel this book moved the needle for you, email us and we\'ll refund you in full.' },
   { q: 'Is the audiobook the full book or just a summary?', a: 'It\'s the complete book, word for word, read in a calm and direct voice designed for men going through exactly what you\'re going through.' },
@@ -263,7 +264,7 @@ export default function HomeEN() {
             }}>
               <span style={{ width: 8, height: 8, background: '#FFB800', borderRadius: 999, display: 'inline-block', flexShrink: 0 }} />
               <span style={{ fontSize: isMobile ? 10 : 12, color: '#FFE29A', fontWeight: 800, letterSpacing: 0.8 }}>
-                FOR MEN HEALING FROM BETRAYAL, HEARTBREAK & REJECTION
+                A FAITH-BASED BOOK FOR MEN HEALING FROM BETRAYAL & REJECTION
               </span>
             </div>
 
@@ -289,7 +290,7 @@ export default function HomeEN() {
               marginBottom: 26,
               maxWidth: 640
             }}>
-              A raw, practical book for men who were betrayed, replaced, or left trying to make sense of the pain. Learn how to stop the mental spiral, reclaim your self-respect, and start living with strength again.
+              A raw, faith-based book for men who were betrayed, replaced, or left trying to make sense of the pain. Eleven chapters with Scripture, prayer and reflection exercises to help you stop the spiral, reclaim your self-respect, and rebuild.
             </p>
 
             <div style={{
@@ -423,19 +424,19 @@ export default function HomeEN() {
       <section style={{ background: '#060C18', padding: sectionPad }}>
         <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }} viewport={{ once: true }}
           style={{ maxWidth: 760, margin: '0 auto' }}>
-          <p style={{ fontSize: 11, letterSpacing: 4, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>A letter from Gilberto</p>
+          <p style={{ fontSize: 11, letterSpacing: 4, color: '#00C4D4', fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>From the book · Chapter 1, The Impact</p>
           <h2 style={{ fontSize: isMobile ? '26px' : 'clamp(28px,3.5vw,46px)', fontWeight: 900, color: '#fff', lineHeight: 1.2, marginBottom: 32 }}>
-            "I gave her 7 years.<br />
-            <span style={{ color: '#00C4D4' }}>She chose someone else."</span>
+            "When a man is replaced by another,<br />
+            <span style={{ color: '#00C4D4' }}>it's not just a relationship that ends."</span>
           </h2>
           {[
-            "I remember the exact moment I found out. I was standing in my kitchen, phone in hand, reading words that felt like they were written about someone else's life. But they weren't.",
-            "I had done everything right. I built a business from scratch in a country that wasn't mine. I worked hard. I loved deeply. And none of it mattered, because she still walked out the door — and into someone else's arms.",
-            "The worst part wasn't the betrayal itself. It was the silence after. The empty apartment. The 3am thoughts that wouldn't stop. The question that played on repeat: What's wrong with me?",
-            "I spent months looking for answers. I bought books. I watched videos. I talked to friends. Most of it was useless — written by people who'd never actually been through this kind of specific, gut-wrenching pain.",
-            "So I wrote the book I wish someone had given me.",
-            "Not a book full of platitudes or 'move on' advice. A real manual for the man who gave everything and is now sitting in the rubble of what he thought was his life — trying to figure out how to stand back up.",
-            "If that's you, this book was written for you.",
+            "It feels as if an entire part of his story has been ripped away without warning, as if someone erased years of life with a single gesture. It's like free-falling into a dark, cold void where the air grows thin and the heart beats out of rhythm.",
+            "The impact doesn't come only from the news itself. It comes from what it means. You didn't just lose a partner, you lost the certainty that you knew the person with whom you shared your days.",
+            "The weight that settles in your chest isn't visible to others, but you feel every gram of it. You wake up, and before even getting out of bed, it's already there.",
+            "Then come the questions, the ones that cut through your mind like sharp knives: What does he have that I don't? Why wasn't I enough? Did she lie to me the whole time?",
+            "The problem is, these questions aren't truly searching for answers. They exist only to feed the pain. And in that search, you begin to shrink, to believe you've lost value as a man, as a partner, as a human being.",
+            "The truth is that being replaced awakens a kind of pain only those who have lived it can understand.",
+            "This is how Chapter 1 opens. If that's you, this book was written for you.",
           ].map((p, i) => (
             <p key={i} style={{ fontSize: isMobile ? 15 : 17, color: i === 6 ? '#fff' : 'rgba(255,255,255,0.7)', lineHeight: 1.9, marginBottom: 20 }}>
               {p}
@@ -803,11 +804,11 @@ export default function HomeEN() {
               marginBottom: 28
             }}>
               {[
-                'Break the mental loop and stop obsessing over her.',
-                'Rebuild your identity after the relationship collapses.',
-                'Use the 5-step framework to regain emotional control.',
-                'Know what actually works with no contact and what backfires.',
-                'Start trusting again without becoming cold or shut down.',
+                'The Impact: why being replaced cuts deeper than an ordinary breakup.',
+                'The false beliefs that keep a man stuck, and the cycle of post-abandonment depression.',
+                'Rebuilding your identity when the life you built is gone.',
+                'Dealing with anger and the desire for revenge without letting them run you.',
+                'Scripture, prayer and "Let\'s Reflect" exercises to turn the pain into strength and hope.',
                 'Get the full eBook + full audiobook instantly after payment.'
               ].map((item, i) => (
                 <div key={i} style={{
@@ -1003,7 +1004,7 @@ export default function HomeEN() {
             lineHeight: 1.75,
             marginBottom: 26
           }}>
-            They recover when they find language for their pain, a path through the mental loop, and a guide that understands exactly what this kind of loss does to a man.
+            They recover when they find language for their pain, a path through the spiral, and a guide that understands exactly what this kind of loss does to a man.
           </p>
 
           <div style={{
@@ -1177,7 +1178,7 @@ export default function HomeEN() {
               marginBottom: 26,
               maxWidth: 760
             }}>
-              Gilberto turned that collapse into a practical guide for men who are stuck in the mental loop, questioning their value, and trying to understand how to move forward without becoming bitter, numb, or lost.
+              Gilberto turned that collapse into a practical guide for men who are stuck replaying what happened, questioning their value, and trying to understand how to move forward without becoming bitter, numb, or lost.
             </p>
 
             <div style={{
