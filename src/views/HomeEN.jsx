@@ -6,8 +6,6 @@ import { useRouter } from 'next/navigation';
 import { Shield, CheckCircle, Star, ChevronDown, ArrowRight, Menu, X as XIcon } from 'lucide-react';
 import { useLead } from '../context/LeadContext';
 import useIsMobile from '../hooks/useIsMobile';
-import LeadPopupEN from '../components/LeadPopupEN';
-import AbandonedPopupEN from '../components/AbandonedPopupEN';
 import AIChatbotEN from '../components/AIChatbotEN';
 import CheckoutDigital from '../components/CheckoutDigital';
 
@@ -29,11 +27,7 @@ const faq = [
   { q: 'Is the audiobook the full book or just a summary?', a: 'It\'s the complete book, word for word, read in a calm and direct voice designed for men going through exactly what you\'re going through.' },
 ];
 
-const testimonials = [
-  { name: 'Marcus T.', city: 'Atlanta, GA', stars: 5, text: 'I found this book at 2am when I couldn\'t sleep. Three hours later I\'d read half of it and cried for the first time in years. This hit differently.' },
-  { name: 'James R.', city: 'Toronto, ON', stars: 5, text: 'I thought I was the only one who felt this way. The chapter on "the mental loop" described my exact experience. I\'ve already recommended this to 4 friends.' },
-  { name: 'Daniel M.', city: 'London, UK', stars: 5, text: 'The audiobook got me through three weeks of daily commutes. By the end I felt like a different man. Worth every penny and more.' },
-];
+
 
 export default function HomeEN() {
 
@@ -361,12 +355,9 @@ export default function HomeEN() {
                 gap: 10,
                 flexWrap: 'wrap'
               }}>
-                <div style={{ display: 'flex', gap: 2 }}>
-                  {[1,2,3,4,5].map(i => <Star key={i} size={15} fill="#FFB800" color="#FFB800" />)}
-                </div>
-                <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.72)' }}>
-                  Trusted by readers across the US, Canada, UK & Australia
-                </span>
+                <a href="https://www.amazon.com/dp/B0H2LXHCH4" target="_blank" rel="noopener noreferrer" style={{ fontSize: 14, fontWeight: 700, color: '#FFFFFF', textDecoration: 'underline', textUnderlineOffset: 4 }}>
+                  Prefer the paperback? Get it on Amazon →
+                </a>
               </div>
             </div>
 
@@ -375,7 +366,7 @@ export default function HomeEN() {
               color: 'rgba(255,255,255,0.60)',
               marginBottom: 26
             }}>
-              <span style={{ textDecoration: 'line-through', opacity: 0.7 }}>$49.99</span> today only · Includes eBook + audiobook · Secure checkout
+              Includes eBook + full audiobook · One-time payment · 30-day money-back guarantee
             </p>
 
             <div style={{
@@ -390,12 +381,12 @@ export default function HomeEN() {
                   text: 'This is not generic breakup advice. It is written for men dealing with betrayal, rejection and being replaced.'
                 },
                 {
-                  title: 'Feel understood fast',
-                  text: 'The page should immediately show him: this book understands the exact pain he is carrying right now.'
+                  title: 'Written from the inside',
+                  text: 'Written by a man who was replaced after giving everything, not by someone guessing how it feels.'
                 },
                 {
-                  title: 'Move him to action',
-                  text: 'Clear promise. Emotional clarity. Strong CTA. That is what makes this style convert.'
+                  title: 'Start tonight',
+                  text: 'Read it or listen to it minutes after you order. No waiting, no subscription.'
                 }
               ].map((item) => (
                 <div key={item.title} style={{
@@ -844,7 +835,6 @@ export default function HomeEN() {
             }}>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
                 <span style={{ fontSize: isMobile ? 44 : 56, fontWeight: 900, color: '#FFB800', lineHeight: 1 }}>$24.99</span>
-                <span style={{ fontSize: 19, color: 'rgba(255,255,255,0.38)', textDecoration: 'line-through' }}>$49.99</span>
                 <span style={{
                   fontSize: 11,
                   fontWeight: 800,
@@ -854,7 +844,7 @@ export default function HomeEN() {
                   padding: '4px 8px',
                   borderRadius: 999
                 }}>
-                  LIMITED DIGITAL BUNDLE
+                  EBOOK + AUDIOBOOK
                 </span>
               </div>
 
@@ -920,209 +910,6 @@ export default function HomeEN() {
       </section>
 
       {/* ══ SOCIAL PROOF ══ */}
-      <section style={{ background: 'linear-gradient(180deg, #0A1628 0%, #091422 100%)', padding: sectionPad }}>
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          style={{ maxWidth: 1120, margin: '0 auto' }}
-        >
-          <div style={{ textAlign: 'center', maxWidth: 760, margin: '0 auto 42px' }}>
-            <p style={{
-              fontSize: 11,
-              letterSpacing: 4,
-              color: '#FFB800',
-              fontWeight: 800,
-              textTransform: 'uppercase',
-              marginBottom: 14
-            }}>
-              Social proof
-            </p>
-
-            <h2 style={{
-              fontSize: isMobile ? '30px' : 'clamp(34px,4.2vw,58px)',
-              fontWeight: 900,
-              color: '#fff',
-              lineHeight: 1.06,
-              marginBottom: 14,
-              letterSpacing: -1.1
-            }}>
-              Real men. <span style={{ color: '#00C4D4' }}>Real results.</span>
-            </h2>
-
-            <p style={{
-              fontSize: isMobile ? 14 : 17,
-              color: 'rgba(255,255,255,0.70)',
-              lineHeight: 1.75,
-              marginBottom: 18
-            }}>
-              These men were stuck in the same mental loop, the same sleepless nights, and the same self-doubt you may be living through right now.
-            </p>
-
-            <div style={{
-              display: 'inline-flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              gap: 10,
-              background: 'rgba(255,255,255,0.04)',
-              border: '1px solid rgba(255,255,255,0.06)',
-              borderRadius: 999,
-              padding: '10px 16px'
-            }}>
-              {['★★★★★ Rated by readers', '🇺🇸 🇨🇦 🇬🇧 🇦🇺 Trusted internationally', '🎧 Audiobook praised by listeners'].map(item => (
-                <span key={item} style={{ fontSize: 12, color: 'rgba(255,255,255,0.72)' }}>{item}</span>
-              ))}
-            </div>
-          </div>
-
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : '1.25fr 0.95fr 0.95fr',
-            gap: 18,
-            alignItems: 'stretch'
-          }}>
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.05 }}
-              viewport={{ once: true }}
-              style={{
-                background: 'linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 100%)',
-                border: '1px solid rgba(0,196,212,0.18)',
-                borderRadius: 18,
-                padding: isMobile ? '24px 20px' : '30px 28px',
-                boxShadow: '0 24px 70px rgba(0,0,0,0.26)'
-              }}
-            >
-              <div style={{ display: 'flex', gap: 3, marginBottom: 16 }}>
-                {[1,2,3,4,5].map(s => <Star key={s} size={15} fill="#FFB800" color="#FFB800" />)}
-              </div>
-
-              <p style={{
-                fontSize: isMobile ? 18 : 22,
-                color: '#fff',
-                lineHeight: 1.6,
-                marginBottom: 22,
-                fontStyle: 'italic',
-                fontWeight: 500
-              }}>
-                "{testimonials[0].text}"
-              </p>
-
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 12,
-                paddingTop: 18,
-                borderTop: '1px solid rgba(255,255,255,0.08)'
-              }}>
-                <div style={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: 999,
-                  background: 'rgba(0,196,212,0.16)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#fff',
-                  fontWeight: 800,
-                  flexShrink: 0
-                }}>
-                  {testimonials[0].name[0]}
-                </div>
-                <div>
-                  <p style={{ color: '#fff', fontSize: 15, fontWeight: 700, margin: 0 }}>{testimonials[0].name}</p>
-                  <p style={{ color: '#8A9BBF', fontSize: 13, margin: 0 }}>{testimonials[0].city}</p>
-                </div>
-              </div>
-            </motion.div>
-
-            {testimonials.slice(1).map((t, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: (i + 1) * 0.1 }}
-                viewport={{ once: true }}
-                style={{
-                  background: 'rgba(13,27,62,0.74)',
-                  border: '1px solid rgba(255,255,255,0.06)',
-                  borderRadius: 16,
-                  padding: '24px 20px'
-                }}
-              >
-                <div style={{ display: 'flex', gap: 2, marginBottom: 14 }}>
-                  {[1,2,3,4,5].map(s => <Star key={s} size={13} fill="#FFB800" color="#FFB800" />)}
-                </div>
-
-                <p style={{
-                  fontSize: 15,
-                  color: '#D6E3F7',
-                  lineHeight: 1.85,
-                  marginBottom: 18,
-                  fontStyle: 'italic'
-                }}>
-                  "{t.text}"
-                </p>
-
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <div style={{
-                    width: 38,
-                    height: 38,
-                    borderRadius: 50,
-                    background: 'rgba(0,196,212,0.16)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: 15,
-                    color: '#fff',
-                    fontWeight: 700,
-                    flexShrink: 0
-                  }}>
-                    {t.name[0]}
-                  </div>
-                  <div>
-                    <p style={{ color: '#fff', fontSize: 13, fontWeight: 700, margin: 0 }}>{t.name}</p>
-                    <p style={{ color: '#8A9BBF', fontSize: 12, margin: 0 }}>{t.city}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <div style={{ textAlign: 'center', marginTop: 28 }}>
-            <motion.button
-              whileTap={{ scale: 0.98 }}
-              onClick={handleBuy}
-              style={{
-                background: 'linear-gradient(135deg, #FFB800, #FF8A00)',
-                border: 'none',
-                borderRadius: 12,
-                padding: isMobile ? '18px' : '18px 34px',
-                fontSize: isMobile ? 16 : 17,
-                fontWeight: 900,
-                color: '#0D1322',
-                cursor: 'pointer',
-                boxShadow: '0 16px 40px rgba(255,138,0,0.28)',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 10,
-                justifyContent: 'center'
-              }}
-            >
-              Join Them — Get Instant Access
-              <ArrowRight size={17} />
-            </motion.button>
-
-            <p style={{ fontSize: 12, color: '#8A9BBF', marginTop: 10, marginBottom: 0 }}>
-              Instant download · Full audiobook included · 30-day guarantee
-            </p>
-          </div>
-        </motion.div>
-      </section>
-
-      <SectionBlend />
 
       {/* ══ MEN GROUP BANNER ══ */}
       <section style={{ position: 'relative', overflow: 'hidden', minHeight: isMobile ? 420 : 620, background: '#08111D' }}>
@@ -1226,7 +1013,7 @@ export default function HomeEN() {
             gap: isMobile ? 10 : 16,
             marginBottom: 26
           }}>
-            {['Men across US, Canada, UK & Australia', 'Practical guidance, not empty advice', 'Read it. Listen to it. Start today.'].map(item => (
+            {['Written by a man who lived it', 'Practical guidance, not empty advice', 'Read it. Listen to it. Start today.'].map(item => (
               <span key={item} style={{
                 fontSize: 12,
                 color: 'rgba(255,255,255,0.72)',
@@ -1259,7 +1046,7 @@ export default function HomeEN() {
               justifyContent: 'center'
             }}
           >
-            Join Them — Get Instant Access
+            Get Instant Access — $24.99
             <ArrowRight size={17} />
           </motion.button>
 
@@ -1594,7 +1381,6 @@ export default function HomeEN() {
 
               <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 22, flexWrap: 'wrap' }}>
                 <span style={{ fontSize: isMobile ? 44 : 56, fontWeight: 900, color: '#FFB800', lineHeight: 1 }}>$24.99</span>
-                <span style={{ fontSize: 18, color: '#8A9BBF', textDecoration: 'line-through' }}>$49.99</span>
               </div>
 
               {['Full eBook PDF', 'Full audiobook MP3', 'Instant email delivery', '30-day money-back guarantee'].map(item => (
@@ -2181,7 +1967,7 @@ export default function HomeEN() {
         >
           <div style={{ flex: 1 }}>
             <p style={{ color: '#fff', fontSize: 13, fontWeight: 700, margin: 0 }}>eBook + Audiobook</p>
-            <p style={{ color: '#00C4D4', fontSize: 12, margin: 0 }}><s style={{ color: '#8A9BBF' }}>$49.99</s> $24.99 today</p>
+            <p style={{ color: '#00C4D4', fontSize: 12, margin: 0 }}>$24.99 · one-time payment</p>
           </div>
           <button onClick={handleBuy} style={{
             background: 'linear-gradient(135deg, #00C4D4, #0099A8)',
@@ -2194,8 +1980,6 @@ export default function HomeEN() {
         </motion.div>
       )}
 
-      <LeadPopupEN lang="en" />
-      <AbandonedPopupEN lang="en" />
       <AIChatbotEN lang="en" />
       
     </div>
