@@ -1,4 +1,4 @@
-import './globals.css'
+import '../globals.css'
 
 const SITE = 'https://www.gilberto-souza.com'
 

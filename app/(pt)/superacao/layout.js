@@ -1,4 +1,4 @@
-import "../../src/styles/superacao-theme.css"
+import "@/src/styles/superacao-theme.css"
 
 export const metadata = {
   metadataBase: new URL(

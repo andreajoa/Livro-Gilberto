@@ -1,8 +1,7 @@
 'use client'
-import dynamic from 'next/dynamic'
 import ClientWrapper from '@/app/ClientWrapper'
 
-const Component = dynamic(() => import('@/src/views/OLivro'), { ssr: false })
+import Component from '@/src/views/OLivro'
 
 export default function Page() {
   return <ClientWrapper><Component /></ClientWrapper>

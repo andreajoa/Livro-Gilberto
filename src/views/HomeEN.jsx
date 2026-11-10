@@ -1,4 +1,5 @@
 "use client"
+import dynamic from 'next/dynamic';
 import CRMTracker, { trackCRMEvent } from '../components/CRMTracker';
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -6,8 +7,8 @@ import { useRouter } from 'next/navigation';
 import { Shield, CheckCircle, Star, ChevronDown, ArrowRight, Menu, X as XIcon } from 'lucide-react';
 import { useLead } from '../context/LeadContext';
 import useIsMobile from '../hooks/useIsMobile';
-import AIChatbotEN from '../components/AIChatbotEN';
-import CheckoutDigital from '../components/CheckoutDigital';
+const AIChatbotEN = dynamic(() => import('../components/AIChatbotEN'), { ssr: false });
+const CheckoutDigital = dynamic(() => import('../components/CheckoutDigital'), { ssr: false });
 
 import heroBg from '../assets/en/hero-bg.jpeg';
 import heroLoop from '../assets/en/hero-loop.gif';
