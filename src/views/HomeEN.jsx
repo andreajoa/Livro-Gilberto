@@ -18,7 +18,7 @@ import ebookBg from '../assets/en/ebook-bg.jpeg';
 
 import argument from '../assets/en/argument.gif';
 
-import bookCoverEN from '../assets/book/capa-livro.png';
+import bookCoverEN from '../assets/book/capa-livro.webp';
 
 const faq = [
   { q: 'What format is the book in?', a: 'You get an instant download: a PDF eBook you can read on any device, plus an MP3 audiobook you can listen to anywhere — in the car, at the gym, or late at night when your mind won\'t stop.' },

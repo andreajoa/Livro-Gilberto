@@ -1,7 +1,7 @@
 "use client"
 import { BookOpen, HeartPulse, Lightbulb, Shield, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
-import bookCover from '../assets/book/capa-livro.png'
+import bookCover from '../assets/book/capa-livro.webp'
 
 const themes = [
   { icon:HeartPulse, title:'Reconhecendo a Dor', desc:'Entender que sentir dor não é fraqueza, mas o primeiro passo para a cura.' },

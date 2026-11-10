@@ -1,7 +1,7 @@
 "use client"
 import Link from 'next/link'
 import { Shield, CheckCircle, Package, Lock } from 'lucide-react'
-import bookCover from '../assets/book/capa-livro.png'
+import bookCover from '../assets/book/capa-livro.webp'
 
 export default function Footer() {
   return (
