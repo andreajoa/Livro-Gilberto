@@ -56,7 +56,8 @@ export const jsonLdEn = {
       },
       "sameAs": [
         "https://www.instagram.com/gilberto.rebuild/",
-        "https://www.amazon.com/dp/B0H2LXHCH4"
+        "https://www.amazon.com/author/gilbertosouza",
+        "https://www.goodreads.com/author/show/28715395.Gilberto_Souza"
       ]
     },
     {
@@ -197,7 +198,8 @@ export const jsonLdPt = {
       },
       "sameAs": [
         "https://www.instagram.com/gilberto.rebuild/",
-        "https://www.amazon.com/dp/B0H2LXHCH4"
+        "https://www.amazon.com/author/gilbertosouza",
+        "https://www.goodreads.com/author/show/28715395.Gilberto_Souza"
       ]
     },
     {
