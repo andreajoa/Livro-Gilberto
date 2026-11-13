@@ -8,7 +8,7 @@ import {
 } from '@/src/lib/dashboard-auth'
 
 export async function POST(request) {
-  const target = new URL('/dashboard', request.url)
+  const target = new URL('/dashboard', process.env.NEXT_PUBLIC_BASE_URL || request.url)
 
   if (!isDashboardConfigured()) {
     target.searchParams.set('error', 'config')
