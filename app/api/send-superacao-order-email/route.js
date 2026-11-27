@@ -388,6 +388,56 @@ function layout(title, content) {
   `
 }
 
+// Transbordo (pedido do André, 27/11/2026): Resend primeiro; quando o Resend bate o
+// limite do plano → Brevo (BREVO_API_KEY); quando o Brevo bate → NovaMail
+// (NOVAMAIL_API_KEY, domínio mail.gilberto-souza.com). Nada é desligado.
+const isLimit = (status, text) =>
+  status === 429 || /quota|limit|exceeded|too many|credits?/i.test(String(text || ""))
+
+const novamailFrom = (from) =>
+  process.env.NOVAMAIL_FROM ||
+  String(from).replace(/@[^>\s]+/, "@mail.gilberto-souza.com")
+
+function brevoAddress(value) {
+  const m = String(value).match(/^\s*"?([^"<]*?)"?\s*<([^>]+)>\s*$/)
+  return m ? { name: m[1].trim() || undefined, email: m[2].trim() } : { email: String(value).trim() }
+}
+
+async function sendViaBrevo(payload) {
+  const key = process.env.BREVO_API_KEY
+  if (!key) return "skip"
+  const response = await fetch("https://api.brevo.com/v3/smtp/email", {
+    method: "POST",
+    headers: { "api-key": key, "content-type": "application/json", accept: "application/json" },
+    body: JSON.stringify({
+      sender: brevoAddress(payload.from),
+      to: [].concat(payload.to).map((email) => ({ email })),
+      subject: payload.subject,
+      htmlContent: payload.html
+    })
+  })
+  const data = await response.json().catch(() => ({}))
+  if (response.ok && data.messageId) return "sent"
+  if (isLimit(response.status, `${data.code || ""} ${data.message || ""}`)) return "skip"
+  throw new Error(data.message || `Falha no Brevo (${response.status})`)
+}
+
+async function sendViaNovaMail(payload, idempotencyKey) {
+  const key = process.env.NOVAMAIL_API_KEY
+  if (!key) return false
+  const response = await fetch(
+    `${(process.env.NOVAMAIL_API_URL || "https://api.novamail.nexaclouds.online").replace(/\/$/, "")}/emails`,
+    {
+      method: "POST",
+      headers: { authorization: `Bearer ${key}`, "content-type": "application/json", "idempotency-key": idempotencyKey.slice(0, 256) },
+      body: JSON.stringify({ from: novamailFrom(payload.from), to: [].concat(payload.to), subject: payload.subject, html: payload.html })
+    }
+  )
+  const data = await response.json().catch(() => ({}))
+  if (!response.ok || !data.id) throw new Error(data.message || `Falha no NovaMail (${response.status})`)
+  return true
+}
+
 async function sendEmail(
   payload,
   idempotencyKey
@@ -404,12 +454,19 @@ async function sendEmail(
       }
     )
 
-  if (result?.error) {
+  if (!result?.error) return
+
+  const message = `${result.error.name || ""} ${result.error.message || ""}`
+  if (!isLimit(result.error.statusCode, message)) {
     throw new Error(
       result.error.message ||
       "Falha no Resend"
     )
   }
+
+  if ((await sendViaBrevo(payload)) === "sent") return
+  if (await sendViaNovaMail(payload, idempotencyKey)) return
+  throw new Error(result.error.message || "Falha no Resend")
 }
 
 export async function POST(request) {
